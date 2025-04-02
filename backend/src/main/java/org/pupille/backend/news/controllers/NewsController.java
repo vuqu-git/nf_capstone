@@ -44,6 +44,9 @@ public class NewsController {
 
     @PutMapping("/all/{id}")
     // with fine-grained exception handling because IllegalArgumentException in movieService.updateTodo is specific
+    // alternatively:
+    //      inside newsService.updateNews the NewsUpdateException is thrown
+    //      controller focused on handling requests and responses while delegating exception handling
     public News updateNewsItem(@PathVariable String id, @RequestBody News updatedNews) {
         try {
             return newsService.updateNews(id, updatedNews);
