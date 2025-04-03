@@ -1,4 +1,4 @@
-package org.pupille.backend.termin;
+package org.pupille.backend.mysql.termin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

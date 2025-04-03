@@ -1,4 +1,4 @@
-package org.pupille.backend.termin;
+package org.pupille.backend.mysql.termin;
 
 import jakarta.persistence.*;
 //import jakarta.validation.constraints.*;

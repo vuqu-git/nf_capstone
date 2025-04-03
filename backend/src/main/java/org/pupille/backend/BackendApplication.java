@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "org.pupille.backend.termin")
+@EnableJpaRepositories(basePackages = "org.pupille.backend.mysql.termin")
 @EnableMongoRepositories(basePackages = "org.pupille.backend.news.repositories")
 public class BackendApplication {
 

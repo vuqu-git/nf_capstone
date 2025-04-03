@@ -1,4 +1,4 @@
-package org.pupille.backend.termin;
+package org.pupille.backend.mysql.termin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

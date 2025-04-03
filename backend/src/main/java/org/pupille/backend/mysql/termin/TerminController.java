@@ -1,7 +1,5 @@
-package org.pupille.backend.termin;
+package org.pupille.backend.mysql.termin;
 
-import org.pupille.backend.termin.Termin;
-import org.pupille.backend.termin.TerminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
