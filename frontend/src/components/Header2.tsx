@@ -1,5 +1,6 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./Header.css";
+import pupilleLogo from '../assets/Pupille-Logo.svg';
 import {Link} from "react-router-dom";
 
 export default function Header2() {
@@ -10,12 +11,11 @@ export default function Header2() {
                 <Navbar.Brand
                     as={Link}
                     to="/"
-                    // style={{ paddingLeft: '3rem' }}
+                    className={"ms-lg-5"}
                 >
                     <img
-                        src="https://pupille.org/bilder/allgemein/Pupille-Logo.svg"
+                        src={pupilleLogo}
                         alt="Pupille Logo"
-                        // width="48" // or your preferred size
                         height="78"
                         style={{ objectFit: "contain" }}
                     />
@@ -23,7 +23,7 @@ export default function Header2() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse
                     id="basic-navbar-nav"
-                    // style={{ paddingRight: '3rem' }}
+                    className="me-lg-5"
                 >
                     <Nav className="ms-auto">
 
@@ -51,8 +51,22 @@ export default function Header2() {
                             </NavDropdown.Item>
                         </NavDropdown>
 
-                        <Nav.Link href="#fb">FB</Nav.Link>
-                        <Nav.Link href="#insta">Insta</Nav.Link>
+                        <Nav.Link
+                            href="https://www.instagram.com/pupillekino/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            className={"link-social-media ms-2"}
+                        >
+                            <img src="/assets/images/socialmedia/Instagram-Logo.png" alt="instagram"/>
+                        </Nav.Link>
+                        <Nav.Link
+                            href="https://de-de.facebook.com/pupillekino/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            className={"link-social-media ms-2"}
+                        >
+                            <img src="/assets/images/socialmedia/Facebook-Logo.png" alt="facebook"/>
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
