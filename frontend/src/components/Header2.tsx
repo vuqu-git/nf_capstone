@@ -37,7 +37,7 @@ export default function Header2() {
 
                         <NavDropdown title="Infos & Service" id="basic-nav-dropdown" className="custom-dropdown">
                             <NavDropdown.Item as={Link} to="/kinobesuch">Kinobesuch</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/contentnotes">Triggerwarnungen & Content Notes</NavDropdown.Item>
+                            {/*<NavDropdown.Item as={Link} to="/contentnotes">Content Notes</NavDropdown.Item>*/}
                             <NavDropdown.Item as={Link} to="/kinoprojektion">Filme etc. zeigen</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/kinogeschichte">Unsere Kinogeschichte</NavDropdown.Item>
 

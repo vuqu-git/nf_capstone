@@ -5,7 +5,7 @@ export default function ContentNotes() {
     return (
         <article className="normal-content-container">
             <h2 className="header2NormalContainer">
-                Triggerwarnungen und Content Notes
+                Content Notes
             </h2>
             <p>
                 Wir verstehen uns als Kino mit einem vielfältigen und auch risikobereiten Programm &ndash; gleichzeitig möchten wir einen Ort herstellen, an dem ein kollektives Kinoerlebnis so inklusiv wie möglich stattfinden kann.
