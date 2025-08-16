@@ -121,6 +121,10 @@ export default function Kinogeschichte() {
                 styles={ {slide: {backgroundColor: "grey", borderRadius: "10px"}} }
             />
 
+            <p className="mt-4">
+                Zur Geschichtsschreibung bleiben viele Leerstellen.
+                Trotz seiner langen Tradition und Bedeutung für die studentische Filmkultur sind zahlreiche Aspekte bis heute unzureichend erforscht und dokumentiert.
+            </p>
 
             <h2 className="header2NormalContainer mt-4">
                 Geschichte der Pupille: Studentische Filmkultur in Frankfurt
@@ -194,7 +198,7 @@ export default function Kinogeschichte() {
                     <p>
                         Mit dem CAMERA-Kino in der Gräfstraße erschloss das Film-Studio ab 1960 einen neuen
                         Ort mit modernster Projektionstechnik, der vorübergehend regelmäßig genutzt wurde. Doch 1964
-                        kündigte die Universität als diese Nutzung. Nach jahrelangem Drängen wurde die
+                        kündigte die Universität diese Nutzung. Nach jahrelangem Drängen wurde die
                         Cinemascope-Anlage 1967 immerhin vom CAMERA-Kino in das Studierendenhaus überführt.
                     </p>
                     <p>
@@ -253,7 +257,7 @@ export default function Kinogeschichte() {
             </p>
             <p>
                 Mit eigenem Programm und einem Fokus auf politisch konzipierten Filmreihen, z.B. zu
-                Science-Fiction, Hexenfilmen oder entwickelte sich die Pupille zur Keimzelle der Frankfurter
+                Science-Fiction oder Hexenfilmen, entwickelte sich die Pupille zur Keimzelle der Frankfurter
                 Programmkinoszene.
             </p>
             <p>
@@ -486,7 +490,7 @@ export default function Kinogeschichte() {
                 data-bs-theme="dark"
             >
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Quellen</Accordion.Header>
+                    <Accordion.Header>Quellen und Bildnachweise</Accordion.Header>
                     <Accordion.Body>
                         <h4>Bildbeschreibung und -nachweise:</h4>
                         <ul>
