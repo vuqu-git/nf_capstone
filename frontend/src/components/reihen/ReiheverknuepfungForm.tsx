@@ -201,6 +201,7 @@ export default function ReiheverknuepfungForm() {
                 textForDefaultOption={"Select a Reihe to edit the Reiheverknuepfungen"}
             />
 
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
             <div style={{ minHeight: '30px' }}>
                 {isLoadingAllReihen && <div className="text-warning mb-3" role="status">&#x1f504; Loading all Reihe entries... Please wait!</div>}
                 {isLoadingOneReihe && <div className="text-warning mb-3" role="status">&#x1f504; Loading Reihe's Termine and Filme... Please wait!</div>}
@@ -268,7 +269,7 @@ export default function ReiheverknuepfungForm() {
                 </div>
             )}
 
-            <div style={{ minHeight: '30px' }}>
+            <div className="loadingSpacer">
                 {isLoadingForAddDelete && <div className="text-warning mb-3" role="status">&#x1f504; Processing... Please wait!</div>}
                 {errorMessage && <div className="text-danger mb-3" role="alert">{errorMessage}</div>}
                 {successMessage && <div className="text-success mb-3" role="status">&#x2705; {successMessage}</div>}
@@ -288,12 +289,10 @@ export default function ReiheverknuepfungForm() {
                         id="termin-selection" // Add id to connect to the label
                         value={selectedTerminId ?? ""}
                         onChange={handleTerminSelectionChange}
-                        style={{ backgroundColor: 'dimgrey', color: 'whitesmoke' }}
                     >
                         <option value="">Select a Termin</option>
                         {allTermineWithMainfilme.map((t: TerminDTOWithMainfilms) => (
                             <option key={t.tnr} value={t.tnr}>
-
                                 {
                                     `${formatDateInTerminSelectOption(t.vorstellungsbeginn)} | tnr: #${t.tnr}
                                 → ${t.titel ?? t.mainfilms.map(film =>  film.titel).join('+')

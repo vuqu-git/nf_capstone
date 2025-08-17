@@ -195,6 +195,7 @@ export default function ReiheForm() {
                 textForDefaultOption={undefined}
             />
 
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
             <div style={{ minHeight: '30px' }}>
                 {isLoadingAllReihen && <div className="text-warning mb-3" role="status">&#x1f504; Loading all Reihe entries... Please wait!</div>}
                 {isGetLoading && <div className="text-warning mb-3" role="status">&#x1f504; Loading details of selected Reihe... Please wait!</div>}

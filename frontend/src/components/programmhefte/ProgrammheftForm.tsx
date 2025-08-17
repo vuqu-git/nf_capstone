@@ -191,7 +191,7 @@ export default function ProgrammheftForm() {
         <main data-bs-theme="dark">
             <AdminNav />
 
-            <h3 className="mt-3">{selectedProgrammheftId ? "Edit or delete " : "Add new "} Programmheft/Fyler</h3>
+            <h3 className="mt-3">{selectedProgrammheftId ? "Edit or delete " : "Add new "} Programmheft/Flyer</h3>
 
             <ProgrammheftSelection
                 allProgrammhefte={allProgrammhefte}
@@ -200,6 +200,7 @@ export default function ProgrammheftForm() {
                 textForDefaultOption={undefined}
             />
 
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
             <div style={{ minHeight: '30px' }}>
                 {isLoadingAllProgrammhefte && <div className="text-warning mb-3" role="status">&#x1f504; Loading all Programmheft entries... Please wait!</div>}
                 {isGetLoading && <div className="text-warning mb-3" role="status">&#x1f504; Loading details of selected Programmheft... Please wait!</div>}

@@ -352,6 +352,7 @@ export default function FilmForm() {
             {/*/>*/}
 
 
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
             <div style={{ minHeight: '30px' }}>
                 {isGetLoading && <div className="text-warning mb-3" role="status">&#x1f504; Loading film details... Please wait!</div>}
             </div>

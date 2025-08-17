@@ -108,7 +108,8 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
                     aria-describedby="date-range-error"
                 />
 
-                <div style={{ minHeight: '1.5em' }}>
+                {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
+                <div style={{ minHeight: '30px' }}>
                     {dateRangeErrorMessage && <p id="date-range-error" className={styles.statusError + " m-0"}>{dateRangeErrorMessage}</p>}
                 </div>
             </div>
