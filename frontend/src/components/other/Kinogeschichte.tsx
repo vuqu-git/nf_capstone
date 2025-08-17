@@ -377,18 +377,18 @@ export default function Kinogeschichte() {
                         isTeaserVimeoSlide(slide) ? (
                             // <MyCustomSlide slide={slide} />
 
-                            <div style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: "100vh"
-                            }}>
+                            // <div style={{
+                            //     display: "flex",
+                            //     justifyContent: "center",
+                            //     alignItems: "center",
+                            //     height: "100vh"
+                            // }}>
+                            <div className="d-flex justify-content-center align-items-center">
                                 <iframe
                                     src="https://player.vimeo.com/video/899523098?badge=0&autopause=0&player_id=0&app_id=58479"
                                     frameBorder="0"
                                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                                     referrerPolicy="strict-origin-when-cross-origin"
-                                    // style={{position: "absolute", width: "80%", height: "80%"}}
                                     style={{
                                         position: "absolute",
                                         width: "85%",

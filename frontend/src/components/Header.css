@@ -33,6 +33,11 @@
 
 }
 
+.pupille-logo-header {
+    height: 78px;
+    object-fit: contain;
+}
+
 .link-social-media {
     padding-left: 12px;
     padding-right: 12px;

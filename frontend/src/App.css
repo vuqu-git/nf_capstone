@@ -3,8 +3,12 @@
   /*background-color: #1e2328;*/
   background-color: black;
   min-height: 100vh; /* Ensure it covers the entire viewport height */
-  /* You can also add other styles here, like padding, etc. */
-
   padding-bottom: 2rem;
+}
+
+/*used in OverviewAndFormLayout and ScreeningLayout react component*/
+.bootstrap-container-component {
+  width: 100%;
+  margin: 0 auto;
 }
 

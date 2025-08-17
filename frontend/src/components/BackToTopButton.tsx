@@ -53,13 +53,8 @@ export default function BackToTopButton({
     return (
         <button
             ref={btnRef}
-            id="backToTopBtn"
             onClick={scrollToTop}
-            className="back-to-top-button"
-            style={{
-                position: 'fixed',
-                bottom: '2rem' // !!!!! Keeps button at viewport bottom !!!!!
-            }}
+            className="backToTopBtn"
         >
             &#9650;️
         </button>

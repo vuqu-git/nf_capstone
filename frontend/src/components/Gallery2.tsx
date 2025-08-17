@@ -114,8 +114,7 @@ export default function Gallery2() {
                 ) : (
                     <section>
                         <article>
-                            <p style={{textAlign: 'center', marginTop: '2rem'}}>Das neue Filmprogramm wird demnächst
-                                hier veröffentlicht.</p>
+                            <p className="text-center mt-4">Das neue Filmprogramm wird demnächst hier veröffentlicht.</p>
                         </article>
                     </section>
                 )

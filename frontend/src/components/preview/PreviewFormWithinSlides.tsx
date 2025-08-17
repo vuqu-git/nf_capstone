@@ -64,15 +64,13 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
     return (
         <div className="app-container">
             <Header2 />
-            <div className="navbar-gradient"></div>
+
             {/*this container design if directly from OverviewAndFormLayout component*/}
             {/*######################################################################*/}
             <Container
                 style={{
                     width: '100%',
                     margin: '0 auto',
-
-
                 }}
                 id="container"
             >

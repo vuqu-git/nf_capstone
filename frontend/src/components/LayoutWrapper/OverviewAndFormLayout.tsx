@@ -1,3 +1,4 @@
+import '../../App.css'
 import {
     useOutlet,
 } from "react-router-dom";
@@ -10,12 +11,12 @@ interface Props {
     children?: ReactNode; // make children optional, then the component can work with either outlet or children, and you won’t get the error when React Router renders it as a layout wrapper.
 }
 
-export default function OverviewAndFormLayout({ children }: Props) {
+export default function OverviewAndFormLayout({ children }: Readonly<Props>) {
     const outlet = useOutlet();
     return (
         <div>
             <Container
-                style={{ width: '100%', margin: '0 auto' }}
+                className="bootstrap-container-component"
                 id="container"
             >
                 <Row className="justify-content-center"> {/* Center the content */}

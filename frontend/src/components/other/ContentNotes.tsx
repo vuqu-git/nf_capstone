@@ -20,9 +20,7 @@ export default function ContentNotes() {
                 Wir bitten euch daher, achtsam zu sein und zu einzelnen Filmen gegebenenfalls zusätzliche Informationen einzuholen, wenn bestimmte Inhalte potentiell überfordernd sein können.
                 Wir nehmen hierzu auch gerne Fragen, Hinweise und Anregungen von euch per Mail entgegen! Sprecht uns auch immer gerne an der Theke an.
             </p>
-            <p style={{textAlign: 'right',}}>
-                Stand: 16. April 2024
-            </p>
+            <p className="text-end small text-muted">Stand: 16. April 2024</p>
         </article>
     );
 }

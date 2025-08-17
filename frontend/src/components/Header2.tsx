@@ -16,8 +16,7 @@ export default function Header2() {
                     <img
                         src={pupilleLogo}
                         alt="Pupille Logo"
-                        height="78"
-                        style={{ objectFit: "contain" }}
+                        className="pupille-logo-header"
                     />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -62,7 +62,7 @@ const Preview1: React.FC<Preview1Props> = ({
     return (
         <div className="app-container">
             <Header2 />
-            <div className="navbar-gradient"></div>
+
             {/*this container design if directly from OverviewAndFormLayout component*/}
             <Container
                 style={{

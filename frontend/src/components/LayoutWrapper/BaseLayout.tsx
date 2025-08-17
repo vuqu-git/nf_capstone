@@ -1,3 +1,4 @@
+import '../../App.css'
 import {
     type Location,
     Outlet,
@@ -35,8 +36,7 @@ export default function BaseLayout() {
             {/*outside Routes and hence Header is always displayed*/}
             <Header2 />
 
-            <div className="navbar-gradient"></div>
-            <main className="main-content">
+            <main>
                 <Outlet />
 
                 {/* Single ScrollRestoration at root level */}
