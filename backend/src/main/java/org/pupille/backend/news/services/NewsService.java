@@ -31,10 +31,16 @@ public class NewsService {
     private static final String errorMessage = "No news found with the id %s";
 
     public List<News> getAllNews() {
-        List<News> newsList = newsRepo.findAll();
-        newsList.sort(Comparator.comparing(News::endDate));
-        return newsList;
+        return newsRepo.findAllByOrderByEndDateDesc();
     }
+
+//    // when don't use repo method Naming Convention for Sorting
+//    public List<News> getAllNews() {
+//        List<News> newsList = newsRepo.findAll();
+//        newsList.sort(Comparator.comparing(News::endDate));
+//        return newsList;
+//        return newsRepo.findAll();
+//    }
 
     public News getNewsById(String id) {
         return newsRepo.findById(id)
