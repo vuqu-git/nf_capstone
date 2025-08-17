@@ -202,7 +202,7 @@ export default function ReiheverknuepfungForm() {
             />
 
             {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
-            <div style={{ minHeight: '30px' }}>
+            <div style={{ minHeight: '1.5em' }}>
                 {isLoadingAllReihen && <div className="text-warning mb-3" role="status">&#x1f504; Loading all Reihe entries... Please wait!</div>}
                 {isLoadingOneReihe && <div className="text-warning mb-3" role="status">&#x1f504; Loading Reihe's Termine and Filme... Please wait!</div>}
             </div>
@@ -269,7 +269,8 @@ export default function ReiheverknuepfungForm() {
                 </div>
             )}
 
-            <div className="loadingSpacer">
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
+            <div style={{ minHeight: '1.5em' }}>
                 {isLoadingForAddDelete && <div className="text-warning mb-3" role="status">&#x1f504; Processing... Please wait!</div>}
                 {errorMessage && <div className="text-danger mb-3" role="alert">{errorMessage}</div>}
                 {successMessage && <div className="text-success mb-3" role="status">&#x2705; {successMessage}</div>}

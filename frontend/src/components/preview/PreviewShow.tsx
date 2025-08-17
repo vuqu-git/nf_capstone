@@ -88,6 +88,8 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                 const containerHeight = container.clientHeight;
                 const cardHeight = card.offsetHeight;
 
+
+                // overhaul here?!
                 // Check if card is taller than container
                 if (cardHeight > containerHeight * 0.96) {
                     const newScale = (containerHeight * 0.96) / cardHeight;
