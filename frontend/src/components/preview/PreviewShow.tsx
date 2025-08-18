@@ -3,6 +3,7 @@ import styles from "./PreviewShow.module.css";
 import {useEffect, useRef, useState} from "react";
 import {formatDateTime} from "../../utils/formatDateTime.ts";
 import TerminFilmPreviewCard from "./TerminFilmPreviewCard.tsx";
+import {selectSonderfarbeFromReihenOfTermin} from "../../utils/selectSonderfarbeFromReihenOfTermin.ts";
 
 interface Props {
     selectedSemesterTermine: TerminDTOWithFilmAndReiheDTOGallery[];
@@ -121,13 +122,19 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
     const termin = termineForSlides[currentIndex];
     const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, false, true);
 
-    const jointTerminFilmGalleryCardPropValuesAsObj = {
+    const jointTerminFilmPreviewCardPropValuesAsObj = {
         screeningWeekday: screeningDateObj?.weekday ?? "",
         screeningDate: screeningDateObj?.date ?? "",
         screeningTime: screeningDateObj?.time ?? "",
         tnr: termin.tnr,
         terminBesonderheit: termin.besonderheit ?? undefined
     };
+
+    // ***********
+    // here: sonderfarbe of termin always precedes against sonderfarbe of reihen
+    // maybe shift to backend
+    const sonderfarbeForTerminFilmPreviewCard = termin.sonderfarbe ?? selectSonderfarbeFromReihenOfTermin(termin);
+    // ***********
 
     return (
         <div className={styles.slideshowContainer} ref={containerRef}>
@@ -161,10 +168,11 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                         transformOrigin: 'center center'
                     }}
                 >
-
                     {termin.titel ? (
                         <TerminFilmPreviewCard
-                            screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                            screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard ?? "pupille-glow"}
+                            // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+
                             bild={termin.bild ?? "default_film.jpg"}
                             // bild={termin.bild ?? (termin.mainfilms[0]?.bild ?? null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
                             offsetImageInGallery={undefined} // // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
@@ -178,13 +186,16 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                             hauptfilmLaufzeit={undefined}
                             hauptfilmbesonderheit={undefined}
 
-                            {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
+                            {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
                         />
                     ) : (
                         // this condition also holds true für Programmtermine, but it rather ensures that mainfilms[0] exist
                         termin.mainfilms?.length > 0 && (
                             <TerminFilmPreviewCard
-                                screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+                                screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard ?? "pupille-glow"}
+                                // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                                // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+
                                 bild={termin.mainfilms[0]?.bild ?? "default_film.jpg"}
                                 offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery ?? undefined}
 
@@ -197,7 +208,7 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                                 hauptfilmLaufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
                                 hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit ?? undefined}
 
-                                {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
+                                {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
                             />
 
                         )

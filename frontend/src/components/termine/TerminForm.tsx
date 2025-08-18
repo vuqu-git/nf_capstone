@@ -445,7 +445,9 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        zulässige Werte: pupille-glow (default; Feld kann daher leer gelassen werden), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow
+                        zulässige Werte: pupille-glow (default; Feld kann daher leer gelassen werden), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow <br/>
+                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen<br/>
+                        Mehrere Einträge hier möglich (comma separated!), es erfolgt dann automatische Zufallsauswahl der Farbe.
                     </Form.Text>
                 </Form.Group>
 

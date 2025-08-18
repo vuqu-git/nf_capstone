@@ -5,6 +5,7 @@ import NewsCard from "./news/NewsCard.tsx";
 
 import './Gallery.css';
 import {GalleryData} from "../App2.tsx";
+import {selectSonderfarbeFromReihenOfTermin} from "../utils/selectSonderfarbeFromReihenOfTermin.ts";
 
 export default function Gallery2() {
 
@@ -54,6 +55,12 @@ export default function Gallery2() {
                                 terminBesonderheit: termin.besonderheit ?? undefined
                             };
 
+                            // ***********
+                            // here: sonderfarbe of termin always preceds against sonderfarbe of reihen
+                            // maybe shift to backend
+                            const sonderfarbeForTerminFilmGalleryCard = termin.sonderfarbe ?? selectSonderfarbeFromReihenOfTermin(termin);
+                            // ***********
+
                             return (
                                 <article key={termin.tnr} className="gallery-article-padding">
                                     {/*for programms of (multiple) films*/}
@@ -61,7 +68,9 @@ export default function Gallery2() {
                                     {termin.titel ? ( // current implementation: when there is no titel of termin, then the list of mainfilms is empty! (to avoid unnecessary data traffic)
                                         <>
                                             <TerminFilmGalleryCard
-                                                screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                                                screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard ?? "pupille-glow"}
+                                                // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+
                                                 bild={termin.bild ?? "default_film.jpg"}
                                                 // bild={termin.bild ?? (termin.mainfilms[0]?.bild ?? null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
                                                 offsetImageInGallery={undefined} // // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
@@ -87,7 +96,10 @@ export default function Gallery2() {
                                                 {/*screening consists of 1 main film + shorts possibly*/}
                                                 {/*****************************************************/}
                                                 <TerminFilmGalleryCard
-                                                    screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+                                                    screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard ?? "pupille-glow"}
+                                                    // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                                                    // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+
                                                     bild={termin.mainfilms[0]?.bild ?? "default_film.jpg"}
                                                     offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery ?? undefined}
 

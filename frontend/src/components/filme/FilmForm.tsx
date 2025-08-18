@@ -693,6 +693,7 @@ export default function FilmForm() {
                 <Form.Group controlId="sonderfarbe" className="mt-3">
                     <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
+                        disabled={true}
                         type="text"
                         name="sonderfarbe"
                         value={selectedFilm.sonderfarbe || ""}

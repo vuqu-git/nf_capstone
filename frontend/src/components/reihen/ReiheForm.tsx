@@ -260,14 +260,18 @@ export default function ReiheForm() {
                 </Form.Group>
 
                 <Form.Group controlId="sonderfarbe" className="mt-3">
-                    <Form.Label>Sonderfarbe</Form.Label>
+                    <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
-                        disabled={true}
                         type="text"
                         name="sonderfarbe"
                         value={selectedReihe.sonderfarbe || ""}
                         onChange={handleFormChange}
                     />
+                    <Form.Text className="text-muted">
+                        zulässige Werte: pupille-glow (=default; Feld bitte leer lassen), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow <br/>
+                        Wenn 1 Termin mehrere Reihen hat, erfolgt automatische, zufällige Auswahl der Farbe. <br/>
+                        Wenn im Termineintrag eine Sonderfarbe festgelegt wurde, hat dieser <b>Vorrang</b> ggü. der Sonderfarbe hier.
+                    </Form.Text>
                 </Form.Group>
 
                 <Button variant={selectedReiheId ? "success" : "primary"} type="submit" className="mt-4">
