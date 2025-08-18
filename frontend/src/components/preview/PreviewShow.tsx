@@ -17,7 +17,7 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFadingOut, setIsFadingOut] = useState(false);
     const [isFadingIn, setIsFadingIn] = useState(false);
-    const [scale, setScale] = useState(1);
+    // const [scale, setScale] = useState(1);     // SCALING STUFF
     const [isTopHovering, setIsTopHovering] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -68,47 +68,47 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
         setShowPreview(false);
     };
 
-    // Auto-scale the card to fit the viewport
-    useEffect(() => {
-        function resizeCardToFit() {
-            if (!containerRef.current || !contentRef.current || !cardRef.current) return;
-
-            // Reset any previous scaling to get accurate measurements
-            setScale(1);
-
-            // Wait for DOM to update with scale=1
-            setTimeout(() => {
-                // Type assertion to handle the null check properly
-                const container = containerRef.current as HTMLDivElement | null;
-                const card = cardRef.current as HTMLDivElement | null;
-
-                // Double-check refs are still valid after timeout
-                if (!container || !card) return;
-
-                const containerHeight = container.clientHeight;
-                const cardHeight = card.offsetHeight;
-
-
-                // overhaul here?!
-                // Check if card is taller than container
-                if (cardHeight > containerHeight * 0.96) {
-                    const newScale = (containerHeight * 0.96) / cardHeight;
-                    setScale(newScale);
-                } else {
-                    setScale(1);
-                }
-            }, 50);
-        }
-
-        // Run on mount and when currentIndex changes
-        resizeCardToFit();
-
-        // Add resize listener
-        window.addEventListener('resize', resizeCardToFit);
-
-        // Clean up
-        return () => window.removeEventListener('resize', resizeCardToFit);
-    }, [currentIndex]);
+    // SCALING STUFF
+    // \\\\\\\\\\\\\
+    // // Auto-scale the card to fit the viewport
+    // useEffect(() => {
+    //     function resizeCardToFit() {
+    //         if (!containerRef.current || !contentRef.current || !cardRef.current) return;
+    //
+    //         // Reset any previous scaling to get accurate measurements
+    //         setScale(1);
+    //
+    //         // Wait for DOM to update with scale=1
+    //         setTimeout(() => {
+    //             // Type assertion to handle the null check properly
+    //             const container = containerRef.current as HTMLDivElement | null;
+    //             const card = cardRef.current as HTMLDivElement | null;
+    //
+    //             // Double-check refs are still valid after timeout
+    //             if (!container || !card) return;
+    //
+    //             const containerHeight = container.clientHeight;
+    //             const cardHeight = card.offsetHeight;
+    //
+    //             // Check if card is taller than container
+    //             if (cardHeight > containerHeight * 0.96) {
+    //                 const newScale = (containerHeight * 0.96) / cardHeight;
+    //                 setScale(newScale);
+    //             } else {
+    //                 setScale(1);
+    //             }
+    //         }, 50);
+    //     }
+    //
+    //     // Run on mount and when currentIndex changes
+    //     resizeCardToFit();
+    //
+    //     // Add resize listener
+    //     window.addEventListener('resize', resizeCardToFit);
+    //
+    //     // Clean up
+    //     return () => window.removeEventListener('resize', resizeCardToFit);
+    // }, [currentIndex]);
 
     if (termineForSlides.length === 0) {
         return (
@@ -121,12 +121,12 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
     const termin = termineForSlides[currentIndex];
     const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, false, true);
 
-    const screeningCardProps = {
-        screeningWeekday: screeningDateObj?.weekday ?? '',
-        screeningDate: screeningDateObj?.date ?? '',
-        screeningTime: screeningDateObj?.time ?? '',
-        offsetImageInGallery: undefined,
+    const jointTerminFilmGalleryCardPropValuesAsObj = {
+        screeningWeekday: screeningDateObj?.weekday ?? "",
+        screeningDate: screeningDateObj?.date ?? "",
+        screeningTime: screeningDateObj?.time ?? "",
         tnr: termin.tnr,
+        terminBesonderheit: termin.besonderheit ?? undefined
     };
 
     return (
@@ -148,37 +148,58 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                 }`}
                 ref={contentRef}
             >
+                {/*SCALING STUFF*/}
+                {/*\\\\\\\\\\\\\*/}
+                {/*<div*/}
+                {/*    ref={cardRef}*/}
+                {/*    style={{ transform: `scale(${scale})`, transformOrigin: 'center center' }}*/}
+                {/*>*/}
                 <div
                     ref={cardRef}
-                    style={{ transform: `scale(${scale})`, transformOrigin: 'center center' }}
+                    style={{
+                        width: '1200px',
+                        transformOrigin: 'center center'
+                    }}
                 >
+
                     {termin.titel ? (
                         <TerminFilmPreviewCard
-                            {...screeningCardProps}
-                            screeningSonderfarbe="red-glow"
-                            bild={termin.bild ?? null}
+                            screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                            bild={termin.bild ?? "default_film.jpg"}
+                            // bild={termin.bild ?? (termin.mainfilms[0]?.bild ?? null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
+                            offsetImageInGallery={undefined} // // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
+
                             titel={termin.titel}
                             kurztext={termin.kurztext ?? null}
-                            jahr={undefined}
-                            besonderheit={termin.besonderheit ?? null}
-                            filmFormat={undefined}
-                            laufzeit={undefined}
-                            regie={undefined}
+
+                            hauptfilmFormat={undefined} // treatment with undefined (instead of null) here to have this prop be optional
+                            hauptfilmRegie={undefined} // treatment with undefined (instead of null) here to have this prop be optional
+                            hauptfilmJahr={undefined}
+                            hauptfilmLaufzeit={undefined}
+                            hauptfilmbesonderheit={undefined}
+
+                            {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
                         />
                     ) : (
+                        // this condition also holds true für Programmtermine, but it rather ensures that mainfilms[0] exist
                         termin.mainfilms?.length > 0 && (
                             <TerminFilmPreviewCard
-                                {...screeningCardProps}
-                                screeningSonderfarbe="pupille-glow"
-                                bild={termin.mainfilms[0]?.bild ?? null}
+                                screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+                                bild={termin.mainfilms[0]?.bild ?? "default_film.jpg"}
+                                offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery ?? undefined}
+
                                 titel={termin.mainfilms[0]?.titel ?? null}
                                 kurztext={termin.mainfilms[0]?.kurztext ?? null}
-                                jahr={termin.mainfilms[0]?.jahr}
-                                besonderheit={termin.mainfilms[0]?.besonderheit ?? null}
-                                filmFormat={termin.mainfilms[0]?.format ?? undefined}
-                                laufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
-                                regie={undefined}
+
+                                hauptfilmFormat={termin.mainfilms[0]?.format ?? undefined} // concise: filmFormat={termin.films[0]?.format ?? undefined}
+                                hauptfilmRegie={termin.mainfilms[0]?.regie ?? undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
+                                hauptfilmJahr={termin.mainfilms[0]?.jahr}
+                                hauptfilmLaufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
+                                hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit ?? undefined}
+
+                                {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
                             />
+
                         )
                     )}
                 </div>

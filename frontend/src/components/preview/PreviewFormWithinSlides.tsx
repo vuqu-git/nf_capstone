@@ -68,16 +68,12 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
             {/*this container design if directly from OverviewAndFormLayout component*/}
             {/*######################################################################*/}
             <Container
-                style={{
-                    width: '100%',
-                    margin: '0 auto',
-                }}
+                className="bootstrap-container-component"
                 id="container"
             >
                 <Row className="justify-content-center"> {/* Center the content */}
                     <Col md={12} lg={8} xl={7} className="px-0"> {/* Adjust the column widths for different screen sizes */}
 
-                        {/*-------------------------------------------------------------------*/}
                         {/*-------------------------------------------------------------------*/}
                         <button className="btn btn-outline-success" onClick={handleBack}>Zurück</button>
                         <h1>Preview</h1>
@@ -120,7 +116,7 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                     ))}
                                 </Form.Select>
                                 <Form.Text className="text-muted">
-                                    Halte STRG (Windows) oder CMD (Mac) gedrückt, um mehrere, nicht zusammenhängende Vorführungstermine
+                                    STRG (Windows) oder CMD (Mac) gedrückt halten, um mehrere, nicht zusammenhängende Vorführungstermine
                                     auszuwählen.
                                 </Form.Text>
                             </Form.Group>
@@ -129,8 +125,7 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                             </Button>
                         </Form>
                         <Badge bg="danger" className="mt-3">Hinweis:</Badge>
-                        <p>Cursor zum oberen Bildrand bewegen, um während der Preview zu dieser Auswahl zurückzukehren</p>
-                        {/*-------------------------------------------------------------------*/}
+                        <p className="text-danger">Preview mode verlassen: Cursor zum oberen Bildrand bewegen!</p>
                         {/*-------------------------------------------------------------------*/}
 
                     </Col>
