@@ -28,7 +28,7 @@ class NewsServiceTest {
 
     @BeforeEach
     void testSetup() {
-        // best practive: Keep mock creation and NewsService initialization inside @BeforeEach to ensure each test starts with fresh, unmodified mocks.
+        // best practice: Keep mock creation and NewsService initialization inside @BeforeEach to ensure each test starts with fresh, unmodified mocks.
         //        Advantages:
         //        Fresh test objects for each test - prevents accidental state mutation between tests
         //        More explicit control over when objects are created
@@ -68,11 +68,11 @@ class NewsServiceTest {
 
         // GIVEN
         List<News> expected = new ArrayList<>(); // !! or new ArrayList<>(List.of()) => using the common implementations ArrayList or LinkedList the resulting List is Mutable
-        when(mockNewsRepo.findAll()).thenReturn(expected);
+        when(mockNewsRepo.findAllByOrderByEndDateDesc()).thenReturn(expected);
         // WHEN
         List<News> actual = newsService.getAllNews();
         // THEN
-        verify(mockNewsRepo).findAll();
+        verify(mockNewsRepo).findAllByOrderByEndDateDesc();
         assertEquals(expected, actual);
 
         //        // alternative instead of List, use ArrayList directly for the variables
@@ -103,12 +103,12 @@ class NewsServiceTest {
 
         // GIVEN
         List<News> expected = new ArrayList<>(List.of(n2, n1));
-        when(mockNewsRepo.findAll()).thenReturn( expected );
+        when(mockNewsRepo.findAllByOrderByEndDateDesc()).thenReturn( expected );
         // WHEN
         // Attention: Because the mock repository is returning an immutable list, the sort operation within getAllNews will throw the UnsupportedOperationException.
         List<News> actual = newsService.getAllNews();
         // THEN
-        verify(mockNewsRepo).findAll();
+        verify(mockNewsRepo).findAllByOrderByEndDateDesc();
         assertEquals(expected, actual);
 
         //        // alternative instead of List, use ArrayList directly for the variables
