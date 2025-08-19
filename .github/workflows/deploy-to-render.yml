@@ -1,4 +1,4 @@
-name: "Deploy Pupille Website"
+name: "Deploy nfcapstone Website"
 
 on:
   push:
