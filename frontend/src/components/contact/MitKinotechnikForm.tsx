@@ -234,9 +234,8 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                     aria-describedby="date-range-error"
                 />
 
-                {/*Fehlermeldung für Datenvalidierung (space reserved)*/}
-                {/*<div style={{ minHeight: '1.5em' }}>*/}
-                <div>
+                {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
+                <div style={{ minHeight: '1.5em' }}>
                     {dateRangeErrorMessage && <p role="alert" id="date-range-error" className={styles.statusError + " m-0"}>{dateRangeErrorMessage}</p>}
                 </div>
             </div>

@@ -10,9 +10,7 @@ function Header() {
                     <img
                         src="https://pupille.org/bilder/allgemein/Pupille-Logo.svg"
                         alt="Pupille Logo"
-                        // width="48" // or your preferred size
-                        height="78"
-                        style={{ objectFit: "contain" }}
+                        className="pupille-logo-header"
                     />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -62,7 +62,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
     };
 
     const renderSubForm = () => {
-        if (!selectedIssuesSubSelection) return null; // not sure if really required !?!?!?!??!
+        if (!selectedIssuesSubSelection) return null; // not sure if really required !?!?!?!?!
 
         switch (selectedIssuesSubSelection) {
             case 'eigenstaendig':

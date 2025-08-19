@@ -59,7 +59,7 @@ export default function TerminFilmDetailsCard({
                                                   reihen,
                                               }: Readonly<Props>) {
 
-    const calenderTitle = programmtitel ?? (mainfilms[0].film.titel ?? "Film in der Pupille");
+    const calenderTitle = programmtitel || (mainfilms[0].film.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit);
 
@@ -141,14 +141,14 @@ export default function TerminFilmDetailsCard({
                 {/*#########################################*/}
                 {/*###### Listing of Reihe(-elements) ######*/}
                 {reihen.length > 0 && (
-                    <article className="program-text" style={{marginBottom: '1.5rem'}}>
-                        <div style={{color: '#9ac7fa'}}>
+                    <article className="program-text mb-4">
+                        <div className="introduction-text-reihen">
                             Diese Vorstellung { new Date() > new Date(calenderDateObj.startDate) ? " lief" : "läuft"}
                             {reihen.length == 1 ? " in der Filmreihe" : " in den Filmreihen"}
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
-                                <div style={{paddingLeft: '1rem'}}><em>{reihe.titel}</em> zusammen mit</div>
+                                <div className="ps-3"><em>{reihe.titel}</em> zusammen mit</div>
                                 {reihe.termine && (
                                     <ul className="">
                                         {[...reihe.termine]

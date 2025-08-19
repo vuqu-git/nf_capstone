@@ -70,11 +70,11 @@ const Preview1Child: React.FC<Preview1ChildProps> = ({ selectedSemesterTermine, 
                     <TerminFilmPreviewCard
                         {...screeningCardProps}
                         screeningSonderfarbe="red-glow"
-                        bild={termin.bild ?? null}
+                        bild={termin.bild || null}
                         titel={termin.titel}
-                        kurztext={termin.kurztext ?? null}
+                        kurztext={termin.kurztext || null}
                         jahr={undefined}
-                        besonderheit={termin.besonderheit ?? null}
+                        besonderheit={termin.besonderheit || null}
                         filmFormat={undefined} // for filmFormat treatment with undefined (instead of null)
                         laufzeit={undefined} // for filmFormat treatment with undefined (instead of null)
                         regie={undefined} // for regie treatment with undefined (instead of null)
@@ -87,12 +87,12 @@ const Preview1Child: React.FC<Preview1ChildProps> = ({ selectedSemesterTermine, 
                             <TerminFilmPreviewCard
                                 {...screeningCardProps}
                                 screeningSonderfarbe="pupille-glow"
-                                bild={termin.mainfilms[0]?.bild ?? null}
-                                titel={termin.mainfilms[0]?.titel ?? null}
-                                kurztext={termin.mainfilms[0]?.kurztext ?? null}
+                                bild={termin.mainfilms[0]?.bild || null}
+                                titel={termin.mainfilms[0]?.titel || null}
+                                kurztext={termin.mainfilms[0]?.kurztext || null}
                                 jahr={termin.mainfilms[0]?.jahr}
-                                besonderheit={termin.mainfilms[0]?.besonderheit ?? null}
-                                filmFormat={termin.mainfilms[0]?.format ?? undefined}
+                                besonderheit={termin.mainfilms[0]?.besonderheit || null}
+                                filmFormat={termin.mainfilms[0]?.format || undefined}
                                 laufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
                                 regie={undefined} // for regie treatment with undefined (instead of null)
                             />

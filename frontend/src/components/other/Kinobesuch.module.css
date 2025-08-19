@@ -11,6 +11,7 @@
     margin: 0;
     text-align: left;
     font-size: 1.0rem;
+    font-weight: 600;
     min-width: 140px;
     /*padding-top: 0.2em;*/
 }
@@ -22,6 +23,13 @@
 
 .section-content p {
     margin-bottom: 0.5rem;
+}
+
+.photoAlbumImage {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+    /*box-shadow: 0 0 10px rgb(255, 255, 255, 0.2);*/
 }
 
 @media (max-width: 600px) {

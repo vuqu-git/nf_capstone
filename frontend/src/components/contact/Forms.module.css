@@ -1,5 +1,12 @@
 /* Forms.module.css */
 
+/* Reserve space loading notifications */
+
+.loadingSpacer {
+    /*min-height: 30px;*/
+    min-height: 1.5em;
+}
+
 /* Base form styling */
 .formContainer {
     margin: 1rem auto;

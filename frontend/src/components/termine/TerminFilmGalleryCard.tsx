@@ -49,9 +49,23 @@ export default function TerminFilmGalleryCard({
         navigate(`/details/${tnr}`);
     };
 
+    // ***********
+    // random selection of screeningSonderfarbe when multiple were entered (comma separated)
+    // maybe shift to backend
+
+    let screeningSonderfarbeSelected;
+    const screeningSonderfarbeList = screeningSonderfarbe.split(",");
+    const length = screeningSonderfarbe.split(",").length;
+    if (length > 0) {
+        const randomIndex = Math.floor(Math.random() * length);
+        screeningSonderfarbeSelected = screeningSonderfarbeList[randomIndex].trim();
+    }
+
+    // ***********
+
     return (
         <Card
-            className={`custom-card ${screeningSonderfarbe} zoom-effect`}
+            className={`custom-card ${screeningSonderfarbeSelected} zoom-effect`}
         >
             {bild && (
                 <div
@@ -65,7 +79,7 @@ export default function TerminFilmGalleryCard({
                         alt={titel ? `Bild der Vorführung von ${titel}` : ""}
 
                         // 0) always pass a style prop
-                        style={{ objectPosition: `center ${offsetImageInGallery ?? "center"}` }}
+                        style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
 
                         // Conditionally set style if offsetImageInGallery prop exists
                         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -10,6 +10,9 @@ import java.util.List;
 
 @Repository
 public interface NewsRepo extends MongoRepository<News, String>{
+
+    List<News> findAllByOrderByEndDateDesc();
+
     // @Query annotation for more complex queries
     @Query("{ $and: [{ startDate: { $lte: ?0 } }, { endDate: { $gte: ?0 } }] }")
     List<News> findAllValidNewsByDateInRange(LocalDate date);

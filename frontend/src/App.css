@@ -3,8 +3,48 @@
   /*background-color: #1e2328;*/
   background-color: black;
   min-height: 100vh; /* Ensure it covers the entire viewport height */
-  /* You can also add other styles here, like padding, etc. */
-
   padding-bottom: 2rem;
 }
 
+/*used in OverviewAndFormLayout and ScreeningLayout react component*/
+.bootstrap-container-component {
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+/*##########################################*/
+/*for news items presenting 3rd party events*/
+
+details.third-party-event-info summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details.third-party-event-info summary::-webkit-details-marker {
+  display: none;
+}
+
+details.third-party-event-info summary::before {
+  content: "📌";
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.2s;
+}
+
+details.third-party-event-info[open] summary::before {
+  content: "📄";
+}
+
+details.third-party-event-info summary:hover {
+  filter: brightness(1.3);  /* brightens whatever color it is by 30% */
+  /*opacity: 0.7;             !* makes it more transparent (lighter effect) *!*/
+}
+
+details.third-party-event-info p:first-of-type {
+  margin-top: 1rem;
+}
+
+details.third-party-event-info p:last-of-type {
+  margin-bottom: 0;
+}

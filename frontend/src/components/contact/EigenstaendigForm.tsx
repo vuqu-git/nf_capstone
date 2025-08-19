@@ -49,7 +49,7 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
                     type="text"
                     id="betreff"
                     name="betreff"
-                    value={formData.betreff ?? ''}
+                    value={formData.betreff || ''}
                     maxLength={100}
                     onChange={onInputChange}
                     className={styles.textInput}
@@ -108,6 +108,7 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
                     aria-describedby="date-range-error"
                 />
 
+                {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
                 <div style={{ minHeight: '1.5em' }}>
                     {dateRangeErrorMessage && <p id="date-range-error" className={styles.statusError + " m-0"}>{dateRangeErrorMessage}</p>}
                 </div>

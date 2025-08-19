@@ -14,7 +14,7 @@
 //
 //     if (loading) {
 //         return (
-//             <div style={{ textAlign: "center", marginTop: 40 }}>
+//             <div className="text-center mt-4">
 //                 <div>Loading authentication status...</div>
 //             </div>
 //         );
@@ -47,14 +47,13 @@
 import {Navigate, Outlet} from "react-router-dom";
 import {useAuth} from "./AuthContext.tsx";
 
-
 export default function ProtectedRoute() {
     // Access the authentication state from the custom useAuth hook.
     const { fetchedUser, loading } = useAuth(); // Type inference from useAuth() is perfect here
 
     if (loading) {
         return (
-            <div style={{ textAlign: "center", marginTop: 40 }}>
+            <div className="text-center mt-4">
                 <div>Loading authentication status...</div>
             </div>
         );

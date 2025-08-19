@@ -1,6 +1,6 @@
 /* BackToTopButton.css */
 
-#backToTopBtn {
+.backToTopBtn {
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
@@ -17,15 +17,20 @@
     align-items: flex-start;
     justify-content: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    /*for positioning the button*/
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+    position: fixed;
+    bottom: 2rem;  /* !!! Keeps button at viewport bottom !!! */
 }
 
 
-#backToTopBtn.show {
+.backToTopBtn.show {
     opacity: 1;
     pointer-events: auto; /* Allow interaction when visible */
 }
 
-#backToTopBtn:hover {
+.backToTopBtn:hover {
     background-color: #FFD036; /* Change background color on hover */
     color: rgba(51, 51, 51, 0.85); /* Change text color on hover */
     /* Enhanced glow effect with box-shadow */

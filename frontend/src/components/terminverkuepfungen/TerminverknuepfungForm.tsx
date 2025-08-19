@@ -254,6 +254,7 @@ export default function TerminverknuepfungForm() {
                 textForDefaultOption={undefined}
             />
 
+            {/*<div className="loadingSpacer"> /!* this css class approach does NOT work somehow compared to inline style*!/*/}
             <div style={{ minHeight: '30px' }}>
                 {isGetLoading && <div className="text-warning mb-3" role="status">&#x1f504; Loading Termin details... Please wait!</div>}
             </div>
@@ -330,6 +331,8 @@ export default function TerminverknuepfungForm() {
 
                 <Form.Group controlId="rang" className="mt-3">
                     <Form.Label>Rang</Form.Label>
+                    {/*coalescing operator ?? here is important to display 0 value instead of empty string"*/}
+                    {/*when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0*/}
                     <Form.Control
                         type="number"
                         name="rang"

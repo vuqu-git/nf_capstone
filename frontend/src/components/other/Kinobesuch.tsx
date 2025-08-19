@@ -1,7 +1,23 @@
 import './NomalContent.css';
 import styles from './Kinobesuch.module.css';
+import {RowsPhotoAlbum} from "react-photo-album";
+import {useState} from "react";
+import Lightbox from "yet-another-react-lightbox";
+import {Captions, Fullscreen, Slideshow, Zoom} from "yet-another-react-lightbox/plugins";
+
+const path = "https://pupille.org/bilder/allgemein"
+
+const photos = [
+    { src: path + "/Map_Campus_Bockenheim.png", width: 587, height: 643, description: "Karte vom Campus Bockenheim" },
+    { src: path + "/Kinoansicht1B.jpg", width: 1500, height: 1004, description: "Eingang des Studierendenhauses von außen" },
+    { src: path + "/Kinoansicht2.jpg", width: 1500, height: 849, description: "Festsaal Innenansicht" },
+    { src: path + "/Kinoansicht3.jpg", width: 1500, height: 1125, description: "Festsaal aus dem Vorführraum" },
+];
 
 export default function Kinobesuch() {
+    const [indexA, setIndexA] = useState(-1);
+    const [indexS, setIndexS] = useState(-1);
+
     return (
         <div>
             <section className="normal-content-container">
@@ -36,6 +52,21 @@ export default function Kinobesuch() {
                 </div>
 
                 <div className={styles["section-row"]}>
+                    <h3 className={styles["section-row"]}>Content Notes</h3>
+                    <div className={styles["section-content"]}>
+                        <p>
+                            Wir verstehen uns als Kino mit einem vielfältigen und auch risikobereiten Programm &ndash; gleichzeitig möchten wir einen Ort herstellen, an dem ein kollektives Kinoerlebnis so inklusiv wie möglich stattfinden kann.
+                            Deshalb haben wir bei jeder Filmbeschreibung (falls zutreffend) ein Ausklappmenü "Hinweis auf sensible Inhalt" eingefügt, in dem ihr Triggerwarnungen und andere inhaltliche Hinweise sehen könnt.
+                        </p>
+                        <p>
+                            Wir haben uns bei den Triggerwarnungen zu sexueller Gewalt an der Seite <a className="custom-link" href="https://www.unconsentingmedia.org" target="_blank" rel="noopener noreferrer">www.unconsentingmedia.org</a> orientiert, die aber vor allem US-amerikanische Filme abdeckt.
+                            Die Einschätzung der Inhalte erfolgt daher nach bestem Wissen und Gewissen durch unser Team und/oder unsere Kooperationspartner*innen.
+                            Da dies aber immer auch ein subjektiver Prozess ist, können wir die Vollständigkeit dieser Angaben leider nicht garantieren.
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles["section-row"]}>
                     <h3 className={styles["section-row"]}>Adresse</h3>
                     <div className={styles["section-content"]}>
                         <p>
@@ -52,17 +83,31 @@ export default function Kinobesuch() {
                         <p>
                             Haltestelle "Bockenheimer Warte"<br/>
                             U-Bahn: U4, U6, U7<br/>
-                            Bus: M32, M36, 50, 75<br/>
+                            Bus: M32, M36, 50, 75; N4, N7<br/>
                             Tram: 16
                         </p>
-                        <img src="https://pupille.org/bilder/allgemein/Map_Campus_Bockenheim.png"
-                             alt="Karte vom Campus Bockenheim"
-                             style={{maxWidth: "85%", borderRadius: "5px", boxShadow: "0px 0px 10px rgb(255, 255, 255, 0.2)"}}
+
+                        <RowsPhotoAlbum
+                            photos={photos.slice(0, 2)}
+                            targetRowHeight={250}
+                            // rowConstraints={{ singleRowMaxHeight: 250 }}
+
+                            onClick={({index}) => setIndexA(index)}
+                            componentsProps={() => ({
+                                image: {
+                                    className: styles.photoAlbumImage,
+                                },
+                            })}
                         />
-                        <br/><br/>
-                        <img src="https://pupille.org/bilder/allgemein/Kinoansicht1B.jpg"
-                             alt="Eingang des Studierendenhauses von außen"
-                             style={{maxWidth: "85%", borderRadius: "5px", boxShadow: "0px 0px 10px rgb(255, 255, 255, 0.2)"}}
+
+                        <Lightbox
+                            slides={photos}
+                            open={indexA >= 0}
+                            index={indexA}
+                            close={() => setIndexA(-1)}
+                            // enable optional lightbox plugins
+                            plugins={[Captions, Fullscreen, Slideshow, Zoom]}
+                            captions={{descriptionTextAlign: "center"}}
                         />
                     </div>
                 </div>
@@ -70,15 +115,30 @@ export default function Kinobesuch() {
                 <div className={styles["section-row"]}>
                     <h3 className={styles["section-row"]}>Saal</h3>
                     <div className={styles["section-content"]}>
-                        <p>Fassungsvermögen: ca. 200 Sitzplätze</p>
-                        <img src="https://pupille.org/bilder/allgemein/Kinoansicht2.jpg"
-                             alt="Festsaal von Vorführraum"
-                             style={{maxWidth: "100%", borderRadius: "5px", boxShadow: "0px 0px 10px rgb(255, 255, 255, 0.2)"}}
+                        <p>Fassungsvermögen von ca. 200 Sitzplätze</p>
+
+                        <RowsPhotoAlbum
+                            photos={photos.slice(-2)}
+                            targetRowHeight={250}
+                            // rowConstraints={{ singleRowMaxHeight: 250 }}
+
+                            onClick={({index}) => setIndexS(index)}
+                            componentsProps={() => ({
+                                image: {
+                                    className: styles.photoAlbumImage,
+                                },
+                            })}
                         />
-                        <br/><br/>
-                        <img src="https://pupille.org/bilder/allgemein/Kinoansicht3.jpg"
-                             alt="Festsaal von innen"
-                             style={{maxWidth: "100%", borderRadius: "5px", boxShadow: "0px 0px 10px rgb(255, 255, 255, 0.2)"}}
+
+                        <Lightbox
+                            slides={photos.slice(-2).concat(photos.slice(0, 2))}
+                            open={indexS >= 0}
+                            index={indexS}
+                            // close={() => setIndexS(-1)}
+                            close={() => setIndexS(-1)}
+                            // enable optional lightbox plugins
+                            plugins={[Captions, Fullscreen, Slideshow, Zoom]}
+                            captions={{descriptionTextAlign: "center"}}
                         />
                     </div>
                 </div>

@@ -3,6 +3,7 @@ package org.pupille.backend.oauthgithub;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,11 @@ import java.io.IOException;
 @Component
 public class CustomOAuth2AuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    private final String frontendAuthErrorUrl;
+    private final String oauthErrorurl;
 
     // Use @Value to inject the frontend URL for error redirection
-    public CustomOAuth2AuthenticationFailureHandler(@org.springframework.beans.factory.annotation.Value("${app.frontend-auth-error-url}") String frontendAuthErrorUrl) {
-        this.frontendAuthErrorUrl = frontendAuthErrorUrl;
+    public CustomOAuth2AuthenticationFailureHandler(@Value("${oauth.errorurl}") String oauthErrorurl) {
+        this.oauthErrorurl = oauthErrorurl;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class CustomOAuth2AuthenticationFailureHandler implements AuthenticationF
         System.err.println("OAuth2 authentication failed: " + exception.getMessage());
 
         // construct the URL to redirect to your frontend and pass an error message as a query parameter
-        String redirectUrl = frontendAuthErrorUrl + "?error=" + exception.getMessage();
+        String redirectUrl = oauthErrorurl + "?error=" + exception.getMessage();
 
         response.sendRedirect(redirectUrl);
     }

@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${app.url}")
-    String appUrl;
+    @Value("${oauth.appurl}")
+    String oauthAppurl;
 
     // Inject your custom services
     private final OAuth2UserService<org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest, org.springframework.security.oauth2.core.user.OAuth2User> customOAuth2UserService;
@@ -68,10 +68,10 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .sessionManagement(sessions ->
                         sessions.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout(l -> l.logoutSuccessUrl(appUrl))
+                .logout(l -> l.logoutSuccessUrl(oauthAppurl))
                 .oauth2Login(o -> o
                         .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService)) // here is the custom service used
-                        .defaultSuccessUrl(appUrl)
+                        .defaultSuccessUrl(oauthAppurl)
                         .failureHandler(customOAuth2AuthenticationFailureHandler) // here the custom AuthenticationFailureHandler kicks in
                 )
                 .exceptionHandling(e -> e

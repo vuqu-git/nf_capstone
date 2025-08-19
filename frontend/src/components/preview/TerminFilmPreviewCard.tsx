@@ -10,19 +10,20 @@ interface Props {
     screeningTime: string | null;
     screeningSonderfarbe: string;
 
-    bild: string | null;
-    offsetImageInGallery: number | undefined;
+    bild: string | null; // could refer to the entire programm or main feature
+    offsetImageInGallery: string | undefined;
 
-    titel: string | null;
-    kurztext: string | null;
-    jahr: number | undefined;
-    besonderheit: string | null;
+    titel: string | null; // could refer to the entire programm or main feature
+    kurztext: string | null; // could refer to the entire programm or main feature
 
-    filmFormat: string | undefined;
-    laufzeit: number | undefined;
-    regie: string | undefined;
+    hauptfilmFormat: string | undefined;
+    hauptfilmRegie: string | undefined;
+    hauptfilmJahr: number | undefined;
+    hauptfilmLaufzeit: number | undefined;
+    hauptfilmbesonderheit: string | undefined;
 
     tnr: number;
+    terminBesonderheit: string | undefined;
 }
 
 export default function TerminFilmPreviewCard({
@@ -34,12 +35,13 @@ export default function TerminFilmPreviewCard({
                                                   offsetImageInGallery,
                                                   titel,
                                                   kurztext,
-                                                  jahr,
-                                                  besonderheit,
-                                                  filmFormat,
-                                                  laufzeit,
-                                                  regie,
+                                                  hauptfilmFormat,
+                                                  hauptfilmRegie,
+                                                  hauptfilmJahr,
+                                                  hauptfilmLaufzeit,
+                                                  hauptfilmbesonderheit, // inhaltliche Besonderheit des main features
                                                   tnr,
+                                                  terminBesonderheit, // bezieht sich auf Koop, Festival, Gäste, Ort & Zeit etc. des Termins(!)
                                               }: Readonly<Props>) {
     const navigate = useNavigate();
 
@@ -47,35 +49,51 @@ export default function TerminFilmPreviewCard({
         navigate(`/details/${tnr}`);
     };
 
-    return (
+    // ***********
+    // random selection of screeningSonderfarbe when multiple were entered (comma separated)
+    // maybe shift to backend
 
+    let screeningSonderfarbeSelected;
+    const screeningSonderfarbeList = screeningSonderfarbe.split(",");
+    const length = screeningSonderfarbe.split(",").length;
+    if (length > 0) {
+        const randomIndex = Math.floor(Math.random() * length);
+        screeningSonderfarbeSelected = screeningSonderfarbeList[randomIndex].trim();
+    }
+
+    // ***********
+
+    return (
             <Card
-                className={`custom-card ${screeningSonderfarbe} zoom-effect`}
+                className={`custom-card ${screeningSonderfarbeSelected} zoom-effect`}
                 onClick={handleClick}
                 role="button"
             >
                 {bild && (
-                    <div className="image-aspect-ratio-container" style={{paddingTop: '52.25%'}}>
+                    // <div className="image-aspect-ratio-container">
+                    <div className="image-aspect-ratio-container">
                         <Card.Img
                             variant="top"
                             src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
-                            {...(offsetImageInGallery && { style: { objectPosition: `center ${offsetImageInGallery}%` } })}
+                            // 0) always pass a style prop
+                            style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
                         />
-                        {/*empty tag for stringer gradient effect*/}
+
+                        {/*empty tag for stronger gradient effect*/}
                         <div className="gradient-overlay"></div>
 
                         <div className="gradient-overlay">
                             <Card.Text className="overlay-analog-date">
-                                {filmFormat?.includes("mm") && (
+                                {hauptfilmFormat?.includes("mm") && (
                                     <span className="analog-box"
                                           style={{
                                               fontSize: '1.5rem',
                                           }}
-                                    >{filmFormat}</span>
+                                    >{hauptfilmFormat}</span>
                                 )}
                                 <span className="overlay-time"
                                       style={{
-                                          fontSize: '2.5rem',
+                                          fontSize: '2.75rem',
                                       }}
                                 >
                                     {screeningWeekday || screeningDate || screeningTime ? (
@@ -92,22 +110,22 @@ export default function TerminFilmPreviewCard({
                                 <Card.Title as="h3"
                                             className="overlay-title"
                                             style={{
-                                                fontSize: '3.0rem',
+                                                fontSize: '3.25rem',
                                             }}
                                 >
                                     {renderHtmlText(titel)}
                                 </Card.Title>
                             )}
 
-                            {(regie || jahr || laufzeit) && (
+                            {(hauptfilmRegie || hauptfilmJahr || hauptfilmLaufzeit) && (
                                 <Card.Text className="filminfo-and-stab-gallery"
                                            style={{
                                                fontSize: '2.0rem',
                                            }}
                                 >
-                                    {[regie, jahr, laufzeit !== undefined ? laufzeit + " Min." : undefined]
+                                    {[hauptfilmRegie, hauptfilmJahr, hauptfilmLaufzeit !== undefined ? hauptfilmLaufzeit + " Min." : undefined]
                                         .filter(Boolean)
-                                        .join(', ')}
+                                        .join(' | ')}
                                 </Card.Text>
                             )}
                         </div>
@@ -153,11 +171,21 @@ export default function TerminFilmPreviewCard({
                         </div>
                     )}
 
-                    {besonderheit && (
-                        <div className="card-besonderheit"
-                                   style={{ fontSize: '2.0rem', borderTop: kurztext ? undefined : 'none', padding: '0 0' }}
+                    {hauptfilmbesonderheit && (
+                        <div
+                            className="card-filmBesonderheit"
+                            style={{ borderTop: kurztext ? undefined : 'none' }}
                         >
-                            {renderHtmlContent(besonderheit)}
+                            {renderHtmlContent(hauptfilmbesonderheit)}
+                        </div>
+                    )}
+
+                    {terminBesonderheit && (
+                        <div className="card-terminBesonderheit"
+                                   // style={{ fontSize: '2.0rem', borderTop: kurztext ? undefined : 'none', padding: '0 0' }}
+                                   style={{ fontSize: '2.0rem' }}
+                        >
+                            {renderHtmlContent(terminBesonderheit)}
                         </div>
                     )}
                 </Card.Body>

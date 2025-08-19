@@ -182,7 +182,7 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>Legend color design</Accordion.Header>
                         <Accordion.Body>
-                            <img src="/assets/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />
+                            <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>

@@ -86,48 +86,48 @@ export default function Slides() {
             return (
                 <div className="app-container">
                     <Header2 />
-                    <div className="navbar-gradient"></div>
 
                     <OverviewAndFormLayout>
                         <section>
                             <h1>Holding slides</h1>
 
                             <h3 className="mt-3">Anmerkungen</h3>
-                            <p>Im Edge Browser ist das Aktivieren sowie Deaktivieren der <b>kompletten</b> Vollbildansicht (ohne jegliche Menüs und Leisten) mit der Taste F11 möglich.</p>
+                            <p>Im Firefox und Edge Browser ist das Aktivieren sowie Deaktivieren der <b>kompletten</b> Vollbildansicht (ohne jegliche Menüs und Leisten, d.h. complete full scree - kiosk-like) mit der Taste F11 möglich.</p>
+                            <p>Wenn nach F11-Klick im Firefox die Toolbar (mit Adressleiste, Suche etc.) noch zu sehen ist, dann Right-click on any empty space on the toolbar and select "Hide Toolbars".</p>
 
                             <Badge bg="danger" className="mt-3">Hinweis:</Badge>
                             <p>Während der Slideshow den Cursor zum oberen Bildrand bewegen für Beendigung.</p>
 
                             <h3 className="mt-3">Idle screen with Pupille logo</h3>
 
-                            <Stack gap={2} className="mb-3" direction="vertical" style={{ alignItems: "flex-start" }}>
+                             <Stack gap={3} className="mb-3" direction="vertical">
                                 <Button
-                                    variant="secondary"
+                                    variant="dark"
                                     className="align-self-start"
                                     onClick={() => setMode("identSlideFaintGradient")}
                                 >
-                                    Start ident slide (theme: slight gradient yellow/orange)
+                                    theme: slight gradient yellow/orange
                                 </Button>
                                 <Button
-                                    variant="secondary"
+                                    variant="dark"
                                     className="align-self-start"
                                     onClick={() => setMode("identSlideGradient")}
                                 >
-                                    Start ident slide (theme: sundown + waves)
+                                    theme: sundown + waves
                                 </Button>
                                 <Button
-                                    variant="secondary"
+                                    variant="dark"
                                     className="align-self-start"
                                     onClick={() => setMode("identSlideBlack")}
                                 >
-                                    Start ident slide (theme: luminescent dot grid)
+                                    theme: luminescent dot grid
                                 </Button>
                                 <Button
-                                    variant="secondary"
+                                    variant="dark"
                                     className="align-self-start"
                                     onClick={() => setMode("identSlideChromaticLogo")}
                                 >
-                                    Start ident slide (theme: chromatic logo)
+                                    theme: chromatic logo
                                 </Button>
                             </Stack>
 

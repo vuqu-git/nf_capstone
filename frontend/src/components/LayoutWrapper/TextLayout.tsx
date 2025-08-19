@@ -1,3 +1,4 @@
+import '../../App.css'
 import {
     Outlet,
 } from "react-router-dom";
@@ -10,7 +11,7 @@ export default function TextLayout() {
     return (
         <div>
             <Container
-                style={{ width: '100%', margin: '0 auto' }}
+                className="bootstrap-container-component"
                 id="container"
             >
                 <Row className="justify-content-center"> {/* Center the content */}

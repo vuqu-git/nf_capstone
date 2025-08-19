@@ -25,8 +25,7 @@ function App() {
         <div className="app-container">
             {/* outside Routes and hence Header is always displayed */}
             <Header />
-            <div className="navbar-gradient"></div>
-            <main className="main-content">
+            <main>
                 <Container
                     style={{ width: '80%', margin: '0 auto' }}
                     id="container"

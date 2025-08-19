@@ -13,7 +13,7 @@ export default function ProjektionAufLeinwand() {
                 Für Projektionen im Festsaal des Studierendenhauses gibt es verschiedene Durchführungsarten:
             </p>
 
-            <h3 className="header3NormalContainer">eigenverantwortlich</h3>
+            <h3 className="header3NormalContainer text-center mb-4">eigenverantwortlich 🏋️</h3>
 
             <CardGroup>
                 <Card bg="dark" text="white" border="secondary">
@@ -47,8 +47,8 @@ export default function ProjektionAufLeinwand() {
                 </Card>
             </CardGroup>
 
-            <Badge bg="danger" style={{ marginTop: '1.0rem' }}>Wichtig:</Badge>
-            <p style={{marginBottom: '0.0rem'}}>
+            <Badge bg="danger" className="mt-4">Wichtig:</Badge>
+            <p className="mb-0">
                 Bevor Ihr uns kontaktiert, bitte klärt immer <b>selber vorher</b>
             </p>
             <ul>
@@ -58,11 +58,11 @@ export default function ProjektionAufLeinwand() {
                 <li>und im Fall einer öffentlichen Filmvorführung die Lizenz mit dem Rechteinhaber des Films.</li>
             </ul>
             <p>
-                Bei Kino-Veranstaltungen ist es ratsam direkt beim AStA zu erfragen, ob nicht gleichzeitig im Café KoZ oder vor dem Haus laute Konzerte oder Partys stattfinden.
+                Bei Film-Vorführungen ist es ratsam direkt beim AStA zu erfragen, ob nicht gleichzeitig im Café KoZ oder vor dem Haus laute Konzerte oder Partys stattfinden.
             </p>
 
 
-            <h3 className="header3NormalContainer">gemeinsam</h3>
+            <h3 className="header3NormalContainer text-center mb-4">gemeinsam 🤝</h3>
 
             <Card bg="dark" text="white" border="secondary">
                 <Card.Header><Card.Title>&#10114; Film zeigen als Kooperation in unserem Programm</Card.Title>
@@ -70,7 +70,7 @@ export default function ProjektionAufLeinwand() {
                 <Card.Body>
                     <Card.Text>
                         Es gibt ebenso die Möglichkeit eine Filmvorstellung als Kooperation innerhalb unseres regulären Programms zu veranstalten. Der Termin liegt dann i.d.R. während der Vorlesungszeit des Uni-Semesters.
-                        Außerdem wird die Veranstaltung im gedruckten Programmheft sowie auf der Webseite und den Social-Media-Kanälen der Pupille erwähnt.
+                        Außerdem wird die gemeinsame Veranstaltung im gedruckten Programmheft sowie auf der Webseite und den Social-Media-Kanälen der Pupille beworben.
                     </Card.Text>
                     <Card.Text>
                         Um die Saalnutzung und die Kinotechnik kümmern wir uns, während die Fragen zu Ticketeinnahmen, Filmbestellung und Filmmiete individuell geklärt werden.

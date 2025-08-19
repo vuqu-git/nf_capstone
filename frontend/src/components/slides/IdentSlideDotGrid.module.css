@@ -21,7 +21,7 @@
     height: 100%;
     mask:
             radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size),
-            url("/noise-mask.png") 256px 50% / 256px 256px;
+            url("/assets/images/slideshow/noise-mask.png") 256px 50% / 256px 256px;
     mask-composite: intersect;
     animation: flicker 20s infinite linear;
 
