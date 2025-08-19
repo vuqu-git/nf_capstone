@@ -82,7 +82,7 @@ jobs:
     needs: push-to-docker-hub
     environment:  # using environment is not strictly required for a deployment job to work. You can trigger a deployment directly with a simple curl command as your final step, and it would work.
                   # However, using the environment keyword is a best practice and provides several powerful benefits that are especially important for production deployments.
-      name: Pupille Website Project # Capstone Project name
+      name: nfcapstone Website Project # Capstone Project name
       url: https://pupille-latest.onrender.com # Link to deployment
     steps:
       - name: Trigger Render.com Deployment
