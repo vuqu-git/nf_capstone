@@ -80,7 +80,7 @@ export default function OverviewSemester2() {
                             const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, true, true);
                             const calenderDateObj = createDateAndTimeForAddToCalendarButton(termin.vorstellungsbeginn, termin.terminGesamtlaufzeit + avgDurationTrailer);
 
-                            const calenderTitle = termin.titel ?? termin.mainfilms[0].titel;
+                            const calenderTitle = termin.titel || termin.mainfilms[0].titel;
                             const icsFileName = createICSFileName(calenderTitle, termin.vorstellungsbeginn);
 
                             return (

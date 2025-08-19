@@ -79,7 +79,7 @@ export default function TerminFilmGalleryCard({
                         alt={titel ? `Bild der Vorführung von ${titel}` : ""}
 
                         // 0) always pass a style prop
-                        style={{ objectPosition: `center ${offsetImageInGallery ?? "center"}` }}
+                        style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
 
                         // Conditionally set style if offsetImageInGallery prop exists
                         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

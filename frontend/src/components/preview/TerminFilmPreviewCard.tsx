@@ -76,7 +76,7 @@ export default function TerminFilmPreviewCard({
                             variant="top"
                             src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
                             // 0) always pass a style prop
-                            style={{ objectPosition: `center ${offsetImageInGallery ?? "center"}` }}
+                            style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
                         />
 
                         {/*empty tag for stronger gradient effect*/}

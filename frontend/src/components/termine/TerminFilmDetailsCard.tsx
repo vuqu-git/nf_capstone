@@ -59,7 +59,7 @@ export default function TerminFilmDetailsCard({
                                                   reihen,
                                               }: Readonly<Props>) {
 
-    const calenderTitle = programmtitel ?? (mainfilms[0].film.titel ?? "Film in der Pupille");
+    const calenderTitle = programmtitel || (mainfilms[0].film.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit);
 

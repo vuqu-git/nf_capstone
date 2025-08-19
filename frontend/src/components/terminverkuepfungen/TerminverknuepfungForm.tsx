@@ -331,6 +331,8 @@ export default function TerminverknuepfungForm() {
 
                 <Form.Group controlId="rang" className="mt-3">
                     <Form.Label>Rang</Form.Label>
+                    {/*coalescing operator ?? here is important to display 0 value instead of empty string"*/}
+                    {/*when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0*/}
                     <Form.Control
                         type="number"
                         name="rang"

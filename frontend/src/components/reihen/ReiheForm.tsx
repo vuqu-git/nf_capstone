@@ -210,7 +210,7 @@ export default function ReiheForm() {
                         {selectedReihe.termine && selectedReihe.termine.length > 0 ? (
                             selectedReihe.termine.map(t => (
                                 <li key={t.tnr}>
-                                    {formatDateInTerminSelectOption(t.vorstellungsbeginn)} | tnr: #{t.tnr} | {t.titel ?? "---"}
+                                    {formatDateInTerminSelectOption(t.vorstellungsbeginn)} | tnr: #{t.tnr} | {t.titel || "---"}
                                     {/* Nested sub-list for mainfilms */}
                                     {t.mainfilms && t.mainfilms.length > 0 && (
                                         <ul>

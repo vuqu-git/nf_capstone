@@ -307,11 +307,11 @@ const StartPreviewQ: React.FC = () => {
                     <TerminFilmPreviewCard
                         {...screeningCardProps}
                         screeningSonderfarbe="red-glow"
-                        bild={termin.bild ?? null}
+                        bild={termin.bild || null}
                         titel={termin.titel}
-                        kurztext={termin.kurztext ?? null}
+                        kurztext={termin.kurztext || null}
                         jahr={undefined}
-                        besonderheit={termin.besonderheit ?? null}
+                        besonderheit={termin.besonderheit || null}
                         filmFormat={undefined} // for filmFormat treatment with undefined (instead of null)
                         laufzeit={undefined} // for filmFormat treatment with undefined (instead of null)
                         regie={undefined} // for regie treatment with undefined (instead of null)
@@ -324,12 +324,12 @@ const StartPreviewQ: React.FC = () => {
                             <TerminFilmPreviewCard
                                 {...screeningCardProps}
                                 screeningSonderfarbe="pupille-glow"
-                                bild={termin.mainfilms[0]?.bild ?? null}
-                                titel={termin.mainfilms[0]?.titel ?? null}
-                                kurztext={termin.mainfilms[0]?.kurztext ?? null}
+                                bild={termin.mainfilms[0]?.bild || null}
+                                titel={termin.mainfilms[0]?.titel || null}
+                                kurztext={termin.mainfilms[0]?.kurztext || null}
                                 jahr={termin.mainfilms[0]?.jahr}
-                                besonderheit={termin.mainfilms[0]?.besonderheit ?? null}
-                                filmFormat={termin.mainfilms[0]?.format ?? undefined}
+                                besonderheit={termin.mainfilms[0]?.besonderheit || null}
+                                filmFormat={termin.mainfilms[0]?.format || undefined}
                                 laufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
                                 regie={undefined} // for regie treatment with undefined (instead of null)
                             />
@@ -403,11 +403,11 @@ export default StartPreviewQ;
 //                     <TerminFilmGalleryCard
 //                         {...screeningCardProps}
 //                         screeningSonderfarbe="red-glow"
-//                         bild={termin.bild ?? null}
+//                         bild={termin.bild || null}
 //                         titel={termin.titel}
-//                         kurztext={termin.kurztext ?? null}
+//                         kurztext={termin.kurztext || null}
 //                         jahr={undefined}
-//                         besonderheit={termin.besonderheit ?? null}
+//                         besonderheit={termin.besonderheit || null}
 //                         filmFormat={undefined} // for filmFormat treatment with undefined (instead of null) to have this prop be optional
 //                         laufzeit={undefined} // for filmFormat treatment with undefined (instead of null) to have this prop be optional
 //                         regie={undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
@@ -420,12 +420,12 @@ export default StartPreviewQ;
 //                             <TerminFilmGalleryCard
 //                                 {...screeningCardProps}
 //                                 screeningSonderfarbe="pupille-glow"
-//                                 bild={termin.films[0]?.bild ?? null}
-//                                 titel={termin.films[0]?.titel ?? null}
-//                                 kurztext={termin.films[0]?.kurztext ?? null}
+//                                 bild={termin.films[0]?.bild || null}
+//                                 titel={termin.films[0]?.titel || null}
+//                                 kurztext={termin.films[0]?.kurztext || null}
 //                                 jahr={termin.films[0]?.jahr}
-//                                 besonderheit={termin.films[0]?.besonderheit ?? null}
-//                                 filmFormat={termin.films[0]?.format ?? undefined} // concise: filmFormat={termin.films[0]?.format ?? undefined}
+//                                 besonderheit={termin.films[0]?.besonderheit || null}
+//                                 filmFormat={termin.films[0]?.format || undefined} // concise: filmFormat={termin.films[0]?.format || undefined}
 //                                 laufzeit={termin.films[0]?.laufzeit ?? undefined}
 //                                 regie={undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
 //                             />

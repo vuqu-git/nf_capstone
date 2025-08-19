@@ -127,13 +127,13 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
         screeningDate: screeningDateObj?.date ?? "",
         screeningTime: screeningDateObj?.time ?? "",
         tnr: termin.tnr,
-        terminBesonderheit: termin.besonderheit ?? undefined
+        terminBesonderheit: termin.besonderheit || undefined
     };
 
     // ***********
     // here: sonderfarbe of termin always precedes against sonderfarbe of reihen
     // maybe shift to backend
-    const sonderfarbeForTerminFilmPreviewCard = termin.sonderfarbe ?? selectSonderfarbeFromReihenOfTermin(termin);
+    const sonderfarbeForTerminFilmPreviewCard = termin.sonderfarbe || selectSonderfarbeFromReihenOfTermin(termin);
     // ***********
 
     return (
@@ -170,15 +170,15 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                 >
                     {termin.titel ? (
                         <TerminFilmPreviewCard
-                            screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard ?? "pupille-glow"}
-                            // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
+                            screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard || "pupille-glow"}
+                            // screeningSonderfarbe={termin.sonderfarbe || "pupille-glow"}
 
-                            bild={termin.bild ?? "default_film.jpg"}
-                            // bild={termin.bild ?? (termin.mainfilms[0]?.bild ?? null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
+                            bild={termin.bild || "default_film.jpg"}
+                            // bild={termin.bild || (termin.mainfilms[0]?.bild || null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
                             offsetImageInGallery={undefined} // // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
 
                             titel={termin.titel}
-                            kurztext={termin.kurztext ?? null}
+                            kurztext={termin.kurztext || null}
 
                             hauptfilmFormat={undefined} // treatment with undefined (instead of null) here to have this prop be optional
                             hauptfilmRegie={undefined} // treatment with undefined (instead of null) here to have this prop be optional
@@ -192,21 +192,21 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                         // this condition also holds true für Programmtermine, but it rather ensures that mainfilms[0] exist
                         termin.mainfilms?.length > 0 && (
                             <TerminFilmPreviewCard
-                                screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard ?? "pupille-glow"}
-                                // screeningSonderfarbe={termin.sonderfarbe ?? "pupille-glow"}
-                                // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe ?? "pupille-glow"}
+                                screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard || "pupille-glow"}
+                                // screeningSonderfarbe={termin.sonderfarbe || "pupille-glow"}
+                                // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe || "pupille-glow"}
 
-                                bild={termin.mainfilms[0]?.bild ?? "default_film.jpg"}
-                                offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery ?? undefined}
+                                bild={termin.mainfilms[0]?.bild || "default_film.jpg"}
+                                offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery || undefined}
 
-                                titel={termin.mainfilms[0]?.titel ?? null}
-                                kurztext={termin.mainfilms[0]?.kurztext ?? null}
+                                titel={termin.mainfilms[0]?.titel || null}
+                                kurztext={termin.mainfilms[0]?.kurztext || null}
 
-                                hauptfilmFormat={termin.mainfilms[0]?.format ?? undefined} // concise: filmFormat={termin.films[0]?.format ?? undefined}
-                                hauptfilmRegie={termin.mainfilms[0]?.regie ?? undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
+                                hauptfilmFormat={termin.mainfilms[0]?.format || undefined}
+                                hauptfilmRegie={termin.mainfilms[0]?.regie || undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
                                 hauptfilmJahr={termin.mainfilms[0]?.jahr}
                                 hauptfilmLaufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
-                                hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit ?? undefined}
+                                hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit || undefined}
 
                                 {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
                             />

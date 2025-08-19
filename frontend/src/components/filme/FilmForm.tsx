@@ -301,7 +301,8 @@ export default function FilmForm() {
 
         // Construct query parameters
         const params = new URLSearchParams({
-            // ?? operator is called the nullish coalescing operator
+            // ?? operator is called the nullish coalescing operator; if value before ?? is empty string, then this empty string is taken, when using || the empty string is NOT taken
+            // when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0
             titel: selectedFilm.titel ?? '', // i.e. titel: selectedFilm.titel !== null && selectedFilm.titel !== undefined ? selectedFilm.titel : '',
             originalTitel: selectedFilm.originaltitel ?? '',
             jahr: String(selectedFilm.jahr ?? '')
@@ -442,7 +443,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="bild"
-                        value={selectedFilm.bild || ""}
+                        value={selectedFilm.bild ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -459,7 +460,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="offsetImageInGallery"
-                        value={selectedFilm.offsetImageInGallery || ""}
+                        value={selectedFilm.offsetImageInGallery ?? ""}
                         onChange={handleFormChange}
                         disabled={!(selectedFilm.bild ?? "").trim()}
                     />
@@ -476,7 +477,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={11}
                         name="text"
-                        value={selectedFilm.text || ""}
+                        value={selectedFilm.text ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text>
@@ -501,7 +502,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={3}
                         name="kurztext"
-                        value={selectedFilm.kurztext || ""}
+                        value={selectedFilm.kurztext ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -515,7 +516,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={2}
                         name="besonderheit"
-                        value={selectedFilm.besonderheit || ""}
+                        value={selectedFilm.besonderheit ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -533,7 +534,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={2}
                         name="contentNote"
-                        value={selectedFilm.contentNote || ""}
+                        value={selectedFilm.contentNote ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -547,7 +548,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={4}
                         name="trailer"
-                        value={selectedFilm.trailer || ""}
+                        value={selectedFilm.trailer ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -562,7 +563,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="land"
-                        value={selectedFilm.land || ""}
+                        value={selectedFilm.land ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -572,7 +573,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="number"
                         name="jahr"
-                        value={selectedFilm.jahr ?? ""}
+                        value={selectedFilm.jahr || ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -582,7 +583,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="number"
                         name="laufzeit"
-                        value={selectedFilm.laufzeit ?? ""}
+                        value={selectedFilm.laufzeit || ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -592,7 +593,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="sprache"
-                        value={selectedFilm.sprache || ""}
+                        value={selectedFilm.sprache ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -602,7 +603,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="untertitel"
-                        value={selectedFilm.untertitel || ""}
+                        value={selectedFilm.untertitel ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -612,7 +613,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="farbe"
-                        value={selectedFilm.farbe || ""}
+                        value={selectedFilm.farbe ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -622,7 +623,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="format"
-                        value={selectedFilm.format || ""}
+                        value={selectedFilm.format ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -632,7 +633,7 @@ export default function FilmForm() {
                     <Form.Control
                         as="select"
                         name="fsk"
-                        value={selectedFilm.fsk || ""}
+                        value={selectedFilm.fsk ?? ""}
                         onChange={handleFormChange}
                     >
                         <option value="">Select FSK (or leave this to have it empty)</option> {/* Option to display if value is null */}
@@ -650,7 +651,7 @@ export default function FilmForm() {
                     <Form.Control
                         type="text"
                         name="regie"
-                        value={selectedFilm.regie || ""}
+                        value={selectedFilm.regie ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -666,7 +667,7 @@ export default function FilmForm() {
                         as="textarea"
                         rows={9}
                         name="stab"
-                        value={selectedFilm.stab || ""}
+                        value={selectedFilm.stab ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -685,7 +686,7 @@ export default function FilmForm() {
                         disabled={true}
                         type="number"
                         name="sonderfarbeTitel"
-                        value={selectedFilm.sonderfarbeTitel ?? ""}
+                        value={selectedFilm.sonderfarbeTitel || ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -696,7 +697,7 @@ export default function FilmForm() {
                         disabled={true}
                         type="text"
                         name="sonderfarbe"
-                        value={selectedFilm.sonderfarbe || ""}
+                        value={selectedFilm.sonderfarbe ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">

@@ -305,7 +305,7 @@ export default function TerminForm() {
                     <Form.Control
                         type="datetime-local"
                         name="vorstellungsbeginn"
-                        value={selectedTermin.vorstellungsbeginn || ""}
+                        value={selectedTermin.vorstellungsbeginn ?? ""}
                         onChange={handleFormChange}
                         required
                     />
@@ -316,7 +316,7 @@ export default function TerminForm() {
                     <Form.Control
                         type="email"
                         name="patenschaft"
-                        value={selectedTermin.patenschaft || ""}
+                        value={selectedTermin.patenschaft ?? ""}
                         onChange={handleFormChange}
                         // required
                     />
@@ -330,7 +330,7 @@ export default function TerminForm() {
                     <Form.Control
                         type="text"
                         name="titel"
-                        value={selectedTermin.titel || ""}
+                        value={selectedTermin.titel ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -346,7 +346,7 @@ export default function TerminForm() {
                         as="textarea"
                         rows={13}
                         name="text"
-                        value={selectedTermin.text || ""}
+                        value={selectedTermin.text ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -362,7 +362,7 @@ export default function TerminForm() {
                         as="textarea"
                         rows={3}
                         name="kurztext"
-                        value={selectedTermin.kurztext || ""}
+                        value={selectedTermin.kurztext ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -376,7 +376,7 @@ export default function TerminForm() {
                         as="textarea"
                         rows={2}
                         name="besonderheit"
-                        value={selectedTermin.besonderheit || ""}
+                        value={selectedTermin.besonderheit ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -391,7 +391,7 @@ export default function TerminForm() {
                     <Form.Control
                         type="text"
                         name="bild"
-                        value={selectedTermin.bild || ""}
+                        value={selectedTermin.bild ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -409,7 +409,7 @@ export default function TerminForm() {
                         disabled={true}
                         type="date"
                         name="startReservierung"
-                        value={selectedTermin.startReservierung || ""}
+                        value={selectedTermin.startReservierung ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -420,7 +420,7 @@ export default function TerminForm() {
                         disabled={true}
                         type="text"
                         name="linkReservierung"
-                        value={selectedTermin.linkReservierung || ""}
+                        value={selectedTermin.linkReservierung ?? ""}
                         onChange={handleFormChange}
                     />
                 </Form.Group>
@@ -441,7 +441,7 @@ export default function TerminForm() {
                     <Form.Control
                         type="text"
                         name="sonderfarbe"
-                        value={selectedTermin.sonderfarbe || ""}
+                        value={selectedTermin.sonderfarbe ?? ""}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
@@ -453,6 +453,8 @@ export default function TerminForm() {
 
                 <Form.Group controlId="veroeffentlichen" className="mt-3">
                     <Form.Label>Veroeffentlichen</Form.Label>
+                    {/*coalescing operator ?? here is important to display 0 value instead of empty string"*/}
+                    {/*when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0*/}
                     <Form.Control
                         type="number"
                         name="veroeffentlichen"

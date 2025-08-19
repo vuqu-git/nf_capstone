@@ -9,7 +9,7 @@ export function selectSonderfarbeFromReihenOfTermin(
         const length = sonderfarbeList.length;
         if (length > 0) {
             const randomIndex = Math.floor(Math.random() * length);
-            const selectedSonderfarbe = sonderfarbeList[randomIndex]?.trim() ?? null;
+            const selectedSonderfarbe = sonderfarbeList[randomIndex]?.trim() || null;
 
             // explicit
             // const selectedSonderfarbe = sonderfarbeList[randomIndex]

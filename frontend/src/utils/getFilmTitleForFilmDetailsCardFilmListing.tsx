@@ -18,7 +18,7 @@ export function getFilmTitleForFilmDetailsCardFilmListing({
                                                               renderHtmlText,
                                                           }: Props): ReactNode {
     // handling that f.titel in NOT undefined
-    f.titel = f.titel ?? "[Filmtitel]";
+    f.titel = f.titel || "[Filmtitel]";
 
     const titleContentSingleFilm = f.originaltitel ? (
         <>

@@ -293,6 +293,9 @@ export default function ReiheverknuepfungForm() {
                     >
                         <option value="">Select a Termin</option>
                         {allTermineWithMainfilme.map((t: TerminDTOWithMainfilms) => (
+                            // small but crucial bug WAS here, now all film titels are shown in the option, change from coalescing ?? to logical operator || because titels could be empty string ""
+                            // if value before ?? is empty string, then this empty string is taken, when using || the empty string is NOT taken
+                            // when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0
                             <option key={t.tnr} value={t.tnr}>
                                 {
                                     `${formatDateInTerminSelectOption(t.vorstellungsbeginn)} | tnr: #${t.tnr}

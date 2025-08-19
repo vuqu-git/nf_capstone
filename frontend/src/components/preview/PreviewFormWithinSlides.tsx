@@ -113,7 +113,7 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                         <option key={termin.tnr} value={termin.tnr}>
                                             {/*using renderHtmlText here causes a span inside an option → hydration errors*/}
                                             {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {renderHtmlText( termin.titel || termin.mainfilms[0].titel )}*/}
-                                            {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {termin.titel ?? termin.mainfilms[0].titel}
+                                            {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {termin.titel || termin.mainfilms[0].titel}
                                         </option>
                                     ))}
                                 </Form.Select>

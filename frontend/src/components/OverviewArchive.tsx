@@ -60,7 +60,7 @@ export default function OverviewArchive() {
                                     >
                                         {!termin.titel ? (
                                             <>
-                                                {renderHtmlText(termin.films[0]?.titel) ?? ""}
+                                                {renderHtmlText(termin.films[0]?.titel) || ""}
                                             </>
                                         ) : (
                                             <>
