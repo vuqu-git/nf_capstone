@@ -296,7 +296,7 @@ export default function ReiheverknuepfungForm() {
                             <option key={t.tnr} value={t.tnr}>
                                 {
                                     `${formatDateInTerminSelectOption(t.vorstellungsbeginn)} | tnr: #${t.tnr}
-                                → ${t.titel ?? t.mainfilms.map(film =>  film.titel).join('+')
+                                → ${t.titel || t.mainfilms.map(film =>  film.titel).join('+')
                                     }`
                                 }
                             </option>
