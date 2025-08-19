@@ -1,5 +1,6 @@
 package org.pupille.backend;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -58,6 +59,11 @@ import java.io.IOException;
 @Configuration
 public class SPAConfiguration implements WebMvcConfigurer {
 
+    // syntax means: if the environment variable static.files.path.for.dockercontainer is set, use its value.
+    //               otherwise, use the default value /app/external-static-container/static-files/.
+    @Value("${static.files.path.for.dockercontainer:/app/external-static-container/static-files/}")
+    private String staticFilesPathForDockercontainer;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
@@ -110,7 +116,8 @@ public class SPAConfiguration implements WebMvcConfigurer {
         //        GET /static-files/missing.png  → /static/index.html (fallback)
         //        GET /static-files/docs/file.pdf → /app/external-static-container/static-files/docs/file.pdf
         registry.addResourceHandler("/static-files/**") // URL: /static-files is NO MATCH; because it requires something after /static-files/
-                .addResourceLocations("file:/app/external-static-container/static-files/")
+                // .addResourceLocations("file:/app/external-static-container/static-files/") // hard coded
+                .addResourceLocations("file:" + staticFilesPathForDockercontainer)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver() {
                     @Override

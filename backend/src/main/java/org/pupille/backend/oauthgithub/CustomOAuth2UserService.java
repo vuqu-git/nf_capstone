@@ -22,15 +22,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final List<String> approvedGithubUsers;
 
     // Use constructor injection with @Value to get the property
-    public CustomOAuth2UserService(@Value("${app.approved-github-users}") String approvedUsersString) {
+    public CustomOAuth2UserService(@Value("${oauth.approved.github.users}") String oauthApprovedGithubUsers) {
         // Split the comma-separated string from the property into a List
         // Trim each element to remove any leading/trailing whitespace
-        this.approvedGithubUsers = Arrays.stream(approvedUsersString.split(","))
+        this.approvedGithubUsers = Arrays.stream(oauthApprovedGithubUsers.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty()) // Filter out empty strings if there are consecutive commas
                 .collect(Collectors.toList());
 
-        System.out.println("Loaded approved GitHub users: " + approvedGithubUsers); // For verification during startup
+        // System.out.println("Loaded approved GitHub users: " + approvedGithubUsers); // For verification during startup
     }
 
     @Override
