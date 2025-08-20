@@ -52,7 +52,7 @@ export default function ScreeningDetails() {
     // Display loading message
     if (loading) return <div className="text-warning text-center">&#127902; Loading screening...</div>;
     // Display error message (when no data was fetched, e.h. non-existing termin id was provided as query param
-    if (error) return <NotFound text={error} />;
+    if (error) return <NotFound />;
 
     const screeningDateObj = screeningDetails && screeningDetails.termin.vorstellungsbeginn
         ? formatDateTime(screeningDetails.termin.vorstellungsbeginn)

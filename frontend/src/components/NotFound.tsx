@@ -19,25 +19,26 @@ interface NotFoundProps {
 export default function NotFound({
                                      images = [
                                          {
-                                             src: "/public/assets/images/notfoundgifs/404-vincent.gif",
+                                             // src: "/public/assets/images/notfoundgifs/404-vincent.gif", // Don't use /public/ prefix! It is just a development-time convenience that doesn't exist in production builds. In production, everything from the public folder is served directly from the root path.
+                                             src: "/assets/images/notfoundgifs/404-vincent.gif",
                                              alt: "Confused Vincent Vega",
                                              text: "The requested resource is not here.",
                                              style: { maxWidth: "100%", height: "auto", borderRadius: '6px', marginBottom: "25px" }
                                          },
                                          {
-                                             src: "/public/assets/images/notfoundgifs/404-obi.gif",
+                                             src: "/assets/images/notfoundgifs/404-obi.gif",
                                              alt: "Obi-Wan Kenobi uses a Jedi Mind Trick on Stormtroopers to convince them that R2-D2 and C-3PO are not the droids they are looking for.",
                                              text: "This isn't the resource you're looking for.",
                                              style: { maxWidth: "55%", height: "auto", borderRadius: '6px', marginBottom: "20px" }
                                          },
                                          {
-                                             src: "/public/assets/images/notfoundgifs/404-mib.gif",
+                                             src: "/assets/images/notfoundgifs/404-mib.gif",
                                              alt: "Agent J uses a neuralyzer, a device that emits a bright flash.",
                                              text: "You will have no memory of this page.You will go about your browsing as if nothing happened.",
                                              style: { maxWidth: "100%", height: "auto", borderRadius: '6px', marginBottom: "20px" }
                                          },
                                          {
-                                             src: "/public/assets/images/notfoundgifs/404-hal.gif",
+                                             src: "/assets/images/notfoundgifs/404-hal.gif",
                                              alt: "HAL-900 is talking to you.",
                                              text: "I'm sorry, dude. I'm afraid this page doesn't exist.",
                                              style: { maxWidth: "85%", height: "auto", borderRadius: '6px', marginBottom: "20px" }

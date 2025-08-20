@@ -85,11 +85,8 @@ export default function OverviewSemester2() {
 
                             return (
                                 <article key={termin.tnr} className="overview-row">
-                                    <div className="overview-date">
-                                        <div className="weekday">{screeningDateObj?.weekday}</div>
-                                        <div
-                                            className="datetime">{screeningDateObj?.date} {screeningDateObj?.time}</div>
 
+                                    <div className="overview-calender-and-date">
                                         <div className="calendar">
                                             <AddToCalendarButton
                                                 name={"Pupille: " + calenderTitle}
@@ -109,6 +106,10 @@ export default function OverviewSemester2() {
                                                 hideBranding={true}
                                                 buttonStyle="round"
                                             />
+                                        </div>
+                                        <div className="overview-weekday-and-datetime">
+                                            <div className="weekday">{screeningDateObj?.weekday}</div>
+                                            <div className="datetime">{screeningDateObj?.date} {screeningDateObj?.time}</div>
                                         </div>
                                     </div>
 

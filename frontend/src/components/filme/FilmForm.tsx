@@ -449,8 +449,13 @@ export default function FilmForm() {
                     <Form.Text className="text-muted">
                         Bilddatei muss unter https://pupille.org/bilder/filmbilder/ abgelegt sein.
                         <br/>
+                        Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
+                        → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                        als Stammverzeichnis hat.
+                        <br/>
                         Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film3.jpg
                         <br/>
+
                         Wenn keine Eingabe erfolgt, erscheint default_film.jpg in der Gallery.
                     </Form.Text>
                 </Form.Group>
