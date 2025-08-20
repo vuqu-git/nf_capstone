@@ -95,7 +95,7 @@ td {
     gap: 0.5rem; /* !!! spacing above a overview-row !!! */
     width: 100%;
     overflow: hidden; /* Prevent anything from spilling out */
-    padding-top: 1.5rem;
+    padding-top: 1.75rem;
 }
 
 .overview-row {
@@ -104,23 +104,50 @@ td {
     justify-content: space-between;
     align-items: flex-start;
     border-bottom: 1px solid #222;
-    padding-bottom: 0.75rem; /* spacing below a overview-row !!! */
+    padding-bottom: 0.675rem; /* spacing below a overview-row !!! */
     width: 100%;
     box-sizing: border-box;
 }
 
+/*.overview-row:first-child {*/
+/*    margin-top: 1.5rem;  !* Extra margin for the first overview-row *!*/
+/*}*/
+
+.overview-row:last-child {
+    margin-bottom: 4rem; /* Extra margin for the last overview-row */
+    border-bottom: none;
+}
+
+
 /* DATE SECTION */
-.overview-date {
+.overview-calender-and-date {
     display: grid;
-    grid-template-columns: 1fr 5fr 2fr; /* 3 columns */
-    gap: 0.5rem;
-    min-width: 180px;
+    grid-template-columns: 1fr 2fr; /* 2 columns */
+    min-width: 250px;
     max-width: 100%;
     box-sizing: border-box;
-    /*text-align: left;*/
     text-align: center;
-    margin-left: 1rem;
     white-space: nowrap;
+}
+
+.overview-weekday-and-datetime {
+    display: grid;
+    grid-template-columns: 1fr 6fr; /* 2 columns */
+}
+
+/* Additional styling */
+.weekday, .datetime {
+    color: inherit;
+}
+
+.weekday {
+    text-align: left;
+}
+
+.besonderheit {
+    font-size: 0.75em;
+    margin-bottom: 0;
+    color: #999;
 }
 
 /*this calendar style is not needed i.e. no change at all*/
@@ -138,21 +165,10 @@ td {
 .overview-title {
     flex: 1;
     min-width: 0; /* 🚨 This is crucial to prevent overflow */
-    margin-left: 0.5rem;
+    margin-left: 1.5rem;
     box-sizing: border-box;
     overflow-wrap: break-word; /* Allow wrapping */
     word-break: break-word;
-}
-
-/* Additional styling */
-.weekday, .datetime, .calendar {
-    color: inherit;
-}
-
-.besonderheit {
-    font-size: 0.75em;
-    margin-bottom: 0;
-    color: #999;
 }
 
 .film-list {
@@ -171,10 +187,22 @@ td {
 
 /* NARROW PARENT ADJUSTMENT */
 /* here stacking format*/
-@media (max-width: 575px) {
+/*@media (max-width: 575px) {*/
+@media (max-width: 767px) {
     .overview-row {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .overview-calender-and-date {
+        min-width: 200px;
+        margin-left: auto;
+        /*text-align: justify;*/
+    }
+
+    .overview-weekday-and-datetime {
+        align-items: center;
+        grid-template-columns: 1fr 4fr; /* 2 columns */
     }
 
     .overview-date {
