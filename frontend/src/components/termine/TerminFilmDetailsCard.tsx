@@ -112,31 +112,31 @@ export default function TerminFilmDetailsCard({
 
                 {/*Here with Card.Text (p tag) and renderHtmlText (span tag)*/}
                 {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                {/*{programmtext && (*/}
-                {/*    <Card.Text className="program-text">*/}
-                {/*        {renderHtmlText(programmtext)}*/}
-                {/*    </Card.Text>*/}
-                {/*)}*/}
-
-                {/*{programmbesonderheit && (*/}
-                {/*    <Card.Text className="program-besonderheit">*/}
-                {/*        {renderHtmlText(programmbesonderheit)}*/}
-                {/*    </Card.Text>*/}
-                {/*)}*/}
-
-                {/*Here with div tag instead of Card.Text (p tag) and renderHtmlContent (div tag)*/}
-                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
                 {programmtext && (
-                    <div className="program-text">
-                        {renderHtmlContent(programmtext)}
-                    </div>
+                    <Card.Text className="program-text">
+                        {renderHtmlText(programmtext)}
+                    </Card.Text>
                 )}
 
                 {programmbesonderheit && (
-                    <div className="program-besonderheit">
-                        {renderHtmlContent(programmbesonderheit)}
-                    </div>
+                    <Card.Text className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>
+                        {renderHtmlText(programmbesonderheit)}
+                    </Card.Text>
                 )}
+
+                {/*Here with div tag instead of Card.Text (p tag) and renderHtmlText (div tag)*/}
+                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
+                {/*{programmtext && (*/}
+                {/*    <div className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>*/}
+                {/*        {renderHtmlContent(programmtext)}*/}
+                {/*    </div>*/}
+                {/*)}*/}
+
+                {/*{programmbesonderheit && (*/}
+                {/*    <div className="program-besonderheit">*/}
+                {/*        {renderHtmlContent(programmbesonderheit)}*/}
+                {/*    </div>*/}
+                {/*)}*/}
 
                 {/*#########################################*/}
                 {/*###### Listing of Reihe(-elements) ######*/}
