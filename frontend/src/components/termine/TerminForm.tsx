@@ -336,6 +336,8 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
+                        Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
+                        <br/>
                         Wenn Eintragung hier erfolgt, muss unten ein Bild angegeben werden (für die korrekte Darstellung in der Gallery).
                     </Form.Text>
                 </Form.Group>
