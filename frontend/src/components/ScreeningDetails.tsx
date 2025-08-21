@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import ReiheDTOFormWithTermineAndFilme from "../types/ReiheDTOFormWithTermineAndFilme.ts";
 import NotFound from "./NotFound.tsx";
+import {selectSonderfarbeFromReihen} from "../utils/selectSonderfarbeFromReihen.ts";
 
 export default function ScreeningDetails() {
 
@@ -69,11 +70,13 @@ export default function ScreeningDetails() {
 
                 vorstellungsbeginnIso8601={screeningDetails.termin.vorstellungsbeginn}
 
-                screeningSonderfarbe={undefined}
+                screeningSonderfarbe={selectSonderfarbeFromReihen(reihenDetails) || screeningDetails.termin.sonderfarbe || "pupille-glow"}
+                // screeningSonderfarbe={undefined} // undefined i.e. switch-off glow effect for TerminFilmDetailsCard
 
                 programmtitel={screeningDetails.termin.titel} // d.h. der titel in der SQL-Tabelle Termin
                 programmtext={screeningDetails.termin.text} // d.h. der text in der SQL-Tabelle Termin
                 programmbesonderheit={screeningDetails.termin.besonderheit} // d.h. die besonderheit in der SQL-Tabelle Termin
+                programmbild={screeningDetails.termin.bild} // d.h. das bild in der SQL-Tabelle Termin
 
                 mainfilms={screeningDetails.mainfilms}
                 vorfilms={screeningDetails.vorfilms}
