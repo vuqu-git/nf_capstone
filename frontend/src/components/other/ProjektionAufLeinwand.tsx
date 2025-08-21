@@ -13,7 +13,7 @@ export default function ProjektionAufLeinwand() {
                 Für Projektionen im Festsaal des Studierendenhauses gibt es verschiedene Durchführungsarten:
             </p>
 
-            <h3 className="header3NormalContainer text-center mb-4">eigenverantwortlich 🏋️</h3>
+            <h3 className="header3NormalContainer text-center mb-4">— eigenverantwortlich —</h3>
 
             <CardGroup>
                 <Card bg="dark" text="white" border="secondary">
@@ -57,12 +57,12 @@ export default function ProjektionAufLeinwand() {
                 </li>
                 <li>und im Fall einer öffentlichen Filmvorführung die Lizenz mit dem Rechteinhaber des Films.</li>
             </ul>
-            <p>
+            <p className="mt-3">
                 Bei Film-Vorführungen ist es ratsam direkt beim AStA zu erfragen, ob nicht gleichzeitig im Café KoZ oder vor dem Haus laute Konzerte oder Partys stattfinden.
             </p>
 
 
-            <h3 className="header3NormalContainer text-center mb-4">gemeinsam 🤝</h3>
+            <h3 className="header3NormalContainer text-center mb-4">— gemeinsam —</h3>
 
             <Card bg="dark" text="white" border="secondary">
                 <Card.Header><Card.Title>&#10114; Film zeigen als Kooperation in unserem Programm</Card.Title>

@@ -59,18 +59,18 @@
 
 /* Green Glow */
 .green-glow {
-    box-shadow: 0px 0px 150px -45px rgba(0, 128, 0, 0.6);
+    box-shadow: 0px 0px 150px -45px rgba(166,253,41, 0.6);
 }
 .green-glow:hover {
-    box-shadow: 0px 0px 120px -55px rgba(0, 128, 0, 0.6);
+    box-shadow: 0px 0px 120px -55px rgba(166,253,41, 0.6);
 }
 
 /* Blue Glow */
 .blue-glow {
-    box-shadow: 0px 0px 150px -45px rgba(0, 0, 255, 0.6);
+    box-shadow: 0px 0px 150px -45px rgba(48,92,222, 0.6);
 }
 .blue-glow:hover {
-    box-shadow: 0px 0px 120px -55px rgba(0, 0, 255, 0.6);
+    box-shadow: 0px 0px 120px -55px rgba(48,92,222, 0.6);
 }
 
 /* Indigo Glow */
@@ -89,6 +89,22 @@
     box-shadow: 0px 0px 120px -55px rgba(238, 130, 238, 0.6);
 }
 
+/* Magenta Glow */
+.magenta-glow {
+    box-shadow: 0px 0px 150px -45px rgba(255, 0, 255, 0.6);
+}
+.magenta-glow:hover {
+    box-shadow: 0px 0px 120px -55px rgba(255, 0, 255, 0.6);
+}
+
+/* Grey Glow */
+.grey-glow {
+    box-shadow: 0px 0px 150px -45px rgba(192, 192, 192, 0.6);
+}
+.grey-glow:hover {
+    box-shadow: 0px 0px 120px -55px rgba(192, 192, 192, 0.6);
+}
+
 /*Zoom effect on TerminCard Component*/
 /*###################################*/
 
@@ -103,10 +119,10 @@
 }
 
 
-/*Custom card styling*/
+/*terminFilmGallery card styling*/
 /*###################*/
 
-.custom-card {
+.terminFilmGallery-card {
     background-color: #0D0D0C;
     border-radius: 15px;
     overflow: hidden;

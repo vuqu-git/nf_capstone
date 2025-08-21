@@ -65,7 +65,7 @@ export default function TerminFilmPreviewCard({
 
     return (
             <Card
-                className={`custom-card ${screeningSonderfarbeSelected} zoom-effect`}
+                className={`terminFilmGallery-card ${screeningSonderfarbeSelected} zoom-effect`}
                 onClick={handleClick}
                 role="button"
             >

@@ -43,7 +43,6 @@ export default function TerminFilmDetailsListing({
                     src={`https://www.pupille.org/bilder/filmbilder/${f.bild}`}
                     alt={f?.titel ? `Still vom Film ${f.titel}` : ""}
                 />
-
             )}
 
             <Card.Body>

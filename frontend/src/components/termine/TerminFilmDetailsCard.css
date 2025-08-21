@@ -1,4 +1,4 @@
-.terminFilm-card{
+.terminFilmDetails-card{
     background-color: #0D0D0C;
     border-radius: 15px;
     overflow: hidden;
@@ -6,7 +6,7 @@
     margin-bottom: 3rem;
 }
 
-.terminFilm-card-header {
+.terminFilmDetails-card-header {
     color: #FFD036;
     background-color: inherit;
     border-bottom: inherit;
