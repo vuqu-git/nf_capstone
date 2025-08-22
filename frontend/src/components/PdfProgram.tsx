@@ -6,7 +6,7 @@ export default function PdfProgram() {
 
     return (
         <section className="normal-content-container">
-            <h2>Programm als PDF</h2>
+            <h2 className="header2NormalContainer">Programm als PDF</h2>
             {pdfs && pdfs.length > 0 && (
                 pdfs.map(p => (
                     <article key={p.pnr} className="mb-4">

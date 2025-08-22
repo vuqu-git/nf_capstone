@@ -47,6 +47,8 @@ public class Termin {
 
     private String bild;
 
+    private String offsetImageInGallery;
+
     @Column(name = "start_reservierung")
     private LocalDate startReservierung; // date
 

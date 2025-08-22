@@ -9,6 +9,7 @@ interface TerminDTOWithFilmAndReiheDTOGallery {
     kurztext?: string | null;
     besonderheit?: string| null;
     bild?: string| null;
+    offsetImageInGallery?: string| null;
     sonderfarbe?: string | null;
     veroeffentlichen?: number | null;
     mainfilms: FilmDTOGallery[];

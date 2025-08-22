@@ -74,7 +74,7 @@ jobs:
         with:
           push: true
           #tags: ${{ secrets.DOCKERHUB_TAG }} # Example: username/project:latest
-          tags: vuqu/nfcapstone:v1.0.0 # Example: username/project:latest
+          tags: vuqu/nfcapstone:v1.0.1 # Example: username/project:latest
           context: .  # It tells the Docker builder where to find the source code and the Dockerfile it needs to build the image. The single dot (.) is a shorthand reference to the root of my repository, where the workflow is currently running. This means Docker will use the entire cloned repository as the "build context" and look for the Dockerfile within that directory.
 
   deploy:

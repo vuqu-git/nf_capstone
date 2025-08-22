@@ -11,6 +11,7 @@ import {createDateAndTimeForAddToCalendarButton} from "../../utils/createDateAnd
 import ReiheDTOFormWithTermineAndFilme from "../../types/ReiheDTOFormWithTermineAndFilme.ts";
 import {formatDateTime} from "../../utils/formatDateTime.ts";
 import {Link} from "react-router-dom";
+import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 
 interface Props {
     tnr: string | undefined;
@@ -21,12 +22,13 @@ interface Props {
 
     vorstellungsbeginnIso8601: string | undefined;
 
-    screeningSonderfarbe: string | undefined;
+    screeningSonderfarbe: string;
 
     // these 3 items refer to the displayed entries above (wrt to programm titel or main feature titel)
     programmtitel: string | undefined | null;
     programmtext: string | undefined | null;
     programmbesonderheit: string | undefined | null;
+    programmbild: string | undefined | null;
 
     mainfilms: FilmDTOFormPlus[];
     vorfilms: FilmDTOFormPlus[];
@@ -50,6 +52,7 @@ export default function TerminFilmDetailsCard({
                                                   programmtitel,
                                                   programmtext,
                                                   programmbesonderheit,
+                                                  programmbild,
 
                                                   mainfilms,
                                                   vorfilms,
@@ -65,7 +68,8 @@ export default function TerminFilmDetailsCard({
 
     return (
         <Card
-            className={`terminFilm-card ${screeningSonderfarbe}`}
+            className={`terminFilmDetails-card ${selectSonderfarbeFromString(screeningSonderfarbe)}`}
+            // className={`terminFilmDetails-card pupille-glow`}
         >
             <Card.Body>
                 <div className="add-to-calendar-button-container">
@@ -98,7 +102,7 @@ export default function TerminFilmDetailsCard({
 
                 <Card.Header
                     as="h4"
-                    className="terminFilm-card-header"
+                    className="terminFilmDetails-card-header"
                 >
                     {screeningWeekday} | {screeningDate} | {screeningTime}
                 </Card.Header>
@@ -178,39 +182,48 @@ export default function TerminFilmDetailsCard({
                 )}
                 {/*###############################################*/}
 
-                {mainfilms.map((filmPlusObj, index) => {
-                    const film = filmPlusObj.film;
+                {(mainfilms.length > 0 || vorfilms.length > 0) ? (
+                    <>
+                        {mainfilms?.map((filmPlusObj, index) => {
+                            const film = filmPlusObj.film;
 
-                    // Check if film properties exist
-                    if (!film) return null;
+                            // Check if film properties exist
+                            if (!film) return null;
 
-                    return (
-                        <TerminFilmDetailsListing
-                            key={film.fnr}
-                            index={index}
-                            f={film}
-                            numberOfF={mainfilms.length}
-                            fType={(mainfilms.length == 1) ? "" : "Film:"}
-                        />
-                    );
-                })}
+                            return (
+                                <TerminFilmDetailsListing
+                                    key={film.fnr}
+                                    index={index}
+                                    f={film}
+                                    numberOfF={mainfilms.length}
+                                    fType={(mainfilms.length === 1) ? "" : "Film:"}
+                                />
+                            );
+                        })}
 
-                {vorfilms.map((filmPlusObj, index) => {
-                    const vorfilm = filmPlusObj.film;
+                        {vorfilms?.map((filmPlusObj, index) => {
+                            const vorfilm = filmPlusObj.film;
 
-                    // Check if vorfilm properties exist
-                    if (!vorfilm) return null;
+                            // Check if vorfilm properties exist
+                            if (!vorfilm) return null;
 
-                    return (
-                        <TerminFilmDetailsListing
-                            key={vorfilm.fnr}
-                            index={index}
-                            f={vorfilm}
-                            numberOfF={vorfilms.length}
-                            fType={"Vorfilm:"}
-                        />
-                    );
-                })}
+                            return (
+                                <TerminFilmDetailsListing
+                                    key={vorfilm.fnr}
+                                    index={index}
+                                    f={vorfilm}
+                                    numberOfF={vorfilms.length}
+                                    fType={"Vorfilm:"}
+                                />
+                            );
+                        })}
+                    </>
+                ) : (
+                    <Card.Img
+                        src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
+                        alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}
+                    />
+                )}
             </Card.Body>
         </Card>
     );

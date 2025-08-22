@@ -197,7 +197,7 @@ const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, subm
                     name="terminpraeferenz"
                     value={formData.terminpraeferenz || ''}
                     maxLength={250}
-                    placeholder="Spieltermine sind 20:15 Uhr i.d.R. am Montag und Mittwoch in der Vorlesungszeit des Semesters"
+                    placeholder="Spieltermine sind i.d.R. 20:15 Uhr am Montag und Mittwoch in der Vorlesungszeit des Semesters"
                     onChange={onInputChange}
                     required
                     className={styles.textareaField}

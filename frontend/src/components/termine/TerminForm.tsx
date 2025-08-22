@@ -33,6 +33,7 @@ const emptyTerminForForm = {
     kurztext: '',
     besonderheit: '',
     bild: '',
+    offsetImageInGallery: '',
     startReservierung: '',
     linkReservierung: '',
     sonderfarbeTitel: undefined,
@@ -211,10 +212,26 @@ export default function TerminForm() {
     // Handle termin form field changes
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setSelectedTermin((prevData: Termin) => ({
-            ...prevData,
-            [name]: value,
-        }));
+
+        setSelectedTermin((prevData: Termin) => {
+            // temporary object for changes
+            const updatedData = {
+                ...prevData,
+                [name]: value,
+            };
+
+            let newValue;
+
+            // --- special condition on offsetImageInGallery
+            if (name === 'bild') {
+                newValue = updatedData.bild ?? "";
+                // if new value of bild is empty, offsetImageInGallery is set to empty string
+                if (!newValue.trim()) { // check console.log(!" ");
+                    updatedData.offsetImageInGallery = "";
+                }
+            }
+            return updatedData;
+        });
 
         // check for condition on titel and bild
         if (!!selectedTermin.titel === !!selectedTermin.bild) {
@@ -406,6 +423,23 @@ export default function TerminForm() {
                         als Stammverzeichnis hat.
                         <br/>
                         Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film4.jpg
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="offsetImageInGallery" className="mt-3">
+                    <Form.Label>Offset für Bildanzeige in der Gallery **</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="offsetImageInGallery"
+                        value={selectedTermin.offsetImageInGallery ?? ""}
+                        onChange={handleFormChange}
+                        disabled={!(selectedTermin.bild ?? "").trim()}
+                    />
+                    <Form.Text className="text-muted">
+                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Termin (d.h. 1 Langfilm + optionale Vorfilme)
+                        <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
+                        <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
+                        <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
                     </Form.Text>
                 </Form.Group>
 

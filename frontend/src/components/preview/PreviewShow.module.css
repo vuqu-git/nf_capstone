@@ -41,7 +41,7 @@
 }
 
 /* Override external styles to ensure proper scaling */
-.slideshowContent :global(.custom-card) {
+.slideshowContent :global(.terminFilmGallery-card) {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;

@@ -3,6 +3,7 @@ import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
 import './TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
+import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 
 interface Props {
     screeningWeekday: string | null;
@@ -49,23 +50,9 @@ export default function TerminFilmGalleryCard({
         navigate(`/details/${tnr}`);
     };
 
-    // ***********
-    // random selection of screeningSonderfarbe when multiple were entered (comma separated)
-    // maybe shift to backend
-
-    let screeningSonderfarbeSelected;
-    const screeningSonderfarbeList = screeningSonderfarbe.split(",");
-    const length = screeningSonderfarbe.split(",").length;
-    if (length > 0) {
-        const randomIndex = Math.floor(Math.random() * length);
-        screeningSonderfarbeSelected = screeningSonderfarbeList[randomIndex].trim();
-    }
-
-    // ***********
-
     return (
         <Card
-            className={`custom-card ${screeningSonderfarbeSelected} zoom-effect`}
+            className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect`}
         >
             {bild && (
                 <div

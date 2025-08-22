@@ -3,7 +3,7 @@ import styles from "./PreviewShow.module.css";
 import {useEffect, useRef, useState} from "react";
 import {formatDateTime} from "../../utils/formatDateTime.ts";
 import TerminFilmPreviewCard from "./TerminFilmPreviewCard.tsx";
-import {selectSonderfarbeFromReihenOfTermin} from "../../utils/selectSonderfarbeFromReihenOfTermin.ts";
+import {selectSonderfarbeFromReihen} from "../../utils/selectSonderfarbeFromReihen.ts";
 
 interface Props {
     selectedSemesterTermine: TerminDTOWithFilmAndReiheDTOGallery[];
@@ -133,7 +133,7 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
     // ***********
     // here: sonderfarbe of termin always precedes against sonderfarbe of reihen
     // maybe shift to backend
-    const sonderfarbeForTerminFilmPreviewCard = termin.sonderfarbe || selectSonderfarbeFromReihenOfTermin(termin);
+    const sonderfarbeForTerminFilmPreviewCard = termin.sonderfarbe || selectSonderfarbeFromReihen(termin.reihen);
     // ***********
 
     return (

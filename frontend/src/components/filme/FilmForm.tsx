@@ -470,7 +470,8 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
+                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Termin (d.h. 1 Langfilm + optionale Vorfilme)
+                        <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
                         <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
                         <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
                     </Form.Text>

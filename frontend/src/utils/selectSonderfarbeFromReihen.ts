@@ -1,11 +1,12 @@
-import TerminDTOWithFilmAndReiheDTOGallery from "../types/TerminDTOWithFilmAndReiheDTOGallery.ts";
+import ReiheDTOGallery from "../types/ReiheDTOGallery.ts";
+import ReiheDTOFormWithTermineAndFilme from "../types/ReiheDTOFormWithTermineAndFilme.ts";
 
-export function selectSonderfarbeFromReihenOfTermin(
-    termin: TerminDTOWithFilmAndReiheDTOGallery
+export function selectSonderfarbeFromReihen(
+    reihen: ReiheDTOGallery[] | ReiheDTOFormWithTermineAndFilme[]
 ): string | null {
 
-    if (termin.reihen.length > 0) {
-        const sonderfarbeList = termin.reihen.map(r => r.sonderfarbe);
+    if (reihen.length > 0) {
+        const sonderfarbeList = reihen.map(r => r.sonderfarbe);
         const length = sonderfarbeList.length;
         if (length > 0) {
             const randomIndex = Math.floor(Math.random() * length);

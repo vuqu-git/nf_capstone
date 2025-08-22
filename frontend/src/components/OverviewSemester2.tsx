@@ -46,6 +46,8 @@ export default function OverviewSemester2() {
         label: <span><em>{reihe}</em></span>
     }));
 
+    const now = new Date();
+
     return (
         <section className="normal-content-container">
 
@@ -76,12 +78,16 @@ export default function OverviewSemester2() {
                             return termin.reihen?.some(reihe => reihe.titel === selectedOption.value);
                         })
                         .map(termin => {
-
+                            // -- prep for AddToCalendarButton react component
                             const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, true, true);
                             const calenderDateObj = createDateAndTimeForAddToCalendarButton(termin.vorstellungsbeginn, termin.terminGesamtlaufzeit + avgDurationTrailer);
 
                             const calenderTitle = termin.titel || termin.mainfilms[0].titel;
                             const icsFileName = createICSFileName(calenderTitle, termin.vorstellungsbeginn);
+
+                            // -- for blink effect if screening time is special
+                            const screeningDate = termin.vorstellungsbeginn ? new Date(termin.vorstellungsbeginn) : null;
+                            const isNotRegularTime = screeningDateObj?.time !== "20:15 Uhr" && screeningDate && now <= screeningDate;
 
                             return (
                                 <article key={termin.tnr} className="overview-row">
@@ -109,7 +115,9 @@ export default function OverviewSemester2() {
                                         </div>
                                         <div className="overview-weekday-and-datetime">
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
-                                            <div className="datetime">{screeningDateObj?.date} {screeningDateObj?.time}</div>
+                                            <div className="datetime">
+                                                {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : ""}>{screeningDateObj?.time}</span>
+                                            </div>
                                         </div>
                                     </div>
 
