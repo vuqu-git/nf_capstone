@@ -17,6 +17,7 @@ public record TerminDTOWithFilmAndReiheDTOGallery(
         String kurztext,
         String besonderheit,
         String bild,
+        String offsetImageInGallery,
         String sonderfarbe,
         Short veroeffentlichen,
         List<FilmDTOGallery> mainfilms,
@@ -30,6 +31,7 @@ public record TerminDTOWithFilmAndReiheDTOGallery(
                 termin.getKurztext(),
                 termin.getBesonderheit(),
                 termin.getBild(),
+                termin.getOffsetImageInGallery(),
                 termin.getSonderfarbe(),
                 termin.getVeroeffentlichen(),
                 mainfilms.stream()

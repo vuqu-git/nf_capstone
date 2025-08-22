@@ -73,7 +73,8 @@ export default function Gallery2() {
 
                                                 bild={termin.bild || "default_film.jpg"}
                                                 // bild={termin.bild || (termin.mainfilms[0]?.bild || null)} // i.e. if Programmbild is not present then take the Bild of the 1st mainfeature (when to the termin corresponding mainfeature exist)
-                                                offsetImageInGallery={undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
+                                                // offsetImageInGallery={undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
+                                                offsetImageInGallery={termin.offsetImageInGallery || undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
 
                                                 titel={termin.titel}
                                                 kurztext={termin.kurztext || null}
@@ -101,7 +102,7 @@ export default function Gallery2() {
                                                     // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe || "pupille-glow"}
 
                                                     bild={termin.mainfilms[0]?.bild || "default_film.jpg"}
-                                                    offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery || undefined}
+                                                    offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery || undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
 
                                                     titel={termin.mainfilms[0]?.titel || null}
                                                     kurztext={termin.mainfilms[0]?.kurztext || null}

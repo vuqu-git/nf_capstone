@@ -17,6 +17,7 @@ public class TerminDTOForm {
     private String kurztext;
     private String besonderheit;
     private String bild;
+    private String offsetImageInGallery;
     private LocalDate startReservierung;
     private String linkReservierung;
     private Integer sonderfarbeTitel;
@@ -32,6 +33,7 @@ public class TerminDTOForm {
         this.text = termin.getText();
         this.kurztext = termin.getKurztext();
         this.besonderheit = termin.getBesonderheit();
+        this.offsetImageInGallery = termin.getOffsetImageInGallery();
         this.bild = termin.getBild();
         this.startReservierung = termin.getStartReservierung();
         this.linkReservierung = termin.getLinkReservierung();

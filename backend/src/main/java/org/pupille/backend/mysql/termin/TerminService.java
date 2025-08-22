@@ -47,6 +47,7 @@ public class TerminService {
                     termin.setKurztext(terminDetails.getKurztext());
                     termin.setBesonderheit(terminDetails.getBesonderheit());
                     termin.setBild(terminDetails.getBild());
+                    termin.setOffsetImageInGallery(terminDetails.getOffsetImageInGallery());
                     termin.setStartReservierung(terminDetails.getStartReservierung());
                     termin.setLinkReservierung(terminDetails.getLinkReservierung());
                     termin.setSonderfarbeTitel(terminDetails.getSonderfarbeTitel());
