@@ -59,10 +59,21 @@ import java.io.IOException;
 @Configuration
 public class SPAConfiguration implements WebMvcConfigurer {
 
-    // syntax means: if the environment variable static.files.path.for.dockercontainer is set, use its value.
+    // Field injection
+    // *means the dependency (or value) is injected directly into the field, rather than via a constructor or setter method
+    // syntax means within @Value: if the environment variable static.files.path.for.dockercontainer is set, use its value.
     //               otherwise, use the default value /app/external-static-container/static-files/.
-    @Value("${static.files.path.for.dockercontainer:/app/external-static-container/static-files/}")
+//    @Value("${static.files.path.for.dockercontainer:/app/external-static-container/static-files/}")
+//    private String staticFilesPathForDockercontainer;
+
+    // Constructor injection
+    // *generally preferred in modern Spring applications, as it makes dependencies immutable and easier to test.
+    // Field injection is less explicit and can make testing and dependency management more difficult.
     private String staticFilesPathForDockercontainer;
+    // @Autowired // leave out Autowired and you have constructor injection by default
+    public SPAConfiguration(@Value("${static.files.path.for.dockercontainer:/app/external-static-container/static-files/}") String staticFilesPathForDockercontainer) {
+        this.staticFilesPathForDockercontainer = staticFilesPathForDockercontainer;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -4,21 +4,56 @@ import TerminFilmGalleryCard from "./termine/TerminFilmGalleryCard.tsx";
 import NewsCard from "./news/NewsCard.tsx";
 
 import './Gallery.css';
-import {GalleryData} from "../App2.tsx";
+import TerminDTOWithFilmAndReiheDTOGallery from "../types/TerminDTOWithFilmAndReiheDTOGallery.ts";
+import {News} from "../types/News.ts";
 import {selectSonderfarbeFromReihen} from "../utils/selectSonderfarbeFromReihen.ts";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function Gallery2() {
 
+    // --------------------------------------------------------------------------------
+    // old setup where screenings and news were fetched in loader of App component with Promise.all or Promise.allSettled
     // // syntax for without own type for useLoaderData input
     // const { screeningGalleryEntries, validNews } = useLoaderData<{
     //     screeningGalleryEntries: TerminDTOWithFilmAndReiheDTOGallery[];
     //     validNews: News[];
     // }>();
 
-    const {screeningGalleryEntries, validNews} = useLoaderData<GalleryData>();
+    // const {screeningGalleryEntries, validNews} = useLoaderData<GalleryData>();
+    // --------------------------------------------------------------------------------
+
+    const [validNews, setValidNews] = useState<News[]>([]);
+    const [loadingNews, setLoadingNews] = useState(true);
+
+    const screeningGalleryEntries = useLoaderData<TerminDTOWithFilmAndReiheDTOGallery[]>();
 
     const visibleScreenings = screeningGalleryEntries
         .filter(termin => termin.veroeffentlichen !== null && termin.veroeffentlichen !== 0);
+
+    useEffect(() => {
+        let cancelled = false;  // variable is used as a cleanup flag to prevent state updates after the component has unmounted.
+                                        // This is a common pattern to avoid memory leaks and errors in React applications.
+                                        // The cancelled flag prevents this by checking if the component is still mounted before updating state.
+
+        axios.get<News[]>("/api/news/valid")
+            .then(res => {
+                if (!cancelled) {
+                    setValidNews(res.data);
+                }
+            })
+            .catch(err => {
+                if (!cancelled) {
+                    console.error("❌ Failed to load news:", err);
+                    setValidNews([]);
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setLoadingNews(false);
+            });
+
+        return () => { cancelled = true; }; // Cleanup: set cancelled to true on unmount
+    }, []);
 
     // for testing semester break
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +62,23 @@ export default function Gallery2() {
     return (
         <>
             {/* Section for news */}
-            {validNews && validNews.length > 0 && (
+            {/*// --------------------------------------------------------------------------------*/}
+            {/*// old setup where screenings AND news were fetched in loader of App component with Promise.all or Promise.allSettled*/}
+            {/*{validNews && validNews.length > 0 && (*/}
+            {/*    <section>*/}
+            {/*        <h2 className="visually-hidden">Neuigkeiten</h2>*/}
+            {/*        {validNews.map(n => (*/}
+            {/*            <article key={n.id}>*/}
+            {/*                <NewsCard variant={n.newsVariant} text={n.text} imageUrl={n.image}/>*/}
+            {/*            </article>*/}
+            {/*        ))}*/}
+            {/*    </section>*/}
+            {/*)}*/}
+            {/*// --------------------------------------------------------------------------------*/}
+
+            {loadingNews ? (
+                <div className="text-warning text-center">📢 Loading news...</div>
+            ) : validNews && validNews.length > 0 && (
                 <section>
                     <h2 className="visually-hidden">Neuigkeiten</h2>
                     {validNews.map(n => (

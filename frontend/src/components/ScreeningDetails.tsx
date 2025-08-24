@@ -16,7 +16,7 @@ export default function ScreeningDetails() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // GET only (old version)
+    // GET only ScreeningDetails (old version)
     // ~~~~~~~~~~~~~~~~~~~~~~
     // useEffect(() => {
     //     axios.get(`/api/screenings/${tnr}`)
@@ -51,7 +51,7 @@ export default function ScreeningDetails() {
     }, [tnr]);
 
     // Display loading message
-    if (loading) return <div className="text-warning text-center">&#127902; Loading screening...</div>;
+    if (loading) return <div className="text-warning text-center">🎞️ Loading screening...</div>;
     // Display error message (when no data was fetched, e.h. non-existing termin id was provided as query param
     if (error) return <NotFound />;
 

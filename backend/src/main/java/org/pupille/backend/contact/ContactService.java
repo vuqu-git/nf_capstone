@@ -5,6 +5,7 @@ import org.pupille.backend.contact.exceptions.InvalidContactDataException;
 import org.pupille.backend.contact.exceptions.InvalidDateTimeFormatException;
 import org.pupille.backend.contact.exceptions.InvalidEngagementHoursFormatException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.MailSendException;
@@ -28,14 +29,24 @@ import java.util.stream.Collectors;
 public class ContactService {
 
     private final JavaMailSender mailSender;
+//    @Value("${bcc.email.infoatpupille:info@pupille.org")
+//    private String bccEmailInfoatpupille;
+//
+//    public ContactService(JavaMailSender mailSender) { // Inject MailService
+//        this.mailSender = mailSender;
+//    }
 
-    public ContactService(JavaMailSender mailSender) { // Inject MailService
+    private final String bccEmailInfoatpupille;
+    //  best practice is to use constructor injection for mandatory dependencies and @Value for configuration values
+    public ContactService(JavaMailSender mailSender,
+                          @Value("${bcc.email.infoatpupille:info@pupille.org}") String bccEmailInfoatpupille) {
         this.mailSender = mailSender;
+        this.bccEmailInfoatpupille = bccEmailInfoatpupille;
     }
 
 
-    private final String senderEmail = "no-reply@pupille.org";
-    private final String bccRecipientEmail = "quy8vuong@gmail.com"; // here: info@pupille.org in production
+    private static final String SENDER_EMAIL_NOREPLY = "no-reply@pupille.org";
+//    private static final String bccEmailInfoatpupille = "quy8vuong@gmail.com"; // here: info@pupille.org in production
 
     private static final String CELL_STYLE = "padding:4px;border:1px solid #ddd;text-align:left;";
     private static final String NO_REPLY_TEXT = "<p style=\"font-size: 0.85em; color: #b00; background-color: #f5f5f5; padding: 8px; border-radius: 4px; margin-top: 10px;\">Diese Nachricht wurde automatisch erzeugt. Antworten an no-reply@pupille.org werden nicht bearbeitet.</p>";
@@ -129,9 +140,9 @@ public class ContactService {
         // --- Construct email HTML body ---
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(senderEmail);
+            helper.setFrom(SENDER_EMAIL_NOREPLY);
             helper.setTo(email);
-            helper.setBcc(bccRecipientEmail);
+            helper.setBcc(bccEmailInfoatpupille);
 
             helper.setSubject("[Sonstige Anfrage] " + betreff);
 
@@ -217,9 +228,9 @@ public class ContactService {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             // Send to staff, CC to user (optional), BCC if needed
-            helper.setFrom(senderEmail);
+            helper.setFrom(SENDER_EMAIL_NOREPLY);
             helper.setTo(email);
-            helper.setBcc(bccRecipientEmail);
+            helper.setBcc(bccEmailInfoatpupille);
 
             helper.setSubject("[Kinomitarbeit: Anfrage] " + name);
 
@@ -291,9 +302,9 @@ public class ContactService {
         // --- Construct email HTML body ---
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(senderEmail);
+            helper.setFrom(SENDER_EMAIL_NOREPLY);
             helper.setTo(email);
-            helper.setBcc(bccRecipientEmail);
+            helper.setBcc(bccEmailInfoatpupille);
 
             helper.setSubject("[Eigenständige Nutzung Festsaal/Leinwand] " + betreff);
 
@@ -398,9 +409,9 @@ public class ContactService {
         int finalAnzMikrofone = anzMikrofone;
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(senderEmail);
+            helper.setFrom(SENDER_EMAIL_NOREPLY);
             helper.setTo(email);
-            helper.setBcc(bccRecipientEmail);
+            helper.setBcc(bccEmailInfoatpupille);
 
             helper.setSubject("[Kinotechnik: Anfrage] " + betreff);
 
@@ -486,9 +497,9 @@ public class ContactService {
         // --- Construct email HTML body ---
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(senderEmail);
+            helper.setFrom(SENDER_EMAIL_NOREPLY);
             helper.setTo(email);
-            helper.setBcc(bccRecipientEmail);
+            helper.setBcc(bccEmailInfoatpupille);
 
             helper.setSubject("[Kooperationsanfrage] " + betreff);
 
@@ -592,7 +603,7 @@ public class ContactService {
 
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            messageHelper.setFrom(senderEmail);
+            messageHelper.setFrom(SENDER_EMAIL_NOREPLY);
             messageHelper.setTo(patenschaft);
             messageHelper.setSubject(betreff);
             messageHelper.setText(htmlBody.toString(), true);
