@@ -33,7 +33,7 @@ details.third-party-event-info summary::before {
 }
 
 details.third-party-event-info[open] summary::before {
-  content: "📄";
+  content: "⭐";
 }
 
 details.third-party-event-info summary:hover {
