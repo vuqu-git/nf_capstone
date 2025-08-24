@@ -66,48 +66,150 @@ export interface ArchiveData {
 
 // Error Handling Template: Version with axios method
 // --------------------------------------------------
-async function getGalleryData(): Promise<GalleryData> {
-    try {
-        // Fetch both endpoints concurrently
-        const [response1, response2] = await Promise.all([
-            axios.get<TerminDTOWithFilmAndReiheDTOGallery[]>("/api/screenings"),
-            axios.get<News[]>("/api/news/valid")
-        ]);
+// async function getGalleryData(): Promise<GalleryData> {
+//     try {
+//         // Fetch both endpoints concurrently
+//         const [response1, response2] = await Promise.all([
+//             axios.get<TerminDTOWithFilmAndReiheDTOGallery[]>("/api/screenings"),
+//             axios.get<News[]>("/api/news/valid")
+//         ]);
+//
+//         return {
+//             screeningGalleryEntries: response1.data,
+//             validNews: response2.data
+//         };
+//     } catch (error: any) {
+//         if (error.response) {
+//             // Server responded, but with an error status (4xx/5xx)
+//             throw new Response(
+//                 error.response.data?.message ||
+//                 `Failed to load gallery data: Server responded with status ${error.response.status}`,
+//                 { status: error.response.status }
+//             );
+//         } else if (error.request) {
+//             // Request sent, but no response received (server down/network timeout)
+//             throw new Error("Failed to load gallery data: No response received from the server.");
+//         } else {
+//             // Axios config or other unknown error. You throw a new Error with a descriptive message.
+//             throw new Error(`Failed to load gallery data due to a network or unexpected error: ${error.message}`);
+//         }
+//     }
+// }
 
-        return {
-            screeningGalleryEntries: response1.data,
-            validNews: response2.data
-        };
-    } catch (error: any) {
-        if (error.response) {
-            // Server responded, but with an error status (4xx/5xx)
-            throw new Response(
-                error.response.data?.message ||
-                `Failed to load gallery data: Server responded with status ${error.response.status}`,
-                { status: error.response.status }
-            );
-        } else if (error.request) {
-            // Request sent, but no response received (server down/network timeout)
-            throw new Error("Failed to load gallery data: No response received from the server.");
-        } else {
-            // Axios config or other unknown error. You throw a new Error with a descriptive message.
-            throw new Error(`Failed to load gallery data due to a network or unexpected error: ${error.message}`);
-        }
+            // approach here: independent but tolerant (shows partial data, hint failures as fallback values)
+                                                    // Using Promise.allSettled → both requests run concurrently, but each is handled independently.
+                                                    // If one fails, you still return the other’s data instead of failing the whole function
 
-        throw new Response("Failed to load gallery data", { status: 500 });
-        // Throwing a Response:
-        //     This is a pattern encouraged by React Router when you want to signal an HTTP-like error (e.g., 404, 401, 500).
-        //     This is the preferred way if you want your loader to communicate a specific error back to the router and potentially trigger an errorElement.
-        //     If you throw a Response, React Router will catch it and render your route's errorElement (if defined), passing the thrown Response to it.
-        //     This is useful if you want to show a user-friendly error page, or handle errors at the route level.
-        // Throwing a regular Error:
-        //     If you throw a regular Error, React Router will also catch it and render the errorElement, but the error object will be an instance of Error, not Response.
-        //     This is often used for application-level errors that aren't necessarily HTTP errors.
-    }
-}
+            //      When switch from Promise.all ➝ Promise.allSettled, the whole flow changes:
+            //          With Promise.all:   If any request fails, the entire try jumps to catch. That’s why your throw new Response(...) / throw new Error(...) made sense — one failure meant “abort everything.”
+            //          With Promise.allSettled:    Failures don’t throw. Instead you always get back an array of results with either { status: "fulfilled" } or { status: "rejected" }.
+            //                                      So the code never goes into catch. Instead, you handle errors per result.
+            //                                      That means your throw logic has to move inside the if (status === "rejected") checks.
+
+            // async function getGalleryData(): Promise<GalleryData> {
+            //     const [screeningsResult, newsResult] = await Promise.allSettled([
+            //         axios.get<TerminDTOWithFilmAndReiheDTOGallery[]>("/api/screenings"),
+            //         axios.get<News[]>("/api/news/valid")
+            //     ]);
+            //
+            //     let screeningGalleryEntries: TerminDTOWithFilmAndReiheDTOGallery[] = [];
+            //     let validNews: News[] = [];
+            //
+            //     // Screenings result
+            //     if (screeningsResult.status === "fulfilled") {
+            //         screeningGalleryEntries = screeningsResult.value.data;
+            //     } else {
+            //         console.error("❌ Failed to load screenings:", screeningsResult.reason);
+            //         // this is the fallback
+            //         screeningGalleryEntries = [
+            //             {
+            //                 tnr: -1,
+            //                 titel: "⚠️ Screenings unavailable",
+            //                 kurztext: "Could not fetch screenings data.",
+            //                 mainfilms: [],
+            //                 reihen: []
+            //             }
+            //         ];
+            //     }
+            //
+            //     // News result
+            //     if (newsResult.status === "fulfilled") {
+            //         validNews = newsResult.value.data;
+            //     } else {
+            //         console.error("❌ Failed to load news:", newsResult.reason);
+            //         // this is the fallback
+            //         validNews = [
+            //             {
+            //                 id: "fallback",
+            //                 text: "⚠️ News unavailable <br/> ❌ Failed to load news",
+            //                 startDate: new Date().toISOString(),
+            //                 endDate: new Date().toISOString(),
+            //                 newsVariant: "error"
+            //             }
+            //         ];
+            //     }
+            //
+            //     return {
+            //         screeningGalleryEntries,
+            //         validNews
+            //     };
+            // }
+
+            // async function getGalleryData(): Promise<GalleryData> {
+            //     let screeningGalleryEntries: TerminDTOWithFilmAndReiheDTOGallery[] = [];
+            //     let validNews: News[] = [];
+            //
+            //     // Fire requests independently
+            //     const screeningsPromise = axios.get<TerminDTOWithFilmAndReiheDTOGallery[]>("/api/screenings")
+            //         .then(res => res.data)
+            //         .catch(err => {
+            //             console.error("❌ Failed to load screenings:", err);
+            //             return [{
+            //                 tnr: -1,
+            //                 titel: "⚠️ Screenings unavailable",
+            //                 kurztext: "Could not fetch screenings data.",
+            //                 mainfilms: [],
+            //                 reihen: []
+            //             }];
+            //         });
+            //
+            //     const newsPromise = axios.get<News[]>("/api/news/valid")
+            //         .then(res => res.data)
+            //         .catch(err => {
+            //             console.error("❌ Failed to load news:", err);
+            //             return [{
+            //                 id: "fallback",
+            //                 text: "⚠️ News unavailable <br/> Could not fetch news data.",
+            //                 startDate: new Date().toISOString(),
+            //                 endDate: new Date().toISOString(),
+            //                 newsVariant: "error"
+            //             }];
+            //         });
+            //
+            //     // Now await them individually — no need to wait for both
+            //     screeningGalleryEntries = await screeningsPromise;
+            //     validNews = await newsPromise;
+            //
+            //     return {
+            //         screeningGalleryEntries,
+            //         validNews
+            //     };
+            // }
+
+
+    // General remark:
+    // Throwing a Response
+    //     This is a pattern encouraged by React Router when you want to signal an HTTP-like error (e.g., 404, 401, 500).
+    //     This is the preferred way if you want your loader to communicate a specific error back to the router and potentially trigger an errorElement.
+    //     If you throw a Response, React Router will catch it and render your route's errorElement (if defined), passing the thrown Response to it.
+    //     This is useful if you want to show a user-friendly error page, or handle errors at the route level.
+    // Throwing a regular Error
+    //     If you throw a regular Error, React Router will also catch it and render the errorElement, but the error object will be an instance of Error, not Response.
+    //     This is often used for application-level errors that aren't necessarily HTTP errors.
+
 
 // #############################
-// for preview slides in Slides.tsx
+// for Gallery2.tsx and preview slides in Slides.tsx
 // Error Handling Template: Version with axios method
 // --------------------------------------------------
 async function getGalleryDataWithoutNews(): Promise<TerminDTOWithFilmAndReiheDTOGallery[]> {
@@ -207,15 +309,15 @@ async function getArchiveData(): Promise<ArchiveData> {
             // Server responded, but with an error status (4xx/5xx)
             throw new Response(
                 error.response.data?.message ||
-                `Failed to load gallery data: Server responded with status ${error.response.status}`,
+                `Failed to load archive data: Server responded with status ${error.response.status}`,
                 { status: error.response.status }
             );
         } else if (error.request) {
             // Request sent, but no response received (server down/network timeout)
-            throw new Error("Failed to load gallery data: No response received from the server.");
+            throw new Error("Failed to load archive data: No response received from the server.");
         } else {
             // Axios config or other unknown error. You throw a new Error with a descriptive message.
-            throw new Error(`Failed to load gallery data due to a network or unexpected error: ${error.message}`);
+            throw new Error(`Failed to load archive data due to a network or unexpected error: ${error.message}`);
         }
     }
 }
@@ -262,7 +364,8 @@ const router = createBrowserRouter([
                         children: [
                             {
                                 index: true,
-                                loader: getGalleryData,
+                                // loader: getGalleryData,
+                                loader: getGalleryDataWithoutNews,
                                 element: <Gallery2/>,
                                 handle: {scrollMode: "pathname"},
                             },
