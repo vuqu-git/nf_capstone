@@ -5,10 +5,6 @@ import TerminDTOWithFilmDTOSlideshow from "../../types/TerminDTOWithFilmDTOSlide
 import styles from "./Slideshow.module.css";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {formatDateTime} from "../../utils/formatDateTime.ts";
-import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
-
-
-
 
 const initialSlides: TerminDTOWithFilmDTOSlideshow[] = [
     {
@@ -161,19 +157,19 @@ const Slideshow: React.FC<SlideshowProps> = ({
 
             {termin.mainfilms[0].trailer && (
                 <div className={styles.filmTrailer}>
-                    {renderHtmlContent(termin.mainfilms[0].trailer)}
+                    {renderHtmlText(termin.mainfilms[0].trailer)}
                 </div>
             )}
 
             {termin.mainfilms[0].kurztext && (
                 <div className={styles.filmShortText}>
-                    {renderHtmlContent(termin.mainfilms[0].kurztext)}
+                    {renderHtmlText(termin.mainfilms[0].kurztext)}
                 </div>
             )}
 
             {termin.mainfilms[0].besonderheit && (
                 <div className={styles.filmSpecial}>
-                    {renderHtmlContent(termin.mainfilms[0].besonderheit)}
+                    {renderHtmlText(termin.mainfilms[0].besonderheit)}
                 </div>
             )}
         </div>

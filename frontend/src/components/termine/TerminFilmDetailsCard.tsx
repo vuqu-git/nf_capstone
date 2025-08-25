@@ -1,6 +1,5 @@
 import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
-import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 import './TerminFilmDetailsCard.css';
 import FilmDTOFormPlus from "../../types/FilmDTOFormPlus.ts";
@@ -132,13 +131,13 @@ export default function TerminFilmDetailsCard({
                 {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
                 {/*{programmtext && (*/}
                 {/*    <div className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>*/}
-                {/*        {renderHtmlContent(programmtext)}*/}
+                {/*        {renderHtmlText(programmtext)}*/}
                 {/*    </div>*/}
                 {/*)}*/}
 
                 {/*{programmbesonderheit && (*/}
                 {/*    <div className="program-besonderheit">*/}
-                {/*        {renderHtmlContent(programmbesonderheit)}*/}
+                {/*        {renderHtmlText(programmbesonderheit)}*/}
                 {/*    </div>*/}
                 {/*)}*/}
 
@@ -152,7 +151,7 @@ export default function TerminFilmDetailsCard({
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
-                                <div className="ps-3"><em>{reihe.titel}</em> zusammen mit</div>
+                                <div className="ps-3"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>
                                 {reihe.termine && (
                                     <ul className="">
                                         {[...reihe.termine]

@@ -2,7 +2,6 @@ import Card from 'react-bootstrap/Card';
 import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
 import '../termine/TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
-import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 interface Props {
     screeningWeekday: string | null;
@@ -167,7 +166,7 @@ export default function TerminFilmPreviewCard({
                                        fontSize: '2.0rem',
                                    }}
                         >
-                            {renderHtmlContent(kurztext)}
+                            {renderHtmlText(kurztext)}
                         </div>
                     )}
 
@@ -176,7 +175,7 @@ export default function TerminFilmPreviewCard({
                             className="card-filmBesonderheit"
                             style={{ borderTop: kurztext ? undefined : 'none' }}
                         >
-                            {renderHtmlContent(hauptfilmbesonderheit)}
+                            {renderHtmlText(hauptfilmbesonderheit)}
                         </div>
                     )}
 
@@ -185,7 +184,7 @@ export default function TerminFilmPreviewCard({
                                    // style={{ fontSize: '2.0rem', borderTop: kurztext ? undefined : 'none', padding: '0 0' }}
                                    style={{ fontSize: '2.0rem' }}
                         >
-                            {renderHtmlContent(terminBesonderheit)}
+                            {renderHtmlText(terminBesonderheit)}
                         </div>
                     )}
                 </Card.Body>
