@@ -95,10 +95,10 @@ export default function TerminFilmGalleryCard({
                             <span className="overlay-time">
                                 {screeningWeekday || screeningDate || screeningTime ? (
                                     <>
-                                        {screeningWeekday} | {screeningDate} | {screeningTime}
+                                        {screeningWeekday} {screeningDate} {screeningTime}
                                     </>
                                 ) : (
-                                    'keine Terminangaben'
+                                    'keine Terminangabe'
                                 )}
                             </span>
                         </Card.Text>

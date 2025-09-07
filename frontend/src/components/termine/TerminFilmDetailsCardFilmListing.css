@@ -84,7 +84,7 @@
 
 /* Styles for the section blocks */
 .section-block {
-    margin-bottom: 1rem; /* Space between sections */
+    margin-top: 1rem; /* Space between sections */
     font-size: 0.8rem;
 }
 
