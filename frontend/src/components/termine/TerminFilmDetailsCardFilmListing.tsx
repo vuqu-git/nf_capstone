@@ -97,9 +97,10 @@ export default function TerminFilmDetailsListing({
                             {f.laufzeit && <div className="row"><div className="label">Länge</div><div className="value">{f.laufzeit} Min.</div></div>}
                             {f.sprache && <div className="row"><div className="label">Sprache</div><div className="value">{f.sprache}</div></div>}
                             {f.untertitel && <div className="row"><div className="label">Untertitel</div><div className="value">{f.untertitel}</div></div>}
-                            {f.farbe && <div className="row"><div className="label">Farbigkeit</div><div className="value">{renderHtmlText(f.farbe)}</div></div>}
+                            {f.farbe && <div className="row"><div className="label">Farbigkeit</div><div className="value">{f.farbe}</div></div>}
                             {f.format && <div className="row"><div className="label">Format</div><div className="value">{f.format}</div></div>}
                             {f.fsk && <div className="row"><div className="label">FSK</div><div className="value">{f.fsk}</div></div>}
+                            {f.verleih && <div className="row"><div className="label">Verleih</div><div className="value">{f.verleih}</div></div>}
                         </div>
                     </div>
                 )}

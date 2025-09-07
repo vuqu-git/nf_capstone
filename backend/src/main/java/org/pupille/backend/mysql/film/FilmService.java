@@ -44,7 +44,7 @@ public class FilmService {
         return new FilmDTOForm(filmRepository.save(film));
     }
 
-//    // optional Update an existing film, but nor required because Put method in controller achieves everything
+//    // optional Update an existing film, but not required because Put method in controller achieves everything
 //    public Optional<Film> updateFilm(Long id, Film updatedFilm) {
 //        return filmRepository.findById(id).map(existingFilm -> {
 //            // Update fields of the existing film with values from updatedFilm
@@ -66,7 +66,7 @@ public class FilmService {
 //            existingFilm.setBild(updatedFilm.getBild());
 //            existingFilm.setSonderfarbeTitel(updatedFilm.getSonderfarbeTitel());
 //            existingFilm.setSonderfarbe(updatedFilm.getSonderfarbe());
-//
+//            ...
 //            // Save the updated entity back to the database
 //            return filmRepository.save(existingFilm);
 //        });

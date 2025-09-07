@@ -92,7 +92,7 @@
 .table-block {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem; /* Space between each row */
+    gap: 0.1rem; /* Space between each row */
 
     color: #cfd6e1;
 }

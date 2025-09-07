@@ -95,6 +95,8 @@ public class Film {
     @Column(columnDefinition = "TEXT")
     private String trailer;
 
+    private String verleih;
+
     // ############################################
     // relationship (extension of the entity model)
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
