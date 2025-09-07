@@ -122,8 +122,9 @@ export default function Kinogeschichte() {
             />
 
             <p className="mt-4">
-                Zur Geschichtsschreibung bleiben viele Leerstellen.
-                Trotz seiner langen Tradition und Bedeutung für die studentische Filmkultur sind zahlreiche Aspekte bis heute unzureichend erforscht und dokumentiert.
+                Die Geschichte studentischer Filmkultur in Frankfurt ist von vielen unterschiedlichen Personen und Gruppen geprägt.
+                Ähnlich verstreut sind auch die Quellen zur Geschichtsschreibung.
+                Die folgenden Absätze können daher nur einige Punkte hervorheben und erheben keinerlei Anspruch auf Vollständigkeit. History is a work in process.
             </p>
 
             <h2 className="header2NormalContainer mt-4">
@@ -483,6 +484,16 @@ export default function Kinogeschichte() {
             {/*        </div>*/}
             {/*    </CarouselItem>*/}
             {/*</Carousel>*/}
+
+
+            <h3 className="header3NormalContainer">Kinopreise</h3>
+            <p className="mb-0">
+                Das Programm der Pupille ist in den letzten Jahren wiederholt ausgezeichnet worden:
+            </p>
+            <ul>
+                <li>Hessischer Kinopreis (für nicht gewerbliche Kinos) 2012 &ndash; {new Date() < new Date((new Date()).getFullYear(), 9, 25) ? (new Date()).getFullYear()-1 : (new Date()).getFullYear()}</li>
+                <li>Kinopreis des Kinematheksverbunds 2013, 2020 &ndash; 2024</li>
+            </ul>
 
             <br/>
 

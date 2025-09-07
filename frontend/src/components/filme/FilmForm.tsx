@@ -487,7 +487,7 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text>
-                        use p tag for <strong>each</strong> paragraph
+                        Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
                     </Form.Text>

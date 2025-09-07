@@ -369,6 +369,8 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
+                        Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
+                        <br/>
                         Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}

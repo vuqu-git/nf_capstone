@@ -42,7 +42,7 @@ export default function Impressum() {
 
             <h3 className="header3NormalContainer">Jugendschutzbeauftragter</h3>
             <p>
-                Fabian Schauren<br/>
+                Dr. Johannes Litschel<br/>
                 jugendschutz(at)kommunale-kinos.de
             </p>
 
