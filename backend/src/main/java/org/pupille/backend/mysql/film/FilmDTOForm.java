@@ -41,6 +41,7 @@ public class FilmDTOForm {
     private String regie;
     private String contentNote;
     private String trailer;
+    private String verleih;
 
 
     // Constructor to initialize FilmDTOForm from Film entity
@@ -72,5 +73,6 @@ public class FilmDTOForm {
         this.regie = film.getRegie();
         this.contentNote = film.getContentNote();
         this.trailer = film.getTrailer();
+        this.verleih = film.getVerleih();
     }
 }

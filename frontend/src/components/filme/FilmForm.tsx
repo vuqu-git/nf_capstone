@@ -35,6 +35,7 @@ const emptyFilmForForm = {
     farbe: '',
     format: '',
     fsk: undefined,
+    verleih: '',
     regie: '',
     stab: '',
     sonderfarbeTitel: undefined,
@@ -434,7 +435,7 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.originaltitel ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Anzeige des Originaltitels erfolgt in Gallery, Semester Overview, Archiv (auf der Detailfilmseite wird es stets mit angezeigt); keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)
+                        Anzeige des Originaltitels erfolgt in Gallery, Semester Overview, Archiv (in den Screeningdetails wird es stets mit angezeigt); keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)
                     </Form.Text>
                 </Form.Group>
 
@@ -487,7 +488,7 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text>
-                        use p tag for <strong>each</strong> paragraph
+                        Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
                     </Form.Text>
@@ -650,6 +651,16 @@ export default function FilmForm() {
                         <option value="18">18</option>
                         <option value="ungeprüft">ungeprüft</option>
                     </Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="verleih" className="mt-3">
+                    <Form.Label>Verleih</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="verleih"
+                        value={selectedFilm.verleih ?? ""}
+                        onChange={handleFormChange}
+                    />
                 </Form.Group>
 
                 <Form.Group controlId="regie" className="mt-3">

@@ -114,7 +114,7 @@ td {
 /*}*/
 
 .overview-row:last-child {
-    margin-bottom: 4rem; /* Extra margin for the last overview-row */
+    margin-bottom: 5rem; /* Extra margin for the last overview-row */
     border-bottom: none;
 }
 

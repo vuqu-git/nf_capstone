@@ -11,7 +11,6 @@ import ReihenAndFilmTermineForOverviewSemester from "../types/ReihenAndFilmTermi
 import React, {useState} from "react";
 
 import Select, { ActionMeta, SingleValue } from "react-select";
-import {renderHtmlContent} from "../utils/renderHtmlContent.tsx";
 import {testListeReihenSemester} from "./testListeReihenSemester.ts";
 import {reihenSelectionWithSearchStyles} from "./styles/reihenSelectionWithSearchStyles.ts";
 
@@ -142,21 +141,26 @@ export default function OverviewSemester2() {
                                             <>
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.titel)}
-                                                    <ol className="film-list">
-                                                        {termin.mainfilms.map(film => (
-                                                            <li key={film.fnr}>{renderHtmlText(film.titel)}</li>
-                                                        ))}
-                                                    </ol>
+                                                    {termin.mainfilms.length > 0 && (
+                                                        <ol className="film-list">
+                                                            {termin.mainfilms.map(film => (
+                                                                <li key={film.fnr}>{renderHtmlText(film.titel)}</li>
+                                                            ))}
+                                                        </ol>
+                                                    )}
                                                 </Link>
-                                                <p className="filminfo-and-stab-details filminfo-in-semester-overview">
-                                                    {termin.terminGesamtlaufzeit} Min.
-                                                </p>
+                                                {/*with !! I do the conversion to a boolean, without in case the value is 0, 0 itself is rendered!*/}
+                                                {!!termin.terminGesamtlaufzeit &&
+                                                    <p className="filminfo-and-stab-details filminfo-in-semester-overview">
+                                                        {termin.terminGesamtlaufzeit} Min.
+                                                    </p>
+                                                }
                                             </>
                                         )}
 
                                         {termin.terminBesonderheit && (
                                             <div className="besonderheit">
-                                                {renderHtmlContent(termin.terminBesonderheit) ?? ""}
+                                                {renderHtmlText(termin.terminBesonderheit) ?? ""}
                                             </div>
                                         )}
 

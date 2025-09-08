@@ -2,7 +2,6 @@ import Card from 'react-bootstrap/Card';
 import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
 import './TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
-import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 
 interface Props {
@@ -96,10 +95,10 @@ export default function TerminFilmGalleryCard({
                             <span className="overlay-time">
                                 {screeningWeekday || screeningDate || screeningTime ? (
                                     <>
-                                        {screeningWeekday} | {screeningDate} | {screeningTime}
+                                        {screeningWeekday} {screeningDate} {screeningTime}
                                     </>
                                 ) : (
-                                    'keine Terminangaben'
+                                    'keine Terminangabe'
                                 )}
                             </span>
                         </Card.Text>
@@ -144,12 +143,12 @@ export default function TerminFilmGalleryCard({
             {/*    )}*/}
             {/*</Card.Body>*/}
 
-            {/*Here with div tag instead of Card.Text (p tag) and renderHtmlContent (div tag)*/}
+            {/*Here with div tag instead of Card.Text (p tag) and renderHtmlText (in div tag)*/}
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             <Card.Body>
                 {kurztext && (
                     <div className="card-kurztext">
-                        {renderHtmlContent(kurztext)}
+                        {renderHtmlText(kurztext)}
                     </div>
                 )}
 
@@ -158,13 +157,13 @@ export default function TerminFilmGalleryCard({
                         className="card-filmBesonderheit"
                         style={{ borderTop: kurztext ? undefined : 'none' }}
                     >
-                        {renderHtmlContent(hauptfilmbesonderheit)}
+                        {renderHtmlText(hauptfilmbesonderheit)}
                     </div>
                 )}
 
                 {terminBesonderheit && (
                     <div className="card-terminBesonderheit">
-                        {renderHtmlContent(terminBesonderheit)}
+                        {renderHtmlText(terminBesonderheit)}
                     </div>
                 )}
             </Card.Body>

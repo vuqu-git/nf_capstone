@@ -12,9 +12,4 @@ public class FilmDTOFormPlus {
     private FilmDTOForm film;
     private Boolean vorfilm; // can be null
     private Short rang; // can be null
-
-    // Optional: Add convenience methods if needed
-    public boolean isVorfilm() {
-        return Boolean.TRUE.equals(vorfilm);
-    }
 }

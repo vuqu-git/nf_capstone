@@ -6,7 +6,6 @@ import {structureStabString} from "../../utils/structureStabString.ts";
 import './TerminFilmDetailsCardFilmListing.css';
 import {Accordion} from "react-bootstrap";
 import {getFilmTitleForFilmDetailsCardFilmListing} from "../../utils/getFilmTitleForFilmDetailsCardFilmListing.tsx";
-import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 interface Props {
     index: number;
@@ -50,7 +49,7 @@ export default function TerminFilmDetailsListing({
                 {/*******----*******/}
                 { f.text && (
                     <div className="film-text style-video-in-card iframe">
-                        {renderHtmlContent(f.text)}
+                        {renderHtmlText(f.text)}
                     </div>
                 )}
 
@@ -59,7 +58,7 @@ export default function TerminFilmDetailsListing({
                 {
                     f.besonderheit &&
                     <div className="film-besonderheit">
-                        {renderHtmlContent(f.besonderheit)}
+                        {renderHtmlText(f.besonderheit)}
                     </div>
                 }
 
@@ -72,7 +71,7 @@ export default function TerminFilmDetailsListing({
                                 <span className="w-100 text-center">Hinweis auf sensible Inhalte</span>
                             </Accordion.Header>
                             <Accordion.Body>
-                                {renderHtmlContent(f.contentNote)}
+                                {renderHtmlText(f.contentNote)}
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
@@ -83,7 +82,7 @@ export default function TerminFilmDetailsListing({
                 {
                     f.trailer &&
                     <div className="film-text style-video-in-card iframe">
-                        {renderHtmlContent(f.trailer)}
+                        {renderHtmlText(f.trailer)}
                     </div>
                 }
 
@@ -101,6 +100,7 @@ export default function TerminFilmDetailsListing({
                             {f.farbe && <div className="row"><div className="label">Farbigkeit</div><div className="value">{renderHtmlText(f.farbe)}</div></div>}
                             {f.format && <div className="row"><div className="label">Format</div><div className="value">{f.format}</div></div>}
                             {f.fsk && <div className="row"><div className="label">FSK</div><div className="value">{f.fsk}</div></div>}
+                            {f.verleih && <div className="row"><div className="label">Verleih</div><div className="value">{f.verleih}</div></div>}
                         </div>
                     </div>
                 )}

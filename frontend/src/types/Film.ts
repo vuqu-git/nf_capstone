@@ -22,6 +22,7 @@ export type Film = {
     regie?: string,
     contentNote?: string,
     trailer?:string,
+    verleih?:string,
 }
 
 // Explanation of Nullability in TypeScript:

@@ -1,17 +1,18 @@
-import TerminDTOFormWithFilmsDTOFormPlus from "../types/TerminDTOFormWithFilmsDTOFormPlus.ts";
+import TerminDTOWithFilmsDTOFormPlus from "../types/TerminDTOWithFilmsDTOFormPlus.ts";
+import ReiheDTOFormWithTermineAndFilme from "../types/ReiheDTOFormWithTermineAndFilme.ts";
+
 import TerminFilmDetailsCard from "./termine/TerminFilmDetailsCard.tsx";
 import {formatDateTime} from "../utils/formatDateTime.ts";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import ReiheDTOFormWithTermineAndFilme from "../types/ReiheDTOFormWithTermineAndFilme.ts";
 import NotFound from "./NotFound.tsx";
 import {selectSonderfarbeFromReihen} from "../utils/selectSonderfarbeFromReihen.ts";
 
 export default function ScreeningDetails() {
 
     const { tnr } = useParams();
-    const [screeningDetails, setScreeningDetails] = useState<TerminDTOFormWithFilmsDTOFormPlus | null>(null);
+    const [screeningDetails, setScreeningDetails] = useState<TerminDTOWithFilmsDTOFormPlus | null>(null);
     const [reihenDetails, setReihenDetails] = useState<ReiheDTOFormWithTermineAndFilme[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -77,6 +78,8 @@ export default function ScreeningDetails() {
                 programmtext={screeningDetails.termin.text} // d.h. der text in der SQL-Tabelle Termin
                 programmbesonderheit={screeningDetails.termin.besonderheit} // d.h. die besonderheit in der SQL-Tabelle Termin
                 programmbild={screeningDetails.termin.bild} // d.h. das bild in der SQL-Tabelle Termin
+
+                showProgrammbildInDetails={screeningDetails.termin.showImageInDetails}
 
                 mainfilms={screeningDetails.mainfilms}
                 vorfilms={screeningDetails.vorfilms}
