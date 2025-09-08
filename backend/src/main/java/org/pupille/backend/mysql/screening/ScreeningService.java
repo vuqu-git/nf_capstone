@@ -4,7 +4,7 @@ import org.pupille.backend.mysql.film.Film;
 import org.pupille.backend.mysql.film.FilmDTOForm;
 import org.pupille.backend.mysql.reihe.ReiheDTOGallery;
 import org.pupille.backend.mysql.termin.Termin;
-import org.pupille.backend.mysql.termin.TerminDTOForm;
+import org.pupille.backend.mysql.termin.TerminDTOScreeningdetails;
 import org.pupille.backend.mysql.termin.TerminRepository;
 import org.pupille.backend.mysql.terminverknuepfung.Terminverknuepfung;
 import org.pupille.backend.mysql.terminverknuepfung.TerminverknuepfungRepository;
@@ -118,7 +118,7 @@ public class ScreeningService {
 
 //    ########################################################
 
-    public TerminDTOFormWithFilmsDTOFormPlus getTerminWithFilmsPlusByTnr(Long tnr) {
+    public TerminDTOWithFilmsDTOFormPlus getTerminWithFilmsPlusByTnr(Long tnr) {
         // Fetch Termin
         Termin termin = terminRepository.findById(tnr)
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with ID " + tnr));
@@ -153,8 +153,8 @@ public class ScreeningService {
                 .mapToInt(Integer::intValue)          // Convert to primitive int
                 .sum();                               // Sum remaining values
 
-        return new TerminDTOFormWithFilmsDTOFormPlus(
-                new TerminDTOForm(termin),
+        return new TerminDTOWithFilmsDTOFormPlus(
+                new TerminDTOScreeningdetails(termin),
                 mainFilms,
                 vorfilms,
                 terminGesamtlaufzeit

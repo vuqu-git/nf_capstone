@@ -11,6 +11,7 @@ import ReiheDTOFormWithTermineAndFilme from "../../types/ReiheDTOFormWithTermine
 import {formatDateTime} from "../../utils/formatDateTime.ts";
 import {Link} from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
+import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 interface Props {
     tnr: string | undefined;
@@ -28,6 +29,8 @@ interface Props {
     programmtext: string | undefined | null;
     programmbesonderheit: string | undefined | null;
     programmbild: string | undefined | null;
+
+    showProgrammbildInDetails: boolean | undefined | null;
 
     mainfilms: FilmDTOFormPlus[];
     vorfilms: FilmDTOFormPlus[];
@@ -52,6 +55,8 @@ export default function TerminFilmDetailsCard({
                                                   programmtext,
                                                   programmbesonderheit,
                                                   programmbild,
+
+                                                  showProgrammbildInDetails,
 
                                                   mainfilms,
                                                   vorfilms,
@@ -113,33 +118,34 @@ export default function TerminFilmDetailsCard({
                     {renderHtmlText(programmtitel)}
                 </Card.Title>
 
+                {showProgrammbildInDetails && (
+                    <Card.Img
+                        src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
+                        alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}
+                    />
+                )}
+
+                {programmtext && (
+                    <div className="program-text mt-2">
+                        {renderHtmlContent(programmtext)}
+                    </div>
+                )}
+
                 {/*Here with Card.Text (p tag) and renderHtmlText (span tag)*/}
                 {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                {programmtext && (
-                    <Card.Text className="program-text">
-                        {renderHtmlText(programmtext)}
-                    </Card.Text>
-                )}
-
-                {programmbesonderheit && (
-                    <Card.Text className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>
-                        {renderHtmlText(programmbesonderheit)}
-                    </Card.Text>
-                )}
-
-                {/*Here with div tag instead of Card.Text (p tag) and renderHtmlText (div tag)*/}
-                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
-                {/*{programmtext && (*/}
-                {/*    <div className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>*/}
-                {/*        {renderHtmlText(programmtext)}*/}
-                {/*    </div>*/}
-                {/*)}*/}
-
                 {/*{programmbesonderheit && (*/}
-                {/*    <div className="program-besonderheit">*/}
+                {/*    <Card.Text className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>*/}
                 {/*        {renderHtmlText(programmbesonderheit)}*/}
-                {/*    </div>*/}
+                {/*    </Card.Text>*/}
                 {/*)}*/}
+
+                {/*Here with div tag instead of Card.Text (p tag) and renderHtmlContent (div tag)*/}
+                {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
+                {programmbesonderheit && (
+                    <div className={reihen.length > 0 ? "program-besonderheit-mit-reihe-drunter" : "program-besonderheit-ohne-reihe-drunter"}>
+                        {renderHtmlContent(programmbesonderheit)}
+                    </div>
+                )}
 
                 {/*#########################################*/}
                 {/*###### Listing of Reihe(-elements) ######*/}
@@ -218,10 +224,12 @@ export default function TerminFilmDetailsCard({
                         })}
                     </>
                 ) : (
-                    <Card.Img
-                        src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
-                        alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}
-                    />
+                    <>
+                        {/*<Card.Img*/}
+                        {/*    src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}*/}
+                        {/*    alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}*/}
+                        {/*/>*/}
+                    </>
                 )}
             </Card.Body>
         </Card>

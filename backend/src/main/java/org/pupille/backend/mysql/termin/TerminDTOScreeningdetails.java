@@ -8,41 +8,33 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class TerminDTOForm {
+public class TerminDTOScreeningdetails {
 
     private Long tnr;
     private LocalDateTime vorstellungsbeginn;
     private String titel;
     private String text;
-    private String kurztext;
     private String besonderheit;
     private String bild;
-    private String offsetImageInGallery;
     private Boolean showImageInDetails;
     private LocalDate startReservierung;
     private String linkReservierung;
     private Integer sonderfarbeTitel;
     private String sonderfarbe;
-    private Short veroeffentlichen;
-    private String patenschaft;
     // Note: filmConnections are intentionally excluded, also reihen
 
-    public TerminDTOForm(Termin termin) {
+    public TerminDTOScreeningdetails(Termin termin) {
         this.tnr = termin.getTnr();
         this.vorstellungsbeginn = termin.getVorstellungsbeginn();
         this.titel = termin.getTitel();
         this.text = termin.getText();
-        this.kurztext = termin.getKurztext();
         this.besonderheit = termin.getBesonderheit();
-        this.offsetImageInGallery = termin.getOffsetImageInGallery();
-        this.showImageInDetails = termin.getShowImageInDetails();
         this.bild = termin.getBild();
+        this.showImageInDetails = termin.getShowImageInDetails();
         this.startReservierung = termin.getStartReservierung();
         this.linkReservierung = termin.getLinkReservierung();
         this.sonderfarbeTitel = termin.getSonderfarbeTitel();
         this.sonderfarbe = termin.getSonderfarbe();
-        this.veroeffentlichen = termin.getVeroeffentlichen();
-        this.patenschaft = termin.getPatenschaft();
         // Note: filmConnections are intentionally excluded
     }
 }

@@ -34,6 +34,7 @@ const emptyTerminForForm = {
     besonderheit: '',
     bild: '',
     offsetImageInGallery: '',
+    showImageInDetails: undefined,
     startReservierung: '',
     linkReservierung: '',
     sonderfarbeTitel: undefined,
@@ -211,13 +212,13 @@ export default function TerminForm() {
 
     // Handle termin form field changes
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const { name, type } = e.target;
 
         setSelectedTermin((prevData: Termin) => {
             // temporary object for changes
             const updatedData = {
                 ...prevData,
-                [name]: value,
+                [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : (e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value,
             };
 
             let newValue;
@@ -228,6 +229,15 @@ export default function TerminForm() {
                 // if new value of bild is empty, offsetImageInGallery is set to empty string
                 if (!newValue.trim()) { // check console.log(!" ");
                     updatedData.offsetImageInGallery = "";
+                }
+            }
+
+            // --- special condition on showImageInDetails
+            if (name === 'bild') {
+                newValue = updatedData.bild ?? "";
+                // if new value of bild is empty, showImageInDetails is set to false
+                if (!newValue.trim()) { // check console.log(!" ");
+                    updatedData.showImageInDetails = false;
                 }
             }
             return updatedData;
@@ -329,7 +339,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="patenschaft" className="mt-3">
-                    <Form.Label>Patenschaft (Mailadresse) *</Form.Label>
+                    <Form.Label>Patenschaft (Mailadresse)</Form.Label>
                     <Form.Control
                         type="email"
                         name="patenschaft"
@@ -442,6 +452,21 @@ export default function TerminForm() {
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
                         <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
                         <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="showImageInDetails" className="mt-3">
+                    {/*<Form.Label>(Termin-)Bild in den Screeningdetails anzeigen</Form.Label>*/}
+                    <Form.Check
+                        type="checkbox"
+                        label="(Termin-)Bild in den Screeningdetails anzeigen **"
+                        name="showImageInDetails"
+                        checked={selectedTermin.showImageInDetails || false}
+                        onChange={handleFormChange}
+                        disabled={!(selectedTermin.bild ?? "").trim()}
+                    />
+                    <Form.Text className="text-muted">
+                        Anzeige des (Termin-)Bildes nicht nur in der Gallery, sondern auch in den Screeningdetails
                     </Form.Text>
                 </Form.Group>
 
