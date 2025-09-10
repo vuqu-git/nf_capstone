@@ -216,7 +216,7 @@ export default function ReiheForm() {
                                         <ul>
                                             {t.mainfilms.map(f => (
                                                 <li key={f.fnr}>
-                                                    {renderHtmlText(f.titel)}
+                                                    {renderHtmlText(f.titel)} | fnr: #{f.fnr}
                                                 </li>
                                             ))}
                                         </ul>
@@ -262,13 +262,22 @@ export default function ReiheForm() {
                 <Form.Group controlId="sonderfarbe" className="mt-3">
                     <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="select"
                         name="sonderfarbe"
                         value={selectedReihe.sonderfarbe || ""}
                         onChange={handleFormChange}
-                    />
+                    >
+                        <option value="">pupille-glow (default)</option>
+                        <option value="teal-glow">teal-glow</option>
+                        <option value="red-glow">red-glow</option>
+                        <option value="orange-glow">orange-glow</option>
+                        <option value="yellow-glow">yellow-glow</option>
+                        <option value="green-glow">green-glow</option>
+                        <option value="blue-glow">blue-glow</option>
+                        <option value="indigo-glow">indigo-glow</option>
+                        <option value="pink-glow">pink-glow</option>
+                    </Form.Control>
                     <Form.Text className="text-muted">
-                        zulässige Werte: pupille-glow (=default; Feld bitte leer lassen), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow <br/>
                         Wenn 1 Termin mehrere Reihen hat, erfolgt automatische, zufällige Auswahl der Farbe. <br/>
                         Wenn im Termineintrag eine Sonderfarbe festgelegt wurde, hat dieser <b>Vorrang</b> ggü. der Sonderfarbe hier.
                     </Form.Text>

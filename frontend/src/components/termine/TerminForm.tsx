@@ -506,14 +506,23 @@ export default function TerminForm() {
                 <Form.Group controlId="sonderfarbe" className="mt-3">
                     <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="select"
                         name="sonderfarbe"
                         value={selectedTermin.sonderfarbe ?? ""}
                         onChange={handleFormChange}
-                    />
+                    >
+                        <option value="">pupille-glow (default)</option>
+                        <option value="teal-glow">teal-glow</option>
+                        <option value="red-glow">red-glow</option>
+                        <option value="orange-glow">orange-glow</option>
+                        <option value="yellow-glow">yellow-glow</option>
+                        <option value="green-glow">green-glow</option>
+                        <option value="blue-glow">blue-glow</option>
+                        <option value="indigo-glow">indigo-glow</option>
+                        <option value="pink-glow">pink-glow</option>
+                    </Form.Control>
                     <Form.Text className="text-muted">
-                        zulässige Werte: pupille-glow (default; Feld kann daher leer gelassen werden), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow <br/>
-                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen<br/>
+                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen, wenn Film in einer Reihe ist.<br/>
                         Mehrere Einträge hier möglich (comma separated!), es erfolgt dann automatische Zufallsauswahl der Farbe.
                     </Form.Text>
                 </Form.Group>
