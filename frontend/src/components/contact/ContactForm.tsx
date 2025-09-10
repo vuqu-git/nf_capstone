@@ -44,7 +44,7 @@ const ContactForm: React.FC = () => {
             setSelectedIssueSelection('');
             setFormData({});
             // Optionally reset status after a timeout if you want to hide the message after a while:
-            setTimeout(() => setSubmissionStatusWithMessage({ status: 'idle', message: undefined }), 8000); // i.e. 8 seconds
+            setTimeout(() => setSubmissionStatusWithMessage({ status: 'idle', message: undefined }), 10000); // i.e. 10 seconds
         }
     }, [submissionStatusWithMessage.status]);
 
@@ -67,10 +67,19 @@ const ContactForm: React.FC = () => {
         const { name, value, type } = e.target;
         const isCheckbox = type === "checkbox";
 
-        setFormData((prevData) => ({
-            ...prevData,
+        // setFormData((prevData) => ({
+        //     ...prevData,
+        //     [name]: isCheckbox ? (e as ChangeEvent<HTMLInputElement>).target.checked : value,
+        // }));
+
+        const newData = {
+            ...formData,
             [name]: isCheckbox ? (e as ChangeEvent<HTMLInputElement>).target.checked : value,
-        }));
+        };
+        setFormData(newData);
+
+        // ### Save Form Data to localStorage ###
+        localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
     };
 
     const handleGlobalSubmit = async (
@@ -99,10 +108,13 @@ const ContactForm: React.FC = () => {
                     status: 'success',
                     message: `&#x2705; Vielen Dank! Die Nachricht wurde gesendet.
                             <br/>
-                            Eine Kopie wurde an deine angegebene Mail-Adresse geschickt.`
+                            Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
                 });
 
                 setFormData({});
+
+                // ### Clear Form Data on Successful Submit ###
+                localStorage.removeItem(`${issueToUse}FormData`);
             } else {
                 // use error message from response
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,6 +167,16 @@ const ContactForm: React.FC = () => {
         }
     };
 
+    // ### Load Form Data from localStorage ###
+    useEffect(() => {
+        if (selectedIssueSelection) {
+            const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            if (savedData) {
+                setFormData(JSON.parse(savedData));
+            }
+        }
+    }, [selectedIssueSelection]);
+
     return (
         <div className={styles.contactFormWrapper}>
             <h2 className={styles.sectionTitle}>Kontakt</h2>
@@ -179,7 +201,7 @@ const ContactForm: React.FC = () => {
             {submissionStatusWithMessage.status !== 'success' && (
                 <>
                     <p className={styles.formDescription}>
-                        Für eine schnelle und strukturierte Bearbeitung von Anfragen bitten wir darum, stets das Kontaktformular auf unserer Webseite zu verwenden.
+                        Für eine schnelle und strukturierte Bearbeitung von Anfragen bitten wir darum, stets das nachfolgende Kontaktformular zu verwenden.
                     </p>
                     <p className={styles.formDescription}>
                         Da das gesamte Kinoteam ehrenamtlich arbeitet, kann die Beantwortung etwas Zeit in Anspruch nehmen – wir bitten um Verständnis und etwas Geduld.

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import styles from './Forms.module.css';
 import EigenstaendigForm, { EigenstaendigFormData } from './EigenstaendigForm';
 import MitKinotechnikForm, { MitKinotechnikFormData } from './MitKinotechnikForm';
@@ -40,17 +40,26 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
 
     const handleSubFormChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = event.target;
-        if (type === 'checkbox') {
-            setSubFormData((prevData) => ({
-                ...prevData,
-                [name]: (event.target as HTMLInputElement).checked,
-            }));
-        } else {
-            setSubFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
+        // if (type === 'checkbox') {
+        //     setSubFormData((prevData) => ({
+        //         ...prevData,
+        //         [name]: (event.target as HTMLInputElement).checked,
+        //     }));
+        // } else {
+        //     setSubFormData((prevData) => ({
+        //         ...prevData,
+        //         [name]: value,
+        //     }));
+        // }
+
+        const newData = {
+            ...subFormData,
+            [name]: type === 'checkbox' ? (event.target as HTMLInputElement).checked : value,
+        };
+        setSubFormData(newData);
+
+        // ### Save Form Data to localStorage ###
+        localStorage.setItem(`${selectedIssuesSubSelection}FormData`, JSON.stringify(newData));
     };
 
     const onSubFormSubmit = (
@@ -102,6 +111,16 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
                 return null;
         }
     };
+
+    // ### Load Form Data from localStorage ###
+    useEffect(() => {
+        if (selectedIssuesSubSelection) {
+            const savedData = localStorage.getItem(`${selectedIssuesSubSelection}FormData`);
+            if (savedData) {
+                setSubFormData(JSON.parse(savedData));
+            }
+        }
+    }, [selectedIssuesSubSelection]);
 
     return (
         <div>
