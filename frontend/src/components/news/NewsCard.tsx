@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Alert from 'react-bootstrap/Alert';
 import styles from './News.module.css';
-import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
+import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 type props = {
     variant: string,
@@ -15,7 +15,7 @@ export default function NewsCard({variant, text, imageUrl}: props) {
     if (show) {
 
         if (variant === "free" && text) {
-            return <div>{renderHtmlText(text)}</div>
+            return renderHtmlContent(text)
         } else {
             return (
                 <Alert variant={variant} data-bs-theme="dark" onClose={() => setShow(false)} dismissible>
@@ -24,11 +24,7 @@ export default function NewsCard({variant, text, imageUrl}: props) {
                     <div className={styles.newsContent}>
                         {/* Text */}
                         {/********/}
-                        { text && (
-                            <div>
-                                {renderHtmlText(text)}
-                            </div>
-                        )}
+                        { text && renderHtmlContent(text) }
 
                         {/* Image */}
                         {/*********/}

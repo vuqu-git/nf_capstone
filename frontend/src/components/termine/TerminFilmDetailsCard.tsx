@@ -157,7 +157,8 @@ export default function TerminFilmDetailsCard({
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
-                                <div className="ps-3"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>
+                                {/*<div className="ps-3"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>*/}
+                                <div className="mt-1"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>
                                 {reihe.termine && (
                                     <ul className="">
                                         {[...reihe.termine]
