@@ -49,6 +49,7 @@ public class ContactService {
 //    private static final String bccEmailInfoatpupille = "quy8vuong@gmail.com"; // here: info@pupille.org in production
 
     private static final String CELL_STYLE = "padding:4px;border:1px solid #ddd;text-align:left;";
+    private static final String CELL_STYLE_HEADER = "width: 200px;padding:4px;border:1px solid #ddd;text-align:left;";
     private static final String NO_REPLY_TEXT = "<p style=\"font-size: 0.85em; color: #b00; background-color: #f5f5f5; padding: 8px; border-radius: 4px; margin-top: 10px;\">Diese Nachricht wurde automatisch erzeugt. Antworten an no-reply@pupille.org werden nicht bearbeitet.</p>";
     private static final String INTRO_TEXT = "<p>Nachfolgend sind die vom Kontaktformular übermittelten Daten:</p>";
 
@@ -102,7 +103,7 @@ public class ContactService {
 
             private String tableRow(String label, String value) {
                 if (value == null) value = "";
-                return "<tr><th style=\"" + CELL_STYLE + "\">" + label + "</th><td style=\"" + CELL_STYLE + "\">" + value + "</td></tr>";
+                return "<tr><th style=\"" + CELL_STYLE_HEADER + "\">" + label + "</th><td style=\"" + CELL_STYLE + "\">" + value + "</td></tr>";
             }
             // ~~~~~~~~~~~~~~~
 
