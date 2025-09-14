@@ -307,7 +307,7 @@ public class ContactService {
             helper.setTo(email);
             helper.setBcc(bccEmailInfoatpupille);
 
-            helper.setSubject("[Eigenständige Nutzung Festsaal/Leinwand] " + betreff);
+            helper.setSubject("[Eigenständige Nutzung Leinwand] " + betreff);
 
             // --- Build HTML table ---
             var html = new StringBuilder()
@@ -546,9 +546,17 @@ public class ContactService {
 //    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void sendReminder(int days, String vorstellungsbeginn, String titel, String patenschaft, boolean isPreReminder) {
+        // titel is either of Programmtermin or of the mainfilm in case of Standardtermin (mainfilms.get(0).titel())
+
+        // Do nothing if patenschaft is null or empty
+        if (patenschaft == null || patenschaft.isEmpty()) {
+            return;
+        }
+
         if (vorstellungsbeginn == null || vorstellungsbeginn.isEmpty() ||
-                titel == null || titel.isEmpty() ||
-                patenschaft == null || patenschaft.isEmpty()) {
+                titel == null || titel.isEmpty()
+//                || patenschaft == null || patenschaft.isEmpty()
+        ) {
             throw new InvalidContactDataException("Alle Felder müssen ausgefüllt sein.");
         }
 
@@ -561,8 +569,10 @@ public class ContactService {
         String datum = ldtVorstellungsbeginn.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         String uhrzeit = ldtVorstellungsbeginn.format(DateTimeFormatter.ofPattern("HH:mm"));
 
-        String betreff = (isPreReminder ? "Pupille: Vorbereitung von " : "Pupille: Nachbereitung von ")
-                + titel.toUpperCase() + " am " + datum;
+//        String betreff = (isPreReminder ? "Pupille: Vorbereitung von " : "Pupille: Nachbereitung von ")
+//                + titel.toUpperCase() + " am " + datum;
+        String betreff = (isPreReminder ? "Pupille: Vorbereitung von '" : "Pupille: Nachbereitung von '")
+                + titel + "' am " + datum;
 
         StringBuilder htmlBody = new StringBuilder();
         htmlBody.append(NO_REPLY_TEXT);
@@ -574,9 +584,10 @@ public class ContactService {
                     .append(datum)
                     .append(" um ")
                     .append(uhrzeit)
-                    .append(" Uhr</b> die Vorstellung von <b>")
-                    .append(titel.toUpperCase())
-                    .append("</b> für die du die Patenschaft inne hast :)</p>");
+                    .append(" Uhr</b> die Vorstellung von '<b>")
+//                    .append(titel.toUpperCase())
+                    .append(titel)
+                    .append("</b>' für die du die Patenschaft inne hast :)</p>");
             htmlBody.append("<p>Dies ist ein automatischer Reminder für u.a. folgende vorbereitenden Aufgaben:</p>");
             htmlBody.append("<ul>");
             htmlBody.append("<li>Liegt eine Terminbestätigung vor?</li>");
@@ -590,9 +601,10 @@ public class ContactService {
                     .append(days)
                     .append(" Tagen am ")
                     .append(datum)
-                    .append(" die Vorstellung von <b>")
-                    .append(titel.toUpperCase())
-                    .append("</b> für die du die Patenschaft inne hast :)</p>");
+                    .append(" die Vorstellung von '<b>")
+//                    .append(titel.toUpperCase())
+                    .append(titel)
+                    .append("</b>' für die du die Patenschaft inne hast :)</p>");
             htmlBody.append("<p>Dies ist ein automatischer Reminder für u.a. folgende Erledigungen im Nachgang:</p>");
             htmlBody.append("<ul>");
             htmlBody.append("<li>Rückversand der Kopie vorbereiten bzw. Löschung der Filmdateien auf PC und Server durchführen</li>");
@@ -605,7 +617,9 @@ public class ContactService {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             messageHelper.setFrom(SENDER_EMAIL_NOREPLY);
-            messageHelper.setTo(patenschaft);
+//            messageHelper.setTo(patenschaft);
+            String[] recipients = patenschaft.split("\\s*,\\s*");
+            messageHelper.setTo(recipients);
             messageHelper.setSubject(betreff);
             messageHelper.setText(htmlBody.toString(), true);
         };
