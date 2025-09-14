@@ -349,6 +349,7 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         Höchstens 1 Email-Adresse eintragen!
+                        {/*Bei mehreren Paten bitte kommagetrennte Liste von Mailadressen eintragen.*/}
                     </Form.Text>
                 </Form.Group>
 
@@ -361,7 +362,7 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b>  (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
                         <br/>
@@ -381,7 +382,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
                         <br/>
-                        Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        Feld leerlassen, wenn es <b>kein</b> Programmtermin (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
                     </Form.Text>
@@ -470,7 +471,7 @@ export default function TerminForm() {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="startReservierung" className="mt-3">
+                <Form.Group controlId="startReservierung" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Start Reservierungsdatum</Form.Label>
                     <Form.Control
                         disabled={true}
@@ -481,7 +482,7 @@ export default function TerminForm() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="linkReservierung" className="mt-3">
+                <Form.Group controlId="linkReservierung" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Link zur Reservierung</Form.Label>
                     <Form.Control
                         disabled={true}

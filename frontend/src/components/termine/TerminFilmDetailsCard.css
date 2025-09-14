@@ -7,6 +7,7 @@
 }
 
 .terminFilmDetails-card-header {
+    font-size: 1.5rem;
     color: #FFD036;
     background-color: inherit;
     border-bottom: inherit;
@@ -24,6 +25,7 @@
 }
 
 .program-title {
+    font-size: 1.75rem;
     color: #FFD036;
     margin-top: 1.0rem;
     margin-bottom: 1.0rem;

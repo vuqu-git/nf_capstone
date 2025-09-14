@@ -105,14 +105,14 @@ export default function TerminFilmDetailsCard({
                 </div>
 
                 <Card.Header
-                    as="h4"
+                    as="h3"
                     className="terminFilmDetails-card-header"
                 >
-                    {screeningWeekday} | {screeningDate} | {screeningTime}
+                    {screeningWeekday} {screeningDate} {screeningTime}
                 </Card.Header>
 
                 <Card.Title
-                    as="h3"
+                    as="h2"
                     className="program-title"
                 >
                     {renderHtmlText(programmtitel)}
