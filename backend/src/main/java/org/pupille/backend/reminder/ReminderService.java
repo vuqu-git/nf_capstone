@@ -4,7 +4,6 @@ import org.pupille.backend.contact.ContactService;
 import org.pupille.backend.mysql.screening.FilmDTOMailReminder;
 import org.pupille.backend.mysql.screening.ScreeningService;
 import org.pupille.backend.mysql.screening.TerminDTOWithFilmDTOMailReminder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +57,7 @@ public class ReminderService {
                     //preparation of input parameters for contactService.sendReminder, which sends the mail
                     String titel = screening.titel();
 
-                    // if it's not a programmtermin, but a Standardtermin (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
+                    // if it's not a Programmtermin, but a Standardtermin (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
                     if (titel == null || titel.trim().isEmpty()) {
                         List<FilmDTOMailReminder> mainfilms = screening.mainfilms();
                         if (mainfilms != null && !mainfilms.isEmpty()) {

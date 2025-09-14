@@ -186,7 +186,7 @@ export default function OverviewArchive2() {
                 {/*display all/found archived pdf entries with image*/}
                 {allPdfs.filter(p => p.titel?.toLowerCase().includes(searchPdf.toLowerCase()))
                     .map(p => (
-                        <article key={p.pnr} className="mb-4">
+                        <article key={p.pnr} className="programmheft-article">
                             <div>
                                 <Link
                                     to={"https://pupille.org/programmheft/" + p.pdf}
