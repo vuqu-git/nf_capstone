@@ -3,12 +3,14 @@
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 .film-title{
+    font-size: 1.75rem;
     color: #FFD036;
-    border-top: 3px solid #FFD036;
+    border-top: 2px solid #FFD036;
     padding-top: 1rem;
 }
 
 .film-title-with-image-padding{
+    font-size: 1.75rem;
     padding-bottom:  1rem;
 }
 
@@ -16,6 +18,7 @@
     color: #cfd6e1;
 }
 
+/*for legacy embedded code within (Lang-)Text field*/
 .style-video-in-card iframe {
     width: 100%;
     height: auto;
@@ -76,6 +79,77 @@
     font-size: 1rem; /* Optional: reduce font size */
     min-height: unset; /* Remove min-height if you want it even tighter */
     /*font-weight: 600;*/
+}
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Privacy Banner für Trailer-Wiedergabe */
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+.trailer-consent-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 7px;
+    background-color: #151c26;
+}
+
+.trailer-consent-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.privacy-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*padding: 0.5rem;*/
+    background-color: #151c26;
+    border-radius: 7px;
+}
+
+.privacy-banner h4 {
+    font-size: clamp(0.8rem, 2.2vw, 1.1rem); /* Responsive font size for h5 */
+    color: #cfd6e1;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* Banner-Text */
+.privacy-banner p {
+    font-size: clamp(0.7rem, 2vw, 0.9rem); /* Responsive font size */
+    color: #cfd6e1;
+    margin-bottom: 1.0rem;
+    line-height: 1.4;
+    max-width: 94%; /* Prevent text from touching edges */
+}
+
+.privacy-banner button {
+    padding: 0.75rem 1.0rem;
+    font-size: clamp(0.7rem, 2vw, 0.9rem); /* Responsive font size */
+    font-weight: 600;
+    color: #151c26;
+    background-color: #FFD036;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.privacy-banner button:hover {
+    background-color: #cca62b;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
