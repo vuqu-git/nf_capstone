@@ -8,6 +8,7 @@ import {
 
 import Header2 from "../Header2.tsx";
 import {useCallback} from "react";
+import Footer from "../Footer.tsx";
 
 export default function BaseLayout() {
 
@@ -43,6 +44,7 @@ export default function BaseLayout() {
                 <ScrollRestoration getKey={getKey} />
             </main>
 
+            <Footer />
         </div>
     );
 }

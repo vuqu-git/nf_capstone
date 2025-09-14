@@ -1,9 +1,14 @@
 .app-container {
-  color: #cfd6e1; /* color of kurztext in TerminFilmGalleryCard */
-  /*background-color: #1e2328;*/
+  color: #cfd6e1;
   background-color: black;
-  min-height: 100vh; /* Ensure it covers the entire viewport height */
-  padding-bottom: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+main {
+  flex: 1; /* This makes the main element grow and push the footer down */
 }
 
 /*used in OverviewAndFormLayout and ScreeningLayout react component*/
