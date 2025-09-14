@@ -19,7 +19,8 @@
 }
 
 .introduction-text-reihen {
-    color: #9ac7fa;
+    /*color: #9ac7fa;*/
+    color: #cfd6e1;
 }
 
 .program-title {
@@ -36,8 +37,8 @@
 .program-besonderheit-mit-reihe-drunter {
     color: #cfd6e1;
     text-align: right;
-    border-top: 2px dotted #FFD036;
-    border-bottom: 2px dotted #FFD036;
+    border-top: 1px dotted #FFD036;
+    border-bottom: 1px dotted #FFD036;
     padding: 0.3rem 0em;
     margin-bottom: 1.0rem;
 }
@@ -45,7 +46,7 @@
 .program-besonderheit-ohne-reihe-drunter {
     color: #cfd6e1;
     text-align: right;
-    border-top: 2px dotted #FFD036;
+    border-top: 1px dotted #FFD036;
     padding: 0.3rem 0em;
     margin-bottom: 1.0rem;
 }

@@ -179,9 +179,11 @@
 .analog-box {
     display: inline-block;
     color: #40E0D0;
+    /*color: #9ac7fa;*/
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #40E0D0;
+    /*border: 1px solid #9ac7fa;*/
     font-size: 12px;
 }
 @media screen and (max-width: 767px) {
@@ -273,7 +275,7 @@
 
 .card-terminBesonderheit {
     color: #cfd6e1;
-    border-top: 2px dotted #FFD036;
+    border-top: 1px dotted #FFD036;
     padding: 0.3rem 0.0em;
     text-align: right;
 }
