@@ -162,7 +162,7 @@ export default function TerminFilmDetailsListing({
                         <div className="table-block">
                             {structuredStabObj.map(row => (
                                 <div className="row" key={row.abbrev}>
-                                    <div className="label">{row.abbrev}</div>
+                                    <div className="label">{renderHtmlText(row.abbrev)}</div>
                                     <div className="value">{renderHtmlText(row.entry)}</div>
                                 </div>
                             ))}

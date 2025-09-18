@@ -1,7 +1,7 @@
 import './NomalContent.css';
 import {Link} from "react-router-dom";
 
-const aktuelleVorstaende = "Max Gilbert, Johanna Fieberling und Lukas Birkhoff"
+const aktuelleVorstaende = "Johanna Fieberling, Max Gilbert und Lukas Birkhoff"
 
 export default function Impressum() {
 
@@ -22,7 +22,7 @@ export default function Impressum() {
                 fernmündlich unter der Telefonnummer 069 7982 8976
             </p>
             <p>
-                schriftlich über das <Link to={`/kontakt`}>Kontaktformular</Link>
+                schriftlich über das <Link to={`/kontakt`} className="custom-link">Kontaktformular</Link>
             </p>
 
             <h3 className="header3NormalContainer">Verein</h3>
@@ -412,6 +412,17 @@ export default function Impressum() {
                     Beiträge abonnieren können. Sofern die Nutzer Mitglieder der Plattform Instagram sind, kann
                     Instagram den Aufruf der o.g. Inhalte und Funktionen den dortigen Profilen der Nutzer zuordnen.
                     Datenschutzerklärung von Instagram: http://instagram.com/about/legal/privacy/.</p>
+
+                <h4 className="header4NormalContainer">Google reCAPTCHA</h4>
+
+                <p>Wir nutzen Google reCAPTCHA zur Abwehr von Spam und Missbrauch bei der Übermittlung von Formularen.
+                    Anbieter ist Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. Durch den Einsatz
+                    von reCAPTCHA werden personenbezogene Daten (u.a. IP-Adresse, Angaben zu Ihrem Browser und
+                    Verhalten auf unserer Website) an Google übertragen. Die Nutzung erfolgt auf Grundlage unseres
+                    berechtigten Interesses an Sicherheit und Funktionsfähigkeit des Onlineangebots gemäß
+                    Art. 6 Abs. 1 lit. f DSGVO. Weitere Informationen finden sich in den Datenschutzhinweisen von
+                    Google: https://www.google.com/policies/privacy/ und den zusätzlichen Nutzungsbedingungen:
+                    https://www.google.com/recaptcha/intro/android.html.</p>
 
                 <p>Erstellt mit Datenschutz-Generator.de von RA Dr. Thomas Schwenke</p>
             </section>
