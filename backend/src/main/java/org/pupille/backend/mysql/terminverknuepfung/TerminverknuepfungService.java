@@ -50,7 +50,8 @@ public class TerminverknuepfungService {
     }
 
     public Optional<TerminverknuepfungDTOSelection> getTVById(Terminverknuepfung.TerminverknuepfungId id) {
-        return Optional.of( new TerminverknuepfungDTOSelection(terminverknuepfungRepository.findById(id).get()) );
+        Optional<Terminverknuepfung> optionalTV = terminverknuepfungRepository.findById(id);
+        return optionalTV.map(TerminverknuepfungDTOSelection::new);
     }
     // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -61,7 +62,7 @@ public class TerminverknuepfungService {
                 .collect(Collectors.toList());
     }
 
-    public List<TVWithFilmAndTerminDTOSelection> getAllTVWithFilmAndTerminSortedByTermin() {
+    public List<TVWithFilmAndTerminDTOSelection> getAllTVWithFilmAndTerminSortedByTerminDesc() {
         return terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc()
                 .stream()
                 .map(TVWithFilmAndTerminDTOSelection::new)
@@ -161,7 +162,7 @@ public class TerminverknuepfungService {
         terminverknuepfungRepository.deleteById(deletingTVId);
     }
 
-//    // this simple saving doesn't work because of the relationships of Terminverknuepfung entity!
+//    // this simple saving/creating doesn't work because of the relationships of Terminverknuepfung entity!
 //    public Terminverknuepfung saveTerminverknuepfung(Terminverknuepfung terminverknuepfung) {
 //        return terminverknuepfungRepository.save(terminverknuepfung);
 //    }

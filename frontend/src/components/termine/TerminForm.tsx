@@ -100,7 +100,7 @@ export default function TerminForm() {
             // GET corresponding films (as FilmDTOSelection[]) of the selected single termin
             const getFilmsOfSingleTermin = axios.get(`/api/terminverknuepfung/film/fromtermin/${selectedTerminId}`);
             // GET corresponding reihen (as ReiheDTOSelection[]) of the selected single film
-            const getReihen = axios.get(`/api/reihe/fromtermin/${selectedTerminId}`);
+            const getReihen = axios.get(`/api/reihe/getreihen-fromtermin/${selectedTerminId}`);
 
             Promise.all([getSingleTermin, getFilmsOfSingleTermin, getReihen])
                 .then(([terminResponse, filmsResponse, reihenResponse]) => {

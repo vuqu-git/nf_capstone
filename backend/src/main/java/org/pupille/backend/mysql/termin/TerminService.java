@@ -4,6 +4,7 @@ import org.pupille.backend.mysql.reihe.Reihe;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,10 @@ public class TerminService {
     }
 
     public Optional<TerminDTOForm> getTerminById(Long tnr) {
-        return Optional.of( new TerminDTOForm(terminRepository.findById(tnr).get()) );
+        return terminRepository.findById(tnr)
+                .map(termin -> new TerminDTOForm(termin))
+                .map(Optional::of)
+                .orElseThrow(() -> new NoSuchElementException("Termin not found with id " + tnr));
     }
 
     public TerminDTOForm createTermin(Termin termin) {
@@ -57,7 +61,7 @@ public class TerminService {
                     termin.setPatenschaft(terminDetails.getPatenschaft());
                     return new TerminDTOForm(terminRepository.save(termin));
                 })
-                .orElseThrow(() -> new RuntimeException("Termin not found with id " + tnr));
+                .orElseThrow(() -> new NoSuchElementException("Termin not found with id " + tnr));
     }
 //    // this simple delete doesn't work because of the relationships (join table reihe_terminverknuepfung)!
 //    public void deleteTermin(Long tnr) {
