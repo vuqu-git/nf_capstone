@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import styles from './Forms.module.css';
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // caller of this component: ContactForm.tsx
 
@@ -20,9 +21,10 @@ interface KinomitarbeitFormProps {
     };
     onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     formData: KinomitarbeitFormData;
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
-const KinomitarbeitForm: React.FC<KinomitarbeitFormProps> = ({ onSubmit, submissionStatusWithMessage, onInputChange, formData }) => {
+const KinomitarbeitForm: React.FC<KinomitarbeitFormProps> = ({ onSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
     const maxMessageLength = 1000;
 
@@ -99,6 +101,12 @@ const KinomitarbeitForm: React.FC<KinomitarbeitFormProps> = ({ onSubmit, submiss
                 onInputChange={onInputChange}
                 formData={formData as KinomitarbeitFormData}
                 messageType={undefined}
+            />
+
+            <ReCAPTCHA
+                className="mb-3"
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onSetCaptchaToken}
             />
 
             <button

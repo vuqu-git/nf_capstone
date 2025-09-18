@@ -38,6 +38,9 @@ const ContactForm: React.FC = () => {
 
     const [submissionStatusWithMessage, setSubmissionStatusWithMessage] = useState<SubmissionStatusWithMessageType>({ status: 'idle' });
 
+    // captchaToken is a state variable that stores the response token from the Google reCAPTCHA widget after the user completes the CAPTCHA challenge
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
     // Reset state after a successful submission, but keep the success message
     useEffect(() => {
         if (submissionStatusWithMessage.status === 'success') {
@@ -88,6 +91,16 @@ const ContactForm: React.FC = () => {
         explicitData?: AOBFormData | KinomitarbeitFormData | EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData // optional parameter
     ) => {
         event.preventDefault(); //maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
+
+        if (!captchaToken) {
+            // alert("Please complete the CAPTCHA");
+            setSubmissionStatusWithMessage({
+                status: 'error',
+                message: "Bitte vervollständige das CAPTCHA (Sicherheitsüberprüfung) mit einem Klick auf 'Ich bin kein Roboter'."
+            });
+            return;
+        }
+
         setSubmissionStatusWithMessage({ status: 'sending' });
 
         // Use explicit parameters if provided, otherwise use state values
@@ -100,7 +113,8 @@ const ContactForm: React.FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataToUse),
+                // reCAPTCHA token is included in the form submission to your backend
+                body: JSON.stringify({ ...dataToUse, captcha: captchaToken }),
             });
 
             if (response.ok) {
@@ -111,7 +125,9 @@ const ContactForm: React.FC = () => {
                             Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
                 });
 
+                // reset form and CAPTCHA after a successful submission
                 setFormData({});
+                setCaptchaToken(null);
 
                 // ### Clear Form Data on Successful Submit ###
                 localStorage.removeItem(`${issueToUse}FormData`);
@@ -140,6 +156,8 @@ const ContactForm: React.FC = () => {
                         submissionStatusWithMessage={submissionStatusWithMessage}
                         onInputChange={handleChangeWithCheckbox}
                         formData={formData as AOBFormData}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'kinomitarbeit':
@@ -149,6 +167,8 @@ const ContactForm: React.FC = () => {
                         submissionStatusWithMessage={submissionStatusWithMessage}
                         onInputChange={handleChangeWithCheckbox}
                         formData={formData as KinomitarbeitFormData}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'eventMitProjektion':
@@ -156,6 +176,8 @@ const ContactForm: React.FC = () => {
                     <EventMitProjektion
                         onSubmit={handleGlobalSubmit} // The callback will now receive the issue from the subselection
                         submissionStatusWithMessage={submissionStatusWithMessage}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'eventOhneProjektion':
@@ -227,12 +249,14 @@ const ContactForm: React.FC = () => {
                             ))}
                         </select>
                     </div>
+                    {/*respective form is rendered here*/}
+                    {/*--------------------------------*/}
                     {renderForm()}
                 </>
             )}
             {/*Fehlermeldung*/}
             {submissionStatusWithMessage.status === 'error' && submissionStatusWithMessage.message && (
-                <div className={styles.statusError} role="alert">
+                <div className={styles.statusError + " ms-3 me-3"} role="alert">
                     {renderHtmlText(submissionStatusWithMessage.message)}
                 </div>
             )}

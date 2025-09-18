@@ -4,6 +4,7 @@ import {Badge} from "react-bootstrap";
 import HinweisWerbungVeranstaltungsort from "./HinweisWerbungVeranstaltungsort.tsx";
 import {useDateRangeValidation} from "../../hooks/useDateRangeValidation.ts";
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // caller of this component: EventMitProjektion.tsx
 
@@ -24,9 +25,10 @@ interface EigenstaendigFormProps {
     };
     onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     formData: EigenstaendigFormData;
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
-const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData }) => {
+const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
     const handleLocalSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -123,6 +125,12 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
                 onInputChange={onInputChange}
                 formData={formData as EigenstaendigFormData}
                 messageType="der Nachricht"
+            />
+
+            <ReCAPTCHA
+                className="mb-3"
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onSetCaptchaToken}
             />
 
             <button

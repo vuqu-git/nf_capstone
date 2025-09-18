@@ -2,6 +2,7 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
 import styles from './Forms.module.css';
 import {Badge} from "react-bootstrap";
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // caller of this component: EventMitProjektion.tsx
 
@@ -30,9 +31,10 @@ interface KooperationFormProps {
     };
     onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     formData: KooperationFormData;
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
-const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData }) => {
+const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
     const maxMessageLengthObj = {
         nachricht: 1500,
@@ -228,6 +230,12 @@ const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, subm
                 onInputChange={onInputChange}
                 formData={formData as KooperationFormData}
                 messageType={undefined}
+            />
+
+            <ReCAPTCHA
+                className="mb-3"
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onSetCaptchaToken}
             />
 
             <button

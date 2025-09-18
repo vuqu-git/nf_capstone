@@ -2,6 +2,7 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import styles from './Forms.module.css';
 import {useDateRangeValidation} from "../../hooks/useDateRangeValidation.ts";
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // caller of this component: EventMitProjektion.tsx
 
@@ -34,9 +35,10 @@ interface MitKinotechnikFormProps {
     };
     onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     formData: MitKinotechnikFormData;
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
-const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData }) => {
+const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
     const maxMessageLength = 1500;
 
@@ -287,6 +289,12 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                 onInputChange={onInputChange}
                 formData={formData as MitKinotechnikFormData}
                 messageType={undefined}
+            />
+
+            <ReCAPTCHA
+                className="mb-3"
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onSetCaptchaToken}
             />
 
             <button
