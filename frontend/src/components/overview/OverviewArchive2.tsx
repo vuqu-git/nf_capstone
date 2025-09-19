@@ -1,12 +1,12 @@
 import './OverviewAndProgram.css';
 
-import {formatDateInOverviewArchive} from "../utils/formatDateInOverviewArchive.ts";
-import {renderHtmlText} from "../utils/renderHtmlText.tsx";
+import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Link, useLoaderData} from "react-router-dom";
 import React, {JSX, useEffect, useState} from "react";
-import {ArchiveData} from "../App2.tsx";
-import styles from "./contact/Forms.module.css";
-import {convertToHtmlEntities} from "../utils/convertToHtmlEntities.ts";
+import {ArchiveData} from "../../App2.tsx";
+import styles from "../contact/Forms.module.css";
+import {convertToHtmlEntities} from "../../utils/convertToHtmlEntities.ts";
 
 export default function OverviewArchive2() {
 

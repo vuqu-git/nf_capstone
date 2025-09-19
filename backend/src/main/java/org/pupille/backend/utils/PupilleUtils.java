@@ -11,6 +11,8 @@ package org.pupille.backend.utils;
 //    Optionally, declare the class as final and make its constructor private to prevent instantiation (a common pattern for utility classes).
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 // No @Service annotation
 public final class PupilleUtils {
@@ -75,4 +77,43 @@ public final class PupilleUtils {
             return String.format("Wintersemester %d/%d", year, year + 1);
         }
     }
+
+    // ----------------------------------------------
+    public record SemesterDates(
+            LocalDateTime now,
+            LocalDateTime startDateSummer,
+            LocalDateTime endDateSummer,
+            LocalDateTime startDateWinter,
+            LocalDateTime endDateWinter
+    ){
+    }
+
+    public static SemesterDates calculateCurrentSemesterDates() {
+        // -- 0. Determine start and end date of the current semester
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
+
+        //  Define winter semester start and end dates
+        LocalDateTime startDateWinter = (now.getMonthValue() <= 3)
+                ? LocalDateTime.of(now.getYear() - 1, 10, 1, 0, 0) // WiSe, which started last year
+                : LocalDateTime.of(now.getYear(), 10, 1, 0, 0); // WiSe, which will start this year
+
+        LocalDateTime endDateWinter = (now.getMonthValue() <= 3)
+                ? LocalDateTime.of(now.getYear(), 3, 31, 23, 59, 59) // WiSe, which will end this year
+                : LocalDateTime.of(now.getYear() + 1, 3, 31, 23, 59, 59); // Wise, which will end next year
+
+        //  Define summer semester start and end dates (Apr 1 to Sep 30, same year)
+        LocalDateTime startDateSummer = LocalDateTime.of(now.getYear(), 4, 1, 0, 0);
+
+        LocalDateTime endDateSummer = LocalDateTime.of(now.getYear(), 9, 30, 23, 59, 59);
+
+        return new SemesterDates(
+                now,
+                startDateSummer, endDateSummer,
+                startDateWinter, endDateWinter
+        );
+    }
+    // ----------------------------------------------
+
+
+
 }

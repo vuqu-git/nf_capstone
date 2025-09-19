@@ -13,8 +13,8 @@ import TerminForm from "./components/termine/TerminForm.tsx";
 import TerminverknuepfungForm from "./components/terminverkuepfungen/TerminverknuepfungForm.tsx";
 
 import ScreeningDetails from "./components/ScreeningDetails.tsx";
-import OverviewArchive from "./components/OverviewArchive.tsx";
-import OverviewSemester from "./components/OverviewSemester.tsx";
+import OverviewArchive from "./components/overview/OverviewArchive.tsx";
+import OverviewSemester from "./components/overview/OverviewSemester.tsx";
 import Admin from "./components/Admin.tsx";
 import BackToTopButton from "./components/BackToTopButton.tsx";
 

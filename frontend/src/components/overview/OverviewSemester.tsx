@@ -3,10 +3,10 @@ import {useEffect, useState} from "react";
 import './OverviewAndProgram.css';
 
 import axios from "axios";
-import TerminDTOWithFilmDTOOverviewSemester from "../types/TerminDTOWithFilmDTOOverviewSemester.ts";
-import {renderHtmlText} from "../utils/renderHtmlText.tsx";
+import TerminDTOWithFilmDTOOverviewSemester from "../../types/TerminDTOWithFilmDTOOverviewSemester.ts";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Link} from "react-router-dom";
-import {formatDateTime} from "../utils/formatDateTime.ts";
+import {formatDateTime} from "../../utils/formatDateTime.ts";
 
 
 // interface Props {

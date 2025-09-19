@@ -50,6 +50,8 @@ import PdfProgram from "./components/PdfProgram.tsx";
 import {ProgrammheftDTOWithSemesterField} from "./types/ProgrammheftDTOWithSemesterField.ts";
 import Kinogeschichte from "./components/other/Kinogeschichte.tsx";
 import PrivacyPolicy from "./components/other/PrivacyPolicy.tsx";
+import OverviewClicks from "./components/overview/OverviewClicks.tsx";
+import {ClicksResponseDTO} from "./types/ClicksResponseDTO.ts";
 
 // ############################################
 // for Gallery.tsx

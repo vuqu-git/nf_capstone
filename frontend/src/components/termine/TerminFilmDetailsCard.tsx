@@ -12,15 +12,17 @@ import {formatDateTime} from "../../utils/formatDateTime.ts";
 import {Link} from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
+import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
+import {useTrackScreeningVisit} from "../../hooks/useTrackScreeningVisit.ts";
 
 interface Props {
-    tnr: string | undefined;
+    tnr: number;
 
     screeningWeekday: string | undefined;
     screeningDate: string | undefined;
     screeningTime: string | undefined;
 
-    vorstellungsbeginnIso8601: string | undefined;
+    vorstellungsbeginnIso8601: string;
 
     screeningSonderfarbe: string;
 
@@ -70,13 +72,19 @@ export default function TerminFilmDetailsCard({
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit);
 
+    useTrackScreeningVisit(tnr, vorstellungsbeginnIso8601, calenderTitle);
+    const handleTrackCalendarClick = useTrackCalendarClick();
+
     return (
         <Card
             className={`terminFilmDetails-card ${selectSonderfarbeFromString(screeningSonderfarbe)}`}
             // className={`terminFilmDetails-card pupille-glow`}
         >
             <Card.Body>
-                <div className="add-to-calendar-button-container">
+                <div
+                    className="add-to-calendar-button-container"
+                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle)}
+                >
                     <AddToCalendarButton
 
                         name={"Pupille: " + calenderTitle}
@@ -160,9 +168,9 @@ export default function TerminFilmDetailsCard({
                                 {/*<div className="ps-3"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>*/}
                                 <div className="mt-1"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>
                                 {reihe.termine && (
-                                    <ul className="">
+                                    <ul className="no-bullets">
                                         {[...reihe.termine]
-                                            .filter(termin => termin.tnr?.toString() !== tnr) // Termin in focus (in TerminFilmDetailsCard) should not be listed
+                                            .filter(termin => termin.tnr != tnr) // Termin in focus (in TerminFilmDetailsCard) should not be listed
                                             .map((termin, j) => (
 
                                                 <li key={termin.tnr}>
