@@ -8,6 +8,7 @@ import org.pupille.backend.mysql.termin.TerminDTOScreeningdetails;
 import org.pupille.backend.mysql.termin.TerminRepository;
 import org.pupille.backend.mysql.terminverknuepfung.Terminverknuepfung;
 import org.pupille.backend.mysql.terminverknuepfung.TerminverknuepfungRepository;
+import org.pupille.backend.utils.PupilleUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -201,28 +202,15 @@ public class ScreeningService {
 
     public List<TerminDTOWithFilmDTOOverviewSemester> getTermineByCurrentSemester() {
 
-        // -- 0. Determine start and end date of the current semester
-        LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
-
-        //  Define winter semester start and end dates
-        LocalDateTime startDateWinter = (now.getMonthValue() <= 3)
-                ? LocalDateTime.of(now.getYear() - 1, 10, 1, 0, 0) // WiSe, which started last year
-                : LocalDateTime.of(now.getYear(), 10, 1, 0, 0); // WiSe, which will start this year
-
-        LocalDateTime endDateWinter = (now.getMonthValue() <= 3)
-                ? LocalDateTime.of(now.getYear(), 3, 31, 23, 59, 59) // WiSe, which will end this year
-                : LocalDateTime.of(now.getYear() + 1, 3, 31, 23, 59, 59); // Wise, which will end next year
-
-        //  Define summer semester start and end dates (Apr 1 to Sep 30, same year)
-        LocalDateTime startDateSummer = LocalDateTime.of(now.getYear(), 4, 1, 0, 0);
-
-        LocalDateTime endDateSummer = LocalDateTime.of(now.getYear(), 9, 30, 23, 59, 59);
-
         // -- 1. Get Termine of current semester; call with distinct semester boundaries:
+        PupilleUtils.SemesterDates semesterDates = PupilleUtils.calculateCurrentSemesterDates();
+
         List<Termin> termineInSemester = terminRepository.findTermineByCurrentSemester(
-                now,
-                startDateSummer, endDateSummer,
-                startDateWinter, endDateWinter
+                semesterDates.now(),
+                semesterDates.startDateSummer(),
+                semesterDates.endDateSummer(),
+                semesterDates.endDateWinter(),
+                semesterDates.endDateWinter()
         );
 
         // -- 2. Get related films in batch
