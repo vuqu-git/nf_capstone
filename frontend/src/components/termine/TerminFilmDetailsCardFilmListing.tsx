@@ -1,11 +1,16 @@
 import Card from 'react-bootstrap/Card';
+import {Accordion} from "react-bootstrap";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
+import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 import {Film} from "../../types/Film.ts";
 import {structureStabString} from "../../utils/structureStabString.ts";
-import './TerminFilmDetailsCardFilmListing.css';
-import {Accordion} from "react-bootstrap";
 import {getFilmTitleForFilmDetailsCardFilmListing} from "../../utils/getFilmTitleForFilmDetailsCardFilmListing.tsx";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+
+import './TerminFilmDetailsCardFilmListing.css';
+
 
 interface Props {
     index: number;
@@ -23,12 +28,29 @@ export default function TerminFilmDetailsListing({
 
     const structuredStabObj = f.stab ? structureStabString(f.stab) : null;
 
+    // State to track if the user has given consent to play the YouTube video
+    const [hasPlayYoutubeConsent, setHasPlayYoutubeConsent] = useState(false);
+
+    // Check for existing consent in sessionStorage on component mount
+    useEffect(() => {
+        const userConsent = sessionStorage.getItem('youtube_consent');
+        if (userConsent === 'true') {
+            setHasPlayYoutubeConsent(true);
+        }
+    }, []);
+
+    // Function to handle the user giving consent for 'Video laden' button (onClick)
+    const handleConsent = () => {
+        setHasPlayYoutubeConsent(true);
+        sessionStorage.setItem('youtube_consent', 'true');
+    };
+
     return (
         <div>
             {/****** film title ******/}
             {/*******----------*******/}
             <Card.Title
-                as="h3"
+                as="h2"
                 className={`film-title ${f.bild ? 'film-title-with-image-padding' : ''}`}
             >
                 {getFilmTitleForFilmDetailsCardFilmListing({ f, fType, numberOfF, index, renderHtmlText })}
@@ -49,18 +71,17 @@ export default function TerminFilmDetailsListing({
                 {/*******----*******/}
                 { f.text && (
                     <div className="film-text style-video-in-card iframe">
-                        {renderHtmlText(f.text)}
+                        {renderHtmlContent(f.text)}
                     </div>
                 )}
 
                 {/****** besonderheit ******/}
                 {/*******------------*******/}
-                {
-                    f.besonderheit &&
+                {   f.besonderheit && (
                     <div className="film-besonderheit">
                         {renderHtmlText(f.besonderheit)}
                     </div>
-                }
+                )}
 
                 {/****** content note ******/}
                 {/*******------------*******/}
@@ -71,20 +92,48 @@ export default function TerminFilmDetailsListing({
                                 <span className="w-100 text-center">Hinweis auf sensible Inhalte</span>
                             </Accordion.Header>
                             <Accordion.Body>
-                                {renderHtmlText(f.contentNote)}
+                                {renderHtmlContent(f.contentNote)}
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
                 )}
 
-                {/****** trailer ******/}
-                {/*******-------*******/}
-                {
-                    f.trailer &&
-                    <div className="film-text style-video-in-card iframe">
-                        {renderHtmlText(f.trailer)}
+                {/*/!****** trailer ******!/*/}
+                {/*/!*******-------*******!/*/}
+                {/*{*/}
+                {/*    f.trailer &&*/}
+                {/*    <div className="style-video-in-card iframe">*/}
+                {/*        {renderHtmlContent(f.trailer)}*/}
+                {/*    </div>*/}
+                {/*}*/}
+
+                {/****** trailer with consent logic ******/}
+                {/*******--------------------------*******/}
+                {f.trailer && (
+                    <div className="trailer-consent-container">
+                        {hasPlayYoutubeConsent ? (
+                            // If consent is true, render the trailer
+                            renderHtmlContent(f.trailer)
+                        ) : (
+                            // Otherwise, render the privacy banner
+                            <div className="privacy-banner">
+                                <h4>Trailer: Wiedergabe und Datenschutz</h4>
+                                <p>
+                                    Dieses Video wird von einem externen Dienst (YouTube, Vimeo etc.) geladen. Dabei können personenbezogene Daten (z. B. IP‑Adresse) an den Anbieter übertragen und Cookies gesetzt werden.
+                                    Mit Klick auf „Video laden“ stimmst du der Übertragung und Verarbeitung deiner Daten durch den Anbieter zu.
+                                    <br/>
+                                    Weitere Informationen sind in unseren <Link to="/datenschutzhinweise" className="custom-link">Datenschutzhinweisen</Link> zu finden.
+                                </p>
+                                <button
+                                    onClick={handleConsent}
+                                >
+                                    Ja, Video laden.
+                                </button>
+                            </div>
+                        )}
                     </div>
-                }
+                )}
+
 
                 {/****** film informationen ******/}
                 {/*******------------------*******/}

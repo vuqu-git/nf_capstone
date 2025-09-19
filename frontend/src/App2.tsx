@@ -11,8 +11,8 @@ import axios, {AxiosResponse} from "axios";
 import ScreeningDetails from "./components/ScreeningDetails.tsx";
 import Gallery2 from "./components/Gallery2.tsx";
 import Admin from "./components/Admin.tsx";
-import OverviewSemester2 from "./components/OverviewSemester2.tsx";
-import OverviewArchive2 from "./components/OverviewArchive2.tsx";
+import OverviewSemester2 from "./components/overview/OverviewSemester2.tsx";
+import OverviewArchive2 from "./components/overview/OverviewArchive2.tsx";
 import EditDeleteNews from "./components/news/EditDeleteNews.tsx";
 import AddNews from "./components/news/AddNews.tsx";
 import TerminverknuepfungForm from "./components/terminverkuepfungen/TerminverknuepfungForm.tsx";
@@ -49,6 +49,9 @@ import {Programmheft} from "./types/Programmheft.ts";
 import PdfProgram from "./components/PdfProgram.tsx";
 import {ProgrammheftDTOWithSemesterField} from "./types/ProgrammheftDTOWithSemesterField.ts";
 import Kinogeschichte from "./components/other/Kinogeschichte.tsx";
+import PrivacyPolicy from "./components/other/PrivacyPolicy.tsx";
+import OverviewClicks from "./components/overview/OverviewClicks.tsx";
+import {ClicksResponseDTO} from "./types/ClicksResponseDTO.ts";
 
 // ############################################
 // for Gallery.tsx
@@ -342,6 +345,26 @@ async function getPdfProgram(): Promise<Programmheft[]> {
     }
 }
 
+// #############################
+// for OverviewClicks.tsx
+// Error Handling Template: Version with fetch method
+// --------------------------------------------------
+async function getOverviewClicks(): Promise<ClicksResponseDTO[]> {
+    try {
+        const response = await fetch(`/api/clicks`);
+        if (!response.ok) {
+            const errorMsgText = await response.text();
+            throw new Response(`Failed to fetch clicks overview: ${errorMsgText}`, {
+                status: response.status,
+            });
+        }
+        return await response.json();
+    } catch (error) {
+        if (error instanceof Response) throw error;
+        throw new Error("Failed to fetch clicks overview due to a network or unexpected error");
+    }
+}
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -406,7 +429,6 @@ const router = createBrowserRouter([
                                 element: <ContactForm/>,
                                 handle: {scrollMode: "pathname"},
                             },
-
                             // LOGIN, Login component which consumes AuthContext
                             {
                                 path: "lgn",
@@ -508,7 +530,19 @@ const router = createBrowserRouter([
                                 element: <Impressum/>,
                                 handle: {scrollMode: "pathname"},
                             },
+                            {
+                                path: "datenschutzhinweise",
+                                element: <PrivacyPolicy/>,
+                                handle: {scrollMode: "pathname"},
+                            },
                         ],
+                    },
+
+                    {
+                        path: "semesterclicks",
+                        loader: getOverviewClicks,
+                        element: <OverviewClicks/>,
+                        handle: {scrollMode: "pathname"},
                     },
 
                     {

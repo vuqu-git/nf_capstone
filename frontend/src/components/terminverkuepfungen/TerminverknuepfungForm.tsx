@@ -342,7 +342,7 @@ export default function TerminverknuepfungForm() {
                     <Form.Text className="text-muted">
                         vorgesehene Werte: 0, 1, 2, 3... → bestimmt die Anzeigereihenfolge der Filme des Programms im Termineintrag
                         <br/>
-                        bei "Standard-Termin" (mit genau 1 Langfilm + optionale Vorfilme) das Feld leerlassen
+                        bei "Standard"-Termin (mit genau 1 Langfilm + optionale Vorfilme) das Feld leerlassen
                     </Form.Text>
                 </Form.Group>
 

@@ -52,7 +52,7 @@ public class ReiheService {
                 .orElseThrow(() -> new RuntimeException("Reihe not found with ID " + id));
     }
 
-    // addTerminToReihe service method use
+    // addTerminToReihe service method use this method
     public Reihe getReiheByIdWithTermine(Long id) {
         return reiheRepository.findWithTermineByRnr(id) // this uses @EntityGraph
                 .orElseThrow(() -> new RuntimeException("Reihe not found with ID " + id));
@@ -77,7 +77,7 @@ public class ReiheService {
     }
 
     // ---------------------------------------------------------------------------------------------
-    // a method for fetching list of reihen when giving tnr (fnr)
+    // --- Get a list of Reihen for a given Tnr ---
     public List<ReiheDTOSelection> getAllReihenByTerminId(Long tnr) {
         Termin termin = terminRepository.findById(tnr)
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with ID " + tnr));
@@ -89,7 +89,7 @@ public class ReiheService {
     }
 
     // #####################################################################
-    // --- Get a list of Reihen (with all its Termine & Films belonging to one Reihe) for a given Tnr ---
+    // --- Get a list of Reihen with all its Termine & Films belonging to one Reihe for a given Tnr ---
     @Transactional(readOnly = true)
     public List<ReiheDTOFormWithTermineAndFilme> getAllReihenByTerminIdWithAllItsTermineAndFilms(Long tnr) {
         Termin termin = terminRepository.findWithReihenAndTermineAndFilmsByTnr(tnr)
@@ -112,7 +112,8 @@ public class ReiheService {
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with id: " + terminId));
 
         reihe.getTermine().add(termin);
-        // For bidirectional consistency (optional but recommended):
+        // Updating Both Sides for bidirectional consistency
+        // it's a must do, unless using Cascade Operations CascadeType in the relating entity classes
         termin.getReihen().add(reihe);
 
         // Saving the owning side (Reihe) typically cascades the changes to the join table.

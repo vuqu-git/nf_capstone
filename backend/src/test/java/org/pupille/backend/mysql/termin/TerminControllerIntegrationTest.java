@@ -2,14 +2,13 @@ package org.pupille.backend.mysql.termin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.http.MediaType;
@@ -44,9 +43,14 @@ class TerminControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // those both lines mean: performing CRUD operations on the real TerminRepository
+    // those both lines mean: performing CRUD operations on the TerminRepository as H2 in-memory relational DB
     @Autowired
     private TerminRepository terminRepository;
+
+    @BeforeEach
+    void setUp() {
+        terminRepository.deleteAll();  // Clean the Termin table before each test
+    }
 
     // !!!!!!!!!! this one is a unit test !!!!!!!!!!
     @Test
@@ -66,7 +70,7 @@ class TerminControllerIntegrationTest {
         assertThat(allTermine.get(0).getTitel()).isEqualTo("Test Title");
     }
 
-    // integration test
+    // Integration test for creating a new Termin and get it
     @Test
     void testCreateAndGetTermin() throws Exception {
         Termin termin = new Termin();
@@ -101,8 +105,71 @@ class TerminControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Test Termin"));
     }
 
+    // Integration test for updating an existing Termin
+    @Test
+    void testUpdateTermin() throws Exception {
+        // Create and save an initial Termin
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Old Title");
+        termin.setText("Old Text");
+        termin = terminRepository.save(termin);
 
-    // Add more tests for updateTermin, deleteTermin, etc.
+        // Modify some fields for update
+        Termin updatedTermin = new Termin();
+        updatedTermin.setVorstellungsbeginn(LocalDateTime.now().plusDays(1));
+        updatedTermin.setTitel("Updated Title");
+        updatedTermin.setText("Updated Text");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + termin.getTnr())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedTermin))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Updated Title"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Updated Text"));
+    }
+
+    // Integration test for deleting a Termin
+    @Test
+    void testDeleteTermin() throws Exception {
+        // Create and save a Termin to delete
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("To be deleted");
+        termin = terminRepository.save(termin);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/termine/" + termin.getTnr())
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        // Verify deletion from repository
+        assertThat(terminRepository.findById(termin.getTnr())).isEmpty();
+    }
+
+    // Integration test for getTerminById with non-existing ID (expect 404)
+    @Test
+    void testGetTerminById_NotFound() throws Exception {
+        long nonExistingId = 9999L;
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/termine/" + nonExistingId)
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    // Integration test for updateTermin with non-existing ID (expect 404)
+    @Test
+    void testUpdateTermin_NotFound() throws Exception {
+        long nonExistingId = 9999L;
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Non-existing");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + nonExistingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(termin))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
 }
-

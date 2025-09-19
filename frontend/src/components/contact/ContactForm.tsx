@@ -38,13 +38,16 @@ const ContactForm: React.FC = () => {
 
     const [submissionStatusWithMessage, setSubmissionStatusWithMessage] = useState<SubmissionStatusWithMessageType>({ status: 'idle' });
 
+    // captchaToken is a state variable that stores the response token from the Google reCAPTCHA widget after the user completes the CAPTCHA challenge
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
     // Reset state after a successful submission, but keep the success message
     useEffect(() => {
         if (submissionStatusWithMessage.status === 'success') {
             setSelectedIssueSelection('');
             setFormData({});
             // Optionally reset status after a timeout if you want to hide the message after a while:
-            setTimeout(() => setSubmissionStatusWithMessage({ status: 'idle', message: undefined }), 8000); // i.e. 8 seconds
+            setTimeout(() => setSubmissionStatusWithMessage({ status: 'idle', message: undefined }), 10000); // i.e. 10 seconds
         }
     }, [submissionStatusWithMessage.status]);
 
@@ -67,10 +70,19 @@ const ContactForm: React.FC = () => {
         const { name, value, type } = e.target;
         const isCheckbox = type === "checkbox";
 
-        setFormData((prevData) => ({
-            ...prevData,
+        // setFormData((prevData) => ({
+        //     ...prevData,
+        //     [name]: isCheckbox ? (e as ChangeEvent<HTMLInputElement>).target.checked : value,
+        // }));
+
+        const newData = {
+            ...formData,
             [name]: isCheckbox ? (e as ChangeEvent<HTMLInputElement>).target.checked : value,
-        }));
+        };
+        setFormData(newData);
+
+        // ### Save Form Data to localStorage ###
+        localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
     };
 
     const handleGlobalSubmit = async (
@@ -79,6 +91,16 @@ const ContactForm: React.FC = () => {
         explicitData?: AOBFormData | KinomitarbeitFormData | EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData // optional parameter
     ) => {
         event.preventDefault(); //maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
+
+        if (!captchaToken) {
+            // alert("Please complete the CAPTCHA");
+            setSubmissionStatusWithMessage({
+                status: 'error',
+                message: "Bitte vervollständige das CAPTCHA (Sicherheitsüberprüfung) mit einem Klick auf 'Ich bin kein Roboter'."
+            });
+            return;
+        }
+
         setSubmissionStatusWithMessage({ status: 'sending' });
 
         // Use explicit parameters if provided, otherwise use state values
@@ -91,7 +113,8 @@ const ContactForm: React.FC = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataToUse),
+                // reCAPTCHA token is included in the form submission to your backend
+                body: JSON.stringify({ ...dataToUse, captcha: captchaToken }),
             });
 
             if (response.ok) {
@@ -99,10 +122,15 @@ const ContactForm: React.FC = () => {
                     status: 'success',
                     message: `&#x2705; Vielen Dank! Die Nachricht wurde gesendet.
                             <br/>
-                            Eine Kopie wurde an deine angegebene Mail-Adresse geschickt.`
+                            Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
                 });
 
+                // reset form and CAPTCHA after a successful submission
                 setFormData({});
+                setCaptchaToken(null);
+
+                // ### Clear Form Data on Successful Submit ###
+                localStorage.removeItem(`${issueToUse}FormData`);
             } else {
                 // use error message from response
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,6 +156,8 @@ const ContactForm: React.FC = () => {
                         submissionStatusWithMessage={submissionStatusWithMessage}
                         onInputChange={handleChangeWithCheckbox}
                         formData={formData as AOBFormData}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'kinomitarbeit':
@@ -137,6 +167,8 @@ const ContactForm: React.FC = () => {
                         submissionStatusWithMessage={submissionStatusWithMessage}
                         onInputChange={handleChangeWithCheckbox}
                         formData={formData as KinomitarbeitFormData}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'eventMitProjektion':
@@ -144,6 +176,8 @@ const ContactForm: React.FC = () => {
                     <EventMitProjektion
                         onSubmit={handleGlobalSubmit} // The callback will now receive the issue from the subselection
                         submissionStatusWithMessage={submissionStatusWithMessage}
+
+                        onSetCaptchaToken={setCaptchaToken}
                     />
                 );
             case 'eventOhneProjektion':
@@ -154,6 +188,16 @@ const ContactForm: React.FC = () => {
                 return null;
         }
     };
+
+    // ### Load Form Data from localStorage ###
+    useEffect(() => {
+        if (selectedIssueSelection) {
+            const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            if (savedData) {
+                setFormData(JSON.parse(savedData));
+            }
+        }
+    }, [selectedIssueSelection]);
 
     return (
         <div className={styles.contactFormWrapper}>
@@ -179,7 +223,7 @@ const ContactForm: React.FC = () => {
             {submissionStatusWithMessage.status !== 'success' && (
                 <>
                     <p className={styles.formDescription}>
-                        Für eine schnelle und strukturierte Bearbeitung von Anfragen bitten wir darum, stets das Kontaktformular auf unserer Webseite zu verwenden.
+                        Für eine schnelle und strukturierte Bearbeitung von Anfragen bitten wir darum, stets das nachfolgende Kontaktformular zu verwenden.
                     </p>
                     <p className={styles.formDescription}>
                         Da das gesamte Kinoteam ehrenamtlich arbeitet, kann die Beantwortung etwas Zeit in Anspruch nehmen – wir bitten um Verständnis und etwas Geduld.
@@ -205,12 +249,14 @@ const ContactForm: React.FC = () => {
                             ))}
                         </select>
                     </div>
+                    {/*respective form is rendered here*/}
+                    {/*--------------------------------*/}
                     {renderForm()}
                 </>
             )}
             {/*Fehlermeldung*/}
             {submissionStatusWithMessage.status === 'error' && submissionStatusWithMessage.message && (
-                <div className={styles.statusError} role="alert">
+                <div className={styles.statusError + " ms-3 me-3"} role="alert">
                     {renderHtmlText(submissionStatusWithMessage.message)}
                 </div>
             )}

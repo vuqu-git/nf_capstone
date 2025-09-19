@@ -1,9 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, {useState, ChangeEvent, FormEvent, useEffect} from 'react';
 import styles from './Forms.module.css';
 import EigenstaendigForm, { EigenstaendigFormData } from './EigenstaendigForm';
 import MitKinotechnikForm, { MitKinotechnikFormData } from './MitKinotechnikForm';
 import KooperationForm, { KooperationFormData } from './KooperationForm';
 import { Badge } from 'react-bootstrap';
+import {Link} from "react-router-dom";
 
 interface EventMitProjektionProps {
     onSubmit: (
@@ -16,6 +17,8 @@ interface EventMitProjektionProps {
         status: 'idle' | 'sending' | 'success' | 'error';
         message?: string
     };
+
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
 interface SubSelectionConfig {
@@ -29,7 +32,7 @@ const subSelectionOptions: SubSelectionConfig[] = [
     { value: 'kooperation', label: '➂ gemeinsam in Kooperation mit Pupille' },
 ];
 
-const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submissionStatusWithMessage }) => {
+const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submissionStatusWithMessage, onSetCaptchaToken }) => {
     const [selectedIssuesSubSelection, setSelectedIssuesSubSelection] = useState<string>('');
     const [subFormData, setSubFormData] = useState<EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData>({});
 
@@ -40,17 +43,26 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
 
     const handleSubFormChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = event.target;
-        if (type === 'checkbox') {
-            setSubFormData((prevData) => ({
-                ...prevData,
-                [name]: (event.target as HTMLInputElement).checked,
-            }));
-        } else {
-            setSubFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        }
+        // if (type === 'checkbox') {
+        //     setSubFormData((prevData) => ({
+        //         ...prevData,
+        //         [name]: (event.target as HTMLInputElement).checked,
+        //     }));
+        // } else {
+        //     setSubFormData((prevData) => ({
+        //         ...prevData,
+        //         [name]: value,
+        //     }));
+        // }
+
+        const newData = {
+            ...subFormData,
+            [name]: type === 'checkbox' ? (event.target as HTMLInputElement).checked : value,
+        };
+        setSubFormData(newData);
+
+        // ### Save Form Data to localStorage ###
+        localStorage.setItem(`${selectedIssuesSubSelection}FormData`, JSON.stringify(newData));
     };
 
     const onSubFormSubmit = (
@@ -74,6 +86,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
                             event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
                         ) => void}
                         formData={subFormData as EigenstaendigFormData}
+                        onSetCaptchaToken={onSetCaptchaToken}
                     />
                 );
             case 'mitkinotechnik':
@@ -85,6 +98,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
                             event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
                         ) => void}
                         formData={subFormData as MitKinotechnikFormData}
+                        onSetCaptchaToken={onSetCaptchaToken}
                     />
                 );
             case 'kooperation':
@@ -96,6 +110,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
                             event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
                         ) => void}
                         formData={subFormData as KooperationFormData}
+                        onSetCaptchaToken={onSetCaptchaToken}
                     />
                 );
             default:
@@ -103,15 +118,26 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
         }
     };
 
+    // ### Load Form Data from localStorage ###
+    useEffect(() => {
+        if (selectedIssuesSubSelection) {
+            const savedData = localStorage.getItem(`${selectedIssuesSubSelection}FormData`);
+            if (savedData) {
+                setSubFormData(JSON.parse(savedData));
+            }
+        }
+    }, [selectedIssuesSubSelection]);
+
     return (
         <div>
             <div>
                 <Badge bg="success">Bitte lesen</Badge>
                 <p className={styles.formDescription}>
                     Informationen zu den verschiedenen Durchführungsarten von Veranstaltungen mit Projektion findet Ihr unter{' '}
-                    <a className="custom-link" href="/kinoprojektion" target="_blank" rel="noopener noreferrer">
-                        Infos & Service: Filme etc. zeigen
-                    </a>
+                    {/*<a className="custom-link" href="/kinoprojektion" target="_blank" rel="noopener noreferrer">*/}
+                    {/*    Infos & Service: Filme etc. zeigen*/}
+                    {/*</a>*/}
+                    <Link to="/kinoprojektion" className="custom-link">Infos & Service: Filme etc. zeigen</Link>
                 </p>
                 {/* subselection */}
                 {/*~~~~~~~~~~~~~~*/}

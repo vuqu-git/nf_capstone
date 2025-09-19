@@ -7,6 +7,7 @@
 }
 
 .terminFilmDetails-card-header {
+    font-size: 1.5rem;
     color: #FFD036;
     background-color: inherit;
     border-bottom: inherit;
@@ -19,10 +20,12 @@
 }
 
 .introduction-text-reihen {
-    color: #9ac7fa;
+    /*color: #9ac7fa;*/
+    color: #cfd6e1;
 }
 
 .program-title {
+    font-size: 1.75rem;
     color: #FFD036;
     margin-top: 1.0rem;
     margin-bottom: 1.0rem;
@@ -36,8 +39,8 @@
 .program-besonderheit-mit-reihe-drunter {
     color: #cfd6e1;
     text-align: right;
-    border-top: 2px dotted #FFD036;
-    border-bottom: 2px dotted #FFD036;
+    border-top: 1px dotted #FFD036;
+    border-bottom: 1px dotted #FFD036;
     padding: 0.3rem 0em;
     margin-bottom: 1.0rem;
 }
@@ -45,7 +48,12 @@
 .program-besonderheit-ohne-reihe-drunter {
     color: #cfd6e1;
     text-align: right;
-    border-top: 2px dotted #FFD036;
+    border-top: 1px dotted #FFD036;
     padding: 0.3rem 0em;
     margin-bottom: 1.0rem;
+}
+
+.no-bullets {
+    list-style-type: none;
+    padding-left: 0.75rem;
 }

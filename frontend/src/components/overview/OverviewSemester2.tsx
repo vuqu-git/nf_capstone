@@ -1,24 +1,24 @@
 import './OverviewAndProgram.css';
 
 import {Link, useLoaderData} from "react-router-dom";
-import TerminDTOWithFilmDTOOverviewSemester from "../types/TerminDTOWithFilmDTOOverviewSemester.ts";
-import {formatDateTime} from "../utils/formatDateTime.ts";
-import {renderHtmlText} from "../utils/renderHtmlText.tsx";
+import TerminDTOWithFilmDTOOverviewSemester from "../../types/TerminDTOWithFilmDTOOverviewSemester.ts";
+import {formatDateTime} from "../../utils/formatDateTime.ts";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {AddToCalendarButton} from "add-to-calendar-button-react";
-import {createDateAndTimeForAddToCalendarButton} from "../utils/createDateAndTimeForAddToCalendarButton.ts";
-import {createICSFileName} from "../utils/createICSFileName.ts";
-import ReihenAndFilmTermineForOverviewSemester from "../types/ReihenAndFilmTermineForOverviewSemester.ts";
+import {createDateAndTimeForAddToCalendarButton} from "../../utils/createDateAndTimeForAddToCalendarButton.ts";
+import {createICSFileName} from "../../utils/createICSFileName.ts";
+import ReihenAndFilmTermineForOverviewSemester from "../../types/ReihenAndFilmTermineForOverviewSemester.ts";
 import React, {useState} from "react";
 
 import Select, { ActionMeta, SingleValue } from "react-select";
-import {testListeReihenSemester} from "./testListeReihenSemester.ts";
-import {reihenSelectionWithSearchStyles} from "./styles/reihenSelectionWithSearchStyles.ts";
+import {testListeReihenSemester} from "../testListeReihenSemester.ts";
+import {reihenSelectionWithSearchStyles} from "../styles/reihenSelectionWithSearchStyles.ts";
+import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
 
 interface ReihenOption {
     value: string;
     label: React.ReactNode; // If using JSX (i.e. HTML tags used), otherwise string
 }
-
 
 const avgDurationTrailer = 12;
 
@@ -31,6 +31,8 @@ export default function OverviewSemester2() {
     const [isSearchable, setIsSearchable] = useState(true);
 
     const [selectedOption, setSelectedOption] = useState<ReihenOption | null>(null);
+
+    const handleTrackCalendarClick = useTrackCalendarClick();
 
     const handleChange = (
         newValue: SingleValue<ReihenOption>,
@@ -81,7 +83,7 @@ export default function OverviewSemester2() {
                             const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, true, true);
                             const calenderDateObj = createDateAndTimeForAddToCalendarButton(termin.vorstellungsbeginn, termin.terminGesamtlaufzeit + avgDurationTrailer);
 
-                            const calenderTitle = termin.titel || termin.mainfilms[0].titel;
+                            const calenderTitle = termin.titel || (termin.mainfilms[0].titel || "Film im Pupille-Kino");
                             const icsFileName = createICSFileName(calenderTitle, termin.vorstellungsbeginn);
 
                             // -- for blink effect if screening time is special
@@ -92,8 +94,9 @@ export default function OverviewSemester2() {
                                 <article key={termin.tnr} className="overview-row">
 
                                     <div className="overview-calender-and-date">
-                                        <div className="calendar">
+                                        <div className="calendar" onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle)}>
                                             <AddToCalendarButton
+
                                                 name={"Pupille: " + calenderTitle}
                                                 startDate={calenderDateObj.startDate}
                                                 startTime={calenderDateObj.startTime}

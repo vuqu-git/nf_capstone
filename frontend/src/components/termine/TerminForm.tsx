@@ -100,7 +100,7 @@ export default function TerminForm() {
             // GET corresponding films (as FilmDTOSelection[]) of the selected single termin
             const getFilmsOfSingleTermin = axios.get(`/api/terminverknuepfung/film/fromtermin/${selectedTerminId}`);
             // GET corresponding reihen (as ReiheDTOSelection[]) of the selected single film
-            const getReihen = axios.get(`/api/reihe/fromtermin/${selectedTerminId}`);
+            const getReihen = axios.get(`/api/reihe/getreihen-fromtermin/${selectedTerminId}`);
 
             Promise.all([getSingleTermin, getFilmsOfSingleTermin, getReihen])
                 .then(([terminResponse, filmsResponse, reihenResponse]) => {
@@ -349,6 +349,7 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         Höchstens 1 Email-Adresse eintragen!
+                        {/*Bei mehreren Paten bitte kommagetrennte Liste von Mailadressen eintragen.*/}
                     </Form.Text>
                 </Form.Group>
 
@@ -361,7 +362,7 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b>  (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
                         <br/>
@@ -381,7 +382,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
                         <br/>
-                        Feld leerlassen, wenn es <b>kein</b> Programm(-termin) (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        Feld leerlassen, wenn es <b>kein</b> Programmtermin (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
                     </Form.Text>
@@ -470,7 +471,7 @@ export default function TerminForm() {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="startReservierung" className="mt-3">
+                <Form.Group controlId="startReservierung" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Start Reservierungsdatum</Form.Label>
                     <Form.Control
                         disabled={true}
@@ -481,7 +482,7 @@ export default function TerminForm() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="linkReservierung" className="mt-3">
+                <Form.Group controlId="linkReservierung" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Link zur Reservierung</Form.Label>
                     <Form.Control
                         disabled={true}
@@ -506,14 +507,23 @@ export default function TerminForm() {
                 <Form.Group controlId="sonderfarbe" className="mt-3">
                     <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
-                        type="text"
+                        as="select"
                         name="sonderfarbe"
                         value={selectedTermin.sonderfarbe ?? ""}
                         onChange={handleFormChange}
-                    />
+                    >
+                        <option value="">pupille-glow (default)</option>
+                        <option value="teal-glow">teal-glow</option>
+                        <option value="red-glow">red-glow</option>
+                        <option value="orange-glow">orange-glow</option>
+                        <option value="yellow-glow">yellow-glow</option>
+                        <option value="green-glow">green-glow</option>
+                        <option value="blue-glow">blue-glow</option>
+                        <option value="indigo-glow">indigo-glow</option>
+                        <option value="pink-glow">pink-glow</option>
+                    </Form.Control>
                     <Form.Text className="text-muted">
-                        zulässige Werte: pupille-glow (default; Feld kann daher leer gelassen werden), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow <br/>
-                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen<br/>
+                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen, wenn Film in einer Reihe ist.<br/>
                         Mehrere Einträge hier möglich (comma separated!), es erfolgt dann automatische Zufallsauswahl der Farbe.
                     </Form.Text>
                 </Form.Group>

@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react'; // Import FormEvent
 import styles from './Forms.module.css';
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // caller of this component: ContactForm.tsx
 
@@ -20,9 +21,10 @@ interface AOBFormProps {
     };
     onInputChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     formData: AOBFormData;
+    onSetCaptchaToken: (value: string | null) => void;
 }
 
-const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage, onInputChange, formData }) => {
+const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
     const maxMessageLength = 2000;
 
@@ -100,6 +102,12 @@ const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage
                 onInputChange={onInputChange}
                 formData={formData as AOBFormData}
                 messageType="der Nachricht"
+            />
+
+            <ReCAPTCHA
+                className="mb-3"
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={onSetCaptchaToken}
             />
 
             <button

@@ -43,7 +43,7 @@ public class ReiheController {
     // ---------------------------------------------------------------------------------------------
     // a method for fetching list of reihen when giving tnr (fnr)
     // used in TerminForm.tsx
-    @GetMapping("/fromtermin/{tnr}")
+    @GetMapping("/getreihen-fromtermin/{tnr}")
     public ResponseEntity<List<ReiheDTOSelection>> getAllReihenByTerminId(@PathVariable Long tnr) {
         return ResponseEntity.ok(reiheService.getAllReihenByTerminId(tnr));
     }

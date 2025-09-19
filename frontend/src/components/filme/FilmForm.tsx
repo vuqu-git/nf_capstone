@@ -409,6 +409,9 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                         required
                     />
+                    <Form.Text className="text-muted">
+                        Bitte möglichst KEINE HTML-Entitäten (bspw. &auml;) oder HTML-Tags nutzen!
+                    </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="originaltitel" className="mt-3">
@@ -420,6 +423,7 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
+                        Bitte möglichst KEINE HTML-Entitäten (bspw. &auml;) oder HTML-Tags nutzen!<br/>
                         Wenn der Titel gleich dem Originaltitel ist (bspw. deutscher Film oder ausländischer Film ohne Auswertung in DE) → nur Feld Titel befüllen
                     </Form.Text>
                 </Form.Group>
@@ -435,7 +439,7 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.originaltitel ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Anzeige des Originaltitels erfolgt in Gallery, Semester Overview, Archiv (in den Screeningdetails wird es stets mit angezeigt); keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)
+                        Anzeige des Originaltitels erfolgt in Gallery, Preview, Overview Semester & Archive (in den Screeningdetails wird es stets mit angezeigt); keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)
                     </Form.Text>
                 </Form.Group>
 
@@ -456,7 +460,6 @@ export default function FilmForm() {
                         <br/>
                         Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film3.jpg
                         <br/>
-
                         Wenn keine Eingabe erfolgt, erscheint default_film.jpg in der Gallery.
                     </Form.Text>
                 </Form.Group>

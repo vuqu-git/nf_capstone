@@ -50,9 +50,9 @@ public class TerminverknuepfungController {
 
     // used in TerminverknuepfungForm.tsx
     @GetMapping("/terminsorted")
-    public ResponseEntity<List<TVWithFilmAndTerminDTOSelection>> getAllTVSortedByTermin() {
+    public ResponseEntity<List<TVWithFilmAndTerminDTOSelection>> getAllTVSortedByTerminDesc() {
         return ResponseEntity.ok(
-                terminverknuepfungService.getAllTVWithFilmAndTerminSortedByTermin()
+                terminverknuepfungService.getAllTVWithFilmAndTerminSortedByTerminDesc()
         );
     }
 
@@ -79,8 +79,6 @@ public class TerminverknuepfungController {
     public ResponseEntity<List<TerminProjectionSelection>> getTermineByFnr(@PathVariable Long fnr) {
         return ResponseEntity.ok(terminverknuepfungService.getTerminlistByFnr(fnr));
     }
-    // ---------------------------------------------------------------------------------------------
-
     //    #############################################################
     //    #############################################################
 

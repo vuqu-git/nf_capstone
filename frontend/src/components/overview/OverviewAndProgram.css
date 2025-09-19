@@ -21,6 +21,9 @@
 /*for PdfProgram component*/
 /*******************************/
 
+.programmheft-article{
+    margin-bottom: 2.25rem;
+}
 .program-flyer-image {
     max-width: 40%;
     max-height: 40%;
@@ -49,7 +52,7 @@ td {
 }
 
 .semester-header-cell {
-    padding: 0.3rem;
+    padding: 0.0rem 0.3rem 0.0rem 0.7rem;
     font-weight: 600;
     color: black;
 }

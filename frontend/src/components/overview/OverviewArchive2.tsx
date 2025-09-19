@@ -1,12 +1,12 @@
 import './OverviewAndProgram.css';
 
-import {formatDateInOverviewArchive} from "../utils/formatDateInOverviewArchive.ts";
-import {renderHtmlText} from "../utils/renderHtmlText.tsx";
+import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Link, useLoaderData} from "react-router-dom";
 import React, {JSX, useEffect, useState} from "react";
-import {ArchiveData} from "../App2.tsx";
-import styles from "./contact/Forms.module.css";
-import {convertToHtmlEntities} from "../utils/convertToHtmlEntities.ts";
+import {ArchiveData} from "../../App2.tsx";
+import styles from "../contact/Forms.module.css";
+import {convertToHtmlEntities} from "../../utils/convertToHtmlEntities.ts";
 
 export default function OverviewArchive2() {
 
@@ -186,7 +186,7 @@ export default function OverviewArchive2() {
                 {/*display all/found archived pdf entries with image*/}
                 {allPdfs.filter(p => p.titel?.toLowerCase().includes(searchPdf.toLowerCase()))
                     .map(p => (
-                        <article key={p.pnr} className="mb-4">
+                        <article key={p.pnr} className="programmheft-article">
                             <div>
                                 <Link
                                     to={"https://pupille.org/programmheft/" + p.pdf}

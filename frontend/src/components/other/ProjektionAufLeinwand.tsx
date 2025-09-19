@@ -23,7 +23,7 @@ export default function ProjektionAufLeinwand() {
                             Dazu müsstet Ihr als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärt ihr zeitlich und organisatorisch ganz unabhängig von uns.
                             Unsere Leinwand könnt ihr auf jeden Fall nutzen. Der Schlüssel zum Ausrollen liegt bei der Pforte des Studierendenhauses.
                         </Card.Text>
-                        <Badge bg="success">Hinweis:</Badge>
+                        <Badge bg="warning" text="dark">Hinweis:</Badge>
                         <Card.Text>
                             Das <a className="custom-link" href="https://asta-frankfurt.de/angebote/studierendenhaus/raeume-nutzen-mieten" target="_blank" rel="noopener noreferrer">Technik-Team</a> des AStA verleiht Technik (bspw. Boxen, Beamer, Mikrofone) für Veranstaltungen und erklärt bei Bedarf den Aufbau.
                         </Card.Text>
@@ -47,8 +47,8 @@ export default function ProjektionAufLeinwand() {
                 </Card>
             </CardGroup>
 
-            <Badge bg="danger" className="mt-4">Wichtig:</Badge>
-            <p className="mb-0">
+            {/*<Badge bg="success" className="mt-4">Wichtig:</Badge>*/}
+            <p className="mt-4 mb-0">
                 Bevor Ihr uns kontaktiert, bitte klärt immer <b>selber vorher</b>
             </p>
             <ul>
@@ -75,7 +75,7 @@ export default function ProjektionAufLeinwand() {
                     <Card.Text>
                         Um die Saalnutzung und die Kinotechnik kümmern wir uns, während die Fragen zu Ticketeinnahmen, Filmbestellung und Filmmiete individuell geklärt werden.
                     </Card.Text>
-                    <Badge bg="danger">Wichtig:</Badge>
+                    {/*<Badge bg="success">Wichtig:</Badge>*/}
                     <Card.Text>
                         Bitte richtet in diesem Fall eure Anfrage an uns bis zum Einsendeschluss am 31. Januar (für das Sommersemester) bzw.
                         am 31. Juli (für das Wintersemester).

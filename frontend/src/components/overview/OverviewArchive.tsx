@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import './OverviewAndProgram.css';
 
 import axios from "axios";
-import TerminDTOWithFilmDTOOverviewArchive from "../types/TerminDTOWithFilmDTOOverviewArchive.ts";
-import {formatDateInOverviewArchive} from "../utils/formatDateInOverviewArchive.ts";
-import {renderHtmlText} from "../utils/renderHtmlText.tsx";
+import TerminDTOWithFilmDTOOverviewArchive from "../../types/TerminDTOWithFilmDTOOverviewArchive.ts";
+import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Link} from "react-router-dom";
 
 // interface Props {
