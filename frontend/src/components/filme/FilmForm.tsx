@@ -474,7 +474,7 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Termin (d.h. 1 Langfilm + optionale Vorfilme)
+                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme)
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
                         <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
                         <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
@@ -516,7 +516,7 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung für Vorfilme</b>
+                        erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung für Vorfilme</b>
                     </Form.Text>
                 </Form.Group>
 
