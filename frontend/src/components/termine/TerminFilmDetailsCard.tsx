@@ -42,6 +42,8 @@ interface Props {
     reihen: ReiheDTOFormWithTermineAndFilme[];
 }
 
+const avgDurationTrailer = 12;
+
 export default function TerminFilmDetailsCard({
                                                   tnr,
 
@@ -70,7 +72,7 @@ export default function TerminFilmDetailsCard({
 
     const calenderTitle = programmtitel || (mainfilms[0].film.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
-    const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit);
+    const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
     useTrackScreeningVisit(tnr, vorstellungsbeginnIso8601, calenderTitle);
     const handleTrackCalendarClick = useTrackCalendarClick();
