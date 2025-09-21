@@ -52,6 +52,7 @@ import Kinogeschichte from "./components/other/Kinogeschichte.tsx";
 import PrivacyPolicy from "./components/other/PrivacyPolicy.tsx";
 import OverviewClicks from "./components/overview/OverviewClicks.tsx";
 import {ClicksResponseDTO} from "./types/ClicksResponseDTO.ts";
+import {OtherDataValuesMap} from "./types/OtherDataValuesMap.ts";
 
 // ############################################
 // for Gallery.tsx
@@ -365,6 +366,39 @@ async function getOverviewClicks(): Promise<ClicksResponseDTO[]> {
     }
 }
 
+// #############################
+// for Impressum.tsx and PrivacyPolicy.tsx
+// Error Handling Template: Version with axios method
+// --------------------------------------------------
+// Define a generic loader function
+const getOtherDataLoader = (keys: string) => async () => {
+    // key is a &-separated string list e.g. getOtherData("aktuelleVorstaende") or getOtherData("aktuelleVorstaende&jugenschutzbauftragter")
+    return await getOtherData(keys);
+};
+
+async function getOtherData(keys: string): Promise<OtherDataValuesMap> {
+    try {
+        const response: AxiosResponse<OtherDataValuesMap> = await axios.get(`/api/otherdata/get-values?${keys}`);
+        return response.data;
+    } catch (error: any) { // Axios errors are not Response objects—they are custom error objects with a response property
+        // console.error("Error fetching other data:", error);
+        if (error.response) {
+            // means Axios received a response from the server, but it was an error status (e.g., 404, 500)
+            // Now: You do not re-throwing the original error—it’s! You transform the Axios error into a React Router-friendly Response.
+            throw new Response(
+                error.response.data?.message || `Failed to load other data: Server responded with status ${error.response.status}`,
+                { status: error.response.status }
+            );
+        } else if (error.request) {
+            // error.request exists (but error.response does not): The request was made, but there was no response (server down, network timeout etc)
+            throw new Error("Failed to load other data: No response received from the server.");
+        } else {
+            // This means the error is a network error, a timeout, or some other client-side issue. You throw a new Error with a descriptive message.
+            throw new Error(`Failed to load other data due to a network or unexpected error: ${error.message}`);
+        }
+    }
+}
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -527,11 +561,13 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "impressum",
+                                loader: getOtherDataLoader("aktuelleVorstaende&jugendschutzbeauftragter"),
                                 element: <Impressum/>,
                                 handle: {scrollMode: "pathname"},
                             },
                             {
                                 path: "datenschutzhinweise",
+                                loader: getOtherDataLoader("aktuelleVorstaende"),
                                 element: <PrivacyPolicy/>,
                                 handle: {scrollMode: "pathname"},
                             },

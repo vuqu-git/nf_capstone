@@ -1,9 +1,10 @@
 import './NomalContent.css';
-import {Link} from "react-router-dom";
-
-const aktuelleVorstaende = "Johanna Fieberling, Max Gilbert und Lukas Birkhoff"
+import {Link, useLoaderData} from "react-router-dom";
+import {OtherDataValuesMap} from "../../types/OtherDataValuesMap.ts";
 
 export default function Impressum() {
+
+    const valuesMap = useLoaderData<OtherDataValuesMap>();
 
     return (
         <section className="normal-content-container">
@@ -30,8 +31,8 @@ export default function Impressum() {
                 Verantwortlich im Sinne des § 6 Teledienstegesetzes und des § 10 Mediendienste-Staatsvertrags.
             </p>
             <p>
-                Die Pupille e.V. ist ein gemeinnütziger eingetragener Verein an der Johann Wolfgang
-                Goethe-Universität Frankfurt. Sie wird durch die Vorstände {aktuelleVorstaende} vertreten.
+                Die Pupille e.V. ist ein gemeinnütziger eingetragener Verein an der Johann Wolfgang Goethe-Universität Frankfurt.
+                Sie wird durch die Vorstände {valuesMap.aktuelleVorstaende} vertreten.
             </p>
             <p>
                 Vereinsregisternummer: VR 6640 beim Amtsgericht Frankfurt am Main
@@ -42,7 +43,7 @@ export default function Impressum() {
 
             <h3 className="header3NormalContainer">Jugendschutzbeauftragter</h3>
             <p>
-                Dr. Johannes Litschel<br/>
+                {valuesMap.jugendschutzbeauftragter}<br/>
                 jugendschutz(at)kommunale-kinos.de
             </p>
 
