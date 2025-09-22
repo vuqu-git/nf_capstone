@@ -17,6 +17,7 @@ import {useTrackScreeningVisit} from "../../hooks/useTrackScreeningVisit.ts";
 
 interface Props {
     tnr: number;
+    veroeffentlichen: number | undefined;
 
     screeningWeekday: string | undefined;
     screeningDate: string | undefined;
@@ -46,6 +47,7 @@ const avgDurationTrailer = 12;
 
 export default function TerminFilmDetailsCard({
                                                   tnr,
+                                                  veroeffentlichen,
 
                                                   screeningWeekday,
                                                   screeningDate,
@@ -74,7 +76,7 @@ export default function TerminFilmDetailsCard({
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
-    useTrackScreeningVisit(tnr, vorstellungsbeginnIso8601, calenderTitle);
+    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle);
     const handleTrackCalendarClick = useTrackCalendarClick();
 
     return (

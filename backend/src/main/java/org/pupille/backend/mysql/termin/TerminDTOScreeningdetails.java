@@ -21,6 +21,7 @@ public class TerminDTOScreeningdetails {
     private String linkReservierung;
     private Integer sonderfarbeTitel;
     private String sonderfarbe;
+    private Short veroeffentlichen;
     // Note: filmConnections are intentionally excluded, also reihen
 
     public TerminDTOScreeningdetails(Termin termin) {
@@ -35,6 +36,7 @@ public class TerminDTOScreeningdetails {
         this.linkReservierung = termin.getLinkReservierung();
         this.sonderfarbeTitel = termin.getSonderfarbeTitel();
         this.sonderfarbe = termin.getSonderfarbe();
+        this.veroeffentlichen = termin.getVeroeffentlichen();
         // Note: filmConnections are intentionally excluded
     }
 }

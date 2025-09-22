@@ -1,6 +1,6 @@
 interface TerminDTOScreeningdetails {
-    tnr?: number; // Primary key, auto-generated, so it might not be present when creating a new Termin
-    vorstellungsbeginn?: string; // LocalDateTime represented as an ISO 8601 string in JSON
+    tnr: number; // Primary key, auto-generated, so it might not be present when creating a new Termin
+    vorstellungsbeginn: string; // LocalDateTime represented as an ISO 8601 string in JSON
     titel?: string | null;
     text?: string | null;
     besonderheit?: string | null;
@@ -10,7 +10,7 @@ interface TerminDTOScreeningdetails {
     linkReservierung?: string | null;
     sonderfarbeTitel?: number | null;
     sonderfarbe?: string | null;
-    veroeffentlichen?: number | null;
+    veroeffentlichen?: number;
 }
 
 export default TerminDTOScreeningdetails;
