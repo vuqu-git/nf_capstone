@@ -45,14 +45,6 @@ details.summary-style summary:hover {
   filter: brightness(1.3);
 }
 
-details.summary-style p:first-of-type {
-  margin-top: 1rem;
-}
-
-details.summary-style p:last-of-type {
-  margin-bottom: 0;
-}
-
 /* Specific styles for third-party-event-info */
 details.third-party-event-info summary::before {
   content: "📌";
@@ -69,4 +61,13 @@ details.general-info summary::before {
 
 details.general-info[open] summary::before {
   content: "📃";
+}
+
+/* Use only for news items */
+.mt-1-for-p p:first-of-type {
+  margin-top: 1rem;
+}
+
+.mb-0-for-p p:last-of-type {
+  margin-bottom: 0;
 }

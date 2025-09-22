@@ -34,7 +34,7 @@ export default function Admin() {
             </section>
 
             <section className="mt-3 mb-3">
-                <details>
+                <details className="summary-style general-info">
                     <summary><span className="text-info fs-5">Manual zur Erstellung von Screenings</span></summary>
                     <h5>Empfohlene Reihenfolge bei der Erstellung von Film- bzw. Termin-Einträgen</h5>
                     <ol>
