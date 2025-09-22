@@ -83,9 +83,11 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
                 "SELECT t FROM Termin t " +
                         "WHERE " +
                         "   (" + // Start of the semester logic group
-                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateSummer AND :endDateSummer) " +
+                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn >= :startDateSummer) " + // get also records of the follow-up semester
+//                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateSummer AND :endDateSummer) " + // fetch only records of the current semester
                         "       OR " +
-                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateWinter AND :endDateWinter) " +
+                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn >= :startDateWinter) " + // get also records of the follow-up semester
+//                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateWinter AND :endDateWinter) " + // fetch only records of the current semester
                         "   ) " + // End of the semester logic group
                         "   AND (t.veroeffentlichen > 0) " +
                         "ORDER BY t.vorstellungsbeginn ASC"
