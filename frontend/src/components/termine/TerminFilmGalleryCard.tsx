@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
-import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
+import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import './TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
@@ -148,7 +149,7 @@ export default function TerminFilmGalleryCard({
             <Card.Body>
                 {kurztext && (
                     <div className="card-kurztext">
-                        {renderHtmlText(kurztext)}
+                        {renderHtmlContent(kurztext)}
                     </div>
                 )}
 
@@ -157,13 +158,13 @@ export default function TerminFilmGalleryCard({
                         className="card-filmBesonderheit"
                         style={{ borderTop: kurztext ? undefined : 'none' }}
                     >
-                        {renderHtmlText(hauptfilmbesonderheit)}
+                        {renderHtmlContent(hauptfilmbesonderheit)}
                     </div>
                 )}
 
                 {terminBesonderheit && (
                     <div className="card-terminBesonderheit">
-                        {renderHtmlText(terminBesonderheit)}
+                        {renderHtmlContent(terminBesonderheit)}
                     </div>
                 )}
             </Card.Body>

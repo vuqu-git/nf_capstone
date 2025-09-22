@@ -79,7 +79,7 @@ export default function TerminFilmDetailsListing({
                 {/*******------------*******/}
                 {   f.besonderheit && (
                     <div className="film-besonderheit">
-                        {renderHtmlText(f.besonderheit)}
+                        {renderHtmlContent(f.besonderheit)}
                     </div>
                 )}
 
