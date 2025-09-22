@@ -56,8 +56,20 @@
 .table th:nth-child(5),
 .table td:nth-child(5),
 .table th:nth-child(6),
-.table td:nth-child(6) {
+.table td:nth-child(6),
+.table th:nth-child(7),
+.table td:nth-child(7) {
     width: 75px; /* Set a fixed width for the specified columns */
+}
+
+.table th:nth-child(8),
+.table td:nth-child(8) {
+    width: 50px; /* Set a fixed width for the specified columns */
+}
+
+.table th:nth-child(9),
+.table td:nth-child(9) {
+    width: 90px; /* Set a fixed width for the specified columns */
 }
 
 /* prevent the issue of the last line overshooting the rounded corners of your table */

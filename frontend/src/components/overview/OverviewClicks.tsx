@@ -19,7 +19,7 @@ const OverviewClicks: React.FC = () => {
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = String(date.getFullYear()).slice(-2);
-        return `${day}/${month}/${year}`;
+        return `${day}.${month}.${year}`;
     };
 
     const formatDaysOnline = (dateString: string | null) => {
@@ -62,16 +62,14 @@ const OverviewClicks: React.FC = () => {
                                         <th>Kalender (user)</th>
                                         <th>verkaufte Tickets</th>
                                         <th>Im Heft</th>
-                                        <th>1. Klick vor Tagen</th>
+                                        <th>Online seit (in Tagen)</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {clicksOfSemester.map((click, index) => (
                                         <tr key={index}>
                                             <td>
-                                                {/*{new Date(click.vorstellungsbeginn).toLocaleDateString()}<br />*/}
-                                                {formatDate(click.vorstellungsbeginn)}<br />
-                                                {formatTime(click.vorstellungsbeginn)}
+                                                {formatDate(click.vorstellungsbeginn)} {formatTime(click.vorstellungsbeginn)}
                                             </td>
                                             <td>{renderHtmlText(click.titel)}</td>
                                             <td>{click.sessionScreeningClicks}</td>
@@ -113,8 +111,8 @@ const OverviewClicks: React.FC = () => {
                                 </ul>
                             </div>
 
-                            <h2 className={styles.title2}>1. Klick vor X Tagen</h2>
-                            <p>Zeigt an, wann der allererste Klick erfolgte und ist ein Proxy seit wann der Screeningeintrag online ist.</p>
+                            <h2 className={styles.title2}>Online seit (in Tagen)</h2>
+                            <p>Zeigt an, wann das Screening auf der Webseite veröffentlicht wurde.</p>
                         </details>
 
                     </div>
