@@ -13,7 +13,7 @@ export const useTrackScreeningVisit = (tnr: number, vorstellungsbeginn: string, 
             localStorage.setItem(`screening-visited-${tnr}`, 'true');
         }
         if ((isFirstSessionVisit || isFirstLocalVisit) && isFutureScreening) {
-            // console.log(`Termin-Tracking (sessionStorage: ${isFirstSessionVisit}, localStorage: ${isFirstLocalVisit}) für #${tnr}`);
+            // console.log(`Screening-Tracking (sessionStorage: ${isFirstSessionVisit}, localStorage: ${isFirstLocalVisit}) für #${tnr}`);
 
             fetch('/api/clicks', {
                 method: 'POST',
@@ -22,8 +22,8 @@ export const useTrackScreeningVisit = (tnr: number, vorstellungsbeginn: string, 
                     tnr,
                     vorstellungsbeginn,
                     titel,
-                    wasSessionTerminClicked: isFirstSessionVisit,
-                    wasUserTerminClicked: isFirstLocalVisit,
+                    wasSessionScreeningClicked: isFirstSessionVisit,
+                    wasUserScreeningClicked: isFirstLocalVisit,
                 }),
             });
         }

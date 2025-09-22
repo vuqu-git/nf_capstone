@@ -23,11 +23,11 @@ public class Clicks {
     @Column(name = "titel")
     private String titel;
 
-    @Column(name = "session_termin_clicks")
-    private Long sessionTerminClicks;
+    @Column(name = "session_screening_clicks")
+    private Long sessionScreeningClicks;
 
-    @Column(name = "user_termin_clicks")
-    private Long userTerminClicks;
+    @Column(name = "user_screening_clicks")
+    private Long userScreeningClicks;
 
     @Column(name = "session_calendar_clicks")
     private Long sessionCalendarClicks;

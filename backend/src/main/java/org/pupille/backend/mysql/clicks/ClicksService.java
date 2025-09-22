@@ -1,13 +1,10 @@
 package org.pupille.backend.mysql.clicks;
 
 import lombok.RequiredArgsConstructor;
-import org.pupille.backend.mysql.termin.Termin;
 import org.pupille.backend.utils.PupilleUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,19 +21,19 @@ public class ClicksService {
                     newC.setTnr(requestDTO.getTnr());
                     newC.setVorstellungsbeginn(requestDTO.getVorstellungsbeginn());
                     newC.setTitel(requestDTO.getTitel());
-                    newC.setSessionTerminClicks(0L);
-                    newC.setUserTerminClicks(0L);
+                    newC.setSessionScreeningClicks(0L);
+                    newC.setUserScreeningClicks(0L);
                     newC.setSessionCalendarClicks(0L);
                     newC.setUserCalendarClicks(0L);
                     newC.setOnlineSince(LocalDate.now());
                     return newC;
                 });
 
-        if (Boolean.TRUE.equals(requestDTO.getWasSessionTerminClicked())) {
-            c.setSessionTerminClicks(c.getSessionTerminClicks() + 1);
+        if (Boolean.TRUE.equals(requestDTO.getWasSessionScreeningClicked())) {
+            c.setSessionScreeningClicks(c.getSessionScreeningClicks() + 1);
         }
-        if (Boolean.TRUE.equals(requestDTO.getWasUserTerminClicked())) {
-            c.setUserTerminClicks(c.getUserTerminClicks() + 1);
+        if (Boolean.TRUE.equals(requestDTO.getWasUserScreeningClicked())) {
+            c.setUserScreeningClicks(c.getUserScreeningClicks() + 1);
         }
         if (Boolean.TRUE.equals(requestDTO.getWasSessionCalendarClicked())) {
             c.setSessionCalendarClicks(c.getSessionCalendarClicks() + 1);

@@ -1,8 +1,8 @@
 export type ClicksResponseDTO = {
     vorstellungsbeginn: string; // ISO 8601 format (e.g., "2025-09-16T12:00:00")
     titel: string;
-    sessionTerminClicks: number;
-    userTerminClicks: number;
+    sessionScreeningClicks: number;
+    userScreeningClicks: number;
     sessionCalendarClicks: number;
     userCalendarClicks: number;
 
