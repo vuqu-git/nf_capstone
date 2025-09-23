@@ -40,9 +40,10 @@ export default function Admin() {
                     <ol>
                         <li>alle Reihen erstellen</li>
                         <li>Film erstellen</li>
-                        <li>Termin erstellen</li>
+                        <li>Termin erstellen, hier das Feld "veroeffentlichen" leer lassen oder 0 wählen</li>
                         <li>Film und Termin verknüpfen</li>
                         <li>Termin und Reihe verbinden</li>
+                        <li>alle Termine publik machen indem das Feld "veroeffentlichen" auf eine Zahl &gt; 0 gesetzt wird</li>
                     </ol>
 
                     <hr/>
