@@ -13,6 +13,6 @@ public class OtherDataService {
 
     public String findValueByKey(String key) {
         Optional<OtherData> data = otherDataRepo.findById(key);
-        return data.map(OtherData::getValue).orElse(null);
+        return data.map(OtherData::getDataValue).orElse(null);
     }
 }

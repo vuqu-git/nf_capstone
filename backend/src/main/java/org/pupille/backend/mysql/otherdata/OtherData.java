@@ -1,6 +1,5 @@
 package org.pupille.backend.mysql.otherdata;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,8 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OtherData {
     @Id
-    @Column(name = "`key`") // Escape the reserved keyword
-    private String key;
-    private String value;
+    private String dataKey;
+    private String dataValue;
     private String description;
 }
