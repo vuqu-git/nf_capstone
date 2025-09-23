@@ -362,7 +362,7 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b>  (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
                         <br/>
@@ -382,7 +382,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
                         <br/>
-                        Feld leerlassen, wenn es <b>kein</b> Programmtermin (mit mehreren Langfilmen), sondern ein "Standard"-Termin (mit 1 Langfilm + optionale Vorfilme) ist!
+                        Feld leerlassen, wenn es <b>kein</b> Programmscreening (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
                         styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
                     </Form.Text>
@@ -398,7 +398,9 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
+                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
+                        <br/>
+                        Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
                     </Form.Text>
                 </Form.Group>
 
@@ -412,7 +414,9 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
+                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
+                        <br/>
+                        Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
                         <br/>
                         a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}
                     </Form.Text>
@@ -432,7 +436,7 @@ export default function TerminForm() {
                         Bilddatei muss unter https://pupille.org/bilder/filmbilder/ abgelegt sein.
                         <br/>
                         Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
-                         → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                        → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                         als Stammverzeichnis hat.
                         <br/>
                         Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film4.jpg
@@ -449,7 +453,7 @@ export default function TerminForm() {
                         disabled={!(selectedTermin.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Termin (d.h. 1 Langfilm + optionale Vorfilme)
+                        Nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme).
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
                         <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
                         <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
