@@ -36,13 +36,13 @@ public class TerminService {
     }
 
     public Optional<TerminDTOForm> getTerminById(Long tnr) {
-//        return terminRepository.findById(tnr)
-        return terminRepository.findWithReihenByTnr(tnr)
+        return terminRepository.findById(tnr)
                 .map(TerminDTOForm::new)
                 .map(Optional::of)
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with id " + tnr));
     }
 
+    // ***************
                     // helper function for service methods createTermin and updateTermin
                     private void createClicksForTermin(Termin termin) {
                         Clicks clicks = new Clicks();
@@ -79,8 +79,8 @@ public class TerminService {
     }
 
     public TerminDTOForm updateTermin(Long tnr, Termin terminDetails) {
-//        return terminRepository.findById(tnr)
-        return terminRepository.findWithReihenByTnr(tnr)
+        return terminRepository.findById(tnr)
+//        return terminRepository.findWithReihenByTnr(tnr) // when use this line, test methods in TerminServiceTest need to be changed accordingly
                 .map(termin -> {
                     termin.setVorstellungsbeginn(terminDetails.getVorstellungsbeginn());
                     termin.setTitel(terminDetails.getTitel());
