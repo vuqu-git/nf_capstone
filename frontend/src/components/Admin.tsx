@@ -34,15 +34,16 @@ export default function Admin() {
             </section>
 
             <section className="mt-3 mb-3">
-                <details>
+                <details className="summary-style general-info">
                     <summary><span className="text-info fs-5">Manual zur Erstellung von Screenings</span></summary>
-                    <h5>Empfohlene Reihenfolge bei der Erstellung von Film- bz. Termin-Einträgen</h5>
+                    <h5>Empfohlene Reihenfolge bei der Erstellung von Film- bzw. Termin-Einträgen</h5>
                     <ol>
                         <li>alle Reihen erstellen</li>
                         <li>Film erstellen</li>
-                        <li>Termin erstellen</li>
+                        <li>Termin erstellen, hier das Feld "veroeffentlichen" leer lassen oder 0 wählen</li>
                         <li>Film und Termin verknüpfen</li>
                         <li>Termin und Reihe verbinden</li>
+                        <li>alle Termine publik machen indem das Feld "veroeffentlichen" auf eine Zahl &gt; 0 gesetzt wird</li>
                     </ol>
 
                     <hr/>
@@ -55,8 +56,8 @@ export default function Admin() {
 
                     <hr/>
 
-                    <p>Zu unterscheiden sind 2 Arten von Screeningterminen</p>
-                    <h5><em>"Standard"-Termin</em></h5>
+                    <p>Zu unterscheiden sind 2 Arten von Screenings</p>
+                    <h5><em>"Standard"-Screening</em></h5>
                     <p>d.h. 1 Termin mit genau 1 Langfilm + optionale Vorfilme</p>
                     <p>Beispiel: <Link to="/details/879" className="custom-link">Sie küssten und sie schlugen ihn</Link></p>
                     <span>Vorgehen:</span>
@@ -72,7 +73,7 @@ export default function Admin() {
                         z. B. <Link to="/details/844" className="custom-link">Kämpfe um Solidarität und Emanzipation</Link> oder  <Link to={"/details/843"} className="custom-link">LICHTER – Regionale Kurzfilmrolle I</Link>
                     </p>
 
-                    <h5 className="mt-3"><em>Programmtermin bzw. Filmprogramm an einem Termin</em></h5>
+                    <h5 className="mt-3"><em>Programmscreening bzw. Filmprogramm an einem Termin</em></h5>
                     <p>d.h. 1 Termin mit mehreren Filmen</p>
                     <p>Beispiel: <Link to="/details/875" className="custom-link">Antoine-Doinel-Zyklus Teil II</Link></p>
                     <p>Die einzelnen Filme haben jeweils keine eigene Startzeit, da nur 1 Termineintrag für alle Filme.</p>

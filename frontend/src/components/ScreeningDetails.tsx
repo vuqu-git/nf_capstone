@@ -63,7 +63,8 @@ export default function ScreeningDetails() {
     return (
         screeningDetails && (
             <TerminFilmDetailsCard
-                tnr={tnr}
+                tnr={Number(tnr)} // casting of tnr into number type
+                veroeffentlichen={screeningDetails.termin.veroeffentlichen}
 
                 screeningWeekday={screeningDateObj?.weekday}
                 screeningDate={screeningDateObj?.date}

@@ -31,7 +31,7 @@
     padding: 0.75rem;
     text-align: left;
     background-color: #2d2d2d;
-    color: #9ac7fa;;
+    color: #9ac7fa;
     font-weight: 600;
 }
 
@@ -46,4 +46,57 @@
 
 .table tr:hover {
     background-color: #333;
+}
+
+ /* fix lenghth for some columns */
+.table th:nth-child(3),
+.table td:nth-child(3),
+.table th:nth-child(4),
+.table td:nth-child(4),
+.table th:nth-child(5),
+.table td:nth-child(5),
+.table th:nth-child(6),
+.table td:nth-child(6),
+.table th:nth-child(7),
+.table td:nth-child(7) {
+    width: 75px; /* Set a fixed width for the specified columns */
+}
+
+.table th:nth-child(8),
+.table td:nth-child(8) {
+    width: 50px; /* Set a fixed width for the specified columns */
+}
+
+.table th:nth-child(9),
+.table td:nth-child(9) {
+    width: 90px; /* Set a fixed width for the specified columns */
+}
+
+/* prevent the issue of the last line overshooting the rounded corners of your table */
+.table tr:last-child td {
+    border-bottom: none; /* Remove the bottom border for the last row */
+}
+
+.table tr:last-child {
+    border-radius: 0 0 8px 8px; /* Apply border-radius to the last row */
+}
+
+/*######################*/
+
+.title2 {
+    margin-bottom: 0rem;
+    font-size: 1.0rem;
+    color: #9ac7fa;
+}
+
+.zaehlartenbox {
+    margin-bottom: 1rem;
+}
+
+.title3 {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    font-size: 1rem;
+    font-style: italic;
+    color: #9ac7fa;
 }

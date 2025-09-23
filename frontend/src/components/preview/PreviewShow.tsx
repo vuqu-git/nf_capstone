@@ -189,7 +189,7 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                             {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
                         />
                     ) : (
-                        // this condition also holds true für Programmtermine, but it rather ensures that mainfilms[0] exist
+                        // this condition also holds true für Programmscreening, but it rather ensures that mainfilms[0] exist
                         termin.mainfilms?.length > 0 && (
                             <TerminFilmPreviewCard
                                 screeningSonderfarbe={sonderfarbeForTerminFilmPreviewCard || "pupille-glow"}

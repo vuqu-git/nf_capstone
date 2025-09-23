@@ -546,7 +546,7 @@ public class ContactService {
 //    ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void sendReminder(int days, String vorstellungsbeginn, String titel, String patenschaft, boolean isPreReminder) {
-        // titel is either of Programmtermin or of the mainfilm in case of Standardtermin (mainfilms.get(0).titel())
+        // titel is either of Programmscreening or of the mainfilm in case of Standardscreening (mainfilms.get(0).titel())
 
         // Do nothing if patenschaft is null or empty
         if (patenschaft == null || patenschaft.isEmpty()) {

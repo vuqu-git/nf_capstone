@@ -1,8 +1,11 @@
 package org.pupille.backend.mysql.termin;
 
+import org.pupille.backend.mysql.clicks.Clicks;
+import org.pupille.backend.mysql.clicks.ClicksRepo;
 import org.pupille.backend.mysql.reihe.Reihe;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -11,10 +14,12 @@ import java.util.Optional;
 public class TerminService {
 
     private final TerminRepository terminRepository;
+    private final ClicksRepo clicksRepo;
 
     //@Autowired
-    public TerminService(TerminRepository terminRepository) {
+    public TerminService(TerminRepository terminRepository, ClicksRepo clicksRepo) {
         this.terminRepository = terminRepository;
+        this.clicksRepo = clicksRepo;
     }
 
     public List<TerminProjectionSelection> getAllTermineByOrderByVorstellungsbeginnDesc() {
@@ -32,18 +37,50 @@ public class TerminService {
 
     public Optional<TerminDTOForm> getTerminById(Long tnr) {
         return terminRepository.findById(tnr)
-                .map(termin -> new TerminDTOForm(termin))
+                .map(TerminDTOForm::new)
                 .map(Optional::of)
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with id " + tnr));
     }
 
+    // ***************
+                    // helper function for service methods createTermin and updateTermin
+                    private void createClicksForTermin(Termin termin) {
+                        Clicks clicks = new Clicks();
+
+                        // set the relationship - @MapsId will automatically set clicks.tnr = termin.tnr
+                        clicks.setTermin(termin);
+
+                        // all fields except titel and visitors are set during creation
+                        clicks.setVorstellungsbeginn(termin.getVorstellungsbeginn());
+                        clicks.setSessionScreeningClicks(0L);
+                        clicks.setUserScreeningClicks(0L);
+                        clicks.setSessionCalendarClicks(0L);
+                        clicks.setUserCalendarClicks(0L);
+                        clicks.setOnlineSince(LocalDate.now());
+                        clicks.setInsideProgrammheft(true);
+                        clicks.setWithTerminbesonderheit(termin.getBesonderheit() != null);
+                        clicks.setInNumberReihen((short) termin.getReihen().size());
+
+                        clicksRepo.save(clicks);
+                    }
+
     public TerminDTOForm createTermin(Termin termin) {
         // Do NOT set termin.setTnr(someValue) because we use auto-increment in the db
-        return new TerminDTOForm(terminRepository.save(termin));
+        Termin savedTermin = terminRepository.save(termin);
+
+        // -- relation to Clicks --
+        // creation of corresponding Clicks record, when Termin is veroeffentlicht
+        if (savedTermin.getVeroeffentlichen() != null && savedTermin.getVeroeffentlichen() > 0) {
+            createClicksForTermin(savedTermin);
+        }
+        // ------------------------
+
+        return new TerminDTOForm(savedTermin);
     }
 
     public TerminDTOForm updateTermin(Long tnr, Termin terminDetails) {
         return terminRepository.findById(tnr)
+//        return terminRepository.findWithReihenByTnr(tnr) // when use this line, test methods in TerminServiceTest need to be changed accordingly
                 .map(termin -> {
                     termin.setVorstellungsbeginn(terminDetails.getVorstellungsbeginn());
                     termin.setTitel(terminDetails.getTitel());
@@ -59,10 +96,39 @@ public class TerminService {
                     termin.setSonderfarbe(terminDetails.getSonderfarbe());
                     termin.setVeroeffentlichen(terminDetails.getVeroeffentlichen());
                     termin.setPatenschaft(terminDetails.getPatenschaft());
-                    return new TerminDTOForm(terminRepository.save(termin));
+
+                    // Save the updated termin
+                    Termin savedTermin = terminRepository.save(termin);
+
+                    // -- relation to Clicks --
+                    // possible creation of corresponding Clicks record, when Termin is veroeffentlicht
+                    if (savedTermin.getVeroeffentlichen() != null && savedTermin.getVeroeffentlichen() > 0) {
+                        // only create if it doesn't already exist
+                        if (!clicksRepo.existsById(savedTermin.getTnr())) {
+                            createClicksForTermin(savedTermin);
+                        }
+
+                        // update Clicks fields
+                        Clicks clicks = clicksRepo.findById(savedTermin.getTnr())
+                                .orElseThrow(() -> new NoSuchElementException("Clicks not found with id " + savedTermin.getTnr()));
+
+                        clicks.setVorstellungsbeginn(savedTermin.getVorstellungsbeginn());
+                        clicks.setWithTerminbesonderheit(savedTermin.getBesonderheit() != null && !savedTermin.getBesonderheit().isEmpty());
+                        clicks.setInNumberReihen((short) savedTermin.getReihen().size());
+
+                        // Save the updated Clicks
+                        clicksRepo.save(clicks);
+
+                        // !!! Attention: No update of Click field titel !!!
+                        // => this is done in ClicksService method trackClicks, when titel (can be Termin titel or titel of mainfilms[0]) is within post request from frontend
+                    }
+                    // ------------------------
+
+                    return new TerminDTOForm(savedTermin);
                 })
                 .orElseThrow(() -> new NoSuchElementException("Termin not found with id " + tnr));
     }
+
 //    // this simple delete doesn't work because of the relationships (join table reihe_terminverknuepfung)!
 //    public void deleteTermin(Long tnr) {
 //        terminRepository.deleteById(tnr);

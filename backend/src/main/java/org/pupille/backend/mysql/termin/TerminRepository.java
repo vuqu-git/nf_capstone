@@ -25,14 +25,21 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
         // @EntityGraph(attributePaths = {"filmConnections", "filmConnections.film"})   // Fetch all Termine with their associated TVen and Films
                                                                                         // But @EntityGraph would only become relevant if your TerminProjectionSelection (or another projection) included fields from Terminverknuepfung or Film and you wanted to ensure those associated entities were fetched in a single query (e.g., using JOIN FETCH or by defining the @EntityGraph).
                                                                                         // THIS is NOT the case here! Comment it out or better delete @EntityGraph because of misleading Information: Future developers (or even yourself later) might look at that @EntityGraph and assume that filmConnections and film data are being fetched and available in the TerminProjectionSelection, leading to incorrect assumptions or debugging efforts.
-        @Query("SELECT t FROM Termin t ORDER BY t.vorstellungsbeginn DESC")
+//        @EntityGraph(attributePaths = {"clicks"})       // without this we have a classic N+1 query performance problem caused by the new @OneToOne relationship with Clicks:
+//                                                        // The issue is that Hibernate is executing additional queries to fetch the Clicks entity for each Termin record
+//        @Query("SELECT t FROM Termin t ORDER BY t.vorstellungsbeginn DESC")
+//        List<TerminProjectionSelection> findAllByOrderByVorstellungsbeginnDesc();
+
+        // much faster! => select only the fields which are needed (for TerminProjectionSelection) and left clicks out
+        @Query("SELECT t.tnr as tnr, t.vorstellungsbeginn as vorstellungsbeginn, t.titel as titel " +
+                "FROM Termin t ORDER BY t.vorstellungsbeginn DESC")
         List<TerminProjectionSelection> findAllByOrderByVorstellungsbeginnDesc();
 
 //        // If you need the projection for future termine as well:
 //        @Query("SELECT t FROM Termin t WHERE t.vorstellungsbeginn >= :now ORDER BY t.vorstellungsbeginn ASC")
 //        List<TerminProjectionSelection> findAllFutureTermineProjected(LocalDateTime now);
 
-        @EntityGraph(attributePaths = {"filmConnections", "filmConnections.film"}) // Fetch all Termine with their associated TVen and Films
+        @EntityGraph(attributePaths = {"filmConnections", "filmConnections.film", "clicks"}) // Fetch all Termine with their associated TVen and Films and clicks
         @Query("SELECT t FROM Termin t ORDER BY t.vorstellungsbeginn DESC")
         List<Termin> findWithMainfilmeAllByOrderByVorstellungsbeginnDesc();
         //List<TerminDTOWithMainfilms> findWithMainfilmeAllByOrderByVorstellungsbeginnDesc();
@@ -83,9 +90,11 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
                 "SELECT t FROM Termin t " +
                         "WHERE " +
                         "   (" + // Start of the semester logic group
-                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateSummer AND :endDateSummer) " +
+                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn >= :startDateSummer) " + // get also records of the follow-up semester
+//                        "       (:now BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateSummer AND :endDateSummer) " + // fetch only records of the current semester
                         "       OR " +
-                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateWinter AND :endDateWinter) " +
+                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn >= :startDateWinter) " + // get also records of the follow-up semester
+//                        "       (:now NOT BETWEEN :startDateSummer AND :endDateSummer AND t.vorstellungsbeginn BETWEEN :startDateWinter AND :endDateWinter) " + // fetch only records of the current semester
                         "   ) " + // End of the semester logic group
                         "   AND (t.veroeffentlichen > 0) " +
                         "ORDER BY t.vorstellungsbeginn ASC"

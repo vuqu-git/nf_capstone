@@ -1,7 +1,15 @@
 import { useCallback } from 'react';
+import axios from "axios";
 
 export const useTrackCalendarClick = () => {
-    const handleTrackCalendarClick = useCallback((tnr: number, vorstellungsbeginn: string | undefined, titel: string) => {
+    const handleTrackCalendarClick = useCallback(
+        (
+         tnr: number,
+         vorstellungsbeginn: string | undefined,
+         titel: string,
+         withTerminbesonderheit: boolean,
+         inNumberReihen: number
+        ) => {
         const isFirstSessionClick = !sessionStorage.getItem(`calendar-clicked-${tnr}`);
         const isFirstLocalClick = !localStorage.getItem(`calendar-clicked-${tnr}`);
 
@@ -14,16 +22,26 @@ export const useTrackCalendarClick = () => {
         if (isFirstSessionClick || isFirstLocalClick) {
             // console.log(`Calender-Tracking (sessionStorage: ${isFirstSessionClick}, localStorage: ${isFirstLocalClick}) für #${tnr}`);
 
-            fetch('/api/clicks', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    tnr,
-                    vorstellungsbeginn,
-                    titel,
-                    wasSessionCalendarClicked: isFirstSessionClick,
-                    wasUserCalendarClicked: isFirstLocalClick,
-                }),
+            // fetch('/api/clicks', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({
+            //         tnr,
+            //         vorstellungsbeginn,
+            //         titel,
+            //         wasSessionCalendarClicked: isFirstSessionClick,
+            //         wasUserCalendarClicked: isFirstLocalClick,
+            //     }),
+            // });
+
+            axios.post('/api/clicks', {
+                tnr,
+                vorstellungsbeginn,
+                titel,
+                withTerminbesonderheit,
+                inNumberReihen,
+                wasSessionCalendarClicked: isFirstSessionClick,
+                wasUserCalendarClicked: isFirstLocalClick
             });
         }
     }, []);

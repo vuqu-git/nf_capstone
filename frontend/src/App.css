@@ -19,37 +19,55 @@ main {
 
 
 /*##########################################*/
-/*for news items presenting 3rd party events*/
+/*for news items with details and summary tags*/
 
-details.third-party-event-info summary {
+/* Common styles for both types of details */
+details.summary-style summary {
   list-style: none;
   cursor: pointer;
 }
 
-details.third-party-event-info summary::-webkit-details-marker {
+details.summary-style summary::-webkit-details-marker {
   display: none;
 }
 
-details.third-party-event-info summary::before {
-  content: "📌";
+details.summary-style summary::before {
   display: inline-block;
   margin-right: 0.5em;
   transition: transform 0.2s;
+}
+
+details.summary-style[open] summary::before {
+  transition: transform 0.2s;
+}
+
+details.summary-style summary:hover {
+  filter: brightness(1.3);
+}
+
+/* Specific styles for third-party-event-info */
+details.third-party-event-info summary::before {
+  content: "📌";
 }
 
 details.third-party-event-info[open] summary::before {
   content: "⭐";
 }
 
-details.third-party-event-info summary:hover {
-  filter: brightness(1.3);  /* brightens whatever color it is by 30% */
-  /*opacity: 0.7;             !* makes it more transparent (lighter effect) *!*/
+/* Specific styles for general-info */
+details.general-info summary::before {
+  content: "ℹ️";
 }
 
-details.third-party-event-info p:first-of-type {
+details.general-info[open] summary::before {
+  content: "📃";
+}
+
+/* Use only for news items */
+.mt-1-for-p p:first-of-type {
   margin-top: 1rem;
 }
 
-details.third-party-event-info p:last-of-type {
+.mb-0-for-p p:last-of-type {
   margin-bottom: 0;
 }

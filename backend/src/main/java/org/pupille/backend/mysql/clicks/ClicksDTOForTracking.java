@@ -12,8 +12,10 @@ public class ClicksDTOForTracking {
     private Long tnr;
     private LocalDateTime vorstellungsbeginn;
     private String titel;
-    private Boolean wasSessionTerminClicked;
-    private Boolean wasUserTerminClicked;
+    private Boolean withTerminbesonderheit;
+    private Short inNumberReihen;
+    private Boolean wasSessionScreeningClicked;
+    private Boolean wasUserScreeningClicked;
     private Boolean wasSessionCalendarClicked;
     private Boolean wasUserCalendarClicked;
 }

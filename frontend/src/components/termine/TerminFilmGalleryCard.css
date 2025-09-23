@@ -296,7 +296,9 @@
     }
 
     .card-kurztext,
-    .card-besonderheit,
+    /*.card-besonderheit,*/
+    .card-filmBesonderheit,
+    .card-terminBesonderheit,
     .filminfo-and-stab-gallery {
         font-size: 0.9rem;
     }

@@ -17,6 +17,7 @@ import {useTrackScreeningVisit} from "../../hooks/useTrackScreeningVisit.ts";
 
 interface Props {
     tnr: number;
+    veroeffentlichen: number | undefined;
 
     screeningWeekday: string | undefined;
     screeningDate: string | undefined;
@@ -42,8 +43,11 @@ interface Props {
     reihen: ReiheDTOFormWithTermineAndFilme[];
 }
 
+const avgDurationTrailer = 12;
+
 export default function TerminFilmDetailsCard({
                                                   tnr,
+                                                  veroeffentlichen,
 
                                                   screeningWeekday,
                                                   screeningDate,
@@ -68,11 +72,11 @@ export default function TerminFilmDetailsCard({
                                                   reihen,
                                               }: Readonly<Props>) {
 
-    const calenderTitle = programmtitel || (mainfilms[0].film.titel || "Film im Pupille-Kino");
+    const calenderTitle = programmtitel || (mainfilms[0]?.film?.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
-    const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit);
+    const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
-    useTrackScreeningVisit(tnr, vorstellungsbeginnIso8601, calenderTitle);
+    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length);
     const handleTrackCalendarClick = useTrackCalendarClick();
 
     return (
@@ -83,7 +87,7 @@ export default function TerminFilmDetailsCard({
             <Card.Body>
                 <div
                     className="add-to-calendar-button-container"
-                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle)}
+                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length)}
                 >
                     <AddToCalendarButton
 

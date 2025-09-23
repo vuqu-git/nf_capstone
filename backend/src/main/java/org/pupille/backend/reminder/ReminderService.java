@@ -57,7 +57,7 @@ public class ReminderService {
                     //preparation of input parameters for contactService.sendReminder, which sends the mail
                     String titel = screening.titel();
 
-                    // if it's not a Programmtermin, but a Standardtermin (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
+                    // if it's not a Programmscreening, but a Standardscreening (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
                     if (titel == null || titel.trim().isEmpty()) {
                         List<FilmDTOMailReminder> mainfilms = screening.mainfilms();
                         if (mainfilms != null && !mainfilms.isEmpty()) {
@@ -98,7 +98,7 @@ public class ReminderService {
                     //preparation of input parameters for contactService.sendReminder, which sends the mail
                     String titel = screening.titel();
 
-                    // if it's not a programmtermin, but a Standardtermin (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
+                    // if it's not a programmtermin, but a Standardscreening (i.e. 1 main feature + optional short film(s)) take the film titel of the 1st feature
                     if (titel == null || titel.trim().isEmpty()) {
                         List<FilmDTOMailReminder> mainfilms = screening.mainfilms();
                         if (mainfilms != null && !mainfilms.isEmpty()) {

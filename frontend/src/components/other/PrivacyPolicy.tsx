@@ -1,8 +1,10 @@
 import styles from './PrivacyPolicy.module.css';
-
-const aktuelleVorstaende = "Johanna Fieberling, Max Gilbert und Lukas Birkhoff"
+import {useLoaderData} from "react-router-dom";
+import {OtherDataValuesMap} from "../../types/OtherDataValuesMap.ts";
 
 const PrivacyPolicy = () => {
+    const valuesMap = useLoaderData<OtherDataValuesMap>();
+
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Datenschutzerklärung</h1>
@@ -23,23 +25,6 @@ const PrivacyPolicy = () => {
             <section className={styles.section}>
                 <h2 className={styles.subheading}>Inhaltsübersicht</h2>
                 <ul className={styles.index}>
-                    {/*<li><a className={styles.indexLink} href="#m716">Präambel</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m3">Verantwortlicher</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#mOverview">Übersicht der Verarbeitungen</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m2427">Maßgebliche Rechtsgrundlagen</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m27">Sicherheitsmaßnahmen</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m25">Übermittlung von personenbezogenen Daten</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m24">Internationale Datentransfers</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m12">Allgemeine Informationen zur Datenspeicherung und Löschung</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m10">Rechte der betroffenen Personen</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m354">Wahrnehmung von Aufgaben nach Satzung oder Geschäftsordnung</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m225">Bereitstellung des Onlineangebots und Webhosting</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m134">Einsatz von Cookies</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m182">Kontakt- und Anfrageverwaltung</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m408">Umfragen und Befragungen</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m136">Präsenzen in sozialen Netzwerken (Social Media)</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m328">Plug-ins und eingebettete Funktionen sowie Inhalte</a></li>*/}
-                    {/*<li><a className={styles.indexLink} href="#m42">Begriffsdefinitionen</a></li>*/}
                     <li><a className="custom-link" href="#m716">Präambel</a></li>
                     <li><a className="custom-link" href="#m3">Verantwortlicher</a></li>
                     <li><a className="custom-link" href="#mOverview">Übersicht der Verarbeitungen</a></li>
@@ -69,7 +54,7 @@ const PrivacyPolicy = () => {
                     Deutschland
                 </p>
                 <p className={styles.text}>
-                    Vertretungsberechtigte Personen (Vorstände): {aktuelleVorstaende}
+                    Vertretungsberechtigte Personen (Vorstände): {valuesMap.aktuelleVorstaende}
                 </p>
                 <p className={styles.text}>
                     <a href="mailto:info(at)pupille.org" className={styles.link}>E-Mail-Adresse</a>
