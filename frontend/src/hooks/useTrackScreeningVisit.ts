@@ -5,7 +5,9 @@ export const useTrackScreeningVisit = (
     tnr: number,
     veroeffentlichen: number | undefined,
     vorstellungsbeginn: string,
-    titel: string
+    titel: string,
+    withTerminbesonderheit: boolean,
+    inNumberReihen: number
 ) => {
     useEffect(() => {
         if (veroeffentlichen && veroeffentlichen > 0) {
@@ -22,18 +24,27 @@ export const useTrackScreeningVisit = (
             if ((isFirstSessionVisit || isFirstLocalVisit) && isFutureScreening) {
                 // console.log(`Screening-Tracking (sessionStorage: ${isFirstSessionVisit}, localStorage: ${isFirstLocalVisit}) für #${tnr}`);
 
-                fetch('/api/clicks', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        tnr,
-                        vorstellungsbeginn,
-                        titel,
-                        wasSessionScreeningClicked: isFirstSessionVisit,
-                        wasUserScreeningClicked: isFirstLocalVisit,
-                    }),
-                });
+                // fetch('/api/clicks', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({
+                //         tnr,
+                //         vorstellungsbeginn,
+                //         titel,
+                //         wasSessionScreeningClicked: isFirstSessionVisit,
+                //         wasUserScreeningClicked: isFirstLocalVisit,
+                //     }),
+                // });
 
+                axios.post('/api/clicks', {
+                    tnr,
+                    vorstellungsbeginn,
+                    titel,
+                    withTerminbesonderheit,
+                    inNumberReihen,
+                    wasSessionScreeningClicked: isFirstSessionVisit,
+                    wasUserScreeningClicked: isFirstLocalVisit
+                });
             }
         }
     }, [tnr]);

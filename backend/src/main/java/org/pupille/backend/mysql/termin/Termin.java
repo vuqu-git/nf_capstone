@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import org.pupille.backend.mysql.clicks.Clicks;
 import org.pupille.backend.mysql.reihe.Reihe;
 import org.pupille.backend.mysql.terminverknuepfung.Terminverknuepfung;
 
@@ -83,4 +84,10 @@ public class Termin {
     @EqualsAndHashCode.Exclude
     private Set<Reihe> reihen = new HashSet<>();
     // ############################################
+
+    // Optional 1-to-1 relationship with Clicks
+    // optional means: 1 Termin object can have at most 1 relating Clicks object
+    @OneToOne(mappedBy = "termin", cascade = CascadeType.REMOVE, optional = true)
+    @EqualsAndHashCode.Exclude
+    private Clicks clicks;
 }

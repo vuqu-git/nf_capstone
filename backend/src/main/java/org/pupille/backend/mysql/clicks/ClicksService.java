@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +15,7 @@ public class ClicksService {
 
     private final ClicksRepo clicksRepo;
 
+    // for post edn point "/api/clicks"
     public String trackClicks(ClicksDTOForTracking requestDTO) {
         Clicks c = clicksRepo.findById(requestDTO.getTnr())
                 .orElseGet(() -> {
@@ -29,6 +31,27 @@ public class ClicksService {
                     return newC;
                 });
 
+        // initial assignment & check for deviations
+        // remember: In TerminService, when creating a Clicks object (trigger event is set veroeffentlichen > 0) all fields except titel and visitors are set
+        if (c.getTitel() == null || !Objects.equals(requestDTO.getTitel(), c.getTitel())) {
+            c.setTitel(requestDTO.getTitel());
+        }
+
+        // --------------------
+        // check for deviations:
+        if (requestDTO.getVorstellungsbeginn() != c.getVorstellungsbeginn()) {
+            c.setVorstellungsbeginn(requestDTO.getVorstellungsbeginn());
+        }
+
+        if (requestDTO.getWithTerminbesonderheit() != null && !Objects.equals(requestDTO.getWithTerminbesonderheit(), c.getWithTerminbesonderheit()))  {
+            c.setWithTerminbesonderheit(requestDTO.getWithTerminbesonderheit());
+        }
+
+        if (requestDTO.getInNumberReihen() != null && !requestDTO.getInNumberReihen().equals(c.getInNumberReihen())) {
+            c.setInNumberReihen(requestDTO.getInNumberReihen());
+        }
+        // --------------------
+        // increment respective counters
         if (Boolean.TRUE.equals(requestDTO.getWasSessionScreeningClicked())) {
             c.setSessionScreeningClicks(c.getSessionScreeningClicks() + 1);
         }
@@ -48,9 +71,10 @@ public class ClicksService {
 
     public List<ClicksResponseDTO> getAllClicksByCurrentSemesterSortedByVorstellungsbeginnAsc() {
 
-        // Get Termine of current semester; call with distinct semester boundaries:
+        // determine current semester boundaries:
         PupilleUtils.SemesterDates semesterDates = PupilleUtils.calculateCurrentSemesterDates();
 
+        // Get Termine from current semester on
         List<Clicks> clicksOfSemester = clicksRepo.findClicksByCurrentSemester(
                 semesterDates.now(),
                 semesterDates.startDateSummer(),
@@ -59,10 +83,8 @@ public class ClicksService {
                 semesterDates.endDateWinter()
         );
 
-        List<ClicksResponseDTO> clicksResponseDTOOfSemester = clicksOfSemester.stream()
-                                        .map(ClicksResponseDTO::new)
-                                        .collect(Collectors.toList());
-
-        return  clicksResponseDTOOfSemester;
+        return clicksOfSemester.stream()
+                    .map(ClicksResponseDTO::new)
+                    .collect(Collectors.toList());
     }
 }

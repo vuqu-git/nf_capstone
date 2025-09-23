@@ -72,11 +72,11 @@ export default function TerminFilmDetailsCard({
                                                   reihen,
                                               }: Readonly<Props>) {
 
-    const calenderTitle = programmtitel || (mainfilms[0].film.titel || "Film im Pupille-Kino");
+    const calenderTitle = programmtitel || (mainfilms[0]?.film?.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
-    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle);
+    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length);
     const handleTrackCalendarClick = useTrackCalendarClick();
 
     return (
@@ -87,7 +87,7 @@ export default function TerminFilmDetailsCard({
             <Card.Body>
                 <div
                     className="add-to-calendar-button-container"
-                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle)}
+                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length)}
                 >
                     <AddToCalendarButton
 

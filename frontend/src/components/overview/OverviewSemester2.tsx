@@ -94,7 +94,7 @@ export default function OverviewSemester2() {
                                 <article key={termin.tnr} className="overview-row">
 
                                     <div className="overview-calender-and-date">
-                                        <div className="calendar" onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle)}>
+                                        <div className="calendar" onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length)}>
                                             <AddToCalendarButton
 
                                                 name={"Pupille: " + calenderTitle}
