@@ -143,6 +143,7 @@ export default function Gallery2() {
                                         </>
                                     ) : (
                                         // this condition also holds true für Programmscreenings, but it rather ensures that mainfilms[0] exist
+                                        // also ensures that a termin (without termin.title and) without a main filme (no verknuepfung to a main film) doesn't appear in the Gallery
                                         termin.mainfilms?.length > 0 && (
                                             <>
                                                 {/*screening consists of 1 main film + shorts possibly*/}
