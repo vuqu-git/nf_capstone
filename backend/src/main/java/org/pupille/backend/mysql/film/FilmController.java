@@ -21,7 +21,7 @@ public class FilmController {
     // this one is sorted in repo method
     @GetMapping()
     public ResponseEntity<List<FilmDTOSelection>> getAllFilmsRepoSortedByTitleAsc() {
-        List<FilmDTOSelection> films = filmService.getAllFilmsRepoSortedByTitleAsc();
+        List<FilmDTOSelection> films = filmService.getAllFilmsRepoSortedByTitleAscFast();
         return ResponseEntity.ok(films);
     }
 

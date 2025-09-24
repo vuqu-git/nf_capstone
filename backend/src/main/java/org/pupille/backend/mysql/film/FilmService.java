@@ -28,10 +28,16 @@ public class FilmService {
 
     // here DTO for Selection is used and the director gets extracted within the constructor of FilmDTOSelection
     public List<FilmDTOSelection> getAllFilmsRepoSortedByTitleAsc() {
+        // this approach is very slow:
         return filmRepository.findAllByOrderByTitelAsc()    // alternative: filmRepository.findAll(Sort.by(Sort.Direction.ASC, "titel")) // use JpaRepository's built-in sorting instead of defining a custom query in FilmRepository
                                 .stream()
                                 .map(FilmDTOSelection::new)
                                 .collect(Collectors.toList());
+    }
+
+    // here DTO for Selection is used and the director gets extracted within the constructor of FilmDTOSelection
+    public List<FilmDTOSelection> getAllFilmsRepoSortedByTitleAscFast() {
+        return filmRepository.findAllFilmsSortedByTitleAscFast();
     }
 
     // Retrieve a specific film by ID
