@@ -16,6 +16,10 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     // @Query("SELECT f FROM Film f ORDER BY f.titel ASC")  // This query can be expressed using Spring Data JPA's method naming convention, and you can remove the @Query annotation entirely
                                                             // Spring Data JPA will automatically generate the required SQL/JPQL
-    List<Film> findAllByOrderByTitelAsc();
+    List<Film> findAllByOrderByTitelAsc(); // this is very slow compared to findAllFilmsSortedByTitleAsc_Fast
+
+                                                    //FilmDTOSelection is a constructor call!
+    @Query("SELECT new org.pupille.backend.mysql.film.FilmDTOSelection(f.fnr, f.titel, f.jahr, f.regie, f.stab) FROM Film f ORDER BY f.titel ASC")
+    List<FilmDTOSelection> findAllFilmsSortedByTitleAscFast();
 
 }

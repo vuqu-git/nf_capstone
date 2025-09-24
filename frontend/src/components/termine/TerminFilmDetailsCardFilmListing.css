@@ -130,7 +130,7 @@
 .privacy-banner p {
     font-size: clamp(0.7rem, 2vw, 0.9rem); /* Responsive font size */
     color: #cfd6e1;
-    margin-bottom: 1.0rem;
+    margin-bottom: 0.5rem;
     line-height: 1.4;
     max-width: 94%; /* Prevent text from touching edges */
 }

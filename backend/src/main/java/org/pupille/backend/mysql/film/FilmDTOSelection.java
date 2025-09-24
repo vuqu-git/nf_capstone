@@ -16,6 +16,7 @@ public class FilmDTOSelection {
     private Integer jahr;
     private String regie;
 
+    // constructor used in slow FilmService method getAllFilmsRepoSortedByTitleAsc
     public FilmDTOSelection(Film film) {
         this.fnr = film.getFnr();
         this.titel = film.getTitel();
@@ -27,6 +28,19 @@ public class FilmDTOSelection {
             this.regie = PupilleUtils.extractDirectors(film.getStab());
         } else {
             this.regie = film.getRegie();
+        }
+    }
+
+    // constructor used in FilmRepository method findAllFilmsSortedByTitleAsc_Fast
+    public FilmDTOSelection(Long fnr, String titel, Integer jahr, String regie, String stab) {
+        this.fnr = fnr;
+        this.titel = titel;
+        this.jahr = jahr;
+        // Logic for regie
+        if (regie == null || regie.isEmpty()) {
+            this.regie = PupilleUtils.extractDirectors(stab);
+        } else {
+            this.regie = regie;
         }
     }
 

@@ -1,11 +1,8 @@
 import {Link} from "react-router-dom";
 import Logout from "./security/Logout.tsx";
+import {Badge} from "react-bootstrap";
+import React from "react";
 
-// interface Props {
-//
-// }
-
-// export default function OverviewArchive({ }: Props) {
 export default function Admin() {
 
     return (
@@ -13,6 +10,11 @@ export default function Admin() {
             <Logout />
             <h1>Administratives</h1>
             <section>
+                <Badge bg="danger">Hinweis:</Badge>
+                <p className="text-danger">
+                    Nach einiger Inaktivität bitte ein Logout + Login durchführen,
+                    sodass die eingeloggte Session wieder "frisch" und ein add/edit/delete erneut möglich ist.
+                </p>
                 <h3>News</h3>
                 <ul className="list-unstyled">
                     <li>
@@ -69,13 +71,15 @@ export default function Admin() {
                         Wenn ein einem Tag bzw. mehrere Filme mit eigener Startzeit laufen sollen, dann mehrere Einzeltermine erstellen und mit den entsprechenden Filmen verbinden.
                         Anzuwenden bei Double-Feature mit Einzelticketverkauf pro Film.
                     </p>
-                    <p className="mt-3">Der 1 Langfilm kann auch ein ganzes Kurzfilmprogramm repräsentieren, wenn die einzelnen Kurzfilme keine eigenen Filmeinträge haben sollen,
-                        z. B. <Link to="/details/844" className="custom-link">Kämpfe um Solidarität und Emanzipation</Link> oder  <Link to={"/details/843"} className="custom-link">LICHTER – Regionale Kurzfilmrolle I</Link>
+
+                    <p className="mt-3"><Badge bg="success" text="dark">Tipp:</Badge> Der 1 Langfilm kann auch ein ganzes Kurzfilmprogramm repräsentieren, wenn die einzelnen Kurzfilme keine eigenen Filmeinträge haben sollen,
+                        d.h. 1 Termin mit genau 1 Filmeintrag, welcher aber mehrere (Kurz-)Filme repräsentiert: im Langtext des 1 Filmeintrags alle (Kurz-)Filme reintun;
+                        Bsp. <Link to="/details/844" className="custom-link">Kämpfe um Solidarität und Emanzipation</Link> oder  <Link to={"/details/843"} className="custom-link">LICHTER – Regionale Kurzfilmrolle I</Link>
                     </p>
 
                     <h5 className="mt-3"><em>Programmscreening bzw. Filmprogramm an einem Termin</em></h5>
                     <p>d.h. 1 Termin mit mehreren Filmen</p>
-                    <p>Beispiel: <Link to="/details/875" className="custom-link">Antoine-Doinel-Zyklus Teil II</Link></p>
+                    <p>bspw.: <Link to="/details/875" className="custom-link">Antoine-Doinel-Zyklus Teil II</Link></p>
                     <p>Die einzelnen Filme haben jeweils keine eigene Startzeit, da nur 1 Termineintrag für alle Filme.</p>
                     <p>Geeignet bspw. für Kurzfilmprogramm oder Double-Features (bei dem kein Einzelticketverkauf pro Filmvorstellung erfolgt).</p>
                     <span>Vorgehen:</span>
@@ -83,6 +87,21 @@ export default function Admin() {
                         <li>Termineintrag erstellen <u>und</u> dabei einen Titel für den Termin wählen sowie ein Bild für den Termin angeben.</li>
                         <li>Filmeintrag bzw. -einträge machen und anschließend Verknüpfung(en) zw. Termin und Film(e) herstellen.</li>
                     </ul>
+
+                    {/*<h5 className="mt-3"><em>Sonderfall: Programm als Standard-Screening</em></h5>*/}
+                    {/*<p>d.h. 1 Termin mit genau 1 Filmeintrag, welcher aber mehrere (Kurz-)Filme repräsentiert</p>*/}
+                    {/*<p>Beispiel: <Link to="/details/843" className="custom-link">LICHTER – Regionale Kurzfilmrolle I</Link>*/}
+                    {/*    oder <Link to="/details/844" className="custom-link">Kämpfe um Solidarität und Emanzipation</Link></p>*/}
+                    {/*<p>Nachteil: nur 1 Bild wird angezeigt</p>*/}
+                    {/*<span>Vorgehen:</span>*/}
+                    {/*<ul>*/}
+                    {/*    <li>wie beim Standard-Screening, wobei im Filmeintrag alle (Kurz-)Filme im Langtext eingetragen werden</li>*/}
+                    {/*</ul>*/}
+
+                    <h5 className="mt-3"><em>Screening ohne Film(e)</em> <Badge bg="danger" text="dark">nicht machen!</Badge></h5>
+                    <p>d.h. nur 1 Termin wird erstellt und im Termin-Text bzw. -Titel den/die Film(e) beschrieben</p>
+                    <p>Beispiel: <Link to="/details/880" className="custom-link">collecting images: peter hutton & mark lapore pt. 1</Link></p>
+                    <p>Das Problem ist, dass keine Filmlänge  angegeben wird und dadurch der Kalendereintrag eine Dauer von 0 Minuten hat.</p>
 
                     <hr/>
                 </details>
