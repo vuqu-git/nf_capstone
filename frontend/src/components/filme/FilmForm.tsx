@@ -476,8 +476,8 @@ export default function FilmForm() {
                     <Form.Text className="text-muted">
                         nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme)
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
-                        <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
-                        <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
+                        <br/><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong>
+                        <br/>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
                     </Form.Text>
                 </Form.Group>
 
@@ -518,7 +518,7 @@ export default function FilmForm() {
                     <Form.Text className="text-muted">
                         Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
                         <br/>
-                        Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung für Vorfilme</b>
+                        Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b>
                     </Form.Text>
                 </Form.Group>
 
@@ -568,9 +568,7 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        embedded link code: {'<iframe ...'}
-                        <br/>
-                        a tag: {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Trailer</a>`}
+                        embedded link code einzufügen: {'<iframe ...'}
                     </Form.Text>
                 </Form.Group>
 
@@ -699,14 +697,14 @@ export default function FilmForm() {
                     <Form.Text className="text-muted">
                         a tag template → Link: {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Letterboxd</a>`}
                         <br/>
-                        <span className="text-danger">Wichtig:</span> Zeilenumbruch muss vorliegen d.h. jeweils 1 Eintrag pro Zeile → [key]: [value] d.h. key und value getrennt durch einen Doppelpunkt
+                        <span className="text-danger">Wichtig:</span> Zeilenumbruch muss vorliegen nach jeder Kategorie d.h. jeweils 1 Eintrag pro Zeile → [key]: [value] d.h. key und value getrennt durch einen Doppelpunkt
                         <br/>
                         Bei form submit werden leading and trailing blanks entfernt und zwar pro Zeile in den beiden Substrings getrennt durch den 1. Doppelpunkt; so eine Zeile ist zulässig und wird schön formatiert:
                         <pre> M   :     Ennio Morricone  </pre>
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="sonderfarbeTitel" className="mt-3">
+                <Form.Group controlId="sonderfarbeTitel" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Sonderfarbe Titel</Form.Label>
                     <Form.Control
                         disabled={true}
@@ -717,7 +715,7 @@ export default function FilmForm() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="sonderfarbe" className="mt-3">
+                <Form.Group controlId="sonderfarbe" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Sonderfarbe (für Glow-Effekt in der Gallery)</Form.Label>
                     <Form.Control
                         disabled={true}

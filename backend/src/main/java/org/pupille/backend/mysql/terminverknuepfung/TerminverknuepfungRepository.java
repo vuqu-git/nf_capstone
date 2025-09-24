@@ -32,16 +32,42 @@ public interface TerminverknuepfungRepository extends JpaRepository<Terminverknu
         //    @Query("SELECT tv FROM Terminverknuepfung tv JOIN FETCH tv.film JOIN FETCH tv.termin ORDER BY tv.tnr DESC")
         //    List<Terminverknuepfung> findAllWithFilmAndTermin();
 
-    @EntityGraph(attributePaths = {"film", "termin"})
-    @Query("SELECT tv FROM Terminverknuepfung tv " +
-           "ORDER BY tv.termin.vorstellungsbeginn DESC")
-    List<Terminverknuepfung> findAllWithFilmAndTerminOrderByTerminDesc();
+    //      '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    @Query("""
+    SELECT
+        tv.tnr as tnr,
+        tv.fnr as fnr,
+        tv.vorfilm as vorfilm,
+        tv.rang as rang,
+        tv.film.titel as filmTitel,
+        tv.film.jahr as filmJahr,
+        tv.film.regie as filmRegie,
+        tv.film.stab as filmStab,
+        tv.termin.vorstellungsbeginn as terminVorstellungsbeginn,
+        tv.termin.titel as terminTitel
+    FROM Terminverknuepfung tv
+    ORDER BY tv.termin.vorstellungsbeginn DESC
+""")
+    List<TVWithFilmAndTerminProjection> findAllWithFilmAndTerminOrderByTerminDesc();
 
-        //    @Query("SELECT tv FROM Terminverknuepfung tv " +
-        //            "JOIN FETCH tv.film " +
-        //            "JOIN FETCH tv.termin " +
-        //            "ORDER BY tv.termin.vorstellungsbeginn DESC")
-        //    List<Terminverknuepfung> findAllWithFilmAndTerminOrderByTerminDesc();
+            // very slow approach here, possibly because of
+            //  *N+1 Query Problem: Even with @EntityGraph, if your Film or Termin entities have other lazy-loaded associations (e.g., terminConnections, filmConnections, reihen, etc.), those may trigger additional queries when accessed.
+            //  *Fetching Too Much Data: You are loading all Terminverknuepfung records with their associated Film and Termin entities, and then mapping them to DTOs. If the result set is large, this can be very slow and memory-intensive.
+            //                          The Film and Termin entities have many fields, some of which are large (TEXT columns), and some have collections (terminConnections, filmConnections, reihen). Even if you don't use them, they may be loaded if not properly excluded.
+            //  *Inefficient Query: The query performs a join to sort by termin.vorstellungsbeginn, but if the database is not optimized for this, it can be slow.
+
+            //    @EntityGraph(attributePaths = {"film", "termin"})
+            //    @Query("SELECT tv FROM Terminverknuepfung tv " +
+            //            "ORDER BY tv.termin.vorstellungsbeginn DESC")
+            //    List<Terminverknuepfung> findAllWithFilmAndTerminOrderByTerminDesc_SuperSlow();
+
+
+            //    @Query("SELECT tv FROM Terminverknuepfung tv " +
+            //            "JOIN FETCH tv.film " +
+            //            "JOIN FETCH tv.termin " +
+            //            "ORDER BY tv.termin.vorstellungsbeginn DESC")
+            //    List<Terminverknuepfung> findAllWithFilmAndTerminOrderByTerminDesc_SuperSlow();
+    //      '''''''''''''''''''' '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     @Query("SELECT tv FROM Terminverknuepfung tv " +
             "JOIN FETCH tv.film " +

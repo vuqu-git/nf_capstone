@@ -455,8 +455,8 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         Nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme).
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
-                        <br/> Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down
-                        <br/> Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
+                        <br/><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong>
+                        <br/>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
                     </Form.Text>
                 </Form.Group>
 
@@ -497,7 +497,7 @@ export default function TerminForm() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="sonderfarbeTitel" className="mt-3">
+                <Form.Group controlId="sonderfarbeTitel" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Sonderfarbe Titel</Form.Label>
                     <Form.Control
                         disabled={true}

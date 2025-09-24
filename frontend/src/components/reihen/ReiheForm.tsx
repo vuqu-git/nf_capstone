@@ -245,9 +245,10 @@ export default function ReiheForm() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="text" className="mt-3">
+                <Form.Group controlId="text" className="mt-3" style={{ display: 'none' }}>
                     <Form.Label>Text</Form.Label>
                     <Form.Control
+                        disabled={true}
                         as="textarea"
                         rows={4}
                         name="text"
@@ -279,7 +280,7 @@ export default function ReiheForm() {
                     </Form.Control>
                     <Form.Text className="text-muted">
                         Wenn 1 Termin mehrere Reihen hat, erfolgt automatische, zufällige Auswahl der Farbe. <br/>
-                        Wenn im Termineintrag eine Sonderfarbe festgelegt wurde, hat dieser <b>Vorrang</b> ggü. der Sonderfarbe hier.
+                        Wenn im Termineintrag eine Sonderfarbe festgelegt wurde, hat diese <b>Vorrang</b> ggü. der Sonderfarbe hier.
                     </Form.Text>
                 </Form.Group>
 

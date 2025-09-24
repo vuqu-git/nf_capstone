@@ -340,7 +340,7 @@ export default function TerminverknuepfungForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        vorgesehene Werte: 0, 1, 2, 3... → bestimmt die Anzeigereihenfolge der Filme des Programms im Termineintrag
+                        vorgesehene Werte: 0, 1, 2, 3... → bestimmt die relative Anzeigereihenfolge der Filme des Programms im Termineintrag; "relativ" d.h. alle Filme, die zu ein und denselben Termin verknüpft sind, werder entlang der Rangzahl aufsteigend sortiert
                         <br/>
                         bei "Standard"-Screening (mit genau 1 Langfilm + optionale Vorfilme) das Feld leerlassen
                     </Form.Text>
