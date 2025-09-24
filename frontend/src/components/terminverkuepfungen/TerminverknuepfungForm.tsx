@@ -327,6 +327,9 @@ export default function TerminverknuepfungForm() {
                         checked={selectedTV.vorfilm || false}
                         onChange={handleFormChange}
                     />
+                    <Form.Text className="text-muted">
+                        legt fest, dass der Film, der mit einem Termin verknüpft wird, ein Vorfilm im Rahmen eines Standard-Screenings ist
+                    </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="rang" className="mt-3">
@@ -340,7 +343,8 @@ export default function TerminverknuepfungForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        vorgesehene Werte: 0, 1, 2, 3... → bestimmt die relative Anzeigereihenfolge der Filme des Programms im Termineintrag; "relativ" d.h. alle Filme, die zu ein und denselben Termin verknüpft sind, werder entlang der Rangzahl aufsteigend sortiert
+                        vorgesehene Werte: 0, 1, 2, 3... → bestimmt die relative Anzeigereihenfolge der Filme im Programm-Screening; "relativ" d.h. alle Filme,
+                        die zu ein und denselben Termin verknüpft sind, werder entlang der Rangzahl aufsteigend sortiert und dann in dieser Reihenfolge auf der Detailseite angezeigt
                         <br/>
                         bei "Standard"-Screening (mit genau 1 Langfilm + optionale Vorfilme) das Feld leerlassen
                     </Form.Text>
