@@ -125,6 +125,7 @@ class TerminverknuepfungServiceTest {
         assertEquals(termin1.getTnr(), result.get().tnr());
         assertEquals(film2.getFnr(), result.get().fnr());
     }
+    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     @Test
     void getAllTVWithFilmAndTermin_returnsMappedDTOs() {
@@ -140,13 +141,38 @@ class TerminverknuepfungServiceTest {
         assertEquals("Termin 1", result.get(0).termin().titel());
     }
 
-    // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    //      '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     @Test
     void getAllTVWithFilmAndTerminSortedByTermin_Desc_returnsMappedDTOs() {
-        Terminverknuepfung tv = mockTV(film1, termin1);
+        // Create a mock projection
+        // here: anonymous class that implements the TVWithFilmAndTerminProjection interface
+        //  *An anonymous class is a way to create a one-time-use implementation of an interface or abstract class, without giving it a name.
+        //  *defined and instantiated at the same time, right where it's needed
+        //  *this implementation is only needed for this one test, so creating a full class would be overkill
+        //  *quick, inline way to create a fake implementation of the projection interface for testing purposes. It’s a common pattern in unit tests when you need to mock complex return types.
+        TVWithFilmAndTerminProjection projection = new TVWithFilmAndTerminProjection() {
+            // new TVWithFilmAndTerminProjection() { ... }: This creates a new, unnamed class that implements the TVWithFilmAndTerminProjection interface.
+            // { ... }: Inside the braces, you provide the implementation for all the abstract methods (getters) defined in the interface.
+            // @Override: This annotation indicates that the method is overriding a method from the interface.
+            // return ...: Each method returns a hardcoded value, simulating the data you expect from your projection.
+            @Override public Long getTnr() { return 1L; }
+            @Override public Long getFnr() { return 1L; }
+            @Override public Boolean getVorfilm() { return false; }
+            @Override public Short getRang() { return 1; }
+            @Override public String getFilmTitel() { return "Film 1"; }
+            @Override public Integer getFilmJahr() { return 2023; }
+            @Override public String getFilmRegie() { return "Regie 1"; }
+            @Override public String getFilmStab() { return "Stab 1"; }
+            @Override public LocalDateTime getTerminVorstellungsbeginn() { return LocalDateTime.now(); }
+            @Override public String getTerminTitel() { return "Termin 1"; }
+        };
+
+        // Mock the repository
+        when(terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc())
+                .thenReturn(List.of(projection));
 
         when(terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc())
-                .thenReturn(List.of(tv));
+                .thenReturn(List.of(projection));
 
         List<TVWithFilmAndTerminDTOSelection> result = service.getAllTVWithFilmAndTerminSortedByTerminDesc();
 
@@ -156,6 +182,23 @@ class TerminverknuepfungServiceTest {
 
         verify(terminverknuepfungRepository).findAllWithFilmAndTerminOrderByTerminDesc();
     }
+
+            //    @Test
+            //    void getAllTVWithFilmAndTerminSortedByTermin_Desc_returnsMappedDTOs_SuperSlow() {
+            //        Terminverknuepfung tv = mockTV(film1, termin1);
+            //
+            //        when(terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc_SuperSlow())
+            //                .thenReturn(List.of(tv));
+            //
+            //        List<TVWithFilmAndTerminDTOSelection> result = service.getAllTVWithFilmAndTerminSortedByTerminDesc();
+            //
+            //        assertEquals(1, result.size());
+            //        assertEquals("Film 1", result.get(0).film().titel());
+            //        assertEquals("Termin 1", result.get(0).termin().titel());
+            //
+            //        verify(terminverknuepfungRepository).findAllWithFilmAndTerminOrderByTerminDesc();
+            //    }
+    //      '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     @Test
     void getTVWithFilmAndTerminByTnrAndFnr_existing_returnsDTO() {

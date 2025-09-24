@@ -7,6 +7,7 @@ import org.pupille.backend.mysql.film.FilmRepository;
 import org.pupille.backend.mysql.termin.Termin;
 import org.pupille.backend.mysql.termin.TerminProjectionSelection;
 import org.pupille.backend.mysql.termin.TerminRepository;
+import org.pupille.backend.utils.PupilleUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,12 +63,38 @@ public class TerminverknuepfungService {
                 .collect(Collectors.toList());
     }
 
+    //      '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     public List<TVWithFilmAndTerminDTOSelection> getAllTVWithFilmAndTerminSortedByTerminDesc() {
         return terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc()
                 .stream()
-                .map(TVWithFilmAndTerminDTOSelection::new)
+                .map(proj -> new TVWithFilmAndTerminDTOSelection(
+                        proj.getTnr(),
+                        proj.getFnr(),
+                        proj.getVorfilm(),
+                        proj.getRang(),
+                        new FilmProjectionForTVSelection(
+                                proj.getFilmTitel(),
+                                proj.getFilmJahr(),
+                                (proj.getFilmRegie() == null || proj.getFilmRegie().isEmpty())
+                                        ? PupilleUtils.extractDirectors(proj.getFilmStab())
+                                        : proj.getFilmRegie()
+                        ),
+                        new TerminProjectionForTVSelection(
+                                proj.getTerminVorstellungsbeginn(),
+                                proj.getTerminTitel()
+                        )
+                ))
                 .collect(Collectors.toList());
     }
+
+                // very slow version
+            //    public List<TVWithFilmAndTerminDTOSelection> getAllTVWithFilmAndTerminSortedByTerminDesc_SuperSlow() {
+            //        return terminverknuepfungRepository.findAllWithFilmAndTerminOrderByTerminDesc_SuperSlow()
+            //                .stream()
+            //                .map(TVWithFilmAndTerminDTOSelection::new)
+            //                .collect(Collectors.toList());
+            //    }
+    //      '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     public TVWithFilmAndTerminDTOSelection getTVWithFilmAndTerminByTnrAndFnr(Long tnr, Long fnr) {
         return terminverknuepfungRepository.findWithFilmAndTerminByTnrAndFnr(tnr, fnr)
