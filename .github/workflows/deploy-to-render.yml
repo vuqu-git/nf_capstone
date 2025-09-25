@@ -19,6 +19,7 @@ jobs:
         working-directory: frontend
         env:
           VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
+#          VITE_STATIC_FILEPATH: ${{ secrets.VITE_STATIC_FILEPATH }}
         run: |
           npm install
           npm run build
@@ -76,7 +77,7 @@ jobs:
         with:
           push: true
           #tags: ${{ secrets.DOCKERHUB_TAG }} # Example: username/project:latest
-          tags: vuqu/nfcapstone:v1.0.6 # Example: username/project:latest
+          tags: vuqu/nfcapstone:v1.0.7 # Example: username/project:latest
           context: .  # It tells the Docker builder where to find the source code and the Dockerfile it needs to build the image. The single dot (.) is a shorthand reference to the root of my repository, where the workflow is currently running. This means Docker will use the entire cloned repository as the "build context" and look for the Dockerfile within that directory.
 
   deploy:
