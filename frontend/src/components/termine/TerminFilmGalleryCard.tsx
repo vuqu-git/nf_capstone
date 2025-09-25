@@ -4,6 +4,7 @@ import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import './TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 interface Props {
     screeningWeekday: string | null;
@@ -62,7 +63,9 @@ export default function TerminFilmGalleryCard({
                 >
                     <Card.Img
                         variant="top"
-                        src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
+                        // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
+                        // src={import.meta.env.VITE_STATIC_FILEPATH + bild}
+                        src={staticFilePathFrontend + bild}
                         alt={titel ? `Bild der Vorführung von ${titel}` : ""}
 
                         // 0) always pass a style prop

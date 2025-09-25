@@ -14,6 +14,7 @@ import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromStri
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
 import {useTrackScreeningVisit} from "../../hooks/useTrackScreeningVisit.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 interface Props {
     tnr: number;
@@ -132,7 +133,9 @@ export default function TerminFilmDetailsCard({
 
                 {showProgrammbildInDetails && (
                     <Card.Img
-                        src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
+                        // src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
+                        // src={import.meta.env.VITE_STATIC_FILEPATH + programmbild}
+                        src={staticFilePathFrontend + programmbild}
                         alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}
                     />
                 )}
@@ -240,6 +243,8 @@ export default function TerminFilmDetailsCard({
                     <>
                         {/*<Card.Img*/}
                         {/*    src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}*/}
+                        {/*    src={import.meta.env.VITE_STATIC_FILEPATH + programmbild}*/}
+                        {/*    src={staticFilePathFrontend + programmbild}
                         {/*    alt={programmtitel ? `Still vom Film ${programmtitel}` : ""}*/}
                         {/*/>*/}
                     </>
