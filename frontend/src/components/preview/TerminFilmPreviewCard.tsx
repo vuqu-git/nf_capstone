@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
 import '../termine/TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 interface Props {
     screeningWeekday: string | null;
@@ -73,7 +74,8 @@ export default function TerminFilmPreviewCard({
                     <div className="image-aspect-ratio-container">
                         <Card.Img
                             variant="top"
-                            src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
+                            // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
+                            src={staticFilePathFrontend + bild}
                             // 0) always pass a style prop
                             style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
                         />
