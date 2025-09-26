@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Alert from 'react-bootstrap/Alert';
-import styles from './News.module.css';
+// import styles from './News.module.css';
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 type props = {
@@ -21,16 +21,16 @@ export default function NewsCard({variant, text, imageUrl}: props) {
                 <Alert variant={variant} data-bs-theme="dark" onClose={() => setShow(false)} dismissible>
                     {/*<Alert.Heading>Heading</Alert.Heading>*/}
 
-                    <div className={styles.newsContent}>
+                    <div>
                         {/* Text */}
                         {/********/}
-                        { text && renderHtmlContent(text) }
+                        { text && renderHtmlContent(text, "news-article") }
 
                         {/* Image */}
                         {/*********/}
                         { imageUrl && (
                                 <img
-                                    className={styles.newsImage}
+                                    className='news-image'
                                     src={imageUrl}
                                     alt="Image should be placed here. Please check image url!"
                                 />

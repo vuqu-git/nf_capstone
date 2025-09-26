@@ -1,0 +1,104 @@
+/*details and summary tags*/
+/*------------------------*/
+
+/* Common styles for both types of details */
+details.summary-style summary {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+details.summary-style summary::-webkit-details-marker {
+    display: none;
+}
+
+details.summary-style summary::before {
+    display: inline-block;
+    margin-right: 0.5em;
+    transition: transform 0.2s;
+}
+
+details.summary-style[open] summary::before {
+    transition: transform 0.2s;
+}
+
+details.summary-style summary:hover {
+    filter: brightness(1.3);
+}
+
+/* Specific styles for third-party-event-info */
+details.third-party-event-info summary::before {
+    content: "📌";
+}
+
+details.third-party-event-info[open] summary::before {
+    content: "⭐";
+}
+
+/* Specific styles for general-info */
+details.general-info summary::before {
+    content: "ℹ️";
+}
+
+details.general-info[open] summary::before {
+    content: "📃";
+}
+
+/* Specific styles for screening */
+details.screening summary::before {
+    content: "🎞️";
+}
+details.screening[open] summary::before {
+    content: "🍿";
+}
+
+/* Specific styles for Q&A */
+details.qaa section.question::before {
+    content: "💬";
+}
+details.qaa section.answer::before {
+    content: "💡";
+}
+
+/*general styling: h3 and p*/
+/*-------------------------*/
+
+/* Styles for h3 elements within the div */
+.news-article h3 {
+    font-size: 1.0rem;
+    font-weight: 600;
+    /*margin-bottom: 0.5rem;*/
+}
+
+/* Styles for p elements within the div */
+.news-article p {
+    margin-bottom: 0.5rem;
+}
+
+.news-article p:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.news-article p:last-of-type {
+    margin-bottom: 0;
+}
+
+.news-article p:only-child {
+    margin-top: 0;
+}
+
+/* Responsive styles for p elements within the div */
+@media screen and (max-width: 767px) {
+    .news-article p {
+        font-size: 0.9rem;
+    }
+}
+
+/*#########################*/
+
+.news-image {
+    width: 100%;    /*Make the image take up the full width of the Alert*/
+    margin-bottom: 6px;
+    margin-top: 0.5rem;
+    border-radius: 0.375rem;
+}
