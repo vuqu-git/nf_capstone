@@ -51,7 +51,11 @@ export default function DeleteNews() {
             />
 
             {deletingId && !confirmOpen && (
-                <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+                <Button
+                    variant="danger"
+                    onClick={() => setConfirmOpen(true)}
+                    className="mt-4"
+                >
                     Delete Selected News
                 </Button>
             )}
