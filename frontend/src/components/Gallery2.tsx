@@ -114,8 +114,10 @@ export default function Gallery2() {
 
                             return (
                                 <article key={termin.tnr} className="gallery-article-padding">
+
                                     {/*for programms of (multiple) films*/}
                                     {/***********************************/}
+
                                     {termin.titel ? ( // current implementation: when there is no titel of termin, then the list of mainfilms is empty! (to avoid unnecessary data traffic)
                                         <>
                                             <TerminFilmGalleryCard
@@ -146,8 +148,10 @@ export default function Gallery2() {
                                         // also ensures that a termin (without termin.title and) without a main filme (no verknuepfung to a main film) doesn't appear in the Gallery
                                         termin.mainfilms?.length > 0 && (
                                             <>
+
                                                 {/*screening consists of 1 main film + shorts possibly*/}
                                                 {/*****************************************************/}
+
                                                 <TerminFilmGalleryCard
                                                     screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard || "pupille-glow"}
                                                     // screeningSonderfarbe={termin.sonderfarbe || "pupille-glow"}
