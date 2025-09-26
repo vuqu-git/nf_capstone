@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import Logout from "./security/Logout.tsx";
 import {Badge} from "react-bootstrap";
-import React from "react";
 
 export default function Admin() {
 
