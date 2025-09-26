@@ -21,7 +21,7 @@ export default function Kinobesuch() {
     return (
         <div>
             <section className="normal-content-container">
-                <h2 className="header2NormalContainer">Informationen zum Kinobesuch</h2>
+                <h2 className="h2NormalContainer">Informationen zum Kinobesuch</h2>
 
                 {/*usual syntax: className={styles.yourClassName}*/}
                 {/*The more common and often preferred syntax for accessing CSS Module class names in JSX is indeed using dot notation when the class name in your CSS file is a valid JavaScript identifier (i.e., it doesn't contain hyphens and doesn't start with a number)*/}

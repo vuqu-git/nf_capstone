@@ -223,7 +223,7 @@ export default function OverviewArchive2() {
     // this is the react component return
     return (
         <section className="normal-content-container">
-            <h2 className="header2NormalContainer">Programmarchiv</h2>
+            <h2 className="h2NormalContainer">Programmarchiv</h2>
 
             <div className={styles.formField}>
                 <label htmlFor="archivedResource" className={`${styles.formLabel} visually-hidden`}>

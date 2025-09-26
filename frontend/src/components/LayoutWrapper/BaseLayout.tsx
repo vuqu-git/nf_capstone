@@ -37,7 +37,7 @@ export default function BaseLayout() {
             {/*outside Routes and hence Header is always displayed*/}
             <Header2 />
 
-            <main>
+            <main className="margin-for-cards">
                 <Outlet />
 
                 {/* Single ScrollRestoration at root level */}

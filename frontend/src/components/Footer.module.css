@@ -34,3 +34,9 @@
     /*color: #ffd036;*/
     text-decoration: underline;
 }
+
+@media screen and (max-width: 767px) {
+    .links {
+        font-size: 0.9rem;
+    }
+}

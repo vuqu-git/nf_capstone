@@ -4,7 +4,7 @@ export default function ContentNotes() {
 
     return (
         <article className="normal-content-container">
-            <h2 className="header2NormalContainer">
+            <h2 className="h2NormalContainer">
                 Content Notes
             </h2>
             <p>

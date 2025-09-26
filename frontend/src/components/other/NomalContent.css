@@ -1,43 +1,10 @@
 .normal-content-container {
-    /*margin: 2.5rem auto;*/
-    /*padding: 1.6rem 1.2rem 1.2rem 1.2rem;*/
-    /*background: #181a22;*/
-    /*border-radius: 14px;*/
-    /*box-shadow: 0 6px 24px rgba(0,0,0,0.28);*/
-
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     color: #cfd6e1;
 }
 
-/*.normal-content-container h2 {*/
-/*    !*margin-top: 0;*!*/
-/*    margin-bottom: 1.0rem;*/
-/*    font-size: 2rem;*/
-/*    font-weight: 600;*/
-/*    color: #FFD036;*/
-/*    letter-spacing: 0.02em;*/
-/*}*/
-
-/*.normal-content-container h3 {*/
-/*    margin-top: 2rem;*/
-/*    !*margin-bottom: 1.0rem;*!*/
-/*    font-size: 1.5rem;*/
-/*    font-weight: 600;*/
-/*    color: #f4f6fa;*/
-/*    letter-spacing: 0.02em;*/
-/*}*/
-
-/*.normal-content-container h4 {*/
-/*    margin-top: 2rem;*/
-/*    !*margin-bottom: 1.0rem;*!*/
-/*    font-size: 1.1rem;*/
-/*    font-weight: 600;*/
-/*    color: #f4f6fa;*/
-/*    letter-spacing: 0.02em;*/
-/*}*/
-
-.header2NormalContainer {
+.h2NormalContainer {
     margin-bottom: 1.0rem;
     font-size: 2rem;
     font-weight: 600;
@@ -45,7 +12,7 @@
     letter-spacing: 0.02em;
 }
 
-.header3NormalContainer {
+.h3NormalContainer {
     margin-top: 2rem;
     font-size: 1.5rem;
     font-weight: 600;
@@ -53,7 +20,7 @@
     letter-spacing: 0.02em;
 }
 
-.header4NormalContainer {
+.h4NormalContainer {
     margin-top: 2rem;
     font-size: 1.1rem;
     font-weight: 600;
