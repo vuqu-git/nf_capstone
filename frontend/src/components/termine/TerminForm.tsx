@@ -364,6 +364,8 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!
                         <br/>
+                        Bitte möglichst KEINE HTML-Entitäten (bspw. &amp;auml;) oder HTML-Tags nutzen! D.h. Sowas wie ä, ö, ü, ß oder & verwenden.<br/>
+                        <br/>
                         Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
                         <br/>
                         Wenn Eintragung hier erfolgt, muss unten ein Bild angegeben werden (für die korrekte Darstellung in der Gallery).
