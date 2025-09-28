@@ -1,7 +1,7 @@
 import {useState} from "react";
 import Alert from 'react-bootstrap/Alert';
-// import styles from './News.module.css';
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
+import './News.css';
 
 type props = {
     variant: string,
