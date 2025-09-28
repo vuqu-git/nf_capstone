@@ -66,7 +66,7 @@ export default function TerminFilmGalleryCard({
                         // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
                         // src={import.meta.env.VITE_STATIC_FILEPATH + bild}
                         src={staticFilePathFrontend + bild}
-                        alt={titel ? `Bild der Vorführung von ${titel}` : ""}
+                        alt={titel ? `Screenong-Bild von ${titel}` : ""}
 
                         // 0) always pass a style prop
                         style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}

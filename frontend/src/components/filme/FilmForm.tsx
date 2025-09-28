@@ -410,7 +410,9 @@ export default function FilmForm() {
                         required
                     />
                     <Form.Text className="text-muted">
-                        Bitte möglichst KEINE HTML-Entitäten (bspw. &auml;) oder HTML-Tags nutzen!
+                        <ul className="tight-list">
+                            <li>Bitte möglichst KEINE HTML-Entitäten (bspw. &amp;auml;) oder HTML-Tags nutzen! D.h. Sowas wie ä, ö, ü, ß oder & verwenden.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -423,8 +425,10 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Bitte möglichst KEINE HTML-Entitäten (bspw. &auml;) oder HTML-Tags nutzen!<br/>
-                        Wenn der Titel gleich dem Originaltitel ist (bspw. deutscher Film oder ausländischer Film ohne Auswertung in DE) → nur Feld Titel befüllen
+                        <ul className="tight-list">
+                            <li>Bitte möglichst KEINE HTML-Entitäten (bspw. &amp;auml;) oder HTML-Tags nutzen! D.h. Sowas wie ä, ö, ü, ß oder & verwenden.</li>
+                            <li>Wenn der Titel gleich dem Originaltitel ist (bspw. deutscher Film oder ausländischer Film ohne Auswertung in DE) → nur Feld Titel befüllen</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -439,7 +443,10 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.originaltitel ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Anzeige des Originaltitels erfolgt in Gallery, Preview, Overview Semester & Archive (in den Screeningdetails wird es stets mit angezeigt); keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)
+                        <ul className="tight-list">
+                            <li>Anzeige des Originaltitels erfolgt in Gallery, Preview, Overview Semester & Archive (in den Screeningdetails wird es stets mit angezeigt)</li>
+                            <li>keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -452,15 +459,13 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        {/*Bilddatei muss unter https://pupille.org/bilder/filmbilder/ abgelegt sein.*/}
-                        {/*<br/>*/}
-                        Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
-                        → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
-                        als Stammverzeichnis hat.
-                        <br/>
-                        Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film3.jpg
-                        <br/>
-                        Wenn keine Eingabe erfolgt, erscheint default_film.jpg in der Gallery.
+                        <ul className="tight-list">
+                            <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                                als Stammverzeichnis hat.</li>
+                            <li>Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film3.jpg</li>
+                            <li>Wenn keine Eingabe erfolgt, erscheint default_film.jpg in der Gallery.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -474,10 +479,12 @@ export default function FilmForm() {
                         disabled={!(selectedFilm.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme)
-                        <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
-                        <br/><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong>
-                        <br/>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
+                        <ul className="tight-list">
+                            <li>nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme)</li>
+                            <li>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px</li>
+                            <li><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong></li>
+                            <li>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -491,9 +498,10 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text>
-                        Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
-                        <br/>
-                        styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
+                        <ul className="tight-list">
+                            <li>Jeder Absatz (auch der erste und einzige) in ein p tag setzen!</li>
+                            <li>styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -516,9 +524,10 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
-                        <br/>
-                        Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b>
+                        <ul className="tight-list">
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.</li>
+                            <li>Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b></li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -532,13 +541,12 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
-                        <br/>
-                        Erscheint in Gallery (wenn es der Hauptfilm ist) und Detailseite; Eintrag bezieht sich auf Besonderheit des <b>Films</b> (bspw. Erwähnung Director's Cut, Farbstich der analogen Kopie);
-                        <br/>
-                        keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite, <b>kein</b> Feld für Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort → Feld 'Besonderheit' im Termin-Formular verwenden
-                        <br/>
-                        a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}
+                        <ul className="tight-list">
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.</li>
+                            <li>Erscheint in Gallery (wenn es der Hauptfilm ist) und Detailseite; Eintrag bezieht sich auf Besonderheit des <b>Films</b> (bspw. Erwähnung Director's Cut, Farbstich der analogen Kopie)</li>
+                            <li>keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite, <b>kein</b> Feld für Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort → Feld 'Besonderheit' im Termin-Formular verwenden</li>
+                            <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -552,9 +560,10 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden.
-                        <br/>
-                        Formulierung, die genauso angezeigt werden soll.
+                        <ul className="tight-list">
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden.</li>
+                            <li>Formulierung, die genauso angezeigt werden soll.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -568,7 +577,9 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        embedded link code einzufügen: {'<iframe ...'}
+                        <ul className="tight-list">
+                            <li>embedded link code einzufügen: {'<iframe ...'}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -679,9 +690,10 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        für Anzeige in der Gallery, Semesterübersicht und im Adminbereich
-                        <br/>
-                        unten im Feld "Stab & Besetzung" bitte die Regie ebenfalls eintragen.
+                        <ul className="tight-list">
+                            <li>für Anzeige in der Gallery, Semesterübersicht und im Adminbereich</li>
+                            <li>unten im Feld "Stab & Besetzung" bitte die Regie ebenfalls eintragen</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -695,12 +707,11 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        a tag template → Link: {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Letterboxd</a>`}
-                        <br/>
-                        <span className="text-danger">Wichtig:</span> Zeilenumbruch muss vorliegen nach jeder Kategorie d.h. jeweils 1 Eintrag pro Zeile → [key]: [value] d.h. key und value getrennt durch einen Doppelpunkt
-                        <br/>
-                        Bei form submit werden leading and trailing blanks entfernt und zwar pro Zeile in den beiden Substrings getrennt durch den 1. Doppelpunkt; so eine Zeile ist zulässig und wird schön formatiert:
-                        <pre> M   :     Ennio Morricone  </pre>
+                        <ul className="tight-list">
+                            <li>a tag template → Link: {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Letterboxd</a>`}</li>
+                            <li><span className="text-danger">Wichtig:</span> Zeilenumbruch muss vorliegen nach jeder Kategorie d.h. jeweils 1 Eintrag pro Zeile → [key]: [value] d.h. key und value getrennt durch einen Doppelpunkt</li>
+                            <li>Bei form submit werden leading and trailing blanks entfernt und zwar pro Zeile in den beiden Substrings getrennt durch den 1. Doppelpunkt; so eine Zeile ist zulässig und wird schön formatiert:<pre>   M   :     Ennio Morricone  </pre></li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -725,7 +736,9 @@ export default function FilmForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        zulässige Werte: pupille-glow (=default; Feld bitte leer lassen), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow
+                        <ul className="tight-list">
+                            <li>zulässige Werte: pupille-glow (=default; Feld bitte leer lassen), teal-glow, red-glow, orange-glow, yellow-glow, green-glow, blue-glow, indigo-glow, pink-glow</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 

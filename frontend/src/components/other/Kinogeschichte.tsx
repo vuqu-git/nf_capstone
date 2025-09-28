@@ -127,11 +127,11 @@ export default function Kinogeschichte() {
                 Die folgenden Absätze können daher nur einige Punkte hervorheben und erheben keinerlei Anspruch auf Vollständigkeit. History is a work in process.
             </p>
 
-            <h2 className="header2NormalContainer mt-4">
+            <h2 className="h2NormalContainer mt-4">
                 Geschichte der Pupille: Studentische Filmkultur in Frankfurt
             </h2>
 
-            <h3 className="header3NormalContainer">Die Anfänge des Film-Studios</h3>
+            <h3 className="h3NormalContainer">Die Anfänge des Film-Studios</h3>
             <p>
                 Die Wurzeln des späteren universitären Film-Studios in Frankfurt lassen sich bis ins Jahr 1950
                 zurückverfolgen, als filmbegeisterte Studierende dem Film-Club Frankfurt beitraten. Dort spielte die
@@ -186,7 +186,7 @@ export default function Kinogeschichte() {
 
             <div className={styles.sectionContentWrapper}>
 
-                <h3 className="header3NormalContainer">Ausweitung der Aktivitäten und fortschreitende Politisierung</h3>
+                <h3 className="h3NormalContainer">Ausweitung der Aktivitäten und fortschreitende Politisierung</h3>
                 {/* left */}
                 <div className={styles.textColumn}>
                     <p>
@@ -249,7 +249,7 @@ export default function Kinogeschichte() {
                 />
             </div>
 
-            <h3 className="header3NormalContainer">Neue Strukturen und der Beginn des Vereins Pupille</h3>
+            <h3 className="h3NormalContainer">Neue Strukturen und der Beginn des Vereins Pupille</h3>
             <p>
                 Nach einer kurzen Wiederbelebung des Film-Studios mit Fokus auf politischen Dokumentarfilmen,
                 mitinitiiert durch Personen wie Claudia von Alemann oder Jürgen Karg, wird am 6. Dezember 1974 der
@@ -302,7 +302,7 @@ export default function Kinogeschichte() {
                 captions={{descriptionTextAlign: "start"}}
             />
 
-            <h3 className="header3NormalContainer">Kontinuität und Wandel</h3>
+            <h3 className="h3NormalContainer">Kontinuität und Wandel</h3>
             <p>
                 Erst mit der Wiedereröffnung des Festsaals im Studierendenhaus 1997 nahm die Pupille mit neuen
                 Personen ihre regulären Vorführungen wieder auf. Der Saal wurde 1998 akustisch modernisiert und mit
@@ -486,7 +486,7 @@ export default function Kinogeschichte() {
             {/*</Carousel>*/}
 
 
-            <h3 className="header3NormalContainer">Kinopreise</h3>
+            <h3 className="h3NormalContainer">Kinopreise</h3>
             <p className="mb-0">
                 Das Programm der Pupille ist in den letzten Jahren wiederholt ausgezeichnet worden:
             </p>

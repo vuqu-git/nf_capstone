@@ -65,7 +65,7 @@ export default function TerminFilmDetailsListing({
                     // src={`https://www.pupille.org/bilder/filmbilder/${f.bild}`}
                     // src={import.meta.env.VITE_STATIC_FILEPATH + f.bild}
                     src={staticFilePathFrontend + f.bild}
-                    alt={f?.titel ? `Still vom Film ${f.titel}` : ""}
+                    alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
                 />
             )}
 

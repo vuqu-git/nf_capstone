@@ -5,7 +5,7 @@ export default function ProjektionAufLeinwand() {
 
     return (
         <section className="normal-content-container">
-            <h2 className="header2NormalContainer">
+            <h2 className="h2NormalContainer">
                 Veranstaltungen mit Projektion im Festsaal
             </h2>
 
@@ -13,7 +13,7 @@ export default function ProjektionAufLeinwand() {
                 Für Projektionen im Festsaal des Studierendenhauses gibt es verschiedene Durchführungsarten:
             </p>
 
-            <h3 className="header3NormalContainer text-center mb-4">— eigenverantwortlich —</h3>
+            <h3 className="h3NormalContainer text-center mb-4">— eigenverantwortlich —</h3>
 
             <CardGroup>
                 <Card bg="dark" text="white" border="secondary">
@@ -62,7 +62,7 @@ export default function ProjektionAufLeinwand() {
             </p>
 
 
-            <h3 className="header3NormalContainer text-center mb-4">— gemeinsam —</h3>
+            <h3 className="h3NormalContainer text-center mb-4">— gemeinsam —</h3>
 
             <Card bg="dark" text="white" border="secondary">
                 <Card.Header><Card.Title>&#10114; Film zeigen als Kooperation in unserem Programm</Card.Title>

@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import {Form, Button, Accordion} from "react-bootstrap";
+import {Form, Button} from "react-bootstrap";
 import { News } from "../../types/News.ts";
 import * as React from "react";
 import axios from "axios";
@@ -81,7 +81,7 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
     };
 
     return (
-        <main data-bs-theme="dark">
+        <main data-bs-theme="dark" className="mt-4">
             {/* heading based on formType */}
             <h4 className="mb-4">{formType === "edit" ? "Edit News Form" : "Add News Form"}</h4>
 
@@ -97,11 +97,11 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                         required
                     />
                     <Form.Text className="text-muted">
-                        a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}
-                        <br/>
-                        styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
-                        <br/>
-                        img template for 'free' design → {'<img src="https://pupille.org/bilder/allgemein/ABC.jpg" style="border-radius: 10px; width: 100%; height: auto; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); margin-bottom: 2rem;" />'}
+                        <ul className="tight-list">
+                            <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
+                            <li>styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}</li>
+                            <li>img template for 'free' design → {'<img src="https://pupille.org/static-files/bilder/.../ABC.jpg" style="border-radius: 10px; width: 100%; height: auto; box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); margin-bottom: 2rem;" />'}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -122,7 +122,9 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                         onChange={handleChange}
                     />
                     <Form.Text className="text-muted">
-                        full url of the image file
+                        <ul className="tight-list">
+                            <li>full url of the image file</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -170,30 +172,35 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                         <option value="free">free 💡🎨🖌️</option>
                     </Form.Select>
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> 'free' auswählen für eigenes Design, d.h. keine standardmäßig farbige Box
+                        <ul className="tight-list">
+                            <li>für alle Absätze p tag nutzen</li>
+                            <li><span className="text-danger">Wichtig:</span> 'free' auswählen für eigenes Design, d.h. keine standardmäßig farbige Box</li>
+                            <li>
+                                <details className="summary-style general-info">
+                                    <summary><span className="text-info">Legend color design</span></summary>
+                                    <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />
+                                </details>
+                            </li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
-                {/*<div>*/}
-                {/*    <img src="/assets/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
-                {/*</div>*/}
-
-                <Accordion style={{ maxWidth: '550px', }}>
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>Legend color design</Accordion.Header>
-                        <Accordion.Body>
-                            <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
+                {/*<Accordion style={{ maxWidth: '550px', }}>*/}
+                {/*    <Accordion.Item eventKey="0">*/}
+                {/*        <Accordion.Header>Legend color design</Accordion.Header>*/}
+                {/*        <Accordion.Body>*/}
+                {/*            <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
+                {/*        </Accordion.Body>*/}
+                {/*    </Accordion.Item>*/}
+                {/*</Accordion>*/}
 
                 <Button
-                    variant="primary"
+                    variant={formType === "add" ? "primary" : "success"}
                     type="submit"
                     className="mt-4"
                     disabled={!!dateOrderErrorMessage}
                 >
-                    Save
+                    {formType === "add" ? "Add" : "Update"}
                 </Button>
                 <div><sub className={styles.formSubtext}>*Pflichtfelder</sub></div>
             </Form>

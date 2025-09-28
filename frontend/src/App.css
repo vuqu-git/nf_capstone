@@ -11,63 +11,25 @@ main {
   flex: 1; /* This makes the main element grow and push the footer down */
 }
 
+/*used in BaseLaylout react component*/
+.margin-for-cards {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 /*used in OverviewAndFormLayout and ScreeningLayout react component*/
 .bootstrap-container-component {
   width: 100%;
   margin: 0 auto;
 }
 
+/*####################################*/
+/*###     Admin Forms Styling      ###*/
 
-/*##########################################*/
-/*for news items with details and summary tags*/
-
-/* Common styles for both types of details */
-details.summary-style summary {
-  list-style: none;
-  cursor: pointer;
+ul.tight-list {
+  padding-left: 0.75rem;
 }
 
-details.summary-style summary::-webkit-details-marker {
-  display: none;
-}
-
-details.summary-style summary::before {
-  display: inline-block;
-  margin-right: 0.5em;
-  transition: transform 0.2s;
-}
-
-details.summary-style[open] summary::before {
-  transition: transform 0.2s;
-}
-
-details.summary-style summary:hover {
-  filter: brightness(1.3);
-}
-
-/* Specific styles for third-party-event-info */
-details.third-party-event-info summary::before {
-  content: "📌";
-}
-
-details.third-party-event-info[open] summary::before {
-  content: "⭐";
-}
-
-/* Specific styles for general-info */
-details.general-info summary::before {
-  content: "ℹ️";
-}
-
-details.general-info[open] summary::before {
-  content: "📃";
-}
-
-/* Use only for news items */
-.mt-1-for-p p:first-of-type {
-  margin-top: 1rem;
-}
-
-.mb-0-for-p p:last-of-type {
-  margin-bottom: 0;
+ul.tight-list li {
+  line-height: 1.3;
 }

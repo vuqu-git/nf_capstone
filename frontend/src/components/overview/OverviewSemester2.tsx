@@ -52,7 +52,7 @@ export default function OverviewSemester2() {
     return (
         <section className="normal-content-container">
 
-            <h2 className="header2NormalContainer">Semesterübersicht</h2>
+            <h2 className="h2NormalContainer">Semesterübersicht</h2>
 
             <Select
                 options={reihenOptions}

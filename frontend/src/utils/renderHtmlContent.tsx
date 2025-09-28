@@ -1,8 +1,11 @@
-const renderHtmlContent = (htmlString: string | null | undefined) => {
+const renderHtmlContent = (
+    htmlString: string | null | undefined,
+    className?: string
+) => {
     if (htmlString == null) {
         return undefined;
     }
-    return <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
+    return <div className={className} dangerouslySetInnerHTML={{ __html: htmlString }} />;
 };
 
-export { renderHtmlContent }; // Export the function with the desired name
+export { renderHtmlContent };
