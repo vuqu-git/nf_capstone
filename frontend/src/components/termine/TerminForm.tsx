@@ -405,7 +405,7 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
+                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.
                         <br/>
                         Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
                     </Form.Text>
@@ -421,7 +421,7 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.
+                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.
                         <br/>
                         Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
                         <br/>

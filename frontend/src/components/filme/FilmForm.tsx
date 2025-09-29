@@ -448,7 +448,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Anzeige des Originaltitels erfolgt in Gallery, Preview, Overview Semester & Archive (in den Screeningdetails wird es stets mit angezeigt)</li>
+                            <li>Anzeige des Originaltitels statt des Titels erfolgt in Gallery, Preview, Overview Semester & Archive (in den Screeningdetails wird es stets mit angezeigt)</li>
                             <li>keine Anzeige im Adminbereich (außer im Feld Originaltitel des Filmformulars)</li>
                         </ul>
                     </Form.Text>
@@ -535,7 +535,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b></li>
                         </ul>
                     </Form.Text>
@@ -552,7 +552,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Hier statt Absätze eher {"<br>"} verwenden.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint in Gallery (wenn es der Hauptfilm ist) und Detailseite; Eintrag bezieht sich auf Besonderheit des <b>Films</b> (bspw. Erwähnung Director's Cut, Farbstich der analogen Kopie)</li>
                             <li>keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite, <b>kein</b> Feld für Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort → Feld 'Besonderheit' im Termin-Formular verwenden</li>
                             <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
