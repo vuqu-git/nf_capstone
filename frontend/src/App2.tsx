@@ -53,6 +53,7 @@ import PrivacyPolicy from "./components/other/PrivacyPolicy.tsx";
 import OverviewClicks from "./components/overview/OverviewClicks.tsx";
 import {ClicksResponseDTO} from "./types/ClicksResponseDTO.ts";
 import {OtherDataValuesMap} from "./types/OtherDataValuesMap.ts";
+import TerminFilmGalleryCardPreview from "./components/termine/TerminFilmGalleryCardPreview.tsx";
 
 // ############################################
 // for Gallery.tsx
@@ -432,6 +433,10 @@ const router = createBrowserRouter([
                                 // no usage of loader here, because the data is fetched within ScreeningDetails
                                 // loader: ({ params }) => getScreeningDetails(params.tnr),
                                 handle: {scrollMode: "pathname"} // this child inherits the parent's scroll behavior if no handle is specified here, the parent in this case is the root path "/"
+                            },
+                            {
+                                path: "gallerycard",
+                                element: <TerminFilmGalleryCardPreview />,
                             },
                         ],
                     },

@@ -258,7 +258,7 @@
 .overlay-title {
     font-size: 1.6rem;
     color: #FFD036;
-    margin-bottom: 0.0rem;
+    margin-bottom: 0.1rem; /*minimal distance to display letter like j g y p q fully*/
 }
 
 .card-kurztext {

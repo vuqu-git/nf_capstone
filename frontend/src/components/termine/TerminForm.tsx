@@ -257,6 +257,11 @@ export default function TerminForm() {
         setSelectionChanged(true); // Set flag when selection changes
     };
 
+    // ########################################
+
+    // build url for gallery card preview
+    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedTermin.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedTermin.offsetImageInGallery ?? "")}&isProgramm=${encodeURIComponent("x")}`;
+
     return (
         <main data-bs-theme="dark">
             <AdminNav />
@@ -455,10 +460,16 @@ export default function TerminForm() {
                         disabled={!(selectedTermin.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Nur einzustellen für den (einzigen) Langfilm im "Standard"-Screening (d.h. 1 Langfilm + optionale Vorfilme).
+                        einzustellen für das (Termin-)Bild
                         <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
                         <br/><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong>
                         <br/>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
+                        <li>
+                            {selectedTermin.bild
+                                ? <a href={galleryCardPreviewUrl} target="_blank" rel="noopener noreferrer">active Link: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab</a>
+                                : `Link here active when bild is populated: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab`
+                            }
+                        </li>
                     </Form.Text>
                 </Form.Group>
 

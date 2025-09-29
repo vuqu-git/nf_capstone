@@ -330,7 +330,11 @@ export default function FilmForm() {
                 console.log('Request completed.');
             });
     };
+
     // ########################################
+
+    // build url for gallery card preview
+    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedFilm.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedFilm.offsetImageInGallery ?? "")}`;
 
     return (
         <main data-bs-theme="dark">
@@ -451,7 +455,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="bild" className="mt-3">
-                    <Form.Label>vollständiger Bilddateiname</Form.Label>
+                    <Form.Label>vollständiger Bildname mit Dateiendung</Form.Label>
                     <Form.Control
                         type="text"
                         name="bild"
@@ -484,6 +488,12 @@ export default function FilmForm() {
                             <li>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px</li>
                             <li><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong></li>
                             <li>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen</li>
+                            <li>
+                                {selectedFilm.bild
+                                    ? <a href={galleryCardPreviewUrl} target="_blank" rel="noopener noreferrer">active Link: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab</a>
+                                    : `Link here active when bild is populated: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab`
+                                }
+                            </li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
