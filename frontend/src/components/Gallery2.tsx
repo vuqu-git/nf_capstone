@@ -183,7 +183,7 @@ export default function Gallery2() {
                 ) : (
                     <section>
                         <article>
-                            <p className="text-center mt-4">Das neue Filmprogramm wird demnächst hier veröffentlicht.</p>
+                            <p className="text-center mt-4">Neue Screenings werden demnächst hier veröffentlicht.</p>
                         </article>
                     </section>
                 )
