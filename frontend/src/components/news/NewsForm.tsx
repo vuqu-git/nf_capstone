@@ -6,6 +6,8 @@ import axios from "axios";
 import {copyToClipboard} from "../../utils/copyToClipboard.ts";
 import styles from "../contact/Forms.module.css";
 import {useDateStartBeforeEndValidation} from "../../hooks/useDateStartBeforeEndValidation.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
+import AdminLeftBar from "../AdminLeftBar.tsx";
 
 interface Props {
     newsItem: News; // this is need for prefilled form in case of edit
@@ -82,6 +84,12 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
 
     return (
         <main data-bs-theme="dark" className="mt-4">
+
+            <AdminLeftBar
+                message={["<p>", "</p>", "\n", "<br>", "\n", "<em>", "</em>", "\n", "<strong>", "</strong>"]}
+                threshold={150}
+            />
+
             {/* heading based on formType */}
             <h4 className="mb-4">{formType === "edit" ? "Edit News Form" : "Add News Form"}</h4>
 
@@ -178,7 +186,8 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                             <li>
                                 <details className="summary-style general-info">
                                     <summary><span className="text-info">Legend color design</span></summary>
-                                    <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />
+                                    {/*<img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
+                                    <img src={staticFilePathFrontend + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />
                                 </details>
                             </li>
                         </ul>
@@ -190,6 +199,7 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                 {/*        <Accordion.Header>Legend color design</Accordion.Header>*/}
                 {/*        <Accordion.Body>*/}
                 {/*            <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
+                {/*            <img src={staticFilePathFrontend + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />*/}
                 {/*        </Accordion.Body>*/}
                 {/*    </Accordion.Item>*/}
                 {/*</Accordion>*/}

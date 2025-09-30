@@ -12,6 +12,7 @@ import styles from "../contact/Forms.module.css";
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import ReiheDTOSelection from "../../types/ReiheDTOSelection.ts";
+import AdminLeftBar from "../AdminLeftBar.tsx";
 
 const baseURL = "/api/termine";
 
@@ -264,6 +265,12 @@ export default function TerminForm() {
 
     return (
         <main data-bs-theme="dark">
+
+            <AdminLeftBar
+                message={["<p>", "</p>", "\n", "<br>", "\n", "<em>", "</em>", "\n", "<strong>", "</strong>"]}
+                threshold={150}
+            />
+
             <AdminNav />
 
             <h3 className="mt-3">{selectedTerminId ? "Edit or delete " : "Add new "} Termin</h3>

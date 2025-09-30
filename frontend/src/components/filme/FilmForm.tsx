@@ -12,6 +12,7 @@ import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSele
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import styles from "../contact/Forms.module.css";
 import FilmSelectionWithSearch from "./FilmSelectionWithSearch.tsx";
+import AdminLeftBar from "../AdminLeftBar.tsx";
 
 const baseURL = "/api/filme";
 
@@ -338,6 +339,12 @@ export default function FilmForm() {
 
     return (
         <main data-bs-theme="dark">
+
+            <AdminLeftBar
+                message={["<p>", "</p>", "\n", "<br>", "\n", "<em>", "</em>", "\n", "<strong>", "</strong>"]}
+                threshold={150}
+            />
+
             <AdminNav />
 
             <h3 className="mt-3">{selectedFilmId ? "Edit or delete " : "Add new "} Film</h3>
