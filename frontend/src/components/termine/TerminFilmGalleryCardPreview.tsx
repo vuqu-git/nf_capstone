@@ -7,6 +7,11 @@ export default function TerminFilmGalleryCardPreview() {
     const [searchParams] = useSearchParams();
     const bild = searchParams.get("bild");
     const offsetImageInGallery = searchParams.get("offsetImageInGallery") ?? undefined;
+
+    const regie = searchParams.get("regie") ?? "1234";
+    const jahr = searchParams.get("jahr") ?? 567;
+    const laufzeit = searchParams.get("laufzeit") ?? 89;
+
     const isProgramm = searchParams.get("isProgramm") ?? undefined;
 
     const screeningDateObj = formatDateTime(new Date().toISOString(), false, true);
@@ -31,9 +36,9 @@ export default function TerminFilmGalleryCardPreview() {
                     titel={`<span class="text-success">${offsetImageInGallery === "" ? "center" : offsetImageInGallery} (aktueller Wert) = Offset für Bildanzeige</span>`}
                     kurztext={bild ? `${bild} = vollständiger Bilddateiname` : null}
                     hauptfilmFormat={undefined}
-                    hauptfilmRegie={isProgramm ? undefined : "Auguste & Louis Lumière"}
-                    hauptfilmJahr={isProgramm ? undefined : 1896}
-                    hauptfilmLaufzeit={isProgramm ? undefined : 1}
+                    hauptfilmRegie={isProgramm ? undefined : regie}
+                    hauptfilmJahr={isProgramm ? undefined : Number(jahr)}
+                    hauptfilmLaufzeit={isProgramm ? undefined : Number(laufzeit)}
                     hauptfilmbesonderheit={undefined}
                     tnr={123}
                     terminBesonderheit={undefined}
@@ -65,9 +70,9 @@ export default function TerminFilmGalleryCardPreview() {
                             titel={`${v} = Offset für Bildanzeige</span>`}
                             kurztext={bild ? `${bild} = vollständiger Bilddateiname` : null}
                             hauptfilmFormat={undefined}
-                            hauptfilmRegie={isProgramm ? undefined : "Auguste & Louis Lumière"}
-                            hauptfilmJahr={isProgramm ? undefined : 1896}
-                            hauptfilmLaufzeit={isProgramm ? undefined : 1}
+                            hauptfilmRegie={isProgramm ? undefined : regie}
+                            hauptfilmJahr={isProgramm ? undefined : Number(jahr)}
+                            hauptfilmLaufzeit={isProgramm ? undefined : Number(laufzeit)}
                             hauptfilmbesonderheit={undefined}
                             tnr={123}
                             terminBesonderheit={undefined}
