@@ -156,46 +156,76 @@
 /* Styling for Filminformationen and Stab & Besetzung */
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+/*888888888 Styling for design with <div> 888888888*/
+/*8888888888888888888888888888888888888888888888888*/
+/*!* Styles for the section blocks *!*/
+/*.section-block {*/
+/*    margin-top: 1rem; !* Space between sections *!*/
+/*    font-size: 0.8rem;*/
+/*}*/
+
+/*!* Styles for the table-like block *!*/
+/*.table-block {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 0.1rem; !* Space between each row *!*/
+
+/*    color: #cfd6e1;*/
+/*}*/
+
+/*!* Styles for each row *!*/
+/*.row {*/
+/*    display: flex;*/
+/*    justify-content: flex-start; !* Ensure they align horizontally *!*/
+/*    gap: 0.0rem; !* Space between label and value *!*/
+/*    align-items: flex-start; !* Aligns the items to the top *!*/
+/*}*/
+
+/*!* Styles for the label *!*/
+/*.label {*/
+/*    min-width: 70px;*/
+/*    max-width: 90px;*/
+/*    white-space: normal; !* Allow wrapping *!*/
+/*}*/
+
+/*.label::after {*/
+/*    content: ":"; !* Add colon after each label *!*/
+/*    margin-left: 0.0rem; !* Space after the colon *!*/
+/*}*/
+
+/*!* Styles for the value *!*/
+/*.value {*/
+/*    flex: 1; !* The value will take the remaining space *!*/
+/*}*/
+
+
+/*.filminfo-and-stab-details {*/
+/*    color: #9ac7fa;*/
+/*    font-weight: 400;*/
+/*    font-size: 0.8rem;*/
+/*}*/
+
+/*!*##############################################*!*/
+/*!* Only affect rows in the last section-block (Stab und Besetzung) *!*/
+/*.section-block:last-child .row {*/
+/*    !*gap: 2.5rem; !* Space between label and value *!*/
+/*}*/
+
+/*.section-block:last-child .label {*/
+/*    min-width: 60px;   !* Remove the min-width for labels in this section *!*/
+/*    !*max-width: none; !* Remove the max-width for labels in this section *!*!*/
+
+/*    !*width: auto;     !* Let label size to content *!*!*/
+/*}*/
+/*!*##############################################*!*/
+
+/*888888888 Styling for real table design <table> 888888888*/
+/*888888888888888888888888888888888888888888888888888888888*/
 /* Styles for the section blocks */
 .section-block {
     margin-top: 1rem; /* Space between sections */
     font-size: 0.8rem;
 }
-
-/* Styles for the table-like block */
-.table-block {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem; /* Space between each row */
-
-    color: #cfd6e1;
-}
-
-/* Styles for each row */
-.row {
-    display: flex;
-    justify-content: flex-start; /* Ensure they align horizontally */
-    gap: 0.0rem; /* Space between label and value */
-    align-items: flex-start; /* Aligns the items to the top */
-}
-
-/* Styles for the label */
-.label {
-    min-width: 70px;
-    max-width: 90px;
-    white-space: normal; /* Allow wrapping */
-}
-
-.label::after {
-    content: ":"; /* Add colon after each label */
-    margin-left: 0.0rem; /* Space after the colon */
-}
-
-/* Styles for the value */
-.value {
-    flex: 1; /* The value will take the remaining space */
-}
-
 
 .filminfo-and-stab-details {
     color: #9ac7fa;
@@ -203,18 +233,17 @@
     font-size: 0.8rem;
 }
 
-/*##############################################*/
+.real-table-block {
+    display: flex;
+    flex-direction: column;
+    color: #cfd6e1;
 
-/* Only affect rows in the last section-block (Stab und Besetzung) */
-.section-block:last-child .row {
-    /*gap: 2.5rem; /* Space between label and value */
+    border-collapse: separate; /* comment out tho make teh table denser*/
+    border-spacing: 0 0.1rem; /* this works with the line above */
 }
 
-.section-block:last-child .label {
-    min-width: 60px;   /* Remove the min-width for labels in this section */
-    /*max-width: none; !* Remove the max-width for labels in this section *!*/
-
-    /*width: auto;     !* Let label size to content *!*/
+.real-table-block td.label {
+    padding-right: 1.25rem; /* small space between label and value */
 }
 
 /*##############################################*/

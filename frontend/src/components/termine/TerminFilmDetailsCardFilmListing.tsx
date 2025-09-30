@@ -137,41 +137,125 @@ export default function TerminFilmDetailsListing({
                     </div>
                 )}
 
+                {/*/!****** film informationen ******!/*/}
+                {/*/!*******------------------*******!/*/}
+                {/*{(f.land || f.jahr || f.laufzeit || f.sprache || f.untertitel || f.farbe || f.format || f.fsk) && (*/}
+                {/*    <div className="section-block">*/}
+                {/*        <Card.Title as="h6" className="filminfo-and-stab-details">Filminformationen:</Card.Title>*/}
+                {/*        <div className="table-block">*/}
+                {/*            {f.land && <div className="row"><div className="label">Land</div><div className="value">{f.land}</div></div>}*/}
+                {/*            {f.jahr && <div className="row"><div className="label">Jahr</div><div className="value">{f.jahr}</div></div>}*/}
+                {/*            {f.laufzeit && <div className="row"><div className="label">Länge</div><div className="value">{f.laufzeit} Min.</div></div>}*/}
+                {/*            {f.sprache && <div className="row"><div className="label">Sprache</div><div className="value">{f.sprache}</div></div>}*/}
+                {/*            {f.untertitel && <div className="row"><div className="label">Untertitel</div><div className="value">{f.untertitel}</div></div>}*/}
+                {/*            {f.farbe && <div className="row"><div className="label">Farbigkeit</div><div className="value">{renderHtmlText(f.farbe)}</div></div>}*/}
+                {/*            {f.format && <div className="row"><div className="label">Format</div><div className="value">{f.format}</div></div>}*/}
+                {/*            {f.fsk && <div className="row"><div className="label">FSK</div><div className="value">{f.fsk}</div></div>}*/}
+                {/*            {f.verleih && <div className="row"><div className="label">Verleih</div><div className="value">{renderHtmlText(f.verleih)}</div></div>}*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*)}*/}
 
-                {/****** film informationen ******/}
-                {/*******------------------*******/}
-                {(f.land || f.jahr || f.laufzeit || f.sprache || f.untertitel || f.farbe || f.format || f.fsk) && (
+                {/*/!****** stab & besetzung ******!/*/}
+                {/*/!*******----------------*******!/*/}
+                {/*{structuredStabObj && (*/}
+                {/*    <div className="section-block"> /!* This will be the last .section-block *!/*/}
+                {/*        <Card.Title as="h6" className="filminfo-and-stab-details">Stab und Besetzung:</Card.Title>*/}
+                {/*        <div className="table-block">*/}
+                {/*            {structuredStabObj.map(row => (*/}
+                {/*                <div className="row" key={row.abbrev}>*/}
+                {/*                    <div className="label">{renderHtmlText(row.abbrev)}</div>*/}
+                {/*                    <div className="value">{renderHtmlText(row.entry)}</div>*/}
+                {/*                </div>*/}
+                {/*            ))}*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*)}*/}
+
+                {/*/!****** film informationen ******!/*/}
+                {/*/!*******------------------*******!/*/}
+                {(f.land || f.jahr || f.laufzeit || f.sprache || f.untertitel || f.farbe || f.format || f.fsk || f.verleih) && (
                     <div className="section-block">
                         <Card.Title as="h6" className="filminfo-and-stab-details">Filminformationen:</Card.Title>
-                        <div className="table-block">
-                            {f.land && <div className="row"><div className="label">Land</div><div className="value">{f.land}</div></div>}
-                            {f.jahr && <div className="row"><div className="label">Jahr</div><div className="value">{f.jahr}</div></div>}
-                            {f.laufzeit && <div className="row"><div className="label">Länge</div><div className="value">{f.laufzeit} Min.</div></div>}
-                            {f.sprache && <div className="row"><div className="label">Sprache</div><div className="value">{f.sprache}</div></div>}
-                            {f.untertitel && <div className="row"><div className="label">Untertitel</div><div className="value">{f.untertitel}</div></div>}
-                            {f.farbe && <div className="row"><div className="label">Farbigkeit</div><div className="value">{renderHtmlText(f.farbe)}</div></div>}
-                            {f.format && <div className="row"><div className="label">Format</div><div className="value">{f.format}</div></div>}
-                            {f.fsk && <div className="row"><div className="label">FSK</div><div className="value">{f.fsk}</div></div>}
-                            {f.verleih && <div className="row"><div className="label">Verleih</div><div className="value">{renderHtmlText(f.verleih)}</div></div>}
-                        </div>
+                        <table className="real-table-block">
+                            <tbody>
+                            {f.land && (
+                                <tr>
+                                    <td className="label">Land:</td>
+                                    <td className="value">{f.land}</td>
+                                </tr>
+                            )}
+                            {f.jahr && (
+                                <tr>
+                                    <td className="label">Jahr:</td>
+                                    <td className="value">{f.jahr}</td>
+                                </tr>
+                            )}
+                            {f.laufzeit && (
+                                <tr>
+                                    <td className="label">Länge:</td>
+                                    <td className="value">{f.laufzeit} Min.</td>
+                                </tr>
+                            )}
+                            {f.sprache && (
+                                <tr>
+                                    <td className="label">Sprache:</td>
+                                    <td className="value">{f.sprache}</td>
+                                </tr>
+                            )}
+                            {f.untertitel && (
+                                <tr>
+                                    <td className="label">Untertitel:</td>
+                                    <td className="value">{f.untertitel}</td>
+                                </tr>
+                            )}
+                            {f.farbe && (
+                                <tr>
+                                    <td className="label">Farbigkeit:</td>
+                                    <td className="value">{renderHtmlText(f.farbe)}</td>
+                                </tr>
+                            )}
+                            {f.format && (
+                                <tr>
+                                    <td className="label">Format:</td>
+                                    <td className="value">{f.format}</td>
+                                </tr>
+                            )}
+                            {f.fsk && (
+                                <tr>
+                                    <td className="label">FSK:</td>
+                                    <td className="value">{f.fsk}</td>
+                                </tr>
+                            )}
+                            {f.verleih && (
+                                <tr>
+                                    <td className="label">Verleih:</td>
+                                    <td className="value">{renderHtmlText(f.verleih)}</td>
+                                </tr>
+                            )}
+                            </tbody>
+                        </table>
                     </div>
                 )}
 
-                {/****** stab & besetzung ******/}
-                {/*******----------------*******/}
+                {/*/!****** stab & besetzung ******!/*/}
+                {/*/!*******----------------*******!/*/}
                 {structuredStabObj && (
-                    <div className="section-block"> {/* This will be the last .section-block */}
+                    <div className="section-block">
                         <Card.Title as="h6" className="filminfo-and-stab-details">Stab und Besetzung:</Card.Title>
-                        <div className="table-block">
+                        <table className="real-table-block">
+                            <tbody>
                             {structuredStabObj.map(row => (
-                                <div className="row" key={row.abbrev}>
-                                    <div className="label">{renderHtmlText(row.abbrev)}</div>
-                                    <div className="value">{renderHtmlText(row.entry)}</div>
-                                </div>
+                                <tr key={row.abbrev}>
+                                    <td className="label">{renderHtmlText(row.abbrev)}:</td>
+                                    <td className="value">{renderHtmlText(row.entry)}</td>
+                                </tr>
                             ))}
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 )}
+
             </Card.Body>
         </div>
     )
