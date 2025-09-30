@@ -334,7 +334,7 @@ export default function FilmForm() {
     // ########################################
 
     // build url for gallery card preview
-    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedFilm.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedFilm.offsetImageInGallery ?? "")}`;
+    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedFilm.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedFilm.offsetImageInGallery ?? "")}&regie=${encodeURIComponent(selectedFilm.regie || "123")}&jahr=${encodeURIComponent(selectedFilm.jahr ?? 4567)}&laufzeit=${encodeURIComponent(selectedFilm.laufzeit ?? 89)}`;
 
     return (
         <main data-bs-theme="dark">
