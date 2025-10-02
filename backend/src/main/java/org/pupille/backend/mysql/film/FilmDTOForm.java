@@ -35,6 +35,7 @@ public class FilmDTOForm {
     private String stab;
 
     private String bild;
+    private String offsetImageInGallery;
     private Integer sonderfarbeTitel;
     private String sonderfarbe;
 
@@ -67,6 +68,7 @@ public class FilmDTOForm {
         this.stab = film.getStab();
 
         this.bild = film.getBild();
+        this.offsetImageInGallery = film.getOffsetImageInGallery();
         this.sonderfarbeTitel = film.getSonderfarbeTitel();
         this.sonderfarbe = film.getSonderfarbe();
 
