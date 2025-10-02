@@ -17,14 +17,6 @@
     box-shadow: 0px 0px 120px -55px rgba(19, 160, 134, 0.6);
 }
 
-/* Gold Glow */
-.gold-glow {
-    box-shadow: 0px 0px 150px -45px rgba(199,147,75, 0.7);
-}
-.gold-glow:hover {
-    box-shadow: 0px 0px 120px -55px rgba(199,147,75, 0.7);
-}
-
 /* Red Glow */
 .red-glow {
     box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);

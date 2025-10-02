@@ -269,14 +269,18 @@ export default function ReiheForm() {
                         onChange={handleFormChange}
                     >
                         <option value="">pupille-glow (default)</option>
-                        <option value="teal-glow">teal-glow</option>
-                        <option value="red-glow">red-glow</option>
-                        <option value="orange-glow">orange-glow</option>
-                        <option value="yellow-glow">yellow-glow</option>
-                        <option value="green-glow">green-glow</option>
                         <option value="blue-glow">blue-glow</option>
+                        <option value="green-glow">green-glow</option>
+                        <option value="grey-glow">grey-glow</option>
                         <option value="indigo-glow">indigo-glow</option>
+                        <option value="magenta-glow">magenta-glow</option>
+                        <option value="orange-glow">orange-glow</option>
                         <option value="pink-glow">pink-glow</option>
+                        <option value="red-glow">red-glow</option>
+                        <option value="teal-glow">teal-glow</option>
+                        <option value="yellow-glow">yellow-glow</option>
+
+
                     </Form.Control>
                     <Form.Text className="text-muted">
                         Wenn 1 Termin mehrere Reihen hat, erfolgt automatische, zufällige Auswahl der Farbe. <br/>
