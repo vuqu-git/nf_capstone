@@ -261,7 +261,7 @@ export default function TerminForm() {
     // ########################################
 
     // build url for gallery card preview
-    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedTermin.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedTermin.offsetImageInGallery ?? "")}&isProgramm=${encodeURIComponent("x")}`;
+    const galleryCardPreviewUrl = `/gallerycard?tnr=${encodeURIComponent(selectedTermin.tnr ?? "")}&bild=${encodeURIComponent(selectedTermin.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedTermin.offsetImageInGallery ?? "")}&isProgramm=${encodeURIComponent("x")}`;
 
     return (
         <main data-bs-theme="dark">
@@ -360,8 +360,10 @@ export default function TerminForm() {
                         // required
                     />
                     <Form.Text className="text-muted">
-                        Höchstens 1 Email-Adresse eintragen!
                         {/*Bei mehreren Paten bitte kommagetrennte Liste von Mailadressen eintragen.*/}
+                        <ul className="tight-list">
+                            <li>Höchstens 1 Email-Adresse eintragen!</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -374,13 +376,12 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!
-                        <br/>
-                        Bitte möglichst KEINE HTML-Entitäten (bspw. &amp;auml;) oder HTML-Tags nutzen! D.h. Sowas wie ä, ö, ü, ß oder & verwenden.<br/>
-                        <br/>
-                        Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.
-                        <br/>
-                        Wenn Eintragung hier erfolgt, muss unten ein Bild angegeben werden (für die korrekte Darstellung in der Gallery).
+                        <ul className="tight-list">
+                            <li><span className="text-danger">Wichtig:</span> Feld leerlassen, wenn es <b>kein</b> (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!</li>
+                            <li>Bitte möglichst KEINE HTML-Entitäten (bspw. &amp;auml;) oder HTML-Tags nutzen! D.h. Sowas wie ä, ö, ü, ß oder & verwenden.<br/></li>
+                            <li>Der eingetragene Titel hier erscheint dann in der Gallery im Termineintrag links unterhalb des Datums.</li>
+                            <li>Wenn Eintragung hier erfolgt, muss unten ein Bild angegeben werden (für die korrekte Darstellung in der Gallery).</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -394,11 +395,11 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Jeder Absatz (auch der erste und einzige) in ein p tag setzen!
-                        <br/>
-                        Feld leerlassen, wenn es <b>kein</b> Programmscreening (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!
-                        <br/>
-                        styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}
+                        <ul className="tight-list">
+                            <li>Jeder Absatz (auch der erste und einzige) in ein p tag setzen!</li>
+                            <li>Feld leerlassen, wenn es <b>kein</b> Programmscreening (mit mehreren Langfilmen), sondern ein "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme) ist!</li>
+                            <li>styled tag template → {'<span style="color: blue; font-weight: bold;">highlighted part</span>'}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -412,9 +413,10 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.
-                        <br/>
-                        Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
+                        <ul className="tight-list">
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -428,11 +430,11 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.
-                        <br/>
-                        Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite
-                        <br/>
-                        a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}
+                        <ul className="tight-list">
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
+                            <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -445,15 +447,14 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        <span className="text-danger">Wichtig:</span> Dieses Feld muss befüllt, wenn oben ein Titel angegeben wurde, sonst leer lassen.
-                        {/*<br/>*/}
                         {/*Bilddatei muss unter https://pupille.org/bilder/filmbilder/ abgelegt sein.*/}
-                        <br/>
-                        Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
-                        → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
-                        als Stammverzeichnis hat.
-                        <br/>
-                        Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film4.jpg
+                        <ul className="tight-list">
+                            <li><span className="text-danger">Wichtig:</span> Dieses Feld muss befüllt, wenn oben ein Titel angegeben wurde, sonst leer lassen.</li>
+                            <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                                als Stammverzeichnis hat.</li>
+                            <li>Bilder für Überraschungsfilme: surprise_film1.jpg, ... , surprise_film4.jpg</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -467,16 +468,18 @@ export default function TerminForm() {
                         disabled={!(selectedTermin.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        einzustellen für das (Termin-)Bild
-                        <br/>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px
-                        <br/><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong>
-                        <br/>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen
-                        <li>
-                            {selectedTermin.bild
-                                ? <a href={galleryCardPreviewUrl} target="_blank" rel="noopener noreferrer">active Link: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab</a>
-                                : `Link here active when bild is populated: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab`
-                            }
-                        </li>
+                        <ul className="tight-list">
+                            <li>einzustellen für das (Termin-)Bild</li>
+                            <li>Textfeld; zulässige Werte: center (=default; Feld bitte leer lassen), top, bottom, Ganzzahlen in % oder px bspw. 10%, 20px, -30px</li>
+                            <li><strong>Erläuterung [0%, 100%]: 50% = (vertically) center; {"value>50%"} pushes the image up and {"value<50%"} pushes it down</strong></li>
+                            <li>Erläuterung: bottom, negative Pixelzahlen → viel vom unteren Bildausschnitt sehen; top, positive Pixelzahlen → viel vom oberen Bildausschnitt sehen</li>
+                            <li>
+                                {selectedTermin.bild
+                                    ? <a href={galleryCardPreviewUrl} target="_blank" rel="noopener noreferrer">active Link: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab</a>
+                                    : `Link here active when bild is populated: open gallery preview for current values in "Bilddateiname" and "Offset" in new browser tab`
+                                }
+                            </li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -491,7 +494,9 @@ export default function TerminForm() {
                         disabled={!(selectedTermin.bild ?? "").trim()}
                     />
                     <Form.Text className="text-muted">
-                        Anzeige des (Termin-)Bildes nicht nur in der Gallery, sondern auch in den Screeningdetails
+                        <ul className="tight-list">
+                            <li>Anzeige des (Termin-)Bildes nicht nur in der Gallery, sondern auch in den Screeningdetails</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -537,18 +542,22 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     >
                         <option value="">pupille-glow (default)</option>
-                        <option value="teal-glow">teal-glow</option>
-                        <option value="red-glow">red-glow</option>
-                        <option value="orange-glow">orange-glow</option>
-                        <option value="yellow-glow">yellow-glow</option>
-                        <option value="green-glow">green-glow</option>
                         <option value="blue-glow">blue-glow</option>
+                        <option value="green-glow">green-glow</option>
+                        <option value="grey-glow">grey-glow</option>
                         <option value="indigo-glow">indigo-glow</option>
+                        <option value="magenta-glow">magenta-glow</option>
+                        <option value="orange-glow">orange-glow</option>
                         <option value="pink-glow">pink-glow</option>
+                        <option value="red-glow">red-glow</option>
+                        <option value="teal-glow">teal-glow</option>
+                        <option value="yellow-glow">yellow-glow</option>
                     </Form.Control>
                     <Form.Text className="text-muted">
-                        Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen, wenn Film in einer Reihe ist.<br/>
-                        Mehrere Einträge hier möglich (comma separated!), es erfolgt dann automatische Zufallsauswahl der Farbe.
+                        <ul className="tight-list">
+                            <li>Eintrag hier für 'Sonderfarbe' hat <b>Vorrang</b> ggü. dem Sonderfarbe-Eintrag der zugehörigen Reihe → Farbsteuerung eher über Reihe machen, wenn Film in einer Reihe ist.</li>
+                            <li>Mehrere Einträge hier möglich (comma separated!), es erfolgt dann automatische Zufallsauswahl der Farbe.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -563,7 +572,9 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Zahl größer 0 to publish; leer lassen oder 0 to hide
+                        <ul className="tight-list">
+                            <li>Zahl größer 0 to publish; leer lassen oder 0 to hide</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
