@@ -209,7 +209,7 @@ public class ScreeningService {
                 semesterDates.now(),
                 semesterDates.startDateSummer(),
                 semesterDates.endDateSummer(),
-                semesterDates.endDateWinter(),
+                semesterDates.startDateWinter(),
                 semesterDates.endDateWinter()
         );
 
