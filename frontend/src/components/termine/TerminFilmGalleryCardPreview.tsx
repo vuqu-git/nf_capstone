@@ -5,6 +5,9 @@ import {useSearchParams} from "react-router-dom";
 
 export default function TerminFilmGalleryCardPreview() {
     const [searchParams] = useSearchParams();
+
+    const tnr = Number(searchParams.get("tnr") ?? undefined);
+
     const bild = searchParams.get("bild");
     const offsetImageInGallery = searchParams.get("offsetImageInGallery") ?? undefined;
 
@@ -40,7 +43,7 @@ export default function TerminFilmGalleryCardPreview() {
                     hauptfilmJahr={isProgramm ? undefined : Number(jahr)}
                     hauptfilmLaufzeit={isProgramm ? undefined : Number(laufzeit)}
                     hauptfilmbesonderheit={undefined}
-                    tnr={123}
+                    tnr={tnr}
                     terminBesonderheit={undefined}
                 />
             </article>
@@ -74,7 +77,7 @@ export default function TerminFilmGalleryCardPreview() {
                             hauptfilmJahr={isProgramm ? undefined : Number(jahr)}
                             hauptfilmLaufzeit={isProgramm ? undefined : Number(laufzeit)}
                             hauptfilmbesonderheit={undefined}
-                            tnr={123}
+                            tnr={tnr}
                             terminBesonderheit={undefined}
                         />
                     </article>

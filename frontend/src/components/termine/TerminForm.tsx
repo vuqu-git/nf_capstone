@@ -261,7 +261,7 @@ export default function TerminForm() {
     // ########################################
 
     // build url for gallery card preview
-    const galleryCardPreviewUrl = `/gallerycard?bild=${encodeURIComponent(selectedTermin.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedTermin.offsetImageInGallery ?? "")}&isProgramm=${encodeURIComponent("x")}`;
+    const galleryCardPreviewUrl = `/gallerycard?tnr=${encodeURIComponent(selectedTermin.tnr ?? "")}&bild=${encodeURIComponent(selectedTermin.bild ?? "")}&offsetImageInGallery=${encodeURIComponent(selectedTermin.offsetImageInGallery ?? "")}&isProgramm=${encodeURIComponent("x")}`;
 
     return (
         <main data-bs-theme="dark">

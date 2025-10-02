@@ -24,7 +24,7 @@ interface Props {
     hauptfilmLaufzeit: number | undefined;
     hauptfilmbesonderheit: string | undefined;
 
-    tnr: number;
+    tnr: number | undefined;
     terminBesonderheit: string | undefined;
 }
 
@@ -55,18 +55,20 @@ export default function TerminFilmGalleryCard({
         <Card
             className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect`}
         >
-            {bild && (
+            {/*{bild && (*/}
                 <div
                     className="image-aspect-ratio-container"
-                    onClick={handleClick}
-                    role="button"
+                    // onClick={handleClick}
+                    // role="button"
+                    onClick={tnr ? handleClick : undefined}
+                    role={tnr ? "button" : undefined}
                 >
                     <Card.Img
                         variant="top"
                         // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
                         // src={import.meta.env.VITE_STATIC_FILEPATH + bild}
                         src={staticFilePathFrontend + bild}
-                        alt={titel ? `Screenong-Bild von ${titel}` : ""}
+                        alt={titel ? `Screening-Bild von ${titel}` : ""}
 
                         // 0) always pass a style prop
                         style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
@@ -122,7 +124,8 @@ export default function TerminFilmGalleryCard({
                         )}
                     </div>
                 </div>
-            )}
+            {/*)}*/}
+
             {/*Here with Card.Text (p tag) and renderHtmlText (span tag)*/}
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             {/*<Card.Body>*/}
