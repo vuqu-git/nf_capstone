@@ -36,7 +36,8 @@ public class ScreeningController {
     // for OverviewArchive react component
     @GetMapping("/archive")
     public List<TerminDTOWithFilmDTOOverviewArchive> getAllPastTermineWithFilms() {
-        return screeningService.getAllPastTermineWithFilms();
+//        return screeningService.getAllPastTermineWithFilms();
+        return screeningService.getAllPastTermineWithFilmsNative();
     }
 
     // for SemesterArchive react component
