@@ -125,6 +125,19 @@ export default function TerminForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // // manual fetching the CSRF token immediately before modifying request
+        // let csrfToken, csrfHeaderName;
+        // try {
+        //     const csrfResponse = await axios.get('/api/csrf-token', { withCredentials: true });
+        //     csrfToken = csrfResponse.data.token;
+        //     console.log(csrfToken);
+        //     csrfHeaderName = csrfResponse.data.headerName || 'X-XSRF-TOKEN';
+        // } catch (error) {
+        //     console.error("Failed to fetch CSRF token", error);
+        //     setErrorMessage("Failed to fetch CSRF token");
+        //     return;
+        // }
+
         // check on condition between titel and bild
         if (!!selectedTermin.titel === !!selectedTermin.bild) {
             // double negation returns true if the value is truthy, false if falsy.
@@ -138,6 +151,16 @@ export default function TerminForm() {
                 // Editing an existing termin (PUT request)
 
                 axios.put(`${baseURL}/${selectedTerminId}`, trimAllStringsInObjectShallow( preprocessFormData(selectedTermin) ))
+                    // when manually fetching the csrf token via get request to self-defined endpoint (see CsrfTokenController): '/api/csrf-token'
+                    // axios.put(
+                    //     `${baseURL}/${selectedTerminId}`,
+                    //     trimAllStringsInObjectShallow(preprocessFormData(selectedTermin))
+                    //     ,
+                    //     {
+                    //         // headers: { [csrfHeaderName]: csrfToken },
+                    //         withCredentials: true,
+                    //     }
+                    // )
                     .then(() => {
                         setSuccessMessage("Termin updated successfully!");
 

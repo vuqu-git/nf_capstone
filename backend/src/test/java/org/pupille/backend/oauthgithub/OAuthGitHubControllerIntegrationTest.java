@@ -8,6 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -26,7 +27,8 @@ public class OAuthGitHubControllerIntegrationTest {
     void testGetMe_withLoggedInUser_expectedUsername() throws Exception {
         mockMvc.perform(get("/api/oauthgithub/me")
                     // this line for fetching github username
-                    .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                    .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                    .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().string("github-username"));
     }

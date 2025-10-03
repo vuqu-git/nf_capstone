@@ -59,7 +59,8 @@ public class WebConfig {
                         .allowedOrigins("http://localhost:4173") // no http://localhost:5173 required here because of vite proxy in vite.config.ts (see explanation below)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .exposedHeaders("Set-Cookie") // Expose CSRF cookie
+                        .allowCredentials(true); // Needed for cookies (CSRF, auth)
             }
         };
     }

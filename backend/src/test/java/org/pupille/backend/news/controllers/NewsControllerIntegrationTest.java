@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
 
 import static org.mockito.Mockito.when;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -351,7 +352,8 @@ class NewsControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
+
                 // THEN
                 .andExpect(status().isOk());
 
@@ -376,7 +378,7 @@ class NewsControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
                 // THEN
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("No news found with the id " + targetId));
@@ -419,7 +421,7 @@ class NewsControllerIntegrationTest {
                         )
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
                 // THEN
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -474,7 +476,7 @@ class NewsControllerIntegrationTest {
                         )
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
                 // THEN
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
@@ -524,7 +526,7 @@ class NewsControllerIntegrationTest {
                         )
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
                 // THEN
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("No news found with the id " + targetId));
@@ -564,7 +566,7 @@ class NewsControllerIntegrationTest {
                         )
                         // this line for fetching github username
                         .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
-                )
+                        .with(csrf()))
                 // THEN
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("ID in path and body do not match"));
