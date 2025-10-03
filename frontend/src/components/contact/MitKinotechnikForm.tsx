@@ -243,7 +243,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
             </div>
 
             <div className={styles.textUnderTextField}>
-                Weitere alternative Veranstaltungszeiträume (mit Angabe von Datum und Uhrzeiten) können oben Nachrichtenfeld genannt werden.
+                Weitere alternative Veranstaltungszeiträume (mit Angabe von Datum und Uhrzeit) können im obigen Nachrichtenfeld genannt werden.
             </div>
 
             {/*<div className={`${styles.formFieldCheckbox} mt-3`}>*/}
@@ -262,7 +262,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                     className={errorMissingConfirmationMessage && !formData.istGemietetBeiAsta ? styles.errorRedLabel : ''}
                     role="alert"
                 >
-                    Ich bestätige, dass der Festsaal beim AStA für den oben genannten Veranstaltungszeitraum bereits reserviert bzw. gemietet wurde.
+                    Ich bestätige, dass der Festsaal beim AStA für den oben genannten Veranstaltungszeitraum bereits von mir reserviert bzw. gemietet wurde.
                 </label>
             </div>
 

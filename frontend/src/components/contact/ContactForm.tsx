@@ -223,10 +223,13 @@ const ContactForm: React.FC = () => {
             {submissionStatusWithMessage.status !== 'success' && (
                 <>
                     <p className={styles.formDescription}>
-                        Für eine schnelle und strukturierte Bearbeitung von Anfragen bitten wir darum, stets das nachfolgende Kontaktformular zu verwenden.
-                    </p>
-                    <p className={styles.formDescription}>
                         Da das gesamte Kinoteam ehrenamtlich arbeitet, kann die Beantwortung etwas Zeit in Anspruch nehmen – wir bitten um Verständnis und etwas Geduld.
+                    </p>
+                    {/*<p>*/}
+                    {/*    <a className="custom-link" href="mailto:info(at)pupille.org">E-Mailadresse</a>*/}
+                    {/*</p>*/}
+                    <p className={styles.formDescription}>
+                        Für eine schnellere und strukturierte Bearbeitung von Anfragen bitten wir, das nachfolgende Kontaktformular zu verwenden.
                     </p>
 
                     <div className={styles.formField}>
