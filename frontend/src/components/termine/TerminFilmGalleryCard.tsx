@@ -65,9 +65,7 @@ export default function TerminFilmGalleryCard({
                 >
                     <Card.Img
                         variant="top"
-                        // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
-                        // src={import.meta.env.VITE_STATIC_FILEPATH + bild}
-                        src={staticFilePathFrontend + bild}
+                        src={staticFilePathFrontend + "bilder/filmbilder/" + bild}
                         alt={titel ? `Screening-Bild von ${titel}` : ""}
 
                         // 0) always pass a style prop

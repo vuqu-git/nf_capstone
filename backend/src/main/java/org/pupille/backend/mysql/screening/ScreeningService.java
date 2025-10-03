@@ -11,6 +11,7 @@ import org.pupille.backend.mysql.terminverknuepfung.TerminverknuepfungRepository
 import org.pupille.backend.utils.PupilleUtils;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,6 +19,8 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.pupille.backend.utils.PupilleUtils.formatSemesterFromLocalDateTermin;
 
 @Service
 public class ScreeningService {
@@ -198,6 +201,45 @@ public class ScreeningService {
                     return new TerminDTOWithFilmDTOOverviewArchive(pTermin, films);
                 })
                 .collect(Collectors.toList()); // Convert stream to List
+    }
+
+    public List<TerminDTOWithFilmDTOOverviewArchive> getAllPastTermineWithFilmsNative() {
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Berlin"));
+        List<Object[]> rows = terminRepository.findPastTermineWithFilmsNative(now);
+
+        List<TerminDTOWithFilmDTOOverviewArchive> result = new ArrayList<>();
+
+        for (Object[] row : rows) {
+            Long tnr = ((Number) row[0]).longValue();
+            LocalDateTime vorstellungsbeginn = ((Timestamp) row[1]).toLocalDateTime();
+            String titel = (String) row[2];
+
+            String filmIdsStr = (String) row[3]; // "1,2,3"
+            String filmTitlesStr = (String) row[4]; // "Title1||Title2||Title3"
+
+            List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
+                    .filter(s -> !s.isBlank())
+                    .map(Long::valueOf)
+                    .toList();
+
+            List<String> filmTitles = Arrays.stream(filmTitlesStr.split("\\|\\|"))
+                    .toList();
+
+            List<FilmDTOOverviewArchive> films = new ArrayList<>();
+            for (int i = 0; i < filmIds.size(); i++) {
+                films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
+            }
+
+            result.add(new TerminDTOWithFilmDTOOverviewArchive(
+                    tnr,
+                    vorstellungsbeginn,
+                    formatSemesterFromLocalDateTermin(vorstellungsbeginn.toLocalDate()),
+                    titel,
+                    films
+            ));
+        }
+
+        return result;
     }
 
     public List<TerminDTOWithFilmDTOOverviewSemester> getTermineByCurrentSemester() {

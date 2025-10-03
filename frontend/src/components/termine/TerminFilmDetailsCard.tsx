@@ -133,9 +133,7 @@ export default function TerminFilmDetailsCard({
 
                 {showProgrammbildInDetails && (
                     <Card.Img
-                        // src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}
-                        // src={import.meta.env.VITE_STATIC_FILEPATH + programmbild}
-                        src={staticFilePathFrontend + programmbild}
+                        src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
                         alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}
                     />
                 )}
@@ -243,8 +241,7 @@ export default function TerminFilmDetailsCard({
                     <>
                         {/*<Card.Img*/}
                         {/*    src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}*/}
-                        {/*    src={import.meta.env.VITE_STATIC_FILEPATH + programmbild}*/}
-                        {/*    src={staticFilePathFrontend + programmbild}
+                        {/*    src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
                         {/*    alt={programmtitel ? `Still vom Screening ${programmtitel}` : ""}*/}
                         {/*/>*/}
                     </>

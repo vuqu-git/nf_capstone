@@ -206,7 +206,6 @@ export default function ProgrammheftForm() {
                 {isGetLoading && <div className="text-warning mb-3" role="status">&#x1f504; Loading details of selected Programmheft... Please wait!</div>}
             </div>
 
-
             <Form onSubmit={handleSubmit}>
 
                 <h3 className="mt-3">Programmheft/Flyer details</h3>
@@ -231,7 +230,12 @@ export default function ProgrammheftForm() {
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
-                        Bilddatei muss unter https://pupille.org/bilder/programmheftbilder/ abgelegt sein.
+                        {/*Bilddatei muss unter https://pupille.org/bilder/programmheftbilder/ abgelegt sein.*/}
+                        <ul className="tight-list">
+                            <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/programmheftbilder abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/programmheftbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                                als Stammverzeichnis hat.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 
@@ -245,7 +249,12 @@ export default function ProgrammheftForm() {
                         required
                     />
                     <Form.Text className="text-muted">
-                        PDF-Datei muss unter https://pupille.org/programmheft/ abgelegt sein.
+                        {/*PDF-Datei muss unter https://pupille.org/programmheft/ abgelegt sein.*/}
+                        <ul className="tight-list">
+                            <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/programmheft abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/programmheft dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                                als Stammverzeichnis hat.</li>
+                        </ul>
                     </Form.Text>
                 </Form.Group>
 

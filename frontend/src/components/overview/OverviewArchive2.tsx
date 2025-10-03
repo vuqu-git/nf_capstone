@@ -7,6 +7,7 @@ import React, {JSX, useEffect, useState} from "react";
 import {ArchiveData} from "../../App2.tsx";
 import styles from "../contact/Forms.module.css";
 import {convertToHtmlEntities} from "../../utils/convertToHtmlEntities.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 export default function OverviewArchive2() {
 
@@ -189,7 +190,7 @@ export default function OverviewArchive2() {
                         <article key={p.pnr} className="programmheft-article">
                             <div>
                                 <Link
-                                    to={"https://pupille.org/programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
                                     className="custom-link mb-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -200,12 +201,12 @@ export default function OverviewArchive2() {
 
                             {p.bild && (
                                 <Link
-                                    to={"https://pupille.org/programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     <img
-                                        src={"https://pupille.org/bilder/programmheftbilder/" + p.bild}
+                                        src={staticFilePathFrontend + "bilder/programmheftbilder/" + p.bild}
                                         alt={"Bild von " + p.titel}
                                         className="program-flyer-image-archive"
                                     />

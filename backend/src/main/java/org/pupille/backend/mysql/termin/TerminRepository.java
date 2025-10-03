@@ -84,6 +84,29 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
         @Query("SELECT t FROM Termin t WHERE t.vorstellungsbeginn < :now AND t.veroeffentlichen > 0 ORDER BY t.vorstellungsbeginn DESC")
         List<Termin> findAllPastTermine(@Param("now") LocalDateTime now);
 
+        @Query(value = """
+    SELECT 
+        t.tnr,
+        t.termin as vorstellungsbeginn,
+        t.titel,
+        GROUP_CONCAT(f.fnr) as film_ids,
+        GROUP_CONCAT(CASE 
+            WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL 
+            THEN f.originaltitel 
+            ELSE f.titel 
+        END SEPARATOR '||') as film_titles
+    FROM termin t
+    JOIN terminverknuepfung tv ON t.tnr = tv.tnr
+    JOIN film f ON tv.fnr = f.fnr
+    WHERE t.termin < :now
+    AND t.veroeffentlichen > 0
+    AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
+    GROUP BY t.tnr, t.termin, t.titel
+    ORDER BY t.termin DESC
+    """, nativeQuery = true)
+        List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);
+
+
         // called by getTermineByCurrentSemester in ScreeningService
         @EntityGraph(attributePaths = {"reihen"})
         @Query(
