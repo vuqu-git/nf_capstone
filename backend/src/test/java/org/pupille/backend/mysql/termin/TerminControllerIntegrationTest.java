@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.pupille.backend.mysql.clicks.Clicks;
+import org.pupille.backend.mysql.clicks.ClicksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,6 +49,9 @@ class TerminControllerIntegrationTest {
     // those both lines mean: performing CRUD operations on the TerminRepository as H2 in-memory relational DB
     @Autowired
     private TerminRepository terminRepository;
+
+    @Autowired
+    private ClicksRepo clicksRepository;
 
     @BeforeEach
     void setUp() {
@@ -91,7 +97,8 @@ class TerminControllerIntegrationTest {
                             // ObjectMapper: This is a core class from the Jackson library, which Spring Boot uses by default for JSON serialization and deserialization.
                             // writeValueAsString(Object value): This method takes a Java object (termin in this case) and serializes it into a JSON string.
                         // this line for fetching github username
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.tnr").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Test Termin"))
@@ -124,10 +131,66 @@ class TerminControllerIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + termin.getTnr())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedTermin))
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Updated Title"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Updated Text"));
+    }
+
+    @Test
+    void testCreateTermin_withoutVeroeffentlichen_doesNotCreateClicks() throws Exception {
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Test Termin No Clicks");
+        termin.setText("Test Text");
+        // veroeffentlichen is null - no clicks should be created
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/termine")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(termin))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.tnr").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Test Termin No Clicks"));
+
+        // Verify no Clicks record was created
+        List<Clicks> allClicks = clicksRepository.findAll();
+        assertThat(allClicks).isEmpty();
+    }
+
+    @Test
+    void testCreateTermin_withVeroeffentlichen_createsClicks() throws Exception {
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Test Termin With Clicks");
+        termin.setText("Test Text");
+        termin.setVeroeffentlichen((short) 1); // This should trigger clicks creation
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/termine")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(termin))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.tnr").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Test Termin With Clicks"));
+
+        // Verify Clicks record was created
+        List<Clicks> allClicks = clicksRepository.findAll();
+        assertThat(allClicks).hasSize(1);
+
+        Clicks createdClicks = allClicks.get(0);
+        assertThat(createdClicks.getSessionScreeningClicks()).isEqualTo(0L);
+        assertThat(createdClicks.getUserScreeningClicks()).isEqualTo(0L);
+        assertThat(createdClicks.getSessionCalendarClicks()).isEqualTo(0L);
+        assertThat(createdClicks.getUserCalendarClicks()).isEqualTo(0L);
+        assertThat(createdClicks.getOnlineSince()).isEqualTo(LocalDate.now());
+
+        // Verify the tnr matches the created Termin
+        Termin createdTermin = terminRepository.findAll().get(0);
+        assertThat(createdClicks.getTnr()).isEqualTo(createdTermin.getTnr());
     }
 
     // Integration test for deleting a Termin
@@ -140,7 +203,8 @@ class TerminControllerIntegrationTest {
         termin = terminRepository.save(termin);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/termine/" + termin.getTnr())
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
         // Verify deletion from repository
@@ -168,8 +232,106 @@ class TerminControllerIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + nonExistingId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(termin))
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    void testUpdateTermin_withNewVeroeffentlichen_createsClicks() throws Exception {
+        // Create initial Termin without veroeffentlichen
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Old Title");
+        termin.setText("Old Text");
+        termin = terminRepository.save(termin);
+
+        // Verify no clicks initially
+        assertThat(clicksRepository.findAll()).isEmpty();
+
+        // Update with veroeffentlichen > 0
+        Termin updatedTermin = new Termin();
+        updatedTermin.setVorstellungsbeginn(LocalDateTime.now().plusDays(1));
+        updatedTermin.setTitel("Updated Title");
+        updatedTermin.setText("Updated Text");
+        updatedTermin.setVeroeffentlichen((short) 1); // This should create clicks
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + termin.getTnr())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedTermin))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Updated Title"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("Updated Text"));
+
+        // Verify Clicks record was created
+        List<Clicks> allClicks = clicksRepository.findAll();
+        assertThat(allClicks).hasSize(1);
+        assertThat(allClicks.get(0).getTnr()).isEqualTo(termin.getTnr());
+    }
+
+    @Test
+    void testUpdateTermin_withExistingClicks_doesNotCreateDuplicate() throws Exception {
+        // Create Termin WITHOUT veroeffentlichen first
+        Termin termin = new Termin();
+        termin.setVorstellungsbeginn(LocalDateTime.now());
+        termin.setTitel("Old Title");
+        termin.setText("Old Text");
+        termin.setVeroeffentlichen(null); // No clicks initially
+        termin = terminRepository.save(termin);
+
+        // First update: set veroeffentlichen to create clicks
+        Termin firstUpdate = new Termin();
+        firstUpdate.setVorstellungsbeginn( termin.getVorstellungsbeginn() );
+        firstUpdate.setTitel("Old Title");
+        firstUpdate.setText("Old Text");
+        firstUpdate.setVeroeffentlichen((short) 1); // This will create clicks
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + termin.getTnr())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(firstUpdate))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Verify clicks was created
+        List<Clicks> clicksAfterFirst = clicksRepository.findAll();
+        assertThat(clicksAfterFirst).hasSize(1);
+        assertThat(clicksAfterFirst.get(0).getSessionScreeningClicks()).isEqualTo(0L);
+
+        // Manually update the clicks to simulate existing data
+        Clicks existingClicks = clicksAfterFirst.get(0);
+        existingClicks.setSessionScreeningClicks(5L);
+        existingClicks.setUserScreeningClicks(10L);
+        existingClicks.setSessionCalendarClicks(2L);
+        existingClicks.setUserCalendarClicks(3L);
+        existingClicks.setOnlineSince(LocalDate.now().minusDays(1));
+        clicksRepository.save(existingClicks);
+
+        // Second update: ensure no duplicate clicks created
+        Termin secondUpdate = new Termin();
+        secondUpdate.setVorstellungsbeginn( termin.getVorstellungsbeginn() );
+        secondUpdate.setTitel("Updated Title Again");
+        secondUpdate.setText("Updated Text Again");
+        secondUpdate.setVeroeffentlichen((short) 2);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/termine/" + termin.getTnr())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(secondUpdate))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titel").value("Updated Title Again"));
+
+        // Verify still only one Clicks record exists
+        List<Clicks> allClicks = clicksRepository.findAll();
+        assertThat(allClicks).hasSize(1);
+
+        // Verify the manually updated clicks data wasn't overwritten
+        Clicks clicks = allClicks.get(0);
+        assertThat(clicks.getSessionScreeningClicks()).isEqualTo(5L);
+        assertThat(clicks.getOnlineSince()).isEqualTo(LocalDate.now().minusDays(1));
     }
 
 }

@@ -1,6 +1,7 @@
 package org.pupille.backend.mysql.terminverknuepfung;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -219,7 +220,8 @@ class TerminverknuepfungControllerIntegrationTest {
         mockMvc.perform(put("/api/terminverknuepfung/" + termin1.getTnr() + "/" + film1.getFnr())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.tnr").value(termin1.getTnr()))
                 .andExpect(jsonPath("$.fnr").value(film1.getFnr()))
@@ -231,7 +233,8 @@ class TerminverknuepfungControllerIntegrationTest {
     void deleteTerminverknuepfung_returnsNoContent() throws Exception {
         // Perform the delete operation
         mockMvc.perform(delete("/api/terminverknuepfung/" + termin1.getTnr() + "/" + film1.getFnr())
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
 
         // Verify that the Terminverknuepfung is no longer in the repository
@@ -257,7 +260,8 @@ class TerminverknuepfungControllerIntegrationTest {
         mockMvc.perform(post("/api/terminverknuepfung/link-film-termin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").exists());
 
@@ -285,7 +289,8 @@ class TerminverknuepfungControllerIntegrationTest {
         mockMvc.perform(post("/api/terminverknuepfung/link-film-termin")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto))
-                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username"))))
+                        .with(oidcLogin().userInfoToken(token -> token.claim("login", "github-username")))
+                        .with(csrf()))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").exists())
                 .andExpect(jsonPath("$.error").value("Link already exists"));
