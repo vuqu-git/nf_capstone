@@ -1,5 +1,6 @@
 import {Link, useLoaderData} from "react-router-dom";
 import {Programmheft} from "../types/Programmheft.ts";
+import {staticFilePathFrontend} from "../utils/config.ts";
 
 export default function PdfProgram() {
     const pdfs = useLoaderData<Programmheft[]>();
@@ -12,7 +13,7 @@ export default function PdfProgram() {
                     <article key={p.pnr} className="mb-4">
                         <div>
                         <Link
-                            to={"https://pupille.org/programmheft/" + p.pdf}
+                            to={staticFilePathFrontend + "programmheft/" + p.pdf}
                             className="custom-link mb-1"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -23,12 +24,12 @@ export default function PdfProgram() {
 
                             {p.bild && (
                                 <Link
-                                    to={"https://pupille.org/programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                 <img
-                                    src={"https://pupille.org/bilder/programmheftbilder/" + p.bild}
+                                    src={staticFilePathFrontend + "bilder/programmheftbilder/" + p.bild}
                                     alt={"Bild von " + p.titel}
                                     className="program-flyer-image"
                                 />

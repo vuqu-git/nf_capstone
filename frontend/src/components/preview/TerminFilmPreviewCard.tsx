@@ -74,8 +74,7 @@ export default function TerminFilmPreviewCard({
                     <div className="image-aspect-ratio-container">
                         <Card.Img
                             variant="top"
-                            // src={`https://www.pupille.org/bilder/filmbilder/${bild}`}
-                            src={staticFilePathFrontend + bild}
+                            src={staticFilePathFrontend + "bilder/filmbilder/" + bild}
                             // 0) always pass a style prop
                             style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
                         />

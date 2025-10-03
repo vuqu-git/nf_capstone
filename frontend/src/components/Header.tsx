@@ -1,6 +1,7 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./Header.css"; // Import your custom CSS file
 import {Link} from "react-router-dom";
+import {staticFilePathFrontend} from "../utils/config.ts";
 
 function Header() {
     return (
@@ -8,7 +9,8 @@ function Header() {
             <Container>
                 <Navbar.Brand as={Link} to="/">
                     <img
-                        src="https://pupille.org/bilder/allgemein/Pupille-Logo.svg"
+                        src={staticFilePathFrontend + "bilder/allgemein/Pupille-Logo.svg"}
+
                         alt="Pupille Logo"
                         className="pupille-logo-header"
                     />

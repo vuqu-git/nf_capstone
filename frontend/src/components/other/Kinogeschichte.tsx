@@ -1,7 +1,7 @@
 import './NomalContent.css';
 import {Accordion, Carousel, CarouselItem} from "react-bootstrap";
 import styles from './Kinogeschichte.module.css';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import {ColumnsPhotoAlbum, RowsPhotoAlbum} from "react-photo-album";
 import "react-photo-album/rows.css";
@@ -13,6 +13,7 @@ import "yet-another-react-lightbox/styles.css";
 import {Fullscreen, Zoom, Slideshow, Captions, Inline} from "yet-another-react-lightbox/plugins";
 
 import "yet-another-react-lightbox/plugins/captions.css";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 
 declare module "yet-another-react-lightbox" {
@@ -29,7 +30,7 @@ function isTeaserVimeoSlide(slide: Slide): slide is TeaserVimeoSlide {
     return slide.type === "teaser-vimeo";
 }
 
-const path = "https://pupille.org/bilder/kinogeschichte"
+const path = staticFilePathFrontend + "bilder/kinogeschichte"
 
 const photosLogo = [
     { src: path + "/1952_Film_Studio.svg", width: 900, height: 300, description: "1952 Film Studio" },

@@ -62,9 +62,7 @@ export default function TerminFilmDetailsListing({
             {/* Check if image URL exists */}
             {f.bild && (
                 <Card.Img
-                    // src={`https://www.pupille.org/bilder/filmbilder/${f.bild}`}
-                    // src={import.meta.env.VITE_STATIC_FILEPATH + f.bild}
-                    src={staticFilePathFrontend + f.bild}
+                    src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
                     alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
                 />
             )}

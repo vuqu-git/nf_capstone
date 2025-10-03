@@ -4,8 +4,9 @@ import {RowsPhotoAlbum} from "react-photo-album";
 import {useState} from "react";
 import Lightbox from "yet-another-react-lightbox";
 import {Captions, Fullscreen, Slideshow, Zoom} from "yet-another-react-lightbox/plugins";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
-const path = "https://pupille.org/bilder/allgemein"
+const path = staticFilePathFrontend + "bilder/allgemein"
 
 const photos = [
     { src: path + "/Map_Campus_Bockenheim.png", width: 587, height: 643, description: "Karte vom Campus Bockenheim" },
