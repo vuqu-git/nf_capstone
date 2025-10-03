@@ -53,10 +53,10 @@ details.screening[open] summary::before {
 }
 
 /* Specific styles for Q&A */
-details.qaa section.question::before {
+details.qaa summary::before {
     content: "💬";
 }
-details.qaa section.answer::before {
+details.qaa[open] summary::before {
     content: "💡";
 }
 
