@@ -551,6 +551,7 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "kinogeschichte",
+                                loader: getOtherDataLoader("hessischerKinopreis&kinematheksKinopreis"),
                                 element: <Kinogeschichte/>,
                                 handle: {scrollMode: "pathname"},
                             },
