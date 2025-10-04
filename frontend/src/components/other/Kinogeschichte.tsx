@@ -48,7 +48,7 @@ const photosA = [
 
 const photosB = [
     { src: path + "/1963_Heftcover_10_Jahre_Filmstudio.jpg", width: 1500, height: 1098, description: "1963 Heftcover 10 Jahre Filmstudio" },
-    { src: path + "/1963_Agitationsfilm_Frankfurt_63", width: 1500, height: 1134, description: "1963 Agitationsfilm Frankfurt 63" },
+    { src: path + "/1963_Agitationsfilm_Frankfurt_63.jpg", width: 1500, height: 1134, description: "1963 Agitationsfilm Frankfurt 63" },
 ];
 
 const photosC = [
