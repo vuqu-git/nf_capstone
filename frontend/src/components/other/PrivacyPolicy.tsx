@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
                 </p>
                 <p className={styles.text}>
                     {/*<a href="mailto:info(at)pupille.org" className={styles.link}>E-Mail-Adresse</a>*/}
-                    <a href="mailto:info(at)pupille.org" className="hidden-link">E-Mail-Adresse</a>
+                    <a href="mailto:info@pupille.org" className="hidden-link">E-Mail-Adresse</a>
                 </p>
             </section>
 
