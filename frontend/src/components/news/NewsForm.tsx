@@ -186,8 +186,8 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                             <li>
                                 <details className="summary-style general-info">
                                     <summary><span className="text-info">Legend color design</span></summary>
-                                    {/*<img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
-                                    <img src={staticFilePathFrontend + "bilder/adminforms" + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />
+                                    {/*<img src="/assets/images/adminforms/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
+                                    <img src={staticFilePathFrontend + "bilder/adminforms/" + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />
                                 </details>
                             </li>
                         </ul>
@@ -198,8 +198,8 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                 {/*    <Accordion.Item eventKey="0">*/}
                 {/*        <Accordion.Header>Legend color design</Accordion.Header>*/}
                 {/*        <Accordion.Body>*/}
-                {/*            <img src="/assets/images/adminform/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
-                {/*            <img src={staticFilePathFrontend + "bilder/adminforms" + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />*/}
+                {/*            <img src="/assets/images/adminforms/newsDesigns.png" alt="News Color Design Legend" className="mt-3" />*/}
+                {/*            <img src={staticFilePathFrontend + "bilder/adminforms/" + "newsDesigns.png"} alt="News Color Design Legend" className="mt-3" />*/}
                 {/*        </Accordion.Body>*/}
                 {/*    </Accordion.Item>*/}
                 {/*</Accordion>*/}

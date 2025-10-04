@@ -13,7 +13,7 @@ export default function PdfProgram() {
                     <article key={p.pnr} className="mb-4">
                         <div>
                         <Link
-                            to={staticFilePathFrontend + "programmheft/" + p.pdf}
+                            to={staticFilePathFrontend + "programmhefte/" + p.pdf}
                             className="custom-link mb-1"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -24,7 +24,7 @@ export default function PdfProgram() {
 
                             {p.bild && (
                                 <Link
-                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

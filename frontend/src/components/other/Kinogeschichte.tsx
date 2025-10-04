@@ -14,6 +14,8 @@ import {Fullscreen, Zoom, Slideshow, Captions, Inline} from "yet-another-react-l
 
 import "yet-another-react-lightbox/plugins/captions.css";
 import {staticFilePathFrontend} from "../../utils/config.ts";
+import {useLoaderData} from "react-router-dom";
+import {OtherDataValuesMap} from "../../types/OtherDataValuesMap.ts";
 
 
 declare module "yet-another-react-lightbox" {
@@ -74,6 +76,8 @@ export default function Kinogeschichte() {
     const [indexD, setIndexD] = useState(-1);
 
     const [open, setOpen] = useState(false);
+
+    const valuesMap = useLoaderData<OtherDataValuesMap>();
 
     return (
         <article className="normal-content-container">
@@ -492,8 +496,10 @@ export default function Kinogeschichte() {
                 Das Programm der Pupille ist in den letzten Jahren wiederholt ausgezeichnet worden:
             </p>
             <ul>
-                <li>Hessischer Kinopreis (für nicht gewerbliche Kinos) 2012 &ndash; {new Date() < new Date((new Date()).getFullYear(), 9, 25) ? (new Date()).getFullYear()-1 : (new Date()).getFullYear()}</li>
-                <li>Kinopreis des Kinematheksverbunds 2013, 2020 &ndash; 2024</li>
+                {/*<li>Hessischer Kinopreis (für nicht gewerbliche Kinos) 2012 &ndash; {new Date() < new Date((new Date()).getFullYear(), 9, 25) ? (new Date()).getFullYear()-1 : (new Date()).getFullYear()}</li>*/}
+                {/*<li>Kinopreis des Kinematheksverbunds 2013, 2020 &ndash; 2024</li>*/}
+                <li>{valuesMap.hessischerKinopreis}</li>
+                <li>{valuesMap.kinematheksKinopreis}</li>
             </ul>
 
             <br/>
