@@ -24,6 +24,17 @@ main {
 }
 
 /*####################################*/
+.hidden-link {
+  color: inherit;
+  /*text-decoration: none;*/
+  text-decoration: underline;
+}
+
+/*.hidden-link:hover {*/
+/*  text-decoration: underline;*/
+/*}*/
+
+/*####################################*/
 /*###     Admin Forms Styling      ###*/
 
 ul.tight-list {

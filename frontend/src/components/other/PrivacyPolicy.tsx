@@ -1,4 +1,5 @@
 import styles from './PrivacyPolicy.module.css';
+import '../../App.css';
 import {useLoaderData} from "react-router-dom";
 import {OtherDataValuesMap} from "../../types/OtherDataValuesMap.ts";
 
@@ -57,7 +58,8 @@ const PrivacyPolicy = () => {
                     Vertretungsberechtigte Personen (Vorstände): {valuesMap.aktuelleVorstaende}
                 </p>
                 <p className={styles.text}>
-                    <a href="mailto:info(at)pupille.org" className={styles.link}>E-Mail-Adresse</a>
+                    {/*<a href="mailto:info(at)pupille.org" className={styles.link}>E-Mail-Adresse</a>*/}
+                    <a href="mailto:info(at)pupille.org" className="hidden-link">E-Mail-Adresse</a>
                 </p>
             </section>
 
