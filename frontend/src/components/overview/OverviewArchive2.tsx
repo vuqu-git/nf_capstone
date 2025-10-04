@@ -190,7 +190,7 @@ export default function OverviewArchive2() {
                         <article key={p.pnr} className="programmheft-article">
                             <div>
                                 <Link
-                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
                                     className="custom-link mb-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -201,7 +201,7 @@ export default function OverviewArchive2() {
 
                             {p.bild && (
                                 <Link
-                                    to={staticFilePathFrontend + "programmheft/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

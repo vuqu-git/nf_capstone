@@ -251,8 +251,8 @@ export default function ProgrammheftForm() {
                     <Form.Text className="text-muted">
                         {/*PDF-Datei muss unter https://pupille.org/programmheft/ abgelegt sein.*/}
                         <ul className="tight-list">
-                            <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/programmheft abgelegt sein
-                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/programmheft dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                            <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/programmhefte abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/programmhefte dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
                         </ul>
                     </Form.Text>
