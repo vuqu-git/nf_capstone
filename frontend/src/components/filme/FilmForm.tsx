@@ -689,7 +689,7 @@ export default function FilmForm() {
                     </Form.Control>
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>"ungeprüft" auswählen, wenn im Programmheft keine FSK-Angabe abgedruckt ist"</li>
+                            <li>"ungeprüft" auswählen, wenn im Programmheft keine FSK-Angabe abgedruckt ist</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
