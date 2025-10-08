@@ -44,7 +44,7 @@ const OverviewClicks: React.FC = () => {
                                             <td>
                                                 {formatDateInTerminSelectOption(click.vorstellungsbeginn)}
                                             </td>
-                                            <td>{renderHtmlText(click.titel)}</td>
+                                            <td className={styles.truncate}>{renderHtmlText(click.titel)}</td>
                                             <td>{click.sessionScreeningClicks}</td>
                                             <td>{click.sessionCalendarClicks}</td>
                                             <td>{click.userScreeningClicks}</td>
@@ -69,9 +69,11 @@ const OverviewClicks: React.FC = () => {
 
                             <h2 className={styles.title2}>Zählvarianten</h2>
 
+                            <p>Generell: Keine Zählung bei Klicks zeitlich nach der Vorführung</p>
+
                             <div className={styles.zaehlartenbox}>
                                 <h3 className={styles.title3}>session:</h3>
-                                <p>Die Zählung findet innerhalb einer Browsersession (geöffnetes Browserfenster oder -tab) statt: Beim mehrmaligen Öffnen einer Detailseite oder mehrmaligen Klicken auf die Kalenderfunktion erfolgt keine Mehrfachzählung, sondern nur der 1. Klick wird 1-fach gezählt. Für die Folgeklicks erfolgt keine Zählung. Ein neues Browserfenster bzw. -tab zählt als neue Session. D.h. hier erfolgt die Zählung wieder beim 1. Klick.</p>
+                                <p>Die Zählung findet innerhalb 1 Browsersession (geöffnetes Browserfenster oder -tab) statt: Beim mehrmaligen Öffnen einer Detailseite oder mehrmaligen Klicken auf die Kalenderfunktion erfolgt keine Mehrfachzählung, sondern nur der 1. Klick wird 1-fach gezählt. Ein neues Browserfenster bzw. -tab zählt als neue Session. D. h. hier erfolgt die Zählung wieder beim 1. Klick.</p>
                             </div>
 
                             <div className={styles.zaehlartenbox}>
