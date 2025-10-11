@@ -152,6 +152,20 @@ export default function ScreeningDetails() {
         ? formatDateTime(screeningDetails.termin.vorstellungsbeginn)
         : undefined;
 
+    // ######################################################
+    // setup storage for non-tracking
+    const queryParams = new URLSearchParams(location.search);
+    const isTesting = queryParams.get('t');
+
+    // when query parameter t is empty string (in case of /details/123?t=) or null (when /details/123) the condition evaluates to false
+    if (isTesting) {
+        sessionStorage.setItem(`screening-visited-${tnr}`, 'true');
+        localStorage.setItem(`screening-visited-${tnr}`, 'true');
+
+        sessionStorage.setItem(`calendar-clicked-${tnr}`, 'true');
+        localStorage.setItem(`calendar-clicked-${tnr}`, 'true');
+    }
+
     return (
         screeningDetails && (
             <TerminFilmDetailsCard
