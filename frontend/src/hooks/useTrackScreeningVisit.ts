@@ -47,5 +47,5 @@ export const useTrackScreeningVisit = (
                 });
             }
         }
-    }, [tnr]);
+    }, [tnr, veroeffentlichen, vorstellungsbeginn, titel, withTerminbesonderheit, inNumberReihen]);
 };
