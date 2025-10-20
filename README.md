@@ -7,9 +7,7 @@ A modern web application for the university cinema in Frankfurt, providing movie
 
 ## 🌐 Live Demo
 
-**[View Live Application](https://pupille-latest.onrender.com/)**
-
-_Note: The application is hosted on Render's free tier. Initial load may take 3-4 minutes due to cold start._
+**[View Live Application](https://pupille.org/)**
 
 ## 🛠️ Tech Stack
 
