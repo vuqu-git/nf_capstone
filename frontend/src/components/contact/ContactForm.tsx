@@ -24,11 +24,11 @@ interface IssueConfig {
 }
 
 const issueSelectOptions: IssueConfig[] = [
-    { value: 'aob', label: 'Allgemeine Anfrage' },
-    { value: 'eventOhneProjektion', label: 'Veranstaltung im Festsaal ohne Projektion' },
-    { value: 'eventMitProjektion', label: 'Veranstaltung im Festsaal mit Projektion' },
-    { value: 'kinomitarbeit', label: 'ehrenamtliche Kinomitarbeit' },
-    { value: 'email', label: 'E-Mail als Kontaktoption 🙇' },
+    // { value: 'aob', label: 'Allgemeine Anfrage' },
+    // { value: 'eventOhneProjektion', label: 'Veranstaltung im Festsaal ohne Projektion' },
+    // { value: 'eventMitProjektion', label: 'Veranstaltung im Festsaal mit Projektion' },
+    // { value: 'kinomitarbeit', label: 'ehrenamtliche Kinomitarbeit' },
+    { value: 'email', label: 'E-Mail als Kontaktoption' },
 ];
 
 const ContactForm: React.FC = () => {
@@ -188,7 +188,8 @@ const ContactForm: React.FC = () => {
                 );
             case 'email':
                 return (
-                    <a href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20...&body=Ich%20best%C3%A4tige%2C%20dass%20dies%20keine%20ungefragte%20Werbung%20ist." className="hidden-link">E-Mail-Adresse</a>
+                    // <a href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20...&body=Ich%20best%C3%A4tige%2C%20dass%20dies%20keine%20ungefragte%20Werbung%20ist." className="hidden-link">E-Mail-Adresse</a>
+                    <a href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20..." className="hidden-link">E-Mail-Adresse</a>
                 );
             default:
                 return null;
