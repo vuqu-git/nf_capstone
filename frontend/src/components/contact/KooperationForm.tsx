@@ -236,6 +236,7 @@ const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, subm
                 className="mb-3"
                 sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                 onChange={onSetCaptchaToken}
+                theme="dark"
             />
 
             <button

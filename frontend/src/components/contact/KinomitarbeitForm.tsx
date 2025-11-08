@@ -107,6 +107,7 @@ const KinomitarbeitForm: React.FC<KinomitarbeitFormProps> = ({ onSubmit, submiss
                 className="mb-3"
                 sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                 onChange={onSetCaptchaToken}
+                theme="dark"
             />
 
             <button
