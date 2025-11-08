@@ -84,8 +84,9 @@ const ContactForm: React.FC = () => {
         };
         setFormData(newData);
 
-        // ### Save Form Data to localStorage ###
-        localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
+        // ### Save Form Data to storage ###
+        // localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
+        sessionStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
     };
 
     const handleGlobalSubmit = async (
@@ -131,7 +132,8 @@ const ContactForm: React.FC = () => {
             setCaptchaToken(null);
 
             // ### Clear Form Data on Successful Submit ###
-            localStorage.removeItem(`${issueToUse}FormData`);
+            // localStorage.removeItem(`${issueToUse}FormData`);
+            sessionStorage.removeItem(`${issueToUse}FormData`);
 
         } catch (error) {
             console.error('Error sending message:', error);
@@ -206,10 +208,11 @@ const ContactForm: React.FC = () => {
         }
     };
 
-    // ### Load Form Data from localStorage ###
+    // ### Load Form Data from storage ###
     useEffect(() => {
         if (selectedIssueSelection) {
-            const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            // const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            const savedData = sessionStorage.getItem(`${selectedIssueSelection}FormData`);
             if (savedData) {
                 setFormData(JSON.parse(savedData));
             }
@@ -293,7 +296,6 @@ const ContactForm: React.FC = () => {
                     {renderHtmlText(submissionStatusWithMessage.message)}
                 </div>
             )}
-
         </div>
     );
 };
