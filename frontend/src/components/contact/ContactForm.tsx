@@ -258,7 +258,7 @@ const ContactForm: React.FC = () => {
                         </div>
 
                         <div className={styles.emojiListItem}>
-                            <span className={styles.emoji}>&#x2705;</span>
+                            <span className={styles.emoji}>&#x1F4E7;</span>
                             <span className={styles.emojiText}>
                                 Nach erfolgreicher Übermittlung der Formulareingaben erhältst du automatisch eine Kopie der Nachricht an deine angegebene Mail-Adresse.
                             </span>
