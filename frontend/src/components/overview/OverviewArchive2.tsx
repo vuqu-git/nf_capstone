@@ -191,6 +191,7 @@ export default function OverviewArchive2() {
                             <div>
                                 <Link
                                     to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                                    // to={staticFilePathFrontend + (p.pdf === null ? "bilder/programmheftbilder/" + p.bild : "programmhefte/" + p.pdf)}
                                     className="custom-link mb-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -199,14 +200,15 @@ export default function OverviewArchive2() {
                                 </Link>
                             </div>
 
-                            {p.bild && (
+                            {(p.bild || p.pdf) && (
                                 <Link
                                     to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                                    // to={staticFilePathFrontend + (p.pdf === null ? "bilder/programmheftbilder/" + p.bild : "programmhefte/" + p.pdf)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     <img
-                                        src={staticFilePathFrontend + "bilder/programmheftbilder/" + p.bild}
+                                        src={staticFilePathFrontend + (p.bild === null ? "programmhefte/" + p.pdf : "bilder/programmheftbilder/" + p.bild )}
                                         alt={"Bild von " + p.titel}
                                         className="program-flyer-image-archive"
                                     />
