@@ -1,54 +1,48 @@
 .wrapper {
-    margin: auto;
-    overflow: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 
-    /*#########################################################*/
-
-    /*!*summer palette, almost no edges*!*/
-    /*background: linear-gradient(315deg,*/
-    /*#ffe29f 0%,           !* soft sunlight *!*/
-    /*#fcd34d 10%,          !* golden sand *!*/
-    /*#ffc0cb 20%,          !* a softer pink transition *!*/
-    /*#ff9a8b 35%,          !* coral blush *!*/
-    /*#ff6a88 50%,          !* summer sunset pink *!*/
-    /*#a0d4ff 65%,          !* a lighter blue transition *!*/
-    /*#8ec5fc 75%,          !* clear sky blue *!*/
-    /*#4ecdc4 85%,          !* tropical mint *!*/
-    /*#fcb045 95%,          !* warm orange glow *!*/
-    /*#ffe29f 100%          !* back to sunlight for loop *!*/
-    /*);*/
-    /*animation: gradient 90s ease infinite;*/
-    /*background-size: 800% 800%; !* Increased from 400% 400% *!*/
-    /*background-attachment: fixed;*/
-
-
-    /*!*yellow-red*!*/
-    /*background: linear-gradient(0deg, #df4811 3%, #ae3459 38%, #ff9b21 68%, #f8c746 85%, #fcdf91 98%);*/
-    /*animation: gradient 90s ease infinite;*/
-    /*background-size: 800% 800%;*/
-    /*background-attachment: fixed;*/
-
-    /* Sundown palette with 0deg - More Orange */
     background: linear-gradient(0deg,
-    #2a1c43 0%,             /* Deep twilight/night (bottom) */
-    #4d2958 5%,             /* Hint of deep plum - ends sooner */
-    #8b2f4f 15%,            /* Muted brick red - starts sooner */
-    #ff5e62 40%,            /* Vibrant sunset red - starts earlier */
+    #2a1c43 0%,             /* Deep twilight/night */
+    #4d2958 5%,             /* Deep plum */
+    #8b2f4f 15%,            /* Muted brick red */
+    #ff5e62 40%,            /* Vibrant sunset red */
     #ff9966 65%,            /* Warm orange */
-    #fce38a 85%,            /* Golden yellow (last light) */
-    #ffe29f 100%            /* Soft sunlight/peach (top of sky) */
+    #fce38a 85%,            /* Golden yellow */
+    #ffe29f 100%            /* Soft sunlight/peach */
     );
-    animation: gradient 120s ease infinite; /* Slower for gradual effect */
+    animation: gradient 120s ease infinite;
     background-size: 800% 800%;
     background-attachment: fixed;
 
-    /*#########################################################*/
-
-    /*added additionally for centering*/
     height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+/* --letterbox-height will be set via inline style from React */
+
+/* Content area - takes up space above letterbox */
+.contentArea {
+    height: calc(100vh - var(--letterbox-height));
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Logo centered vertically HERE */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Black letterbox at bottom */
+.letterbox {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--letterbox-height);
+    background-color: #000;
+    z-index: 10;
 }
 
 @keyframes gradient {
@@ -63,29 +57,30 @@
     }
 }
 
+/* Waves at the boundary between content and letterbox */
 .wave {
     background: rgb(255 255 255 / 25%);
     border-radius: 1000% 1000% 0 0;
-    position: fixed;
+    position: absolute;
     width: 200%;
     height: 12em;
     animation: wave 10s -3s linear infinite;
     transform: translate3d(0, 0, 0);
     opacity: 0.8;
-    bottom: 0;
+    bottom: var(--letterbox-height); /* Sits on top of letterbox */
     left: 0;
-    /*z-index: -1;*/
-    z-index: 1; /* Above background, below topHoverBar */
+    z-index: 5; /* Between content (z:2) and letterbox (z:10) */
+    pointer-events: none; /* Don't interfere with interactions */
 }
 
 .wave:nth-of-type(2) {
-    bottom: -1.25em;
+    bottom: calc(var(--letterbox-height) - 1.25em);
     animation: wave 18s linear reverse infinite;
     opacity: 0.8;
 }
 
 .wave:nth-of-type(3) {
-    bottom: -2.5em;
+    bottom: calc(var(--letterbox-height) - 2.5em);
     animation: wave 20s -1s reverse infinite;
     opacity: 0.9;
 }
@@ -94,19 +89,15 @@
     2% {
         transform: translateX(1);
     }
-
     25% {
         transform: translateX(-25%);
     }
-
     50% {
         transform: translateX(-50%);
     }
-
     75% {
         transform: translateX(-25%);
     }
-
     100% {
         transform: translateX(1);
     }
@@ -116,13 +107,12 @@
     width: 80vw;
     max-width: 1100px;
     height: auto;
+    z-index: 2;
+    position: relative;
 }
 
 .logo svg {
-    /* Ensure the SVG itself fills the container */
     width: 100%;
     height: 100%;
-
-    /*fill: purple;*/
-    filter: invert(99%); /* 100% white */
+    filter: invert(99%);
 }
