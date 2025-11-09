@@ -232,15 +232,17 @@ export default function ProgrammheftForm() {
                     <Form.Text className="text-muted">
                         {/*Bilddatei muss unter https://pupille.org/bilder/programmheftbilder/ abgelegt sein.*/}
                         <ul className="tight-list">
-                            <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/programmheftbilder abgelegt sein
-                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/programmheftbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                            <li>Bitte mit Dateiendung angeben.</li>
+                            <li>für Bildvorschau bei PDF-Datei als img tag; ohne Eintrag wird nur Link angezeigt</li>
+                            <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/<strong>bilder/programmheftbilder</strong> abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/<strong>bilder/programmheftbilder</strong> dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="pdf" className="mt-3">
-                    <Form.Label>vollständiger PDF-Dateiname *</Form.Label>
+                    <Form.Label>vollständiger Dateiname des PDF-Heftes bzw. Flyers *</Form.Label>
                     <Form.Control
                         type="text"
                         name="pdf"
@@ -249,11 +251,11 @@ export default function ProgrammheftForm() {
                         required
                     />
                     <Form.Text className="text-muted">
-                        {/*PDF-Datei muss unter https://pupille.org/programmheft/ abgelegt sein.*/}
                         <ul className="tight-list">
-                            <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/programmhefte abgelegt sein
-                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/programmhefte dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
+                            <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/<strong>programmhefte</strong> abgelegt sein
+                                → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/<strong>programmhefte</strong> dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
+                            <li>Wenn Flyer nur als Bildatei vorliegt, dann Feld "vollständiger Bilddateiname" oben leerlassen und nur dieses Feld befüllen.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>

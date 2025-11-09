@@ -1,5 +1,30 @@
 /* Forms.module.css */
 
+/* General contact information with emojis */
+.emojiList {
+    margin: 0;
+    padding: 0;
+}
+
+.emojiListItem {
+    display: flex;
+    align-items: flex-start; /* Align emoji to the top */
+    margin-bottom: 12px; /* Space between items */
+}
+
+.emoji {
+    flex-shrink: 0; /* Prevent emoji from shrinking */
+    width: 1.5em; /* Fixed width for alignment */
+    margin-right: 8px; /* Space between emoji and text */
+    font-size: 1.2em; /* Adjust emoji size if needed */
+}
+
+.emojiText {
+    flex: 1; /* Text takes remaining space */
+    line-height: 1.5;
+}
+
+
 /* Reserve space loading notifications */
 
 .loadingSpacer {

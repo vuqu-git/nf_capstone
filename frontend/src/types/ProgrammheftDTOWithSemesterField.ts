@@ -1,6 +1,6 @@
 export type ProgrammheftDTOWithSemesterField = {
     pnr: number | undefined,
-    titel?: string,
+    titel: string,
     bild?: string,
     pdf: string,
     gueltigVon: string,

@@ -2,10 +2,11 @@ import styles from './Forms.module.css';
 import '../../App.css';
 
 import React, {useState, FormEvent, ChangeEvent, useEffect} from 'react';
-import AOBForm, { AOBFormData } from './AOBForm.tsx';
+import axios from "axios";
 
 import EventOhneProjektion from './EventOhneProjektion'
 import EventMitProjektion from "./EventMitProjektion.tsx";
+import AOBForm, { AOBFormData } from './AOBForm.tsx';
 import KinomitarbeitForm, { KinomitarbeitFormData } from "./KinomitarbeitForm.tsx";
 import {EigenstaendigFormData} from "./EigenstaendigForm.tsx";
 import {MitKinotechnikFormData} from "./MitKinotechnikForm.tsx";
@@ -24,11 +25,11 @@ interface IssueConfig {
 }
 
 const issueSelectOptions: IssueConfig[] = [
-    // { value: 'aob', label: 'Allgemeine Anfrage' },
-    // { value: 'eventOhneProjektion', label: 'Veranstaltung im Festsaal ohne Projektion' },
-    // { value: 'eventMitProjektion', label: 'Veranstaltung im Festsaal mit Projektion' },
-    // { value: 'kinomitarbeit', label: 'ehrenamtliche Kinomitarbeit' },
-    { value: 'email', label: 'E-Mail als Kontaktoption' },
+    { value: 'aob', label: 'Allgemeine Anfrage' },
+    { value: 'eventOhneProjektion', label: 'Veranstaltung im Festsaal ohne Projektion' },
+    { value: 'eventMitProjektion', label: 'Veranstaltung im Festsaal mit Projektion' },
+    { value: 'kinomitarbeit', label: 'ehrenamtliche Kinomitarbeit' },
+    { value: 'email', label: 'E-Mail als Kontaktoption (bei sonstigen Anliegen)' },
 ];
 
 const ContactForm: React.FC = () => {
@@ -83,8 +84,9 @@ const ContactForm: React.FC = () => {
         };
         setFormData(newData);
 
-        // ### Save Form Data to localStorage ###
-        localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
+        // ### Save Form Data to storage ###
+        // localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
+        sessionStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
     };
 
     const handleGlobalSubmit = async (
@@ -110,42 +112,47 @@ const ContactForm: React.FC = () => {
         const dataToUse = explicitData || formData;
 
         try {
-            const response = await fetch(`/api/contact/${issueToUse}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                // reCAPTCHA token is included in the form submission to your backend
-                body: JSON.stringify({ ...dataToUse, captcha: captchaToken }),
+            // const response = await axios.post(`/api/contact/${issueToUse}`, {
+            await axios.post(`/api/contact/${issueToUse}`, {
+                ...dataToUse,
+                captcha: captchaToken,
             });
 
-            if (response.ok) {
-                setSubmissionStatusWithMessage({
-                    status: 'success',
-                    message: `&#x2705; Vielen Dank! Die Nachricht wurde gesendet.
-                            <br/>
-                            Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
-                });
+            // Axios automatically throws on errors, so if we reach here, it's success
+            // Response data is in response.data (already parsed JSON)
+            setSubmissionStatusWithMessage({
+                status: 'success',
+                message: `&#x2705; Vielen Dank! Die Nachricht wurde gesendet.
+                        <br/>
+                        Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
+            });
 
-                // reset form and CAPTCHA after a successful submission
-                setFormData({});
-                setCaptchaToken(null);
+            // reset form and CAPTCHA after a successful submission
+            setFormData({});
+            setCaptchaToken(null);
 
-                // ### Clear Form Data on Successful Submit ###
-                localStorage.removeItem(`${issueToUse}FormData`);
-            } else {
-                // use error message from response
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                const errorData = await response.json();
-                setSubmissionStatusWithMessage({ status: 'error', message: errorData.message  || 'Something went wrong. Please send a message to info@pupille.org' });
+            // ### Clear Form Data on Successful Submit ###
+            // localStorage.removeItem(`${issueToUse}FormData`);
+            sessionStorage.removeItem(`${issueToUse}FormData`);
 
-                // use standard error message
-                // ~~~~~~~~~~~~~~~~~~~~~~~~~~
-                // setSubmissionStatusWithMessage({ status: 'error', message: 'Serverfehler: Etwas lief schief :( Bitte sende deine Nachricht an info@pupille.org' });
-            }
         } catch (error) {
             console.error('Error sending message:', error);
-            setSubmissionStatusWithMessage({ status: 'error', message: 'Netzwerkfehler :( Bitte sende deine Nachricht an info@pupille.org' });
+
+            // Check if it's an Axios error with response
+            if (axios.isAxiosError(error) && error.response) {
+                // Server responded with error status (4xx, 5xx)
+                const errorMessage = error.response.data?.message || 'Something went wrong. Please send a message to info@pupille.org';
+                setSubmissionStatusWithMessage({
+                    status: 'error',
+                    message: errorMessage
+                });
+            } else {
+                // Network error or request failed
+                setSubmissionStatusWithMessage({
+                    status: 'error',
+                    message: 'Netzwerkfehler :( Bitte sende deine Nachricht an info@pupille.org'
+                });
+            }
         }
     };
 
@@ -188,18 +195,24 @@ const ContactForm: React.FC = () => {
                 );
             case 'email':
                 return (
-                    // <a href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20...&body=Ich%20best%C3%A4tige%2C%20dass%20dies%20keine%20ungefragte%20Werbung%20ist." className="hidden-link">E-Mail-Adresse</a>
-                    <a href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20..." className="hidden-link">E-Mail-Adresse</a>
+                    <a
+                        href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20...&body=%5BBitte%20keine%20Werbeinhalte%20hier.%20&#x1F647;%5D"
+                        // href="mailto:info@pupille.org?subject=%5BE-Mail%20Anfrage%5D%3A%20..."
+                        className="hidden-link"
+                    >
+                        E-Mail-Adresse anzeigen
+                    </a>
                 );
             default:
                 return null;
         }
     };
 
-    // ### Load Form Data from localStorage ###
+    // ### Load Form Data from storage ###
     useEffect(() => {
         if (selectedIssueSelection) {
-            const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            // const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
+            const savedData = sessionStorage.getItem(`${selectedIssueSelection}FormData`);
             if (savedData) {
                 setFormData(JSON.parse(savedData));
             }
@@ -229,15 +242,28 @@ const ContactForm: React.FC = () => {
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             {submissionStatusWithMessage.status !== 'success' && (
                 <>
-                    <p className={styles.formDescription}>
-                        Da das gesamte Kinoteam ehrenamtlich arbeitet, kann die Beantwortung etwas Zeit in Anspruch nehmen – wir bitten um Verständnis und etwas Geduld.
-                    </p>
-                    {/*<p>*/}
-                    {/*    <a className="custom-link" href="mailto:info(at)pupille.org">E-Mailadresse</a>*/}
-                    {/*</p>*/}
-                    <p className={styles.formDescription}>
-                        Für eine schnellere und strukturierte Bearbeitung von Anfragen bitten wir, das nachfolgende Kontaktformular zu verwenden.
-                    </p>
+                    <div className={styles.emojiList}>
+                        <div className={styles.emojiListItem}>
+                            <span className={styles.emoji}>&#128337;</span>
+                            <span className={styles.emojiText}>
+                                Da das gesamte Kinoteam ehrenamtlich arbeitet, kann die Beantwortung etwas Zeit in Anspruch nehmen – wir bitten um Verständnis und etwas Geduld.
+                            </span>
+                        </div>
+
+                        <div className={styles.emojiListItem}>
+                            <span className={styles.emoji}>&#128640;</span>
+                            <span className={styles.emojiText}>
+                                Für eine schnellere und strukturierte Bearbeitung von Anfragen bitten wir, die Kontaktformulare zu verwenden und keine E-Mail zu schreiben.
+                            </span>
+                        </div>
+
+                        <div className={styles.emojiListItem}>
+                            <span className={styles.emoji}>&#x1F4E7;</span>
+                            <span className={styles.emojiText}>
+                                Nach erfolgreicher Übermittlung der Formulareingaben erhältst du automatisch eine Kopie der Nachricht an deine angegebene Mail-Adresse.
+                            </span>
+                        </div>
+                    </div>
 
                     <div className={styles.formField}>
                         <label htmlFor="issue" className={`${styles.formLabel} visually-hidden`}>
@@ -270,7 +296,6 @@ const ContactForm: React.FC = () => {
                     {renderHtmlText(submissionStatusWithMessage.message)}
                 </div>
             )}
-
         </div>
     );
 };

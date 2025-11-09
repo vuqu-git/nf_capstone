@@ -28,6 +28,10 @@ const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage
 
     const maxMessageLength = 2000;
 
+    // // Add this debug log
+    // console.log('reCAPTCHA Site Key:', import.meta.env.VITE_RECAPTCHA_SITE_KEY);
+    // console.log('All env vars:', import.meta.env);
+
     const handleLocalSubmit = (event: FormEvent) => {
         // Prevent the child form's default submission
         event.preventDefault();
@@ -108,6 +112,7 @@ const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage
                 className="mb-3"
                 sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                 onChange={onSetCaptchaToken}
+                theme="dark"
             />
 
             <button

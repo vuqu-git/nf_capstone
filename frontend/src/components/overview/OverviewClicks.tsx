@@ -1,4 +1,4 @@
-import {useLoaderData} from 'react-router-dom';
+import {Link, useLoaderData} from 'react-router-dom';
 import styles from './OverviewClicks.module.css';
 import {ClicksResponseDTO} from "../../types/ClicksResponseDTO.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
@@ -44,7 +44,7 @@ const OverviewClicks: React.FC = () => {
                                             <td>
                                                 {formatDateInTerminSelectOption(click.vorstellungsbeginn)}
                                             </td>
-                                            <td className={styles.truncate}>{renderHtmlText(click.titel)}</td>
+                                            <td className={styles.truncate}><Link to={"/details/" +click.tnr + "?t=x"} className="custom-link">{renderHtmlText(click.titel)}</Link></td>
                                             <td>{click.sessionScreeningClicks}</td>
                                             <td>{click.sessionCalendarClicks}</td>
                                             <td>{click.userScreeningClicks}</td>
