@@ -122,7 +122,7 @@ const ContactForm: React.FC = () => {
             // Response data is in response.data (already parsed JSON)
             setSubmissionStatusWithMessage({
                 status: 'success',
-                message: `&#x2705; Vielen Dank! Die Nachricht wurde gesendet.
+                message: `Vielen Dank! Die Nachricht wurde gesendet. &#x2705;
                         <br/>
                         Eine Kopie wurde an deine angegebene Mail-Adresse ${dataToUse.email} geschickt.`
             });
