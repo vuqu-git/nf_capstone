@@ -133,7 +133,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
             <div>
                 <Badge bg="success">Bitte lesen</Badge>
                 <p className={styles.formDescription}>
-                    Informationen zu den verschiedenen Durchführungsarten von Veranstaltungen mit Projektion findet Ihr unter{' '}
+                    Informationen zu den verschiedenen Durchführungsarten von Veranstaltungen mit Projektion findet du unter{' '}
                     {/*<a className="custom-link" href="/kinoprojektion" target="_blank" rel="noopener noreferrer">*/}
                     {/*    Infos & Service: Filme etc. zeigen*/}
                     {/*</a>*/}
