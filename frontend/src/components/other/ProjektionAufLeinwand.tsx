@@ -20,7 +20,7 @@ export default function ProjektionAufLeinwand() {
                     <Card.Header><Card.Title>&#10112; ganz eigenständig</Card.Title></Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            Dazu müsstet Ihr als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärt ihr zeitlich und organisatorisch ganz unabhängig von uns.
+                            Dazu müsstet ihr als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärt ihr zeitlich und organisatorisch ganz unabhängig von uns.
                             Unsere Leinwand könnt ihr auf jeden Fall nutzen. Der Schlüssel zum Ausrollen liegt bei der Pforte des Studierendenhauses.
                         </Card.Text>
                         <Badge bg="warning" text="dark">Hinweis:</Badge>
@@ -49,7 +49,7 @@ export default function ProjektionAufLeinwand() {
 
             {/*<Badge bg="success" className="mt-4">Wichtig:</Badge>*/}
             <p className="mt-4 mb-0">
-                Bevor Ihr uns kontaktiert, bitte klärt immer <b>selber vorher</b>
+                Bevor ihr uns kontaktiert, bitte klärt immer <b>selber vorher</b>
             </p>
             <ul>
                 <li>die Mietung und Verfügbarkeit des Festsaals mit dem  <a className="custom-link" href="https://asta-frankfurt.de/kontakt" target="_blank" rel="noopener noreferrer">AStA</a> (je nach Projekt bzw. Veranstaltung

@@ -5,6 +5,8 @@ import './TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 import {staticFilePathFrontend} from "../../utils/config.ts";
+import {useIsMobile} from "../../hooks/useIsMobile.ts";
+import {safeTruncate} from '../../utils/safeTruncate.ts';
 
 interface Props {
     screeningWeekday: string | null;
@@ -28,6 +30,13 @@ interface Props {
     terminBesonderheit: string | undefined;
 }
 
+// Set the maximum length for the truncated text
+// Default limit (when no Besonderheit (hauptfilmbesonderheit or terminbesonderheit is present)
+const MAX_LENGTH_KURZTEXT_DEFAULT = 250;
+
+// Shorter limit (when a Besonderheit IS present)
+const MAX_LENGTH_KURZTEXT_SHORTER = 175;
+
 export default function TerminFilmGalleryCard({
                                                   screeningWeekday,
                                                   screeningDate,
@@ -46,10 +55,36 @@ export default function TerminFilmGalleryCard({
                                                   terminBesonderheit, // bezieht sich auf Koop, Festival, Gäste, Ort & Zeit etc. des Termins(!)
                                               }: Readonly<Props>) {
     const navigate = useNavigate();
+    const isMobile = useIsMobile();
 
     const handleClick = () => {
         navigate(`/details/${tnr}`);
     };
+
+    // -------------------------------------------------
+    // 1. Determine if a "Besonderheit" field is present
+    const hasBesonderheit = !!hauptfilmbesonderheit || !!terminBesonderheit;
+
+    // 2. Select the correct maximum length based on screen size and presence of "Besonderheit"
+    let maxLength: number | null = null;
+
+    if (isMobile) {
+        // If a Besonderheit exists, use the SHORTER limit
+        if (hasBesonderheit) {
+            maxLength = MAX_LENGTH_KURZTEXT_SHORTER;
+        }
+        // Otherwise, use the DEFAULT (longer) limit
+        else {
+            maxLength = MAX_LENGTH_KURZTEXT_DEFAULT;
+        }
+    }
+    // If not mobile, maxLength remains null, so full text is used.
+
+    // 3. Apply the truncation logic
+    const displayedKurztext = (isMobile && kurztext && maxLength !== null) // maxLength !== null is not required here,
+                                                                                     // but prevents this warning in safeTruncate's argument maxLength: "TS2345: Argument of type number | null is not assignable to parameter of type number"
+        ? safeTruncate(kurztext, maxLength)
+        : kurztext;
 
     return (
         <Card
@@ -151,9 +186,16 @@ export default function TerminFilmGalleryCard({
             {/*Here with div tag instead of Card.Text (p tag) and renderHtmlText (in div tag)*/}
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             <Card.Body>
-                {kurztext && (
+                {/*{kurztext && (*/}
+                {/*    <div className="card-kurztext">*/}
+                {/*        {renderHtmlContent(kurztext)}*/}
+                {/*    </div>*/}
+                {/*)}*/}
+
+                {/* Use the conditionally truncated text here */}
+                {displayedKurztext && (
                     <div className="card-kurztext">
-                        {renderHtmlContent(kurztext)}
+                        {renderHtmlContent(displayedKurztext)}
                     </div>
                 )}
 
