@@ -46,7 +46,7 @@
     background-color: rgba(255, 0, 0, 0.85); /* Semi-transparent red */
     color: white;
     padding: 0.75rem 1.0rem;
-    border-radius: 7px;
+    border-radius: 0px;
     font-size: 1.5rem;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
