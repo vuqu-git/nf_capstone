@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import './TerminFilmGalleryCard.css';
+import './CancellationStyle.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 import {staticFilePathFrontend} from "../../utils/config.ts";
@@ -131,8 +132,8 @@ export default function TerminFilmGalleryCard({
 
                     {/* div for the cancellation text overlay over whole gallery card */}
                     {terminIsCanceled && (
-                        <div className="cancellation-overlay">
-                            <span className="cancellation-overlay-text">Termin abgesagt!</span>
+                        <div className="cancellation-image-overlay">
+                            <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
                         </div>
                     )}
 
