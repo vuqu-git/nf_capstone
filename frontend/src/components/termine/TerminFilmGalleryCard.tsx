@@ -28,6 +28,8 @@ interface Props {
 
     tnr: number | undefined;
     terminBesonderheit: string | undefined;
+
+    terminIsCanceled: boolean | undefined;
 }
 
 // Set the maximum length for the truncated text
@@ -53,6 +55,7 @@ export default function TerminFilmGalleryCard({
                                                   hauptfilmbesonderheit, // inhaltliche Besonderheit des main features
                                                   tnr,
                                                   terminBesonderheit, // bezieht sich auf Koop, Festival, Gäste, Ort & Zeit etc. des Termins(!)
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
     const navigate = useNavigate();
     const isMobile = useIsMobile();
@@ -88,7 +91,7 @@ export default function TerminFilmGalleryCard({
 
     return (
         <Card
-            className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect`}
+            className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}
         >
             {/*{bild && (*/}
                 <div
@@ -125,6 +128,13 @@ export default function TerminFilmGalleryCard({
 
                     {/*empty tag for stronger gradient effect*/}
                     <div className="gradient-overlay"></div>
+
+                    {/* div for the cancellation text overlay over whole gallery card */}
+                    {terminIsCanceled && (
+                        <div className="cancellation-overlay">
+                            <span className="cancellation-overlay-text">Termin abgesagt!</span>
+                        </div>
+                    )}
 
                     <div className="gradient-overlay">
                         <Card.Text className="overlay-analog-date">

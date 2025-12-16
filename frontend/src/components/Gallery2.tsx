@@ -112,6 +112,8 @@ export default function Gallery2() {
                             const sonderfarbeForTerminFilmGalleryCard = termin.sonderfarbe || selectSonderfarbeFromReihen(termin.reihen);
                             // ***********
 
+                            termin.isCanceled = true
+
                             return (
                                 <article key={termin.tnr} className="gallery-article-padding">
 
@@ -139,6 +141,8 @@ export default function Gallery2() {
                                                 hauptfilmbesonderheit={undefined}
 
                                                 {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
+
+                                                terminIsCanceled={termin.isCanceled || undefined}
                                             />
                                             {/*Display 1st reihe*/}
                                             {/*{termin.reihen  && termin.reihen[0].titel}*/}
@@ -170,6 +174,8 @@ export default function Gallery2() {
                                                     hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit || undefined}
 
                                                     {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
+
+                                                    terminIsCanceled={termin.isCanceled || undefined}
                                                 />
                                                 {/*Display 1st reihe*/}
                                                 {/*{Array.isArray(termin.reihen) && termin.reihen.length > 0 && termin.reihen[0].titel}*/}

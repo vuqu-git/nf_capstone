@@ -12,6 +12,7 @@ interface TerminDTOWithFilmAndReiheDTOGallery {
     offsetImageInGallery?: string| null;
     sonderfarbe?: string | null;
     veroeffentlichen?: number | null;
+    isCanceled?: boolean | null;
     mainfilms: FilmDTOGallery[];
     reihen: ReiheDTOGallery[];
 }
