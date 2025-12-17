@@ -96,13 +96,16 @@ export default function OverviewSemester2() {
                                 <article key={termin.tnr} className="overview-row">
 
                                     <div className="overview-calender-and-date">
-                                        <div className="calendar" onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length)}>
+                                        <div
+                                            className={`calendar`}
+                                            onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length)}
+                                        >
                                             <AddToCalendarButton
 
                                                 name={"Pupille: " + calenderTitle}
-                                                startDate={calenderDateObj.startDate}
+                                                startDate={termin.isCanceled ? "0000-01-01": calenderDateObj.startDate} // "disable" calendar button when termin is canceled
                                                 startTime={calenderDateObj.startTime}
-                                                endDate={calenderDateObj.endDate}
+                                                endDate={termin.isCanceled ? "0000-01-01" : calenderDateObj.endDate}    // "disable" calendar button when termin is canceled
                                                 endTime={calenderDateObj.endTime}
                                                 timeZone="Europe/Berlin"
                                                 options={['Apple', 'Google', 'iCal']}
@@ -117,6 +120,7 @@ export default function OverviewSemester2() {
                                                 buttonStyle="round"
                                             />
                                         </div>
+
                                         <div className={`overview-weekday-and-datetime ${termin.isCanceled ? 'termin-cancellation-text' : ''}`}>
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
                                             <div className="datetime">
