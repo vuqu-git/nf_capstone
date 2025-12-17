@@ -42,6 +42,7 @@ const emptyTerminForForm = {
     sonderfarbe: '',
     veroeffentlichen: undefined,
     patenschaft: '',
+    isCanceled: undefined,
 }
 
 export default function TerminForm() {
@@ -598,6 +599,22 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Zahl größer 0 to publish; leer lassen oder 0 to hide</li>
+                        </ul>
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="isCanceled" className="mt-3">
+                    <Form.Check
+                        type="checkbox"
+                        label="Termin absagen?"
+                        name="isCanceled"
+                        checked={selectedTermin.isCanceled || false}
+                        onChange={handleFormChange}
+                    />
+                    <Form.Text className="text-muted">
+                        <ul className="tight-list">
+                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
+                            <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
