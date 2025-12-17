@@ -7,5 +7,6 @@ export default interface TerminDTOWithFilmsDTOFormPlus {
     termin: TerminDTOScreeningdetails;
     mainfilms: FilmDTOFormPlus[];
     vorfilms: FilmDTOFormPlus[];
-    terminGesamtlaufzeit: number
+    terminGesamtlaufzeit: number;
+    isCanceled: boolean | null
 }

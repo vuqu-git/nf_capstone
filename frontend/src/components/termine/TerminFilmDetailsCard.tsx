@@ -2,8 +2,9 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 
 import './TerminFilmDetailsCard.css';
+import './CancellationStyle.css';
 import FilmDTOFormPlus from "../../types/FilmDTOFormPlus.ts";
-import TerminFilmDetailsListing from "./TerminFilmDetailsCardFilmListing.tsx";
+import TerminFilmDetailsListing from "./TerminFilmDetailsListing.tsx";
 import {createICSFileName} from "../../utils/createICSFileName.ts";
 import {AddToCalendarButton} from "add-to-calendar-button-react";
 import {createDateAndTimeForAddToCalendarButton} from "../../utils/createDateAndTimeForAddToCalendarButton.ts";
@@ -42,6 +43,8 @@ interface Props {
     terminGesamtlaufzeit: number;
 
     reihen: ReiheDTOFormWithTermineAndFilme[];
+
+    terminIsCanceled: boolean | undefined;
 }
 
 const avgDurationTrailer = 12;
@@ -71,6 +74,8 @@ export default function TerminFilmDetailsCard({
                                                   terminGesamtlaufzeit,
 
                                                   reihen,
+
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
 
     const calenderTitle = programmtitel || (mainfilms[0]?.film?.titel || "Film im Pupille-Kino");
@@ -79,6 +84,8 @@ export default function TerminFilmDetailsCard({
 
     useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length);
     const handleTrackCalendarClick = useTrackCalendarClick();
+
+    terminIsCanceled = true;
 
     return (
         <Card
@@ -117,11 +124,25 @@ export default function TerminFilmDetailsCard({
                     />
                 </div>
 
+                {/*<Card.Header*/}
+                {/*    as="h3"*/}
+                {/*    // className="terminFilmDetails-card-header"*/}
+                {/*    className={`terminFilmDetails-card-header ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}*/}
+                {/*>*/}
+                {/*    {screeningWeekday} {screeningDate} {screeningTime}*/}
+                {/*</Card.Header>*/}
                 <Card.Header
                     as="h3"
-                    className="terminFilmDetails-card-header"
+                    className="terminFilmDetails-card-header" // Base class only
+                    // className={`terminFilmDetails-card-header ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}
                 >
-                    {screeningWeekday} {screeningDate} {screeningTime}
+                    {/* Optional: Add text prefix for clarity */}
+                    {terminIsCanceled && <strong className="termin-cancellation-alert-text me-2">Abgesagt! </strong>}
+
+                    {/*<span className={terminIsCanceled ? 'termin-cancellation-date-text' : ''}>*/}
+                    <span className={terminIsCanceled ? 'overlay-time' : ''}>
+                        {screeningWeekday} {screeningDate} {screeningTime}
+                    </span>
                 </Card.Header>
 
                 <Card.Title
@@ -131,11 +152,31 @@ export default function TerminFilmDetailsCard({
                     {renderHtmlText(programmtitel)}
                 </Card.Title>
 
+                {/*{showProgrammbildInDetails && (*/}
+                {/*    <Card.Img*/}
+                {/*        src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}*/}
+                {/*        alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}*/}
+                {/*    />*/}
+                {/*)}*/}
                 {showProgrammbildInDetails && (
-                    <Card.Img
-                        src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
-                        alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}
-                    />
+                    <div className="image-container"> {/* Container to position overlay */}
+                        <Card.Img
+                            src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
+                            alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}
+                        />
+
+                        {/* Conditional overlay */}
+                        {terminIsCanceled && (  // Show overlay if the termin is canceled
+                            <>
+                                {/* color grading overlay */}
+                                <div className="image-color-grading-overlay"></div>
+
+                                <div className="cancellation-image-overlay">
+                                    <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 )}
 
                 {programmtext && (
@@ -216,6 +257,7 @@ export default function TerminFilmDetailsCard({
                                     f={film}
                                     numberOfF={mainfilms.length}
                                     fType={(mainfilms.length === 1) ? "" : "Film:"}
+                                    terminIsCanceled={terminIsCanceled}
                                 />
                             );
                         })}
@@ -233,6 +275,7 @@ export default function TerminFilmDetailsCard({
                                     f={vorfilm}
                                     numberOfF={vorfilms.length}
                                     fType={"Vorfilm:"}
+                                    terminIsCanceled={terminIsCanceled}
                                 />
                             );
                         })}
