@@ -100,9 +100,9 @@ export default function TerminFilmDetailsCard({
                     <AddToCalendarButton
 
                         name={"Pupille: " + calenderTitle}
-                        startDate={calenderDateObj.startDate}
+                        startDate={terminIsCanceled ? "0000-01-01": calenderDateObj.startDate}  // "disable" calendar button when termin is canceled
                         startTime={calenderDateObj.startTime}
-                        endDate={calenderDateObj.endDate}
+                        endDate={terminIsCanceled ? "0000-01-01" : calenderDateObj.endDate}     // "disable" calendar button when termin is canceled
                         endTime={calenderDateObj.endTime}
                         timeZone="Europe/Berlin" // Handles DST automatically
 
@@ -129,7 +129,7 @@ export default function TerminFilmDetailsCard({
                     className="terminFilmDetails-card-header" // Base class only
                 >
                     {/* Optional: Add text prefix for clarity */}
-                    {terminIsCanceled && <strong className="termin-cancellation-alert-text">Abgesagt! </strong>}
+                    {terminIsCanceled && <span className="termin-cancellation-alert-text">Abgesagt! </span>}
 
                     {/*<span className={terminIsCanceled ? 'termin-cancellation-date-text' : ''}>*/}
                     <span className={terminIsCanceled ? 'overlay-time' : ''}>
