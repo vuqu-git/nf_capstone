@@ -48,8 +48,6 @@ export default function TerminFilmDetailsListing({
         sessionStorage.setItem('youtube_consent', 'true');
     };
 
-    terminIsCanceled = true;
-
     return (
         <div>
             {/****** film title ******/}

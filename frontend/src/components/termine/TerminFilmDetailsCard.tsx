@@ -124,20 +124,12 @@ export default function TerminFilmDetailsCard({
                     />
                 </div>
 
-                {/*<Card.Header*/}
-                {/*    as="h3"*/}
-                {/*    // className="terminFilmDetails-card-header"*/}
-                {/*    className={`terminFilmDetails-card-header ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}*/}
-                {/*>*/}
-                {/*    {screeningWeekday} {screeningDate} {screeningTime}*/}
-                {/*</Card.Header>*/}
                 <Card.Header
                     as="h3"
                     className="terminFilmDetails-card-header" // Base class only
-                    // className={`terminFilmDetails-card-header ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}
                 >
                     {/* Optional: Add text prefix for clarity */}
-                    {terminIsCanceled && <strong className="termin-cancellation-alert-text me-2">Abgesagt! </strong>}
+                    {terminIsCanceled && <strong className="termin-cancellation-alert-text">Abgesagt! </strong>}
 
                     {/*<span className={terminIsCanceled ? 'termin-cancellation-date-text' : ''}>*/}
                     <span className={terminIsCanceled ? 'overlay-time' : ''}>
