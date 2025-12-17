@@ -11,6 +11,7 @@ interface TerminDTOWithFilmDTOOverviewSemester{
     mainfilms: FilmDTOOverviewSemester[];
     reihen: ReiheDTOGallery[];
     terminGesamtlaufzeit: number;
+    isCanceled?: boolean | null;
 }
 
 export default TerminDTOWithFilmDTOOverviewSemester;

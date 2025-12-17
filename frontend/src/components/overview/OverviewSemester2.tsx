@@ -1,4 +1,5 @@
 import './OverviewAndProgram.css';
+import '../termine/CancellationStyle.css'
 
 import {Link, useLoaderData} from "react-router-dom";
 import TerminDTOWithFilmDTOOverviewSemester from "../../types/TerminDTOWithFilmDTOOverviewSemester.ts";
@@ -11,7 +12,6 @@ import ReihenAndFilmTermineForOverviewSemester from "../../types/ReihenAndFilmTe
 import React, {useState} from "react";
 
 import Select, { ActionMeta, SingleValue } from "react-select";
-import {testListeReihenSemester} from "../testListeReihenSemester.ts";
 import {reihenSelectionWithSearchStyles} from "../styles/reihenSelectionWithSearchStyles.ts";
 import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
 
@@ -90,6 +90,8 @@ export default function OverviewSemester2() {
                             const screeningDate = termin.vorstellungsbeginn ? new Date(termin.vorstellungsbeginn) : null;
                             const isNotRegularTime = screeningDateObj?.time !== "20:15 Uhr" && screeningDate && now <= screeningDate;
 
+                            termin.isCanceled = true;
+
                             return (
                                 <article key={termin.tnr} className="overview-row">
 
@@ -115,7 +117,7 @@ export default function OverviewSemester2() {
                                                 buttonStyle="round"
                                             />
                                         </div>
-                                        <div className="overview-weekday-and-datetime">
+                                        <div className={`overview-weekday-and-datetime ${termin.isCanceled ? 'termin-cancellation-text' : ''}`}>
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
                                             <div className="datetime">
                                                 {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : ""}>{screeningDateObj?.time}</span>
@@ -126,6 +128,7 @@ export default function OverviewSemester2() {
                                     <div className="overview-title">
                                         {!termin.titel ? (
                                             <>
+                                                {termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                                 </Link>
@@ -142,6 +145,7 @@ export default function OverviewSemester2() {
                                             </>
                                         ) : (
                                             <>
+                                                {termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.titel)}
                                                     {termin.mainfilms.length > 0 && (
