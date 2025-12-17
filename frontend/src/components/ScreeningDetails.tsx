@@ -195,7 +195,7 @@ export default function ScreeningDetails() {
 
                 reihen={reihenDetails}
 
-                terminIsCanceled={screeningDetails.isCanceled || undefined}
+                terminIsCanceled={screeningDetails.termin.isCanceled || undefined}
             />
         )
     )
