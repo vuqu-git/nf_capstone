@@ -121,14 +121,21 @@ export default function OverviewSemester2() {
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
                                             <div className="datetime">
                                                 {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : ""}>{screeningDateObj?.time}</span>
+
                                             </div>
+                                            {termin.isCanceled && (
+                                                <>
+                                                    <br />
+                                                    <span className="termin-cancellation-alert-text">Abgesagt!</span>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
                                     <div className="overview-title">
                                         {!termin.titel ? (
                                             <>
-                                                {termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}
+                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                                 </Link>
@@ -145,7 +152,7 @@ export default function OverviewSemester2() {
                                             </>
                                         ) : (
                                             <>
-                                                {termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}
+                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.titel)}
                                                     {termin.mainfilms.length > 0 && (
