@@ -73,7 +73,7 @@
     height: auto; /* Allow it to adjust height based on content */
 }
 
-/* Overlay for color grading for film image */
+/* Overlay for color grading only for film image */
 .image-color-grading-overlay {
     position: absolute;
     top: 0;
