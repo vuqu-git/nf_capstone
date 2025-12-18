@@ -1,6 +1,8 @@
+import '../termine/TerminFilmGalleryCard.css';
+import '../termine/CancellationStyle.css';
+
 import Card from 'react-bootstrap/Card';
 import { renderHtmlText } from "../../utils/renderHtmlText.tsx";
-import '../termine/TerminFilmGalleryCard.css';
 import { useNavigate } from "react-router-dom";
 import {staticFilePathFrontend} from "../../utils/config.ts";
 
@@ -24,6 +26,7 @@ interface Props {
 
     tnr: number;
     terminBesonderheit: string | undefined;
+    terminIsCanceled: boolean | undefined
 }
 
 export default function TerminFilmPreviewCard({
@@ -42,6 +45,7 @@ export default function TerminFilmPreviewCard({
                                                   hauptfilmbesonderheit, // inhaltliche Besonderheit des main features
                                                   tnr,
                                                   terminBesonderheit, // bezieht sich auf Koop, Festival, Gäste, Ort & Zeit etc. des Termins(!)
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
     const navigate = useNavigate();
 
@@ -79,7 +83,27 @@ export default function TerminFilmPreviewCard({
                             style={{ objectPosition: `center ${offsetImageInGallery || "center"}` }}
                         />
 
-                        {/*empty tag for stronger gradient effect*/}
+                        {/* Conditional overlay */}
+                        {terminIsCanceled && (  // Show overlay if the termin is canceled
+                            <>
+                                {/* image color grading overlay */}
+                                <div className="image-color-grading-overlay"></div>
+
+                                {/* div for the cancellation text overlay over the image (in preview card) */}
+                                <div className="cancellation-image-overlay">
+                                    <span
+                                        className="cancellation-image-overlay-text"
+                                        style={{
+                                            fontSize: '3.25rem',
+                                        }}
+                                    >
+                                        Termin abgesagt!
+                                    </span>
+                                </div>
+                            </>
+                        )}
+
+                        {/*empty tag for stronger gradient effect for transition from image to text*/}
                         <div className="gradient-overlay"></div>
 
                         <div className="gradient-overlay">
@@ -174,7 +198,11 @@ export default function TerminFilmPreviewCard({
                     {hauptfilmbesonderheit && (
                         <div
                             className="card-filmBesonderheit"
-                            style={{ borderTop: kurztext ? undefined : 'none' }}
+                            style={{
+                                // borderTop: kurztext ? undefined : 'none',
+                                borderTop: kurztext ? '3px dotted #606060' : 'none',
+                                fontSize: '2.0rem', // Apply font size here
+                            }}
                         >
                             {renderHtmlText(hauptfilmbesonderheit)}
                         </div>
@@ -182,8 +210,13 @@ export default function TerminFilmPreviewCard({
 
                     {terminBesonderheit && (
                         <div className="card-terminBesonderheit"
-                                   // style={{ fontSize: '2.0rem', borderTop: kurztext ? undefined : 'none', padding: '0 0' }}
-                                   style={{ fontSize: '2.0rem' }}
+                             // style={{ fontSize: '2.0rem', borderTop: kurztext ? undefined : 'none', padding: '0 0' }}
+                             // style={{ fontSize: '2.0rem' }}
+                             style={{
+                                 // borderTop: kurztext ? undefined : 'none',
+                                 borderTop: kurztext ? '3px dotted #FFD036' : 'none',
+                                 fontSize: '2.0rem', // Apply font size here
+                             }}
                         >
                             {renderHtmlText(terminBesonderheit)}
                         </div>

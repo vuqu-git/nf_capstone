@@ -187,6 +187,8 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                             hauptfilmbesonderheit={undefined}
 
                             {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
+
+                            terminIsCanceled={termin.isCanceled || undefined}
                         />
                     ) : (
                         // this condition also holds true für Programmscreening, but it rather ensures that mainfilms[0] exist
@@ -209,6 +211,8 @@ const PreviewShow: React.FC<Props> = ({ selectedSemesterTermine, slideDuration, 
                                 hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit || undefined}
 
                                 {...jointTerminFilmPreviewCardPropValuesAsObj} // the rest of the props are spread here
+
+                                terminIsCanceled={termin.isCanceled || undefined}
                             />
 
                         )
