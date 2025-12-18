@@ -7,7 +7,8 @@ export const useTrackScreeningVisit = (
     vorstellungsbeginn: string,
     titel: string,
     withTerminbesonderheit: boolean,
-    inNumberReihen: number
+    inNumberReihen: number,
+    isCanceled: boolean
 ) => {
     useEffect(() => {
         if (veroeffentlichen && veroeffentlichen > 0) {
@@ -33,6 +34,7 @@ export const useTrackScreeningVisit = (
                 //         titel,
                 //         wasSessionScreeningClicked: isFirstSessionVisit,
                 //         wasUserScreeningClicked: isFirstLocalVisit,
+                //         isCanceled
                 //     }),
                 // });
 
@@ -43,9 +45,10 @@ export const useTrackScreeningVisit = (
                     withTerminbesonderheit,
                     inNumberReihen,
                     wasSessionScreeningClicked: isFirstSessionVisit,
-                    wasUserScreeningClicked: isFirstLocalVisit
+                    wasUserScreeningClicked: isFirstLocalVisit,
+                    isCanceled
                 });
             }
         }
-    }, [tnr, veroeffentlichen, vorstellungsbeginn, titel, withTerminbesonderheit, inNumberReihen]);
+    }, [tnr, veroeffentlichen, vorstellungsbeginn, titel, withTerminbesonderheit, inNumberReihen, isCanceled]);
 };

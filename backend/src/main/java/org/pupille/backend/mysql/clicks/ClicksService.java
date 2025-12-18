@@ -15,7 +15,7 @@ public class ClicksService {
 
     private final ClicksRepo clicksRepo;
 
-    // for post edn point "/api/clicks"
+    // for post end point "/api/clicks"
     public String trackClicks(ClicksDTOForTracking requestDTO) {
         Clicks c = clicksRepo.findById(requestDTO.getTnr())
                 .orElseGet(() -> {
@@ -47,8 +47,12 @@ public class ClicksService {
             c.setWithTerminbesonderheit(requestDTO.getWithTerminbesonderheit());
         }
 
-        if (requestDTO.getInNumberReihen() != null && !requestDTO.getInNumberReihen().equals(c.getInNumberReihen())) {
+        if (requestDTO.getInNumberReihen() != null && !Objects.equals(requestDTO.getInNumberReihen(), c.getInNumberReihen())) {
             c.setInNumberReihen(requestDTO.getInNumberReihen());
+        }
+
+        if (requestDTO.getIsCanceled() != null && !Objects.equals(requestDTO.getIsCanceled(), c.getIsCanceled())) {
+            c.setIsCanceled(requestDTO.getIsCanceled());
         }
         // --------------------
         // increment respective counters
