@@ -127,15 +127,15 @@ export default function TerminFilmGalleryCard({
                         // }
                     />
 
-                    {/*empty tag for stronger gradient effect*/}
-                    <div className="gradient-overlay"></div>
-
-                    {/* div for the cancellation text overlay over whole gallery card */}
+                    {/* div for the cancellation text overlay over the image (in gallery card) */}
                     {terminIsCanceled && (
                         <div className="cancellation-image-overlay">
                             <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
                         </div>
                     )}
+
+                    {/*empty tag for stronger gradient effect for transition from image to text*/}
+                    <div className="gradient-overlay"></div>
 
                     <div className="gradient-overlay">
                         <Card.Text className="overlay-analog-date">
