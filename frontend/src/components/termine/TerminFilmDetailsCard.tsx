@@ -82,10 +82,11 @@ export default function TerminFilmDetailsCard({
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
-    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length);
+    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length, !!terminIsCanceled);
     const handleTrackCalendarClick = useTrackCalendarClick();
 
-    terminIsCanceled = true;
+    // frontend termin cancellation test
+    // terminIsCanceled = true;
 
     return (
         <Card
@@ -95,7 +96,7 @@ export default function TerminFilmDetailsCard({
             <Card.Body>
                 <div
                     className="add-to-calendar-button-container"
-                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length)}
+                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length, !!terminIsCanceled)}
                 >
                     <AddToCalendarButton
 
@@ -198,8 +199,8 @@ export default function TerminFilmDetailsCard({
                 {reihen.length > 0 && (
                     <article className="program-text mb-4">
                         <div className="introduction-text-reihen">
-                            Diese Vorstellung { new Date() > new Date(calenderDateObj.startDate) ? " lief" : "läuft"}
-                            {reihen.length == 1 ? " in der Filmreihe" : " in den Filmreihen"}
+                            Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung {new Date() > new Date(calenderDateObj.startDate) ? "war" : "ist"}
+                            {reihen.length == 1 ? " Teil der Filmreihe" : " Teil der Filmreihen"}
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
