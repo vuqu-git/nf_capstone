@@ -1,12 +1,11 @@
-
-
 /*strikethrough only over screening date*/
 /*~~~~~~~~-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 .termin-cancellation-text .overlay-time,        /*TerminFilmGalleryCard*/
 .terminFilmDetails-card-header .overlay-time,   /*TerminFilmDetailsCard*/
 .termin-cancellation-text .weekday,             /*OverviewSemester2*/
 .termin-cancellation-text .datetime,            /*OverviewSemester2*/
-.termin-cancellation-text-archive               /*OverviewArchive2*/
+.termin-cancellation-text-archive,              /*OverviewArchive2*/
+.termin-cancellation-text-clicks-overview       /*OverviewClicks*/
 {
     text-decoration: line-through;
     color: red;
