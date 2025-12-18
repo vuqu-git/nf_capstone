@@ -22,6 +22,7 @@ public class TerminDTOScreeningdetails {
     private Integer sonderfarbeTitel;
     private String sonderfarbe;
     private Short veroeffentlichen;
+    private Boolean isCanceled;
     // Note: filmConnections are intentionally excluded, also reihen
 
     public TerminDTOScreeningdetails(Termin termin) {
@@ -37,6 +38,7 @@ public class TerminDTOScreeningdetails {
         this.sonderfarbeTitel = termin.getSonderfarbeTitel();
         this.sonderfarbe = termin.getSonderfarbe();
         this.veroeffentlichen = termin.getVeroeffentlichen();
+        this.isCanceled = termin.getIsCanceled();
         // Note: filmConnections are intentionally excluded
     }
 }

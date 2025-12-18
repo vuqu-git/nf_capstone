@@ -25,6 +25,7 @@ public class TerminDTOForm {
     private String sonderfarbe;
     private Short veroeffentlichen;
     private String patenschaft;
+    private Boolean isCanceled;
     // Note: filmConnections are intentionally excluded, also reihen
 
     public TerminDTOForm(Termin termin) {
@@ -43,6 +44,7 @@ public class TerminDTOForm {
         this.sonderfarbe = termin.getSonderfarbe();
         this.veroeffentlichen = termin.getVeroeffentlichen();
         this.patenschaft = termin.getPatenschaft();
+        this.isCanceled = termin.getIsCanceled();
         // Note: filmConnections are intentionally excluded
     }
 }

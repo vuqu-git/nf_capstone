@@ -86,22 +86,23 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
 
         @Query(value = """
     SELECT 
-        t.tnr,
-        t.termin as vorstellungsbeginn,
-        t.titel,
-        GROUP_CONCAT(f.fnr) as film_ids,
+        t.tnr,                              -- row[0] in ScreeningService method getAllPastTermineWithFilmsNative
+        t.termin as vorstellungsbeginn,     -- row[1]
+        t.titel,                            -- row[2]
+        t.is_canceled,                      -- row[3]
+        GROUP_CONCAT(f.fnr) as film_ids,    -- row[4]
         GROUP_CONCAT(CASE 
             WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL 
             THEN f.originaltitel 
             ELSE f.titel 
-        END SEPARATOR '||') as film_titles
+        END SEPARATOR '||') as film_titles  -- row[5]
     FROM termin t
     JOIN terminverknuepfung tv ON t.tnr = tv.tnr
     JOIN film f ON tv.fnr = f.fnr
     WHERE t.termin < :now
     AND t.veroeffentlichen > 0
     AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
-    GROUP BY t.tnr, t.termin, t.titel
+    GROUP BY t.tnr, t.termin, t.titel, t.is_canceled
     ORDER BY t.termin DESC
     """, nativeQuery = true)
         List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);

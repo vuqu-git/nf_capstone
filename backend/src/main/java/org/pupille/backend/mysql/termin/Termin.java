@@ -66,6 +66,8 @@ public class Termin {
 
     private String patenschaft;
 
+    private Boolean isCanceled;
+
     // ############################################
     // relationships (extension of the entity model)
     @OneToMany(mappedBy = "termin", cascade = CascadeType.ALL)
