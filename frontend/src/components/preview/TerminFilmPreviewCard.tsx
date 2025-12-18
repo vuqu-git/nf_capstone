@@ -202,6 +202,7 @@ export default function TerminFilmPreviewCard({
                                 // borderTop: kurztext ? undefined : 'none',
                                 borderTop: kurztext ? '3px dotted #606060' : 'none',
                                 fontSize: '2.0rem', // Apply font size here
+                                padding: '0.0rem 0.0em',
                             }}
                         >
                             {renderHtmlText(hauptfilmbesonderheit)}
@@ -216,6 +217,7 @@ export default function TerminFilmPreviewCard({
                                  // borderTop: kurztext ? undefined : 'none',
                                  borderTop: kurztext ? '3px dotted #FFD036' : 'none',
                                  fontSize: '2.0rem', // Apply font size here
+                                 padding: '0.0rem 0.0em',
                              }}
                         >
                             {renderHtmlText(terminBesonderheit)}

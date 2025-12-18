@@ -220,7 +220,10 @@ export default function TerminFilmGalleryCard({
                 )}
 
                 {terminBesonderheit && (
-                    <div className="card-terminBesonderheit">
+                    <div
+                        className="card-terminBesonderheit"
+                        style={{ borderTop: kurztext ? undefined : 'none' }}
+                    >
                         {renderHtmlContent(terminBesonderheit)}
                     </div>
                 )}
