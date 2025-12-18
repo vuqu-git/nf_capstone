@@ -199,7 +199,8 @@ export default function TerminFilmDetailsCard({
                 {reihen.length > 0 && (
                     <article className="program-text mb-4">
                         <div className="introduction-text-reihen">
-                            Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung {new Date() > new Date(calenderDateObj.startDate) ? "war" : "ist"}
+                            {/*Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung {new Date() > new Date(calenderDateObj.startDate) ? "war" : "ist"}*/}
+                            Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung ist
                             {reihen.length == 1 ? " Teil der Filmreihe" : " Teil der Filmreihen"}
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
