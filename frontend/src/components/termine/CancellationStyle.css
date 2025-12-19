@@ -8,7 +8,8 @@
 .termin-cancellation-text-clicks-overview       /*OverviewClicks*/
 {
     text-decoration: line-through;
-    color: red;
+    /*color: red;*/
+    color: crimson;
 }
 
 /*-------- TerminFilmGalleryCard --------*/
@@ -49,7 +50,8 @@
 }
 
 .cancellation-image-overlay-text {
-    background-color: rgba(255, 0, 0, 0.85); /* Semi-transparent red */
+    /*background-color: rgba(255, 0, 0, 0.85); !* Semi-transparent red *!*/
+    background-color: crimson;
     color: white;
     padding: 0.75rem 7.0rem;
     border-radius: 0px;
@@ -63,7 +65,8 @@
 
 /* New: Styling for the "Abgesagt!" message (Red, no line-through) */
 .termin-cancellation-alert-text {
-    color: red;
+    /*color: red;*/
+    color: crimson;
 }
 
 /*Container to position color grading overlay*/
