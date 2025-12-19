@@ -525,7 +525,10 @@ public class ScreeningService {
 
         return buildTerminDTOWithFilmDTOMailReminderList(termineOnTargetDate)
                 .stream()
+                // Keep only published screenings
                 .filter(terminDTO -> terminDTO.veroeffentlichen() != null && terminDTO.veroeffentlichen() > 0)
+                // Exclude canceled screenings (keep only if null or false)
+                .filter(terminDTO -> !Boolean.TRUE.equals(terminDTO.isCanceled()))
                 .collect(Collectors.toList());
     }
 
@@ -541,7 +544,10 @@ public class ScreeningService {
 
         return buildTerminDTOWithFilmDTOMailReminderList(termineOnTargetDate)
                 .stream()
+                // Keep only published screenings
                 .filter(terminDTO -> terminDTO.veroeffentlichen() != null && terminDTO.veroeffentlichen() > 0) // only keep termine, which are veröffentlicht
+                // Exclude canceled screenings (keep only if null or false)
+                .filter(terminDTO -> !Boolean.TRUE.equals(terminDTO.isCanceled()))
                 .collect(Collectors.toList());
     }
 

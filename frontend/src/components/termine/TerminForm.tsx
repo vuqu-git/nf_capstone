@@ -387,6 +387,7 @@ export default function TerminForm() {
                         {/*Bei mehreren Paten bitte kommagetrennte Liste von Mailadressen eintragen.*/}
                         <ul className="tight-list">
                             <li>Höchstens 1 Email-Adresse eintragen!</li>
+                            <li>Zweck: Versendung von Remindern zur Vorbereitung und Nachbereitung von Screening-Terminen für welche die Patenschaft übernommen wurde. Mailversand erfolgt nur für Termine, welche veröffentlicht (Feld "Veroeffentlichen" hat Zahlenwert &gt; 0) und nicht abgesagt (Feld "Termin absagen?" hat KEINEN Haken) wurden.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
