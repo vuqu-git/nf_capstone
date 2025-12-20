@@ -100,8 +100,6 @@ export default function OverviewArchive2() {
                     );
                 }
 
-                termin.isCanceled = true;
-
                 rowsForArchiveEntries.push(
                     <tr key={termin.tnr}>
                         <td className="screening-date-cell">

@@ -112,8 +112,6 @@ export default function Gallery2() {
                             const sonderfarbeForTerminFilmGalleryCard = termin.sonderfarbe || selectSonderfarbeFromReihen(termin.reihen);
                             // ***********
 
-                            termin.isCanceled = true
-
                             return (
                                 <article key={termin.tnr} className="gallery-article-padding">
 
