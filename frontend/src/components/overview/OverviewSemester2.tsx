@@ -90,15 +90,13 @@ export default function OverviewSemester2() {
                             const screeningDate = termin.vorstellungsbeginn ? new Date(termin.vorstellungsbeginn) : null;
                             const isNotRegularTime = screeningDateObj?.time !== "20:15 Uhr" && screeningDate && now <= screeningDate;
 
-                            termin.isCanceled = true;
-
                             return (
                                 <article key={termin.tnr} className="overview-row">
 
                                     <div className="overview-calender-and-date">
                                         <div
                                             className={`calendar`}
-                                            onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length)}
+                                            onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length, !!termin.isCanceled)}
                                         >
                                             <AddToCalendarButton
 
