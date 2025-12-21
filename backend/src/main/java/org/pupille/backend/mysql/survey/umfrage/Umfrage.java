@@ -29,6 +29,8 @@ public class Umfrage {
     // mappedBy refers to the field "umfrage" in the Auswahloption class
     @OneToMany(mappedBy = "umfrage", cascade = CascadeType.ALL, orphanRemoval = true)
                                                                 // orphanRemoval = true: This ensures that if you remove an Auswahloption from the optionen list and save the Umfrage, the option is deleted from the database (cleanup).
+    @OrderBy("titel ASC")   // tells Hibernate to always append ORDER BY titel ASC when fetching the auswahloptionen list
+                            // Now, when calling getAllUmfragen() (or any method that loads Umfrage), the auswahloptionen list inside each Umfrage object will be pre-sorted by titel ascending directly from the database query
     @JsonManagedReference("Umfrage-Auswahloption-Ref")
     private List<Auswahloption> auswahloptionen = new ArrayList<>();
     // ############################################

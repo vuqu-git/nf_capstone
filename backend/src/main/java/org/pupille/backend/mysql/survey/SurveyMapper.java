@@ -8,6 +8,7 @@ import org.pupille.backend.mysql.survey.umfrage.UmfrageDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,6 +26,7 @@ public class SurveyMapper {
 
         if (entity.getAuswahloptionen() != null) {
             dto.setAuswahloptionendtos(entity.getAuswahloptionen().stream()
+                    //.sorted(Comparator.comparing(Auswahloption::getTitel, String.CASE_INSENSITIVE_ORDER)) // not required anymore because of @OrderBy("titel ASC") in Umfrage entity class
                     .map(this::toAuswahloptionNestedDto) // Recursively map children, this is the toAuswahloptionNestedDto method below (applied on an Auswahloption object)
                     .collect(Collectors.toList()));
         } else {
