@@ -18,7 +18,7 @@ public class AuswahloptionController {
         return auswahloptionService.getAllAuswahloptionen();
     }
 
-    @GetMapping("/umfrage/{unr}")
+    @GetMapping("/forumfrage/{unr}")
     public List<AuswahloptionDTO> getByUmfrage(@PathVariable Long unr) {
         return auswahloptionService.getByUmfrage(unr);
     }
