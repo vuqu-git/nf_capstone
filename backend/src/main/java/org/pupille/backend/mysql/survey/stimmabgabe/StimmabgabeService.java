@@ -1,0 +1,126 @@
+package org.pupille.backend.mysql.survey.stimmabgabe;
+
+import lombok.RequiredArgsConstructor;
+import org.pupille.backend.mysql.survey.SurveyMapper;
+import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
+import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionRepository;
+import org.pupille.backend.mysql.survey.umfrage.Umfrage;
+import org.pupille.backend.mysql.survey.umfrage.UmfrageRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class StimmabgabeService {
+
+    private final StimmabgabeRepository stimmabgabeRepository;
+    private final UmfrageRepository umfrageRepository;
+    private final AuswahloptionRepository auswahloptionRepository;
+    private final SurveyMapper stimmabgabeMapper;
+
+    /**
+     * Get all votes for a specific Option
+     */
+    public List<StimmabgabeDTO> getByOption(Long onr) {
+        return stimmabgabeRepository.findByAuswahloption_Onr(onr)
+                .stream()
+                .map(stimmabgabeMapper::toStimmabgabeDto)
+                .toList();
+    }
+
+    /**
+     * Get all votes for a specific Survey
+     */
+    public List<StimmabgabeByUmfrageDTO> getBySurvey(Long unr) {
+//        return stimmabgabeRepository.findByUmfrage_Unr(unr)
+        return stimmabgabeRepository.findByUmfrage_UnrOrderByDatumAsc(unr)
+                .stream()
+                .map(stimmabgabeMapper::toStimmabgabeByUmfrageDto)
+                .toList();
+    }
+
+    /**
+     * Get all votes for a specific Survey, grouped by Option ID (onr)
+     * Returns a Map where Key = Option ID, Value = List of Votes
+     */
+    public Map<Long, List<StimmabgabeDTO>> getBySurveyGroupedByOption(Long unr) {
+        return stimmabgabeRepository.findByUmfrage_Unr(unr)
+                .stream()
+                .map(stimmabgabeMapper::toStimmabgabeDto)
+                .collect(Collectors.groupingBy(StimmabgabeDTO::getOnr));
+    }
+
+    /**
+     * Fetches votes for a survey, grouped by Option (onr) and sorted by date ascending.
+     * Returns a flattened list suitable for CSV export.
+     */
+    public List<StimmabgabeByUmfrageDTO> getBySurveyGroupedAndSorted(Long unr) {
+        return stimmabgabeRepository.findByUmfrage_Unr(unr)
+                .stream()
+                .map(stimmabgabeMapper::toStimmabgabeByUmfrageDto)
+                // Logic: Group by Option, then Sort by Date
+                .sorted(Comparator.comparing(StimmabgabeByUmfrageDTO::getOnr)
+                        .thenComparing(StimmabgabeByUmfrageDTO::getDatum))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Create a new Vote with Consistency Check
+     */
+    // contains the critical validation logic - the Consistency Check:
+    // Since you now have two Foreign Keys, you run the risk of inconsistency (e.g., A vote points to Survey A, but the Option belongs to Survey B).
+    // You must enforce consistency in your Service Layer before saving
+    @Transactional
+    public StimmabgabeDTO createStimmabgabe(StimmabgabeDTO dto) {
+        Long unr = dto.getUnr();
+        Long onr = dto.getOnr();
+
+        // 1. Fetch Entities to validate existence
+        Umfrage umfrage = umfrageRepository.findById(unr)
+                .orElseThrow(() -> new RuntimeException("Umfrage not found: " + unr));
+
+        Auswahloption option = auswahloptionRepository.findById(onr)
+                .orElseThrow(() -> new RuntimeException("Auswahloption not found: " + onr));
+
+        // 2. CRITICAL CONSISTENCY CHECK
+        // Ensure the selected Option actually belongs to the selected Survey
+        if (!option.getUmfrage().getUnr().equals(unr)) {
+            throw new IllegalArgumentException(
+                    String.format("Data Inconsistency: Option %d belongs to Survey %d, not Survey %d",
+                            onr, option.getUmfrage().getUnr(), unr)
+            );
+        }
+
+        // 3. Create and Populate Entity
+        Stimmabgabe entity = new Stimmabgabe();
+        entity.setUmfrage(umfrage);
+        entity.setAuswahloption(option);
+
+        // Set timestamp (default to now if null)
+        entity.setDatum(dto.getDatum() != null ? dto.getDatum() : LocalDateTime.now());
+
+        // Set duplicate flags (default to false if null)
+        entity.setIsSessionDuplicate(Boolean.TRUE.equals(dto.getIsSessionDuplicate()));
+        entity.setIsUserDuplicate(Boolean.TRUE.equals(dto.getIsUserDuplicate()));
+
+        // 4. Save and return DTO
+        Stimmabgabe saved = stimmabgabeRepository.save(entity);
+        return stimmabgabeMapper.toStimmabgabeDto(saved);
+    }
+
+    /**
+     * Delete a vote
+     */
+    public void deleteStimmabgabe(Long snr) {
+        if (!stimmabgabeRepository.existsById(snr)) {
+            throw new RuntimeException("Stimmabgabe not found: " + snr);
+        }
+        stimmabgabeRepository.deleteById(snr);
+    }
+}

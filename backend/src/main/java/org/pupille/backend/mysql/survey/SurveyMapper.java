@@ -3,6 +3,9 @@ package org.pupille.backend.mysql.survey;
 import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
 import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionDTO;
 import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionNestedDTO;
+import org.pupille.backend.mysql.survey.stimmabgabe.Stimmabgabe;
+import org.pupille.backend.mysql.survey.stimmabgabe.StimmabgabeByUmfrageDTO;
+import org.pupille.backend.mysql.survey.stimmabgabe.StimmabgabeDTO;
 import org.pupille.backend.mysql.survey.umfrage.Umfrage;
 import org.pupille.backend.mysql.survey.umfrage.UmfrageDTO;
 import org.springframework.stereotype.Component;
@@ -117,6 +120,90 @@ public class SurveyMapper {
         // Parent set in service logic (.setUmfrage(parent))
         return entity;
     }
+
+
+    // ========================================================================
+    // STIMMABGABE MAPPERS
+    // ========================================================================
+    public StimmabgabeDTO toStimmabgabeDto(Stimmabgabe entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        StimmabgabeDTO.StimmabgabeDTOBuilder dto = StimmabgabeDTO.builder()
+                .snr(entity.getSnr())
+                .datum(entity.getDatum())
+                .isSessionDuplicate(entity.getIsSessionDuplicate())
+                .isUserDuplicate(entity.getIsUserDuplicate());
+
+        // Flatten: Auswahloption
+        if (entity.getAuswahloption() != null) {
+            dto.onr(entity.getAuswahloption().getOnr());
+            dto.auswahloptionTitel(entity.getAuswahloption().getTitel());
+            dto.auswahloptionDetails(entity.getAuswahloption().getDetails());
+        }
+
+        // Flatten: Umfrage
+        if (entity.getUmfrage() != null) {
+            dto.unr(entity.getUmfrage().getUnr());
+            dto.umfrageAnlass(entity.getUmfrage().getAnlass());
+        }
+
+        return dto.build();
+    }
+
+    public StimmabgabeByUmfrageDTO toStimmabgabeByUmfrageDto(Stimmabgabe entity) {
+        if (entity == null) return null;
+
+        StimmabgabeByUmfrageDTO.StimmabgabeByUmfrageDTOBuilder dto = StimmabgabeByUmfrageDTO.builder()
+                .snr(entity.getSnr())
+                .datum(entity.getDatum())
+                .isSessionDuplicate(entity.getIsSessionDuplicate())
+                .isUserDuplicate(entity.getIsUserDuplicate());
+
+        // Flatten: Auswahloption
+        if (entity.getAuswahloption() != null) {
+            dto.onr(entity.getAuswahloption().getOnr());
+            dto.auswahloptionTitel(entity.getAuswahloption().getTitel());
+            dto.auswahloptionDetails(entity.getAuswahloption().getDetails());
+        }
+
+        // Flatten: Umfrage (NO unr field)
+        if (entity.getUmfrage() != null) {
+            dto.umfrageAnlass(entity.getUmfrage().getAnlass());
+        }
+
+        return dto.build();
+    }
+
+    public Stimmabgabe toStimmabgabeEntity(StimmabgabeDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Stimmabgabe entity = new Stimmabgabe();
+        entity.setSnr(dto.getSnr());
+        entity.setDatum(dto.getDatum());
+        entity.setIsSessionDuplicate(dto.getIsSessionDuplicate());
+        entity.setIsUserDuplicate(dto.getIsUserDuplicate());
+
+        // Reconstruct Shell: Auswahloption
+        if (dto.getOnr() != null) {
+            Auswahloption option = new Auswahloption();
+            option.setOnr(dto.getOnr());
+            entity.setAuswahloption(option);
+        }
+
+        // Reconstruct Shell: Umfrage
+        if (dto.getUnr() != null) {
+            Umfrage umfrage = new Umfrage();
+            umfrage.setUnr(dto.getUnr());
+            entity.setUmfrage(umfrage);
+        }
+
+        return entity;
+    }
+
 }
 
 // Where is the mapper applied?
