@@ -265,7 +265,7 @@ export default function StimmabgabeForm() {
                     {/*        required*/}
                     {/*    />*/}
                     {/*</Form.Group>*/}
-                    <Form.Group className="mb-2">
+                    <Form.Group controlId="onr" className="mb-2">
                         <Form.Label>Option *</Form.Label>
                         <Form.Select
                             name="onr"
@@ -283,7 +283,7 @@ export default function StimmabgabeForm() {
                         </Form.Select>
                     </Form.Group>
 
-                    <Form.Group className="mb-2">
+                    <Form.Group controlId="datum" className="mb-3">
                         <Form.Label>Voting-Datum</Form.Label>
                         <Form.Control
                             type="datetime-local"
@@ -298,7 +298,7 @@ export default function StimmabgabeForm() {
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3">
+                    <Form.Group controlId="Session duplicate">
                         <Form.Check
                             type="checkbox"
                             label="Session duplicate"
@@ -306,6 +306,8 @@ export default function StimmabgabeForm() {
                             checked={Boolean(newVote.isSessionDuplicate)}
                             onChange={handleNewVoteChange}
                         />
+                    </Form.Group>
+                    <Form.Group controlId="User duplicate" className="mb-3">
                         <Form.Check
                             type="checkbox"
                             label="User duplicate"
@@ -315,9 +317,15 @@ export default function StimmabgabeForm() {
                         />
                     </Form.Group>
 
-                    {/* TABLE directly under the fields, same visual style as UmfrageForm */}
+                    <div className="d-flex gap-2 mt-3">
+                        <Button variant="success" type="submit" disabled={isLoading}>
+                            {isLoading ? "Saving..." : "Stimmabgabe erstellen"}
+                        </Button>
+                    </div>
+                    <div><sub className={styles.formSubtext}>*Pflichtfeld</sub></div>
 
-                    <Card className="mb-4 bg-secondary bg-opacity-10">
+                    {/* TABLE directly under the fields & button, same visual style as UmfrageForm */}
+                    <Card className="mt-4 bg-secondary bg-opacity-10">
                         <Card.Header className="d-flex justify-content-between align-items-center">
                             <span>Erfasste Stimmabgaben</span>
                             {/* Optional: small info text */}
@@ -396,12 +404,6 @@ export default function StimmabgabeForm() {
                         </Card.Body>
                     </Card>
 
-                    <div className="d-flex gap-2 mt-3">
-                        <Button variant="success" type="submit" disabled={isLoading}>
-                            {isLoading ? "Saving..." : "Stimmabgabe erstellen"}
-                        </Button>
-                    </div>
-                    <div><sub className={styles.formSubtext}>*Pflichtfeld</sub></div>
                 </Form>
             )}
         </main>
