@@ -54,6 +54,8 @@ import OverviewClicks from "./components/overview/OverviewClicks.tsx";
 import {ClicksResponseDTO} from "./types/ClicksResponseDTO.ts";
 import {OtherDataValuesMap} from "./types/OtherDataValuesMap.ts";
 import TerminFilmGalleryCardPreview from "./components/termine/TerminFilmGalleryCardPreview.tsx";
+import UmfrageForm from "./components/survey/umfrage/UmfrageForm.tsx";
+import StimmabgabeForm from "./components/survey/stimmabgabe/StimmabgabeForm.tsx";
 
 // ############################################
 // for Gallery.tsx
@@ -527,6 +529,16 @@ const router = createBrowserRouter([
                                     {
                                         path: "adminprogrammhefte",
                                         element: <ProgrammheftForm/>,
+                                        handle: {scrollMode: "pathname"},
+                                    },
+                                    {
+                                        path: "adminumfragen",
+                                        element: <UmfrageForm/>,
+                                        handle: {scrollMode: "pathname"},
+                                    },
+                                    {
+                                        path: "adminstimmabgaben",
+                                        element: <StimmabgabeForm/>,
                                         handle: {scrollMode: "pathname"},
                                     },
                                 ],

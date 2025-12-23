@@ -14,6 +14,9 @@ export default function Admin() {
                     Nach einiger Inaktivität bitte ein Logout + Login durchführen,
                     sodass die eingeloggte Session wieder "frisch" und ein add/edit/delete erneut möglich ist.
                 </p>
+            </section>
+
+            <section>
                 <h3>News</h3>
                 <ul className="list-unstyled">
                     <li>
@@ -161,12 +164,28 @@ export default function Admin() {
                 </ul>
             </section>
 
-            <section>
+            <section className="mt-4">
                 <h3>Programmhefte/Flyer</h3>
                 <ul className="list-unstyled">
                     <li>
                         <Link to="/adminprogrammhefte" className="btn btn-light mb-2">
                             Add, Edit, Delete
+                        </Link>
+                    </li>
+                </ul>
+            </section>
+
+            <section className="mt-4">
+                <h3>Survey bzw. Abstimmungen</h3>
+                <ul className="list-unstyled">
+                    <li>
+                        <Link to="/adminumfragen" className="btn btn-dark mb-2">
+                            Umfragen verwalten
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/adminstimmabgaben" className="btn btn-dark mb-2">
+                            Stimmabgaben verwalten
                         </Link>
                     </li>
                 </ul>
