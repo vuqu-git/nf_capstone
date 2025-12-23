@@ -16,6 +16,7 @@ const emptyUmfrageForForm: UmfrageDTO = {
     unr: -1,
     anlass: '',
     endDatum: null,
+    beschreibung: '',
     auswahloptionendtos: []
 };
 
@@ -189,7 +190,7 @@ export default function UmfrageForm() {
                 {/*</Form.Group>*/}
 
                 {/* Anlass */}
-                <Form.Group className="mb-3">
+                <Form.Group controlId="anlass" className="mb-3">
                     <Form.Label>Umfragetitel bzw. Anlass *</Form.Label>
                     <Form.Control
                         type="text"
@@ -201,13 +202,14 @@ export default function UmfrageForm() {
                     />
                 </Form.Group>
 
-                {/* End Datum */}
-                <Form.Group className="mb-3">
-                    <Form.Label>Enddatum der Umfrage *</Form.Label>
+                {/* Beschreibung */}
+                <Form.Group controlId="beschreibung" className="mb-3">
+                    <Form.Label>Beschreibung *</Form.Label>
                     <Form.Control
-                        type="date"
-                        name="endDatum"
-                        value={selectedUmfrage.endDatum || ""}
+                        as="textarea"
+                        rows={3}
+                        name="beschreibung"
+                        value={selectedUmfrage.beschreibung || ""}
                         onChange={handleMainFieldChange}
                         required
                     />

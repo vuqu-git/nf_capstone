@@ -83,6 +83,7 @@ public class UmfrageService {
         // 1. Update simple fields
         existingUmfrage.setAnlass(dto.getAnlass());
         existingUmfrage.setEndDatum(dto.getEndDatum());
+        existingUmfrage.setBeschreibung(dto.getBeschreibung());
 
         // -------------------------------------------
         // 2. Sync children (Auswahloptionen) from DTO

@@ -11,6 +11,7 @@ public class UmfrageDTO {
     private Long unr;
     private String anlass;
     private LocalDate endDatum;
+    private String beschreibung;
     // We only nest the DTO (namely AuswahloptionDTO), not the Entity (namely Auswahloption)
     private List<AuswahloptionNestedDTO> auswahloptionendtos;
 }

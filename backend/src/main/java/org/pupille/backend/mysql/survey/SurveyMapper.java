@@ -26,6 +26,7 @@ public class SurveyMapper {
         dto.setUnr(entity.getUnr());
         dto.setAnlass(entity.getAnlass());
         dto.setEndDatum(entity.getEndDatum());
+        dto.setBeschreibung(entity.getBeschreibung());
 
         if (entity.getAuswahloptionen() != null) {
             dto.setAuswahloptionendtos(entity.getAuswahloptionen().stream()
@@ -44,6 +45,7 @@ public class SurveyMapper {
         entity.setUnr(dto.getUnr());
         entity.setAnlass(dto.getAnlass());
         entity.setEndDatum(dto.getEndDatum());
+        entity.setBeschreibung(dto.getBeschreibung());
         // Note: Mapping list back to entity usually requires more logic
         // (handling orphans), so we often skip setting list here for creation.
         // → children handled in service if needed → see createUmfrage and updateUmfrage method in UmfrageService

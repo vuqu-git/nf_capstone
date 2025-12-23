@@ -25,6 +25,9 @@ public class Umfrage {
     @Column(name = "end_datum")
     private LocalDate endDatum;
 
+    @Column(columnDefinition = "TEXT")
+    private String beschreibung;
+
     // ############################################
     // mappedBy refers to the field "umfrage" in the Auswahloption class
     @OneToMany(mappedBy = "umfrage", cascade = CascadeType.ALL, orphanRemoval = true)
