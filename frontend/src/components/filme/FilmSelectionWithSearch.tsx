@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import React, {useEffect, useMemo, useState} from "react";
 import {FilmDTOSelection} from "../../types/FilmDTOSelection.ts";
 import {formatFilmDetailsInFilmSelectOption} from "../../utils/formatFilmDetailsInFilmSelectOption.ts";
-import Select, {ActionMeta, SingleValue} from "react-select";
+import Select, {SingleValue} from "react-select";
 import {formSelectionWithSearchStyles} from "../styles/formSelectionWithSearchStyles.ts";
 
 interface FilmSelectionWithSearchProps {
@@ -37,7 +37,7 @@ export default function FilmSelectionWithSearch({
 
     const handleReactSelectChange = (
         newValue: SingleValue<FilmOption>,
-        actionMeta: ActionMeta<FilmOption>
+        // actionMeta: ActionMeta<FilmOption>
     ) => {
         setSelectedOption(newValue);
         onSelectFilm(newValue?.value);
