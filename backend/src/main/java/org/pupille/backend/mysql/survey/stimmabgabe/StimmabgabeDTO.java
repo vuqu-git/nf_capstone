@@ -23,10 +23,11 @@ public class StimmabgabeDTO {
     private Long onr;
     private Long unr;
 
-    // OPTIONAL: Convenience fields for the UI
+    // Convenience fields for the UI
     // (saves the frontend from looking up what "onr: 55" actually means)
+    private String umfrageAnlass;
     private String auswahloptionTitel;
     private String auswahloptionDetails;
-    private String umfrageAnlass;
+    private String auswahloptionLink;
 }
 

@@ -101,6 +101,7 @@ public class UmfrageService {
                     child = existingById.get(childDto.getOnr());
                     child.setTitel(childDto.getTitel());
                     child.setDetails(childDto.getDetails());
+                    child.setLink(childDto.getLink());
 
                     // parent already set
                 } else {

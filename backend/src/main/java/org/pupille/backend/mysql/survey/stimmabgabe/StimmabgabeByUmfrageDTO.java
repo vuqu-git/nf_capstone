@@ -16,17 +16,16 @@ public class StimmabgabeByUmfrageDTO {
     private Long snr;
     private LocalDateTime datum;
 
-    // Status flags
     private Boolean isSessionDuplicate;
     private Boolean isUserDuplicate;
 
     // Foreign Key (ID reference) - KEEP onr
     private Long onr;
+    // NO 'unr' field - context already known from /api/survey/stimmabgaben/survey/{unr} endpoint
 
     // Convenience fields for the UI
+    private String umfrageAnlass;
     private String auswahloptionTitel;
     private String auswahloptionDetails;
-    private String umfrageAnlass;
-
-    // NO 'unr' field - context already known from /api/survey/stimmabgaben/survey/{unr} endpoint
+    private String auswahloptionLink;
 }

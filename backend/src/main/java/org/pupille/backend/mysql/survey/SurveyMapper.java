@@ -66,6 +66,7 @@ public class SurveyMapper {
         dto.setOnr(entity.getOnr());
         dto.setTitel(entity.getTitel());
         dto.setDetails(entity.getDetails());
+        dto.setLink(entity.getLink());
 
         // Extract ID from parent if exists
         if (entity.getUmfrage() != null) {
@@ -82,12 +83,13 @@ public class SurveyMapper {
         if (entity == null) return null;
         AuswahloptionNestedDTO dto = new AuswahloptionNestedDTO();
         dto.setOnr(entity.getOnr());
+        // No 'unr' field here at all -> JSON output stays clean, cleaner nested view
         dto.setTitel(entity.getTitel());
         dto.setDetails(entity.getDetails());
-        // No 'unr' field here at all -> JSON output stays clean, cleaner nested view
+        dto.setLink(entity.getLink());
+
         return dto;
     }
-
 
     // ========================================================================
     // AUSWAHLOPTION MAPPERS (DTO -> Entity)
@@ -101,6 +103,7 @@ public class SurveyMapper {
         entity.setOnr(dto.getOnr());
         entity.setTitel(dto.getTitel());
         entity.setDetails(dto.getDetails());
+        entity.setLink(dto.getLink());
         // Parent 'Umfrage' must be set by the Service using the ID (dto.getUnr())
         // → see createAuswahloption method in AuswahloptionService
         return entity;
@@ -119,10 +122,10 @@ public class SurveyMapper {
         entity.setOnr(dto.getOnr());
         entity.setTitel(dto.getTitel());
         entity.setDetails(dto.getDetails());
+        entity.setLink(dto.getLink());
         // Parent set in service logic (.setUmfrage(parent))
         return entity;
     }
-
 
     // ========================================================================
     // STIMMABGABE MAPPERS
@@ -168,6 +171,7 @@ public class SurveyMapper {
             dto.onr(entity.getAuswahloption().getOnr());
             dto.auswahloptionTitel(entity.getAuswahloption().getTitel());
             dto.auswahloptionDetails(entity.getAuswahloption().getDetails());
+            dto.auswahloptionLink(entity.getAuswahloption().getLink());
         }
 
         // Flatten: Umfrage (NO unr field)

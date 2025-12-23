@@ -6,7 +6,9 @@ export interface StimmabgabeByUmfrageDTO {
     isUserDuplicate: boolean | null;
 
     onr: number;
+
+    umfrageAnlass?: string;
+    auswahloptionLink?: string;
     auswahloptionTitel?: string;
     auswahloptionDetails?: string;
-    umfrageAnlass?: string;
 }

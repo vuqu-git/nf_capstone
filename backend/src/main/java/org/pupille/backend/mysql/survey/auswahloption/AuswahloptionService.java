@@ -64,6 +64,7 @@ public class AuswahloptionService {
 
         existing.setTitel(dto.getTitel());
         existing.setDetails(dto.getDetails());
+        existing.setLink(dto.getLink());
 
         // This block handles moving an option from one survey to another (re-parenting). It checks if the "Parent ID" sent in the request (dto.getUnr()) is different from what is currently saved in the database.
         // Explanation:

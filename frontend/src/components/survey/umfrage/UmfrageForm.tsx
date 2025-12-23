@@ -96,7 +96,7 @@ export default function UmfrageForm() {
     };
 
     const addOption = () => {
-        const newOption: AuswahloptionNestedDTO = { titel: "", details: "" };
+        const newOption: AuswahloptionNestedDTO = { titel: "", details: "", link: "" };
         setSelectedUmfrage(prev => ({
             ...prev,
             auswahloptionendtos: [...prev.auswahloptionendtos, newOption]
@@ -238,7 +238,8 @@ export default function UmfrageForm() {
                                     <tr>
                                         {/*<th style={{width: "5%"}}>#</th>*/}
                                         <th style={{width: "35%", paddingLeft: "13px"}}>Option</th>
-                                        <th style={{width: "50%", paddingLeft: "13px"}}>Details</th>
+                                        <th style={{width: "35%", paddingLeft: "13px"}}>Details</th>
+                                        <th style={{width: "25%", paddingLeft: "13px"}}>Link</th>
                                         <th style={{width: "5%"}}>Action</th>
                                     </tr>
                                     </thead>
@@ -252,7 +253,6 @@ export default function UmfrageForm() {
                                                     size="sm"
                                                     value={opt.titel}
                                                     onChange={(e) => handleOptionChange(index, "titel", e.target.value)}
-                                                    placeholder="Option Title"
                                                     required
                                                 />
                                             </td>
@@ -262,7 +262,14 @@ export default function UmfrageForm() {
                                                     size="sm"
                                                     value={opt.details || ""}
                                                     onChange={(e) => handleOptionChange(index, "details", e.target.value)}
-                                                    placeholder="Details..."
+                                                />
+                                            </td>
+                                            <td>
+                                                <Form.Control
+                                                    type="text"
+                                                    size="sm"
+                                                    value={opt.link || ""}
+                                                    onChange={(e) => handleOptionChange(index, "link", e.target.value)}
                                                 />
                                             </td>
                                             <td>
