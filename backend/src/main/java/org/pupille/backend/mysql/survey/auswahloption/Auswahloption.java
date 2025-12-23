@@ -16,6 +16,11 @@ public class Auswahloption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long onr;
 
+    private String titel;
+
+    @Column(columnDefinition = "TEXT")
+    private String details;
+
     // ############################################
     @ManyToOne(fetch = FetchType.LAZY)
     // FetchType.LAZY is used for the parent reference. This prevents loading the entire Umfrage object every time you load a single option, which improves performance.
@@ -23,9 +28,4 @@ public class Auswahloption {
     @JsonBackReference("Umfrage-Auwahloption-Ref") // Matches the name in Umfrage
     private Umfrage umfrage;
     // ############################################
-
-    private String titel;
-
-    @Column(columnDefinition = "TEXT")
-    private String details;
 }
