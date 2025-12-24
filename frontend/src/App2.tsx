@@ -56,6 +56,7 @@ import {OtherDataValuesMap} from "./types/OtherDataValuesMap.ts";
 import TerminFilmGalleryCardPreview from "./components/termine/TerminFilmGalleryCardPreview.tsx";
 import UmfrageForm from "./components/survey/umfrage/UmfrageForm.tsx";
 import StimmabgabeForm from "./components/survey/stimmabgabe/StimmabgabeForm.tsx";
+import SurveyCard from "./components/survey/SurveyCard.tsx";
 
 // ############################################
 // for Gallery.tsx
@@ -439,6 +440,13 @@ const router = createBrowserRouter([
                             {
                                 path: "gallerycard",
                                 element: <TerminFilmGalleryCardPreview />,
+                            },
+                            {
+                                path: "survey/:unr",
+                                element: <SurveyCard/>,
+                                // no usage of loader here, because the data is fetched within ScreeningDetails
+                                // loader: ({ params }) => getScreeningDetails(params.tnr),
+                                handle: {scrollMode: "pathname"} // this child inherits the parent's scroll behavior if no handle is specified here, the parent in this case is the root path "/"
                             },
                         ],
                     },

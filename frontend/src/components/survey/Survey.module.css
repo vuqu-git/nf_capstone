@@ -1,0 +1,140 @@
+/* Survey.module.css */
+
+/* For alerts above the header in UmfrageForm and StimmabgabeForm */
+.alertContainerStyle {
+    min-height: 2.0rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.alertStyle {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0;
+    /*font-size: 0.85rem;*/
+    line-height: 1.2;
+}
+
+/* left padding for header in auswahloption table within UmfrageForm */
+.leftPadHeader {
+    padding-left: 4px;
+}
+
+/* center align X button for column Action */
+/*.centeredXButton {*/
+/*    text-align: center;*/
+/*}*/
+
+/* small table styles for voting records */
+.tableStyle {
+    max-height: 720px;   /*~30 rows*/
+    overflow-y: auto;
+
+    font-size: 0.7rem;
+}
+
+.xButtonStyle {
+    padding: 0 4px;
+    line-height: 1;
+    font-size: 0.7rem;
+    min-width: 1.2rem;
+}
+
+
+/*###################################################*/
+
+/* --- Main Card Wrappers --- */
+.cardCustom {
+    background-color: #121212; /* Fallback if terminFilmDetails-card isn't dark enough */
+    border: none;
+    color: #cfd6e1;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    border-radius: 0;
+}
+
+/* Ensure the header text matches the Gold Title in the image */
+.cardHeader {
+    background-color: transparent !important;
+    border: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* The Gold Divider Line */
+.divider {
+    border-top: 1px solid #FFD036;
+    margin: 0.5rem 0 1.5rem 0;
+    opacity: 1;
+}
+
+/* Anlass Title */
+.umfrageAnlass {
+    color: #FFD036;
+}
+
+/* Description Text */
+.umfrageDescription {
+    color: #cfd6e1;
+}
+
+/* --- Options Styling --- */
+.optionCard {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    transition: all 0.2s ease-in-out;
+    color: #cfd6e1;
+}
+
+.optionCard:hover {
+    background-color: #2a2a2a;
+    border-color: #555;
+}
+
+.optionCardSelected {
+    background-color: #252525;
+    border-color: #FFD036 !important; /* Force gold border */
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.15);
+}
+
+.radioInput {
+    border-color: #666;
+}
+/* Bootstrap form-check-input specific override for gold active state */
+.radioInput:checked {
+    background-color: #FFD036;
+    border-color: #FFD036;
+}
+
+.optionLabel {
+    font-weight: bold;
+    font-size: 1.05rem;
+    color: #FFD036;
+    cursor: pointer;
+}
+
+.optionDetails {
+    color: #9ac7fa;
+    font-weight: 400;
+}
+
+
+/* --- Button --- */
+.submitBtn {
+    background-color: #FFD036;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.8rem;
+    border-radius: 2px;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background-color: #FFD036;
+    color: #000;
+}
+
+.submitBtn:disabled {
+    background-color: #444;
+    color: #888;
+}

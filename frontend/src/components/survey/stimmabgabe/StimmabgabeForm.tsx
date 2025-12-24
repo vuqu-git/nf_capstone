@@ -4,7 +4,7 @@ import axios from "axios";
 
 import AdminNav from "../../AdminNav";
 import styles from "../../contact/Forms.module.css";
-import surveyStyles from "../SurveyForms.module.css";
+import surveyStyles from "../Survey.module.css";
 
 import UmfrageSelectionWithSearch from "../umfrage/UmfrageSelectionWithSearch.tsx";
 import {UmfrageDTO} from "../../../types/UmfrageDTO";

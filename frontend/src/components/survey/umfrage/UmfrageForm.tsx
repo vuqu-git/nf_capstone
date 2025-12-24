@@ -3,7 +3,7 @@ import { Button, Form, Table, Card } from "react-bootstrap";
 import axios from "axios";
 
 import styles from "../../contact/Forms.module.css";
-import surveyStyles from "../SurveyForms.module.css";
+import surveyStyles from "../Survey.module.css";
 
 import UmfrageSelectionWithSearch from "./UmfrageSelectionWithSearch.tsx";
 import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
