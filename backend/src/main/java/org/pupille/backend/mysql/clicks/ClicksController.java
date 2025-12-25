@@ -1,6 +1,7 @@
 package org.pupille.backend.mysql.clicks;
 
 import lombok.RequiredArgsConstructor;
+import org.pupille.backend.mysql.GeneralResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,8 @@ public class ClicksController {
     private final ClicksService clicksService;
 
     @PostMapping
-    public ResponseEntity<String> trackClicks(@RequestBody ClicksDTOForTracking requestDTO) {
-        String result = clicksService.trackClicks(requestDTO);
+    public ResponseEntity<GeneralResponse> trackClicks(@RequestBody ClicksDTOForTracking requestDTO) {
+        GeneralResponse result = clicksService.trackClicks(requestDTO);
         return ResponseEntity.ok(result);
     }
 
