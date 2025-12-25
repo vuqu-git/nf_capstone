@@ -42,29 +42,7 @@
 
 /*###################################################*/
 
-/* --- Main Card Wrappers --- */
-.cardCustom {
-    background-color: #121212; /* Fallback if terminFilmDetails-card isn't dark enough */
-    border: none;
-    color: #cfd6e1;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
-    border-radius: 0;
-}
-
-/* Ensure the header text matches the Gold Title in the image */
-.cardHeader {
-    background-color: transparent !important;
-    border: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
-}
-
-/* The Gold Divider Line */
-.divider {
-    border-top: 1px solid #FFD036;
-    margin: 0.5rem 0 1.5rem 0;
-    opacity: 1;
-}
+/* Survey.module.css */
 
 /* Anlass Title */
 .umfrageAnlass {
@@ -78,10 +56,12 @@
 
 /* --- Options Styling --- */
 .optionCard {
+    padding: 0.5rem 1.0rem;
     background-color: #1e1e1e;
     border: 1px solid #333;
     transition: all 0.2s ease-in-out;
     color: #cfd6e1;
+    cursor: pointer; /* Makes the whole card clickable */
 }
 
 .optionCard:hover {
@@ -95,15 +75,67 @@
     box-shadow: 0 0 8px rgba(255, 193, 7, 0.15);
 }
 
-.radioInput {
-    border-color: #666;
-}
-/* Bootstrap form-check-input specific override for gold active state */
-.radioInput:checked {
-    background-color: #FFD036;
-    border-color: #FFD036;
+/* --- Custom Radio Button --- */
+.customRadio {
+    /* Remove default browser appearance */
+    appearance: none;
+    -webkit-appearance: none;
+
+    /* Layout */
+    margin-top: 0.25rem; /* Align with title text */
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+
+    /* Circle Shape & Default Colors */
+    border: 2px solid #666;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+
+    /* Center the inner dot */
+    display: grid;
+    place-content: center;
+
+    transition: all 0.2s ease-in-out;
 }
 
+/* The inner dot (hidden by default via scaling) */
+.customRadio::before {
+    content: "";
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 0.15s transform ease-in-out;
+
+    /* The dot color: Dark to contrast with the Gold background */
+    background-color: #1e1e1e;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* --- Radio Checked State --- */
+.customRadio:checked {
+    border-color: #FFD036;
+    background-color: #FFD036; /* Solid Gold Background */
+}
+
+.customRadio:checked::before {
+    transform: scale(1); /* Show the dot */
+}
+
+/* --- Radio Hover & Focus States --- */
+.customRadio:hover {
+    border-color: #888;
+}
+
+.customRadio:focus {
+    outline: none;
+    /* A Gold glow ring */
+    box-shadow: 0 0 0 4px rgba(255, 208, 54, 0.25);
+}
+
+/* --- Text Styles --- */
 .optionLabel {
     font-weight: bold;
     font-size: 1.05rem;
@@ -116,21 +148,19 @@
     font-weight: 400;
 }
 
-
 /* --- Button --- */
 .submitBtn {
     background-color: #FFD036;
     border: none;
     color: #000;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     padding: 0.8rem;
     border-radius: 2px;
 }
 
 .submitBtn:hover:not(:disabled) {
-    background-color: #FFD036;
+    background-color: #e6bb30; /* Slightly darker gold on hover */
     color: #000;
 }
 

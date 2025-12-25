@@ -1,6 +1,7 @@
 package org.pupille.backend.mysql.survey.stimmabgabe;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.pupille.backend.mysql.GeneralResponse;
 import org.pupille.backend.mysql.survey.CsvExportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -86,9 +87,14 @@ public class StimmabgabeController {
     }
 
     // Create Vote (expects valid unr and onr in body)
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created automatically
+//    public StimmabgabeDTO create(@RequestBody StimmabgabeDTO dto) {
+//        return stimmabgabeService.createStimmabgabe(dto);
+//    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created automatically
-    public StimmabgabeDTO create(@RequestBody StimmabgabeDTO dto) {
+    public GeneralResponse create(@RequestBody StimmabgabeDTO dto) {
         return stimmabgabeService.createStimmabgabe(dto);
     }
 

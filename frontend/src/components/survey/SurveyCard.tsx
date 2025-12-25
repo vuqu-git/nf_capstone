@@ -1,33 +1,11 @@
 import { useEffect, useState } from "react";
-import { Card, Button, Form, Alert, Spinner } from "react-bootstrap";
+import { Card, Button, Alert, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import styles from "./Survey.module.css";
-
-// --- Interfaces ---
-export interface AuswahloptionNestedDTO {
-    onr?: number;
-    titel: string;
-    details: string;
-    link: string;
-}
-
-export interface UmfrageDTO {
-    unr: number;
-    anlass: string;
-    endDatum: string | null;
-    beschreibung: string;
-    auswahloptionendtos: AuswahloptionNestedDTO[];
-}
-
-export interface StimmabgabeDTO {
-    snr?: number;
-    datum: string | null;
-    isSessionDuplicate: boolean | null;
-    isUserDuplicate: boolean | null;
-    onr: number;
-    unr: number;
-}
+import surveyStyles from "./Survey.module.css";
+import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
+import {UmfrageDTO} from "../../types/UmfrageDTO.ts";
+import {StimmabgabeDTO} from "../../types/StimmabgabeDTO.ts";
 
 export default function SurveyCard() {
     const { unr } = useParams<{ unr: string }>();
@@ -60,11 +38,15 @@ export default function SurveyCard() {
 
     const isSurveyActive = (): boolean => {
         if (!umfrage || !umfrage.endDatum) return true;
-        const today = new Date();
-        const endDate = new Date(umfrage.endDatum);
-        today.setHours(0, 0, 0, 0);
-        endDate.setHours(0, 0, 0, 0);
-        return today <= endDate;
+
+        const now = new Date(); // Current date and time
+        const endDate = new Date(umfrage.endDatum); // Create date from endDatum
+
+        // Set end date to the end of the day
+        endDate.setHours(23, 59, 59, 999);
+
+        // Compare current date and time with the modified end date and time
+        return now <= endDate;
     };
 
     const handleSubmit = () => {
@@ -87,18 +69,6 @@ export default function SurveyCard() {
             .finally(() => setSubmitting(false));
     };
 
-    // Helper: Format Date like 'Mo 15.12.2025'
-    const formatDate = (isoString: string | null) => {
-        if (!isoString) return "";
-        const d = new Date(isoString);
-        return d.toLocaleDateString("de-DE", {
-            weekday: 'short',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit'
-        }) + " Uhr"; // Adding dummy time or remove if date only
-    };
-
     if (loading) {
         return (
             <div className="d-flex justify-content-center p-5">
@@ -111,7 +81,7 @@ export default function SurveyCard() {
 
     if (error) {
         return (
-            <Card className={`terminFilmDetails-card border-danger ${styles.cardCustom}`}>
+            <Card className={`terminFilmDetails-card border-danger ${surveyStyles.cardCustom}`}>
                 <Card.Body>
                     <Alert variant="danger" className="m-0">{error}</Alert>
                 </Card.Body>
@@ -122,65 +92,61 @@ export default function SurveyCard() {
     if (!umfrage) return null;
 
     return (
-        <Card className={`terminFilmDetails-card ${styles.cardCustom}`}>
+        <Card className={`terminFilmDetails-card pupille-glow`}>
             <Card.Body>
 
-                {/*/!* 2. Divider Line *!/*/}
-                {/*<hr className={styles.divider} />*/}
-
-                {/* 3. Main Title (Anlass) */}
-                <Card.Title as="h2" className={styles.umfrageAnlass}>
+                {/* Main Title (Anlass) */}
+                <Card.Title as="h2" className={surveyStyles.umfrageAnlass}>
                     {umfrage.anlass}
                 </Card.Title>
 
-                {/* 4. Description */}
-                <div className={styles.umfrageDescription}>
+                {/* Description */}
+                <div className={surveyStyles.umfrageDescription}>
                     <p>{umfrage.beschreibung}</p>
-
-                    <p>Die Abstimmung läuft bis inklusive {umfrage.endDatum}.</p>
+                    <p>Die Umfrage läuft bis einschließlich {formatDateInOverviewArchive(umfrage.endDatum ?? undefined)}, 23:59:59 Uhr.</p>
                 </div>
 
-
-
-                {/* 5. Logic: Active / Success / Form */}
+                {/* Logic: Active / Success / Form */}
                 {!isSurveyActive() ? (
                     <Alert variant="secondary" className="bg-dark text-secondary border-secondary">
                         <h5 className="text-warning">Umfrage beendet</h5>
-                        <p>Der Abstimmungszeitraum ist leider abgelaufen.</p>
+                        <p>Der Umfragezeitraum ist leider abgelaufen.</p>
                     </Alert>
                 ) : submitSuccess ? (
-                    <div className="text-center py-4 border border-warning">
-                        <h2 className="text-success mb-3">Vielen Dank!</h2>
-                        <p>Deine Stimmabgabe wurde erfolgreich übermittelt.</p>
+                    <div className="text-center py-3 border border-warning">
+                        <h2 className="text-success">Vielen Dank!</h2>
+                        <span>Dein Voting wurde erfolgreich übermittelt.</span>
                     </div>
                 ) : (
-                    <Form>
+                    <form onSubmit={(e) => e.preventDefault()}>
                         <div className="d-flex flex-column gap-3 mb-4">
                             {umfrage.auswahloptionendtos.map((opt) => (
                                 <div
                                     key={opt.onr}
-                                    className={`d-flex align-items-start gap-3 p-3 rounded ${styles.optionCard} ${selectedOption === opt.onr ? styles.optionCardSelected : ""}`}
+                                    // className={`d-flex align-items-start gap-3 p-3 rounded ${surveyStyles.optionCard} ${selectedOption === opt.onr ? surveyStyles.optionCardSelected : ""}`}
+                                    className={`d-flex align-items-start gap-3 rounded ${surveyStyles.optionCard} ${selectedOption === opt.onr ? surveyStyles.optionCardSelected : ""}`}
                                     onClick={() => setSelectedOption(opt.onr!)}
-                                    style={{ cursor: "pointer" }}
                                 >
-                                    <Form.Check
+                                    {/* Custom CSS Radio Button */}
+                                    <input
                                         type="radio"
                                         id={`option-${opt.onr}`}
                                         name="survey-options"
-                                        className={styles.radioInput}
+                                        className={surveyStyles.customRadio}
                                         checked={selectedOption === opt.onr}
                                         onChange={() => setSelectedOption(opt.onr!)}
                                         onClick={(e) => e.stopPropagation()}
                                     />
+
                                     <div className="flex-grow-1">
                                         <label
                                             htmlFor={`option-${opt.onr}`}
-                                            className={styles.optionLabel}
+                                            className={surveyStyles.optionLabel}
                                         >
                                             {opt.titel}
                                         </label>
 
-                                        <div className={`small ${styles.optionDetails}`}>
+                                        <div className={`small ${surveyStyles.optionDetails}`}>
                                             {opt.details}
                                         </div>
 
@@ -190,10 +156,10 @@ export default function SurveyCard() {
                                                     href={opt.link}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className={"custom-link"}
+                                                    className="custom-link" // global class if you have one, or add to module
                                                     onClick={(e) => e.stopPropagation()}
                                                 >
-                                                    weitere Infos &rarr;
+                                                    weitere Infos
                                                 </a>
                                             </div>
                                         )}
@@ -203,7 +169,7 @@ export default function SurveyCard() {
                         </div>
 
                         <Button
-                            className={`w-100 fw-bold ${styles.submitBtn}`}
+                            className={`w-100 ${surveyStyles.submitBtn}`}
                             size="lg"
                             onClick={handleSubmit}
                             disabled={!selectedOption || submitting}
@@ -217,7 +183,7 @@ export default function SurveyCard() {
                                 "Abstimmen"
                             )}
                         </Button>
-                    </Form>
+                    </form>
                 )}
             </Card.Body>
         </Card>
