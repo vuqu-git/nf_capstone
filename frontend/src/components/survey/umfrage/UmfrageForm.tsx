@@ -215,6 +215,22 @@ export default function UmfrageForm() {
                     />
                 </Form.Group>
 
+                {/* endDatum */}
+                <Form.Group controlId="endDatum" className="mb-3">
+                    <Form.Label>Ende-Datum</Form.Label>
+                    <Form.Control
+                        type="date"
+                        name="endDatum"
+                        value={selectedUmfrage.endDatum ? selectedUmfrage.endDatum.slice(0, 16) : ""}
+                        onChange={handleMainFieldChange}
+                    />
+                    <Form.Text className="text-muted">
+                        <ul className="tight-list">
+                            <li>gilt bis zum Ende des eingetragenen Tages um 23:59:59 Uhr</li>
+                        </ul>
+                    </Form.Text>
+                </Form.Group>
+
                 {/* Nested Options List */}
                 <Card className="mb-4 bg-secondary bg-opacity-10">
                     <Card.Header className="d-flex justify-content-between align-items-center">
