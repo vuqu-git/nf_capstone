@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class StimmabgabeDTO {
 
     private Long snr;
-    private LocalDateTime datum;
+    private Instant datum;
 
     // Status flags
     private Boolean isSessionDuplicate;
@@ -30,4 +30,3 @@ public class StimmabgabeDTO {
     private String auswahloptionDetails;
     private String auswahloptionLink;
 }
-

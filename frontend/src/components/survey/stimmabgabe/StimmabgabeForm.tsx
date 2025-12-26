@@ -56,32 +56,6 @@ export default function StimmabgabeForm() {
     }, []);
 
     // ---- when survey changes, load its votes ----
-    // useEffect(() => {
-    //     if (!selectedUmfrageId) {
-    //         setVotes([]);
-    //         setNewVote({ ...emptyVoteForForm, unr: -1 });
-    //         return;
-    //     }
-    //
-    //     setIsGetLoading(true);
-    //     setErrorMessage("");
-    //     setSuccessMessage("");
-    //
-    //     axios
-    //         .get<StimmabgabeByUmfrageDTO[]>(`${stimmabgabeBaseURL}/forumfrage/${selectedUmfrageId}`)
-    //         .then(r => {
-    //             setVotes(r.data);
-    //             setNewVote(prev => ({
-    //                 ...emptyVoteForForm,
-    //                 unr: selectedUmfrageId,
-    //                 umfrageAnlass: r.data[0]?.umfrageAnlass ?? prev.umfrageAnlass
-    //             }));
-    //         })
-    //         .catch(e =>
-    //             setErrorMessage(e instanceof Error ? e.message : "Error loading votes")
-    //         )
-    //         .finally(() => setIsGetLoading(false));
-    // }, [selectedUmfrageId]);
     useEffect(() => {
         if (!selectedUmfrageId) {
             setVotes([]);
@@ -126,13 +100,6 @@ export default function StimmabgabeForm() {
     };
 
     // ---- form handlers for creating a vote ----
-    // const handleNewVoteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const { name, type, value, checked } = e.target; // now OK
-    //     setNewVote(prev => ({
-    //         ...prev,
-    //         [name]: type === "checkbox" ? checked : value,
-    //     }));
-    // };
     const handleNewVoteChange = (
         e: React.ChangeEvent<FormControlElement>
     ) => {
@@ -151,7 +118,6 @@ export default function StimmabgabeForm() {
             [name]: name === "onr" || name === "unr" ? Number(value) : value,
         }));
     };
-
 
     const handleCreateVote = (e: React.FormEvent) => {
         e.preventDefault();
@@ -255,16 +221,6 @@ export default function StimmabgabeForm() {
 
                     <h5>Neue Stimmabgabe erfassen</h5>
 
-                    {/*<Form.Group className="mb-2">*/}
-                    {/*    <Form.Label>onr (Option-ID) *</Form.Label>*/}
-                    {/*    <Form.Control*/}
-                    {/*        type="number"*/}
-                    {/*        name="onr"*/}
-                    {/*        value={newVote.onr === -1 ? "" : newVote.onr}*/}
-                    {/*        onChange={handleNewVoteChange}*/}
-                    {/*        required*/}
-                    {/*    />*/}
-                    {/*</Form.Group>*/}
                     <Form.Group controlId="onr" className="mb-2">
                         <Form.Label>Option *</Form.Label>
                         <Form.Select
@@ -346,8 +302,8 @@ export default function StimmabgabeForm() {
                                         <th>Voting‑Datum</th>
                                         <th>Option</th>
                                         <th>Details</th>
-                                        <th>Session 👯</th>
-                                        <th>User 👯</th>
+                                        <th>🕒👯</th>
+                                        <th>🙋‍♂️👯</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -356,10 +312,7 @@ export default function StimmabgabeForm() {
                                         <tr key={v.snr ?? idx}>
                                             <td>{v.snr}</td>
                                             <td>
-                                                {/*{v.datum*/}
-                                                {/*                        toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
-                                                {/*    ? new Date(v.datum).toLocaleString()*/}
-                                                {/*    : ""}*/}
+                                                {/*                     toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
                                                 {v.datum
                                                     ? new Date(v.datum).toLocaleString("de-DE", {
                                                         hour12: false,

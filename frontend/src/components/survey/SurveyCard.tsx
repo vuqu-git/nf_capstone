@@ -6,6 +6,7 @@ import surveyStyles from "./Survey.module.css";
 import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
 import {UmfrageDTO} from "../../types/UmfrageDTO.ts";
 import {StimmabgabeDTO} from "../../types/StimmabgabeDTO.ts";
+import NotFound from "../NotFound.tsx";
 
 export default function SurveyCard() {
     const { unr } = useParams<{ unr: string }>();
@@ -39,29 +40,72 @@ export default function SurveyCard() {
     const isSurveyActive = (): boolean => {
         if (!umfrage || !umfrage.endDatum) return true;
 
-        const now = new Date(); // Current date and time
-        const endDate = new Date(umfrage.endDatum); // Create date from endDatum
+        const now = new Date();
 
-        // Set end date to the end of the day
-        endDate.setHours(23, 59, 59, 999);
+        // 1. Parse the string manually to avoid UTC conversion issues
+        // format expected: "YYYY-MM-DD"
+        const [year, month, day] = umfrage.endDatum.split('-').map(Number);
 
-        // Compare current date and time with the modified end date and time
-        return now <= endDate;
+        // 2. Create a local date object for the deadline
+        // Month is 0-indexed in JS (0=Jan, 11=Dec)
+        //      new Date(y, m, d): This constructor always creates a date in the user's local timezone.
+        //      It ignores UTC entirely. "Dec 25" becomes "Dec 25 Local Time".
+        //      This matches the user's expectation: "This survey ends when my day ends" (or whenever the server says it ends, but visually it makes sense to the user).
+        //      Since you have implemented the hard "Frankfurt Time" check in the backend, this frontend check is purely cosmetic (UX) to disable the button. This robust local implementation ensures the button doesn't disable prematurely for users in Western timezones (e.g., USA) or incorrectly stay open for Eastern ones.
+        const deadline = new Date(year, month - 1, day);
+            // The Issue/Problem
+            // ~~~~~~~~~~~~~~~~~
+            // When you do directly:
+            // const deadline = new Date(umfrage.endDatum); // e.g., "2025-12-25"
+            //     Browser Parsing: Since endDatum is a date-only string (e.g., "2025-12-25"), most browsers (per ISO 8601) will interpret this as UTC midnight (2025-12-25T00:00:00Z).
+            //     Local Time Shift: If you are in Germany (UTC+1), your browser will display this as 1:00 AM on Dec 25th.
+            //     setHours(23...): You then set the time to 23:59:59 in local time. This generally works, but it's fragile.
+            // If the user is in a different timezone (e.g., USA), new Date("2025-12-25") might resolve to Dec 24th local time, leading to endDate being set to Dec 24th, 23:59:59, effectively closing the survey 24 hours too early for that user.
+
+        // 3. Set to end of that specific day
+        deadline.setHours(23, 59, 59, 999);
+
+        // 4. Compare
+        return now <= deadline;
     };
 
     const handleSubmit = () => {
         if (!selectedOption || !umfrage) return;
         setSubmitting(true);
+
+        // 1. Define unique keys for this specific survey
+        const sessionKey = `voted_session_survey_${umfrage.unr}`;
+        const localKey = `voted_user_survey_${umfrage.unr}`;
+
+        // 2. Check if keys exist.
+        // If getItem returns a value, it IS a duplicate.
+        // If null, it is NOT a duplicate.
+        const isSessionDuplicate = !!sessionStorage.getItem(sessionKey);
+        const isUserDuplicate = !!localStorage.getItem(localKey);
+
         const payload: StimmabgabeDTO = {
             onr: selectedOption,
             unr: umfrage.unr,
-            datum: new Date().toISOString(),
-            isSessionDuplicate: null,
-            isUserDuplicate: null
+
+            datum: new Date().toISOString(), // The method toISOString() always returns the time in UTC (Coordinated Universal Time), also known as "Zulu time" (indicated by the Z at the end of the string). In the spring backend the field type is Instant.
+
+            // 3. Send the status to backend
+            isSessionDuplicate: isSessionDuplicate,
+            isUserDuplicate: isUserDuplicate
         };
 
         axios.post<StimmabgabeDTO>("/api/survey/stimmabgaben", payload)
-            .then(() => setSubmitSuccess(true))
+            .then(() => {
+                setSubmitSuccess(true);
+
+                // 4. Update storage only on SUCCESS to prevent false positives if request fails
+                if (!isSessionDuplicate) {
+                    sessionStorage.setItem(sessionKey, 'true');
+                }
+                if (!isUserDuplicate) {
+                    localStorage.setItem(localKey, 'true');
+                }
+            })
             .catch((err) => {
                 console.error(err);
                 setError("Fehler beim Speichern der Stimme.");
@@ -80,12 +124,14 @@ export default function SurveyCard() {
     }
 
     if (error) {
+        // in case the no umfrage unr is found under the path /survey/{unr}
         return (
-            <Card className={`terminFilmDetails-card border-danger ${surveyStyles.cardCustom}`}>
-                <Card.Body>
-                    <Alert variant="danger" className="m-0">{error}</Alert>
-                </Card.Body>
-            </Card>
+            // <Card className={`terminFilmDetails-card border-danger ${surveyStyles.cardCustom}`}>
+            //     <Card.Body>
+            //         <Alert variant="danger" className="m-0">{error}</Alert>
+            //     </Card.Body>
+            // </Card>
+            <NotFound/>
         );
     }
 
@@ -114,8 +160,8 @@ export default function SurveyCard() {
                     </Alert>
                 ) : submitSuccess ? (
                     <div className="text-center py-3 border border-warning">
-                        <h2 className="text-success">Vielen Dank!</h2>
-                        <span>Dein Voting wurde erfolgreich übermittelt.</span>
+                        <div className="text-success fs-4 fw-bold">Vielen Dank!</div>
+                        <span className={surveyStyles.umfrageDescription}>Dein Voting wurde erfolgreich übermittelt.</span>
                     </div>
                 ) : (
                     <form onSubmit={(e) => e.preventDefault()}>

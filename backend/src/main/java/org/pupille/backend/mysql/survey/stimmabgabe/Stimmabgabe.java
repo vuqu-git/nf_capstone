@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
 import org.pupille.backend.mysql.survey.umfrage.Umfrage;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -19,7 +19,7 @@ public class Stimmabgabe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long snr;
 
-    private LocalDateTime datum;
+    private Instant datum;
 
     private Boolean isSessionDuplicate;
     private Boolean isUserDuplicate;

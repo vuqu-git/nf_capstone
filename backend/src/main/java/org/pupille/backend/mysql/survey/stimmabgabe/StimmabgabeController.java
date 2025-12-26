@@ -87,16 +87,16 @@ public class StimmabgabeController {
     }
 
     // Create Vote (expects valid unr and onr in body)
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created automatically
-//    public StimmabgabeDTO create(@RequestBody StimmabgabeDTO dto) {
-//        return stimmabgabeService.createStimmabgabe(dto);
-//    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created automatically
-    public GeneralResponse create(@RequestBody StimmabgabeDTO dto) {
+    public StimmabgabeDTO create(@RequestBody StimmabgabeDTO dto) {
         return stimmabgabeService.createStimmabgabe(dto);
     }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED) // Sets 201 Created automatically
+//    public GeneralResponse create(@RequestBody StimmabgabeDTO dto) {
+//        return stimmabgabeService.createStimmabgabe(dto);
+//    }
 
     // Delete Vote by snr
     @DeleteMapping("/{snr}")
