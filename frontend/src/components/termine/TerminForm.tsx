@@ -352,7 +352,7 @@ export default function TerminForm() {
                     <ul>
                         {reihenOfSelectedTerminId.map(r => (
                             <li key={r.rnr}>
-                                {renderHtmlText(r.titel)} | #{r.rnr}
+                                {r.titel} | #{r.rnr}
                             </li>
                         ))}
                     </ul>
@@ -393,7 +393,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel (für das ganze Programm am Termin)</Form.Label>
+                    <Form.Label>Titel - für das ganze Programm am Termin (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"
@@ -411,7 +411,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="text" className="mt-3">
-                    <Form.Label>Text</Form.Label>
+                    <Form.Label>Text (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={13}
@@ -429,7 +429,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="kurztext" className="mt-3">
-                    <Form.Label>Kurztext (= kurze Variante vom Text oben)</Form.Label>
+                    <Form.Label>Kurztext - kurze Variante vom Text oben (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -446,7 +446,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="besonderheit" className="mt-3">
-                    <Form.Label><u>Termin</u>besonderheit</Form.Label>
+                    <Form.Label><u>Termin</u>besonderheit (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={2}

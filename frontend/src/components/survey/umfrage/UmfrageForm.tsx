@@ -198,7 +198,7 @@ export default function UmfrageForm() {
 
                 {/* Anlass */}
                 <Form.Group controlId="anlass" className="mb-3">
-                    <Form.Label>Umfragetitel bzw. Anlass *</Form.Label>
+                    <Form.Label>Titel bzw. Anlass (kein HTML) *</Form.Label>
                     <Form.Control
                         type="text"
                         name="anlass"
@@ -241,7 +241,7 @@ export default function UmfrageForm() {
                 {/* Nested Options List */}
                 <Card className="mb-4 bg-secondary bg-opacity-10">
                     <Card.Header className="d-flex justify-content-between align-items-center">
-                        <span>Auswahloptionen</span>
+                        <span>Auswahloptionen (kein HTML in den dessen Feldern unten)</span>
                         <Button variant="sm btn-primary" size="sm" onClick={addOption} type="button">
                             + Add Option
                         </Button>

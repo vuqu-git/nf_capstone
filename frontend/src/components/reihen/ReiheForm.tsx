@@ -235,7 +235,7 @@ export default function ReiheForm() {
                 <h3 className="mt-3">Reihe details</h3>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel *</Form.Label>
+                    <Form.Label>Titel (kein HTML)*</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"

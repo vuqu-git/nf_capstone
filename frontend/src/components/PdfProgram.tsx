@@ -9,28 +9,28 @@ export default function PdfProgram() {
         <section className="normal-content-container">
             <h2 className="h2NormalContainer">Programm als PDF</h2>
             {pdfs && pdfs.length > 0 && (
-                pdfs.map(p => (
-                    <article key={p.pnr} className="mb-4">
+                pdfs.map(ph => (
+                    <article key={ph.pnr} className="mb-4">
                         <div>
                         <Link
-                            to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                            to={staticFilePathFrontend + "programmhefte/" + ph.pdf}
                             className="custom-link mb-1"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {p.titel}
+                            {ph.titel}
                         </Link>
                         </div>
 
-                            {p.bild && (
+                            {ph.bild && (
                                 <Link
-                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + ph.pdf}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                 <img
-                                    src={staticFilePathFrontend + "bilder/programmheftbilder/" + p.bild}
-                                    alt={"Bild von " + p.titel}
+                                    src={staticFilePathFrontend + "bilder/programmheftbilder/" + ph.bild}
+                                    alt={"Bild von " + ph.titel}
                                     className="program-flyer-image"
                                 />
                                 </Link>

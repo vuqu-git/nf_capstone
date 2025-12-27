@@ -195,31 +195,31 @@ export default function OverviewArchive2() {
                 </div>
 
                 {/*display all/found archived pdf entries with image*/}
-                {allPdfs.filter(p => p.titel?.toLowerCase().includes(searchPdf.toLowerCase()))
-                    .map(p => (
-                        <article key={p.pnr} className="programmheft-article">
+                {allPdfs.filter(ph => ph.titel?.toLowerCase().includes(searchPdf.toLowerCase()))
+                    .map(ph => (
+                        <article key={ph.pnr} className="programmheft-article">
                             <div>
                                 <Link
-                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + ph.pdf}
                                     // to={staticFilePathFrontend + (p.pdf === null ? "bilder/programmheftbilder/" + p.bild : "programmhefte/" + p.pdf)}
                                     className="custom-link mb-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    {renderHtmlText(p.titel)}
+                                    {ph.titel}
                                 </Link>
                             </div>
 
-                            {(p.bild || p.pdf) && (
+                            {(ph.bild || ph.pdf) && (
                                 <Link
-                                    to={staticFilePathFrontend + "programmhefte/" + p.pdf}
+                                    to={staticFilePathFrontend + "programmhefte/" + ph.pdf}
                                     // to={staticFilePathFrontend + (p.pdf === null ? "bilder/programmheftbilder/" + p.bild : "programmhefte/" + p.pdf)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     <img
-                                        src={staticFilePathFrontend + (p.bild === null ? "programmhefte/" + p.pdf : "bilder/programmheftbilder/" + p.bild )}
-                                        alt={"Bild von " + p.titel}
+                                        src={staticFilePathFrontend + (ph.bild === null ? "programmhefte/" + ph.pdf : "bilder/programmheftbilder/" + ph.bild )}
+                                        alt={"Bild von " + ph.titel}
                                         className="program-flyer-image-archive"
                                     />
                                 </Link>
