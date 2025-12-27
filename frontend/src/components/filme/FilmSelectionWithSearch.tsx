@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo} from "react";
 import {FilmDTOSelection} from "../../types/FilmDTOSelection.ts";
 import {formatFilmDetailsInFilmSelectOption} from "../../utils/formatFilmDetailsInFilmSelectOption.ts";
 import Select, {SingleValue} from "react-select";
@@ -23,11 +23,8 @@ export default function FilmSelectionWithSearch({
                                           onSelectFilm, // this handle steers two state variables in the caller FilmForm
                                           textForDefaultOption = "Select/search a film to edit (or leave empty to add new)",
                                       }: Readonly<FilmSelectionWithSearchProps>) {
-    const [isClearable] = useState(true);
-    const [isSearchable] = useState(true);
 
-    const [selectedOption, setSelectedOption] = useState<FilmOption | null>(null); // contains the currently selected option
-
+    // 1. Transform raw data into Select options
     const filmOptions = useMemo(() =>
         allFilms.map(f => ({
             value: f.fnr,
@@ -35,24 +32,15 @@ export default function FilmSelectionWithSearch({
         })), [allFilms]
     );
 
+    // 2. Derive current selection directly from props
+    const currentSelection = filmOptions.find(opt => opt.value === selectedFilmId) || null;
+
     const handleReactSelectChange = (
         newValue: SingleValue<FilmOption>,
         // actionMeta: ActionMeta<FilmOption>
     ) => {
-        setSelectedOption(newValue);
         onSelectFilm(newValue?.value);
     };
-
-    // this effect ensures that when the parent component changes selectedFilmId, your React Select component updates accordingly,
-    // value={selectedOption} is the React Select equivalent of value={selectedFilmId ?? ""}, but you need the additional useEffect to keep them synchronized.
-    useEffect(() => {
-        if (selectedFilmId) {
-            const option = filmOptions.find(opt => opt.value === selectedFilmId);
-            setSelectedOption(option || null);
-        } else {
-            setSelectedOption(null);
-        }
-    }, [selectedFilmId]);
 
     return (
         <div>
@@ -61,12 +49,11 @@ export default function FilmSelectionWithSearch({
             <Select
                 options={filmOptions}
 
-                value={selectedOption}  // equivalent of value={selectedFilmId ?? ""} in HTML select
-                                        // here value expects the entire option object, while in an HTML select value expects a primitive value (string, number)
+                value={currentSelection} // Used derived variable
                 onChange={handleReactSelectChange}
 
-                isClearable={isClearable}
-                isSearchable={isSearchable}
+                isClearable={true}
+                isSearchable={true}
                 placeholder={textForDefaultOption}
                 noOptionsMessage={() => "Keine Filme gefunden"}
 

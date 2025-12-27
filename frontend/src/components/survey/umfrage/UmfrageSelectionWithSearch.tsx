@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react";
+import React, {useMemo} from "react";
 import { Form } from "react-bootstrap";
 import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
 import Select, {SingleValue} from "react-select";
@@ -22,9 +22,10 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
                                                                                    onSelectUmfrage, // this handle steers two state variables in the caller UmfrageForum
                                                                                    textForDefaultOption = "Select/search a umfrage to edit (or leave empty to add new)"
                                                                                }) => {
-    const [isClearable] = useState(true);
-    const [isSearchable] = useState(true);
 
+    // const [selectedOption, setSelectedOption] = useState<UmfrageOption | null>(null); // contains the currently selected option
+
+    // 1. Transform raw data into Select options
     const umfrageOptions = useMemo(() =>
         allUmfragen.map(u => ({
             value: u.unr,
@@ -32,9 +33,10 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
         })), [allUmfragen]
     );
 
-    // NEW: Find the matching option object based on the ID passed from parent
-    // This ensures that if 'anlass' changes in 'allUmfragen', this label updates instantly
-    // → Calculate the current selection directly from props/memoized options
+    // 2. Derive current selection from props
+    //      Find the matching option object based on the ID passed from parent
+    //      This ensures that if 'anlass' changes in 'allUmfragen', this label updates instantly
+    //      → Calculate the current selection directly from props/memoized options
     const currentSelection = umfrageOptions.find(opt => opt.value === selectedUmfrageId) || null;
 
     const handleReactSelectChange = (
@@ -45,16 +47,16 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
         onSelectUmfrage(newValue?.value);
     };
 
-//     // this effect ensures that when the parent component changes selectedFilmId, your React Select component updates accordingly,
-//     // value={selectedOption} is the React Select equivalent of value={selectedFilmId ?? ""}, but you need the additional useEffect to keep them synchronized.
-//     useEffect(() => {
-//         if (selectedUmfrageId) {
-//             const option = umfrageOptions.find(opt => opt.value === selectedUmfrageId);
-//             setSelectedOption(option || null);
-//         } else {
-//             setSelectedOption(null);
-//         }
-//     }, [selectedUmfrageId]);
+    // // this effect ensures that when the parent component changes selectedFilmId, your React Select component updates accordingly,
+    // // value={selectedOption} is the React Select equivalent of value={selectedFilmId ?? ""}, but you need the additional useEffect to keep them synchronized.
+    // useEffect(() => {
+    //     if (selectedUmfrageId) {
+    //         const option = umfrageOptions.find(opt => opt.value === selectedUmfrageId);
+    //         setSelectedOption(option || null);
+    //     } else {
+    //         setSelectedOption(null);
+    //     }
+    // }, [selectedUmfrageId]);
 // ========>
 // ========>
 // ========>
@@ -98,8 +100,8 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
                 options={umfrageOptions}
                 value={currentSelection} // No local state needed
                 onChange={handleReactSelectChange}
-                isClearable={isClearable}
-                isSearchable={isSearchable}
+                isClearable={true}
+                isSearchable={true}
                 placeholder={textForDefaultOption}
                 styles={formSelectionWithSearchStyles}
                 inputId="umfrage-selection"
