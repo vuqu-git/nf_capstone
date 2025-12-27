@@ -145,12 +145,6 @@ export default function TerminFilmDetailsCard({
                     {renderHtmlText(programmtitel)}
                 </Card.Title>
 
-                {/*{showProgrammbildInDetails && (*/}
-                {/*    <Card.Img*/}
-                {/*        src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}*/}
-                {/*        alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}*/}
-                {/*    />*/}
-                {/*)}*/}
                 {showProgrammbildInDetails && (
                     <div className="image-container"> {/* Container to position overlay */}
                         <Card.Img
@@ -236,7 +230,7 @@ export default function TerminFilmDetailsCard({
                 )}
                 {/*###############################################*/}
 
-                {(mainfilms.length > 0 || vorfilms.length > 0) ? (
+                {(mainfilms.length > 0 || vorfilms.length > 0) && (
                     <>
                         {mainfilms?.map((filmPlusObj, index) => {
                             const film = filmPlusObj.film;
@@ -273,14 +267,6 @@ export default function TerminFilmDetailsCard({
                                 />
                             );
                         })}
-                    </>
-                ) : (
-                    <>
-                        {/*<Card.Img*/}
-                        {/*    src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}*/}
-                        {/*    src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
-                        {/*    alt={programmtitel ? `Still vom Screening ${programmtitel}` : ""}*/}
-                        {/*/>*/}
                     </>
                 )}
             </Card.Body>
