@@ -42,7 +42,7 @@ public class StimmabgabeController {
         List<StimmabgabeByUmfrageDTO> votes = stimmabgabeService.getBySurvey(unr);
         String umfrageAnlass = votes.isEmpty() ? "unknown" : votes.get(0).getUmfrageAnlass();
 
-        // Fixed filename with umlauts
+        // Fixed filename with umlaute
         String sanitizedAnlass = umfrageAnlass
                 .replaceAll("[<>\"|?*]", "")
                 .replaceAll("\\s+", "_")
