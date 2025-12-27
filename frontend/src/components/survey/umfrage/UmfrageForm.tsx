@@ -241,7 +241,7 @@ export default function UmfrageForm() {
                 {/* Nested Options List */}
                 <Card className="mb-4 bg-secondary bg-opacity-10">
                     <Card.Header className="d-flex justify-content-between align-items-center">
-                        <span>Auswahloptionen (kein HTML in den dessen Feldern unten)</span>
+                        <span>Auswahloptionen (kein HTML in dessen Feldern unten)</span>
                         <Button variant="sm btn-primary" size="sm" onClick={addOption} type="button">
                             + Add Option
                         </Button>
