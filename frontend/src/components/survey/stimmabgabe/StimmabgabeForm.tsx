@@ -209,167 +209,186 @@ export default function StimmabgabeForm() {
                 textForDefaultOption="Select/search a umfrage to see its voting records"
             />
 
-            {!selectedUmfrageId && (
-                <p className="text-muted">
-                    Bitte eine Umfrage auswählen, um Stimmen zu erfassen und zu sehen.
-                </p>
-            )}
-
             {selectedUmfrageId && (
-                <Form onSubmit={handleCreateVote} className={styles.formContainer}>
-                    {/* “Form fields first” – analogous to UmfrageForm */}
+                <div className={styles.formContainer}>
+                    <Form onSubmit={handleCreateVote} >
+                        {/* “Form fields first” – analogous to UmfrageForm */}
 
-                    <h5>Neue Stimmabgabe erfassen</h5>
+                        <h5>Neue Stimmabgabe erfassen</h5>
 
-                    <Form.Group controlId="onr" className="mb-2">
-                        <Form.Label>Option *</Form.Label>
-                        <Form.Select
-                            name="onr"
-                            value={newVote.onr === -1 ? "" : newVote.onr}
-                            onChange={handleNewVoteChange}
-                            required
-                            disabled={availableOptions.length === 0}
-                        >
-                            <option value="">Bitte Option wählen</option>
-                            {availableOptions.map(opt => (
-                                <option key={opt.onr} value={opt.onr}>
-                                    {opt.titel}{opt.details ? `: ${opt.details}` : ""}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-
-                    <Form.Group controlId="datum" className="mb-3">
-                        <Form.Label>Voting-Datum</Form.Label>
-                        <Form.Control
-                            type="datetime-local"
-                            name="datum"
-                            value={newVote.datum ? newVote.datum.slice(0, 16) : ""}
-                            onChange={handleNewVoteChange}
-                        />
-                        <Form.Text className="text-muted">
-                            <ul className="tight-list">
-                                <li>Wenn leer gelassen, wird der aktuelle Zeitpunkt der Stimmabgabeerstellung genommen.</li>
-                            </ul>
-                        </Form.Text>
-                    </Form.Group>
-
-                    <Form.Group controlId="Session duplicate">
-                        <Form.Check
-                            type="checkbox"
-                            label="Session duplicate"
-                            name="isSessionDuplicate"
-                            checked={Boolean(newVote.isSessionDuplicate)}
-                            onChange={handleNewVoteChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="User duplicate" className="mb-3">
-                        <Form.Check
-                            type="checkbox"
-                            label="User duplicate"
-                            name="isUserDuplicate"
-                            checked={Boolean(newVote.isUserDuplicate)}
-                            onChange={handleNewVoteChange}
-                        />
-                    </Form.Group>
-
-                    <div className="d-flex gap-2 mt-3">
-                        <Button variant="success" type="submit" disabled={isLoading}>
-                            {isLoading ? "Saving..." : "Stimmabgabe erstellen"}
-                        </Button>
-                    </div>
-                    <div><sub className={styles.formSubtext}>*Pflichtfeld</sub></div>
-
-                    {/* TABLE directly under the fields & button, same visual style as UmfrageForm */}
-                    <Card className="mt-4 bg-secondary bg-opacity-10">
-                        <Card.Header className="d-flex justify-content-between align-items-center">
-                            <span>Erfasste Stimmabgaben</span>
-                            {/* Optional: small info text */}
-                        </Card.Header>
-                        <Card.Body className="p-2">
-                            <div
-                                className={`table-responsive ${surveyStyles.tableStyle}`}
+                        <Form.Group controlId="onr" className="mb-2">
+                            <Form.Label>Option *</Form.Label>
+                            <Form.Select
+                                name="onr"
+                                value={newVote.onr === -1 ? "" : newVote.onr}
+                                onChange={handleNewVoteChange}
+                                required
+                                disabled={availableOptions.length === 0}
                             >
-                                <Table
-                                    size="sm"
-                                    variant="dark table-hover"
-                                    borderless
-                                    className="mb-0"
-                                >
-                                    <thead>
-                                    <tr>
-                                        <th>snr</th>
-                                        <th>Voting‑Datum</th>
-                                        <th>Option</th>
-                                        <th>Details</th>
-                                        <th>🕒👯</th>
-                                        <th>🙋‍♂️👯</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {votes.map((v, idx) => (
-                                        <tr key={v.snr ?? idx}>
-                                            <td>{v.snr}</td>
-                                            <td>
-                                                {/*                     toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
-                                                {v.datum
-                                                    ? new Date(v.datum).toLocaleString("de-DE", {
-                                                        hour12: false,
-                                                        year: "numeric",
-                                                        month: "2-digit",
-                                                        day: "2-digit",
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                        second: "2-digit",
-                                                    })
-                                                    : ""}
-                                            </td>
-                                            {/* Truncated Title */}
-                                            <td
-                                                className={surveyStyles.truncatedCell}
-                                                title={v.auswahloptionTitel} // Native tooltip on hover
-                                            >
-                                                {v.auswahloptionTitel}
-                                            </td>
-                                            {/* Truncated Details */}
-                                            <td
-                                                className={surveyStyles.truncatedCell}
-                                                title={v.auswahloptionDetails} // Native tooltip on hover
-                                            >
-                                                {v.auswahloptionDetails}
-                                            </td>
-                                            <td>{v.isSessionDuplicate ? "✓" : ""}</td>
-                                            <td>{v.isUserDuplicate ? "✓" : ""}</td>
-                                            <td>
-                                                <Button
-                                                    variant="danger"
-                                                    size="sm"
-                                                    className={surveyStyles.xButtonStyle}
-                                                    onClick={() => handleDeleteVote(v.snr)}
-                                                 >
-                                                    🗑️
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    {votes.length === 0 && (
-                                        <tr>
-                                            <td
-                                                colSpan={7}
-                                                className="text-center text-muted"
-                                            >
-                                                Keine Stimmabgaben vorhanden.
-                                            </td>
-                                        </tr>
-                                    )}
-                                    </tbody>
-                                </Table>
-                            </div>
-                        </Card.Body>
-                    </Card>
+                                <option value="">Bitte Option wählen</option>
+                                {availableOptions.map(opt => (
+                                    <option key={opt.onr} value={opt.onr}>
+                                        {opt.titel}{opt.details ? `: ${opt.details}` : ""}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
 
-                </Form>
+                        <Form.Group controlId="datum" className="mb-3">
+                            <Form.Label>Voting-Datum</Form.Label>
+                            <Form.Control
+                                type="datetime-local"
+                                name="datum"
+                                value={newVote.datum ? newVote.datum.slice(0, 16) : ""}
+                                onChange={handleNewVoteChange}
+                            />
+                            <Form.Text className="text-muted">
+                                <ul className="tight-list">
+                                    <li>Wenn leer gelassen, wird der aktuelle Zeitpunkt der Stimmabgabeerstellung genommen.</li>
+                                </ul>
+                            </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group controlId="Session duplicate">
+                            <Form.Check
+                                type="checkbox"
+                                label="Session duplicate"
+                                name="isSessionDuplicate"
+                                checked={Boolean(newVote.isSessionDuplicate)}
+                                onChange={handleNewVoteChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="User duplicate" className="mb-3">
+                            <Form.Check
+                                type="checkbox"
+                                label="User duplicate"
+                                name="isUserDuplicate"
+                                checked={Boolean(newVote.isUserDuplicate)}
+                                onChange={handleNewVoteChange}
+                            />
+                        </Form.Group>
+
+                        <div className="d-flex gap-2 mt-3">
+                            <Button variant="success" type="submit" disabled={isLoading}>
+                                {isLoading ? "Saving..." : "Stimmabgabe erstellen"}
+                            </Button>
+                        </div>
+                        <div><sub className={styles.formSubtext}>*Pflichtfeld</sub></div>
+
+                        {/* TABLE directly under the fields & button, same visual style as UmfrageForm */}
+                        <Card className="mt-4 bg-secondary bg-opacity-10">
+                            <Card.Header className="d-flex justify-content-between align-items-center">
+                                <span>Erfasste Stimmabgaben</span>
+                                {/* Optional: small info text */}
+                            </Card.Header>
+                            <Card.Body className="p-2">
+                                <div
+                                    className={`table-responsive ${surveyStyles.tableStyle}`}
+                                >
+                                    <Table
+                                        size="sm"
+                                        variant="dark table-hover"
+                                        borderless
+                                        className="mb-0"
+                                    >
+                                        <thead>
+                                        <tr>
+                                            <th>snr</th>
+                                            <th>Voting‑Datum</th>
+                                            <th>Option</th>
+                                            <th>Details</th>
+                                            <th>🕒👯</th>
+                                            <th>🙋‍♂️👯</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {votes.map((v, idx) => (
+                                            <tr key={v.snr ?? idx}>
+                                                <td>{v.snr}</td>
+                                                <td>
+                                                    {/*                     toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
+                                                    {v.datum
+                                                        ? new Date(v.datum).toLocaleString("de-DE", {
+                                                            hour12: false,
+                                                            year: "numeric",
+                                                            month: "2-digit",
+                                                            day: "2-digit",
+                                                            hour: "2-digit",
+                                                            minute: "2-digit",
+                                                            second: "2-digit",
+                                                        })
+                                                        : ""}
+                                                </td>
+                                                {/* Truncated Title */}
+                                                <td
+                                                    className={surveyStyles.truncatedCell}
+                                                    title={v.auswahloptionTitel} // Native tooltip on hover
+                                                >
+                                                    {v.auswahloptionTitel}
+                                                </td>
+                                                {/* Truncated Details */}
+                                                <td
+                                                    className={surveyStyles.truncatedCell}
+                                                    title={v.auswahloptionDetails} // Native tooltip on hover
+                                                >
+                                                    {v.auswahloptionDetails}
+                                                </td>
+                                                <td>{v.isSessionDuplicate ? "✓" : ""}</td>
+                                                <td>{v.isUserDuplicate ? "✓" : ""}</td>
+                                                <td>
+                                                    <Button
+                                                        variant="danger"
+                                                        size="sm"
+                                                        className={surveyStyles.xButtonStyle}
+                                                        onClick={() => handleDeleteVote(v.snr)}
+                                                    >
+                                                        🗑️
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        {votes.length === 0 && (
+                                            <tr>
+                                                <td
+                                                    colSpan={7}
+                                                    className="text-center text-muted"
+                                                >
+                                                    Keine Stimmabgaben vorhanden.
+                                                </td>
+                                            </tr>
+                                        )}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </Form>
+
+                    <section>
+                        <h5 className="mt-4">csv-Export alle Stimmen</h5>
+                        <ul className="list-unstyled">
+                            <li>
+                                <a
+                                    href={`/api/survey/stimmabgaben/forumfrage/${selectedUmfrageId}/export`}
+                                    className="btn btn-outline-secondary mb-2"
+                                    download // Hint to browser to download
+                                >
+                                    Download: ordered by Datum
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={`/api/survey/stimmabgaben/forumfrage/${selectedUmfrageId}/exportgrouped`}
+                                    className="btn btn-outline-secondary mb-2"
+                                    download // Hint to browser to download
+                                >
+                                    Download: grouped by Optionen ordered by Datum
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
             )}
         </main>
     );
