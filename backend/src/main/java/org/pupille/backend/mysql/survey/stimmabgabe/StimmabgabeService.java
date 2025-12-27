@@ -1,12 +1,12 @@
 package org.pupille.backend.mysql.survey.stimmabgabe;
 
 import lombok.RequiredArgsConstructor;
-import org.pupille.backend.mysql.GeneralResponse;
 import org.pupille.backend.mysql.survey.SurveyMapper;
 import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
 import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionRepository;
 import org.pupille.backend.mysql.survey.umfrage.Umfrage;
 import org.pupille.backend.mysql.survey.umfrage.UmfrageRepository;
+import org.pupille.backend.mysql.survey.exception.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,20 +81,23 @@ public class StimmabgabeService {
     // You must enforce consistency in your Service Layer before saving
     @Transactional
     public StimmabgabeDTO createStimmabgabe(StimmabgabeDTO dto) {
+        // Capture time once at the start of transaction
+        final Instant now = Instant.now();
+
         Long unr = dto.getUnr();
         Long onr = dto.getOnr();
 
         // 1. Fetch Entities to validate existence
         Umfrage umfrage = umfrageRepository.findById(unr)
-                .orElseThrow(() -> new RuntimeException("Umfrage not found: " + unr));
+                .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + unr));
 
         Auswahloption option = auswahloptionRepository.findById(onr)
-                .orElseThrow(() -> new RuntimeException("Auswahloption not found: " + onr));
+                .orElseThrow(() -> new AuswahloptionNotFoundException("Auswahloption not found: " + onr));
 
         // 2. CRITICAL CONSISTENCY CHECK
         // Ensure the selected Option actually belongs to the selected Survey
         if (!option.getUmfrage().getUnr().equals(unr)) {
-            throw new IllegalArgumentException(
+            throw new StimmabgabeUnrOnrDataInconsistencyException(
                     String.format("Data Inconsistency: Option %d belongs to Survey %d, not Survey %d",
                             onr, option.getUmfrage().getUnr(), unr)
             );
@@ -108,8 +111,8 @@ public class StimmabgabeService {
                     .atZone(ZoneId.of("Europe/Berlin")) // interpret as German time, hard coded!
                     .toInstant();                 // convert to absolute UTC
             // Compare with "NOW" (UTC)
-            if (Instant.now().isAfter(closingTime)) {
-                throw new IllegalStateException("Umfrage ist bereits beendet.");
+            if (now.isAfter(closingTime)) {
+                throw new UmfrageExpiredException("Umfrage ist bereits beendet.");
             }
         }
 
@@ -119,7 +122,7 @@ public class StimmabgabeService {
         entity.setAuswahloption(option);
 
         // Set timestamp (default to now if null)
-        entity.setDatum(dto.getDatum() != null ? dto.getDatum() : Instant.now());
+        entity.setDatum(dto.getDatum() != null ? dto.getDatum() : now);
 
         // Set duplicate flags (default to false if null)
         entity.setIsSessionDuplicate(Boolean.TRUE.equals(dto.getIsSessionDuplicate()));
@@ -183,7 +186,7 @@ public class StimmabgabeService {
      */
     public void deleteStimmabgabe(Long snr) {
         if (!stimmabgabeRepository.existsById(snr)) {
-            throw new RuntimeException("Stimmabgabe not found: " + snr);
+            throw new StimmabgabeNotFoundException("Stimmabgabe not found: " + snr);
         }
         stimmabgabeRepository.deleteById(snr);
     }

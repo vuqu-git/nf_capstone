@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.pupille.backend.mysql.survey.SurveyMapper;
 import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
 import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionNestedDTO;
+import org.pupille.backend.mysql.survey.exception.UmfrageNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,7 @@ public class UmfrageService {
 
     public UmfrageDTO getUmfrageById(Long id) {
         Umfrage entity = umfrageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Umfrage not found: " + id));
+                .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + id));
         return surveyMapper.toUmfrageDto(entity);
     }
 
@@ -58,7 +59,7 @@ public class UmfrageService {
     @Transactional
     public UmfrageDTO updateUmfrage(Long id, UmfrageDTO dto) {
         Umfrage existingUmfrage = umfrageRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Umfrage not found: " + id));
+                .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + id));
 
 //        Below is a pattern that:
 //              Updates simple fields (anlass, endDatum).
@@ -129,6 +130,9 @@ public class UmfrageService {
     }
 
     public void deleteUmfrage(Long id) {
+        if (!umfrageRepository.existsById(id)) {
+            throw new UmfrageNotFoundException("Umfrage not found: " + id);
+        }
         umfrageRepository.deleteById(id);
         // the children (=corresponding Auswahloption objects) are deleted automatically:
         //        Hibernate first fetches the Umfrage entity.

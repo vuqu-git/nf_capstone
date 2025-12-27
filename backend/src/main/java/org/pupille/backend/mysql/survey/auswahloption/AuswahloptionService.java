@@ -2,6 +2,8 @@ package org.pupille.backend.mysql.survey.auswahloption;
 
 import lombok.RequiredArgsConstructor;
 import org.pupille.backend.mysql.survey.SurveyMapper;
+import org.pupille.backend.mysql.survey.exception.AuswahloptionNotFoundException;
+import org.pupille.backend.mysql.survey.exception.UmfrageNotFoundException;
 import org.pupille.backend.mysql.survey.umfrage.Umfrage;
 import org.pupille.backend.mysql.survey.umfrage.UmfrageRepository;
 
@@ -29,7 +31,7 @@ public class AuswahloptionService {
 
     public List<AuswahloptionDTO> getByUmfrage(Long unr) {
         if (!umfrageRepository.existsById(unr)) {
-            throw new RuntimeException("Umfrage not found: " + unr);
+            throw new UmfrageNotFoundException("Umfrage not found: " + unr);
         }
 
         return auswahloptionRepository
@@ -41,7 +43,7 @@ public class AuswahloptionService {
 
     public AuswahloptionDTO getAuswahloptionById(Long id) {
         Auswahloption entity = auswahloptionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Auswahloption not found: " + id));
+                .orElseThrow(() -> new AuswahloptionNotFoundException("Auswahloption not found: " + id));
         return surveyMapper.toAuswahloptionDto(entity);
     }
 
@@ -50,7 +52,7 @@ public class AuswahloptionService {
         Auswahloption entity = surveyMapper.toAuswahloptionEntity(dto);
 
         Umfrage umfrage = umfrageRepository.findById(dto.getUnr())
-                .orElseThrow(() -> new RuntimeException("Umfrage not found: " + dto.getUnr()));
+                .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + dto.getUnr()));
         entity.setUmfrage(umfrage);
 
         Auswahloption saved = auswahloptionRepository.save(entity);
@@ -60,7 +62,7 @@ public class AuswahloptionService {
     @Transactional
     public AuswahloptionDTO updateAuswahloption(Long id, AuswahloptionDTO dto) {
         Auswahloption existing = auswahloptionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Auswahloption not found: " + id));
+                .orElseThrow(() -> new AuswahloptionNotFoundException("Auswahloption not found: " + id));
 
         existing.setTitel(dto.getTitel());
         existing.setDetails(dto.getDetails());
@@ -76,7 +78,7 @@ public class AuswahloptionService {
         if ( dto.getUnr() != null && (existing.getUmfrage() == null
                 || !dto.getUnr().equals(existing.getUmfrage().getUnr())) ) { // if statement asks "Does the user/client want to change the parent?"
             Umfrage umfrage = umfrageRepository.findById(dto.getUnr())
-                    .orElseThrow(() -> new RuntimeException("Umfrage not found: " + dto.getUnr()));
+                    .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + dto.getUnr()));
             existing.setUmfrage(umfrage);
         }
 
@@ -85,6 +87,9 @@ public class AuswahloptionService {
     }
 
     public void deleteAuswahloption(Long id) {
+        if (!auswahloptionRepository.existsById(id)) {
+            throw new AuswahloptionNotFoundException("Auswahloption not found: " + id);
+        }
         auswahloptionRepository.deleteById(id);
     }
 }
