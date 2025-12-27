@@ -9,6 +9,7 @@ import UmfrageSelectionWithSearch from "./UmfrageSelectionWithSearch.tsx";
 import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
 import {AuswahloptionNestedDTO} from "../../../types/AuswahloptionNestedDTO.ts";
 import AdminNav from "../../AdminNav.tsx";
+import AdminLeftBar from "../../AdminLeftBar.tsx";
 
 const baseURL = "/api/survey/umfragen";
 
@@ -153,6 +154,12 @@ export default function UmfrageForm() {
 
     return (
         <main data-bs-theme="dark">
+
+            <AdminLeftBar
+                message={["<p>", "</p>", "\n", "<br>", "\n", "<em>", "</em>", "\n", "<strong>", "</strong>"]}
+                threshold={150}
+            />
+
             <AdminNav />
 
             <div className={surveyStyles.alertContainerStyle}>
@@ -204,7 +211,7 @@ export default function UmfrageForm() {
 
                 {/* Beschreibung */}
                 <Form.Group controlId="beschreibung" className="mb-3">
-                    <Form.Label>Beschreibung *</Form.Label>
+                    <Form.Label>Beschreibung (HTML)*</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}

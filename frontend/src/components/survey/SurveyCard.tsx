@@ -7,6 +7,7 @@ import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchi
 import {UmfrageDTO} from "../../types/UmfrageDTO.ts";
 import {StimmabgabeDTO} from "../../types/StimmabgabeDTO.ts";
 import NotFound from "../NotFound.tsx";
+import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 
 export default function SurveyCard() {
     const { unr } = useParams<{ unr: string }>();
@@ -253,8 +254,9 @@ export default function SurveyCard() {
 
                 {/* Description */}
                 <div className={surveyStyles.umfrageDescription}>
-                    <p>{umfrage.beschreibung}</p>
-                    <p>Ende der Umfrage: {formatDateInOverviewArchive(umfrage.endDatum ?? undefined)}, 23:59:59 Uhr.</p>
+                    {/*<p>{umfrage.beschreibung}</p>*/}
+                    {renderHtmlContent(umfrage.beschreibung)}
+                    <p className="mt-2">Ende der Umfrage: {formatDateInOverviewArchive(umfrage.endDatum ?? undefined)}, 23:59:59 Uhr.</p>
                 </div>
 
                 {/* Logic: Active / Success / Form */}
