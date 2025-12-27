@@ -325,8 +325,20 @@ export default function StimmabgabeForm() {
                                                     })
                                                     : ""}
                                             </td>
-                                            <td>{v.auswahloptionTitel}</td>
-                                            <td>{v.auswahloptionDetails}</td>
+                                            {/* Truncated Title */}
+                                            <td
+                                                className={surveyStyles.truncatedCell}
+                                                title={v.auswahloptionTitel} // Native tooltip on hover
+                                            >
+                                                {v.auswahloptionTitel}
+                                            </td>
+                                            {/* Truncated Details */}
+                                            <td
+                                                className={surveyStyles.truncatedCell}
+                                                title={v.auswahloptionDetails} // Native tooltip on hover
+                                            >
+                                                {v.auswahloptionDetails}
+                                            </td>
                                             <td>{v.isSessionDuplicate ? "✓" : ""}</td>
                                             <td>{v.isUserDuplicate ? "✓" : ""}</td>
                                             <td>

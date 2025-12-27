@@ -41,7 +41,8 @@
 
 /*###################################################*/
 
-/* Survey.module.css */
+/* for SurveyCard */
+/******************/
 
 /* Anlass Title */
 .umfrageAnlass {
@@ -179,4 +180,17 @@
 .submitBtn:disabled {
     background-color: #444;
     color: #888;
+}
+
+
+/* for StimmabgabeForm */
+/***********************/
+
+/* Truncated Table Cells */
+.truncatedCell {
+    white-space: nowrap;      /* Prevent text from wrapping to next line */
+    overflow: hidden;         /* Hide overflow content */
+    text-overflow: ellipsis;  /* Add the '...' */
+    max-width: 150px;         /* Trigger point: adjust this width as needed */
+    vertical-align: middle;   /* Align with other cells */
 }
