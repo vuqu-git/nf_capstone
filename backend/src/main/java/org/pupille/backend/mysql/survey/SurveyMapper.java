@@ -1,17 +1,17 @@
 package org.pupille.backend.mysql.survey;
 
 import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
-import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionDTO;
+//import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionDTO;
 import org.pupille.backend.mysql.survey.auswahloption.AuswahloptionNestedDTO;
 import org.pupille.backend.mysql.survey.stimmabgabe.Stimmabgabe;
 import org.pupille.backend.mysql.survey.stimmabgabe.StimmabgabeByUmfrageDTO;
 import org.pupille.backend.mysql.survey.stimmabgabe.StimmabgabeDTO;
 import org.pupille.backend.mysql.survey.umfrage.Umfrage;
 import org.pupille.backend.mysql.survey.umfrage.UmfrageDTO;
+import org.pupille.backend.mysql.survey.umfrage.UmfrageSelectionDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Component
@@ -56,24 +56,24 @@ public class SurveyMapper {
     // AUSWAHLOPTION MAPPERS (Entity -> DTO)
     // ========================================================================
 
-    /**
-     * Standard DTO (with unr)
-     * Used for standalone endpoints: /api/survey/auswahloptionen/{id}
-     */
-    public AuswahloptionDTO toAuswahloptionDto(Auswahloption entity) {
-        if (entity == null) return null;
-        AuswahloptionDTO dto = new AuswahloptionDTO();
-        dto.setOnr(entity.getOnr());
-        dto.setTitel(entity.getTitel());
-        dto.setDetails(entity.getDetails());
-        dto.setLink(entity.getLink());
-
-        // Extract ID from parent if exists
-        if (entity.getUmfrage() != null) {
-            dto.setUnr(entity.getUmfrage().getUnr());
-        }
-        return dto;
-    }
+//    /**
+//     * Standard DTO (with unr)
+//     * Used for standalone endpoints: /api/survey/auswahloptionen/{id}
+//     */
+//    public AuswahloptionDTO toAuswahloptionDto(Auswahloption entity) {
+//        if (entity == null) return null;
+//        AuswahloptionDTO dto = new AuswahloptionDTO();
+//        dto.setOnr(entity.getOnr());
+//        dto.setTitel(entity.getTitel());
+//        dto.setDetails(entity.getDetails());
+//        dto.setLink(entity.getLink());
+//
+//        // Extract ID from parent if exists
+//        if (entity.getUmfrage() != null) {
+//            dto.setUnr(entity.getUmfrage().getUnr());
+//        }
+//        return dto;
+//    }
 
     /**
      * Nested DTO (NO unr)
@@ -94,20 +94,20 @@ public class SurveyMapper {
     // ========================================================================
     // AUSWAHLOPTION MAPPERS (DTO -> Entity)
     // ========================================================================
-    /**
-     * Overload #1: Input from Standard DTO (with unr); used in AuswahloptionService
-     */
-    public Auswahloption toAuswahloptionEntity(AuswahloptionDTO dto) {
-        if (dto == null) return null;
-        Auswahloption entity = new Auswahloption();
-        entity.setOnr(dto.getOnr());
-        entity.setTitel(dto.getTitel());
-        entity.setDetails(dto.getDetails());
-        entity.setLink(dto.getLink());
-        // Parent 'Umfrage' must be set by the Service using the ID (dto.getUnr())
-        // → see createAuswahloption method in AuswahloptionService
-        return entity;
-    }
+//    /**
+//     * Overload #1: Input from Standard DTO (with unr); used in AuswahloptionService
+//     */
+//    public Auswahloption toAuswahloptionEntity(AuswahloptionDTO dto) {
+//        if (dto == null) return null;
+//        Auswahloption entity = new Auswahloption();
+//        entity.setOnr(dto.getOnr());
+//        entity.setTitel(dto.getTitel());
+//        entity.setDetails(dto.getDetails());
+//        entity.setLink(dto.getLink());
+//        // Parent 'Umfrage' must be set by the Service using the ID (dto.getUnr())
+//        // → see createAuswahloption method in AuswahloptionService
+//        return entity;
+//    }
 
     // Helper needed for createUmfrage loop if you use NestedDTO there?
     // Usually createUmfrage loop uses standard AuswahloptionDTO for input.
