@@ -253,7 +253,7 @@ const ContactForm: React.FC = () => {
                         <div className={styles.emojiListItem}>
                             <span className={styles.emoji}>&#128640;</span>
                             <span className={styles.emojiText}>
-                                Für eine schnellere und strukturierte Bearbeitung von Anfragen bitten wir, die Kontaktformulare zu verwenden und keine E-Mail zu schreiben.
+                                Für eine schnellere und strukturierte Bearbeitung von Anfragen bitten wir, die Kontaktformulare zu verwenden und <strong>keine</strong> E-Mail zu schreiben.
                             </span>
                         </div>
 
