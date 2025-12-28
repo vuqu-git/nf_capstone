@@ -43,7 +43,7 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
     return (
         <form className={styles.formContainer} onSubmit={handleLocalSubmit}>
             <p className={styles.formDescription}>
-                Der Schlüssel zum Ausrollen der Leinwand liegt bei der Pforte des Studierendenhauses. Du kannst gerne eine kurze Benachrichtigung zu eurer Nutzung hinterlassen.
+                Der Schlüssel zum Ausrollen der Leinwand liegt bei der Pforte des Studierendenhauses. Ihr könnt gerne eine kurze Benachrichtigung zu eurer Nutzung hinterlassen.
             </p>
             <div className={styles.formField}>
                 <label className={styles.formLabel} htmlFor="betreff">Betreff *</label>
