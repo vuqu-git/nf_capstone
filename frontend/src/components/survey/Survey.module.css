@@ -150,8 +150,8 @@
 
 /* --- Text Styles --- */
 .optionLabel {
-    font-weight: bold;
-    font-size: 1.05rem;
+    font-weight: 600;
+    font-size: 1.0rem;
     color: #FFD036;
     cursor: pointer;
 }
