@@ -372,7 +372,7 @@ export default function StimmabgabeForm() {
                             <li>
                                 <a
                                     href={`/api/survey/stimmabgaben/forumfrage/${selectedUmfrageId}/export`}
-                                    className="btn btn-outline-secondary mb-2"
+                                    className="btn btn-secondary mb-2"
                                     download // Hint to browser to download
                                 >
                                     Download: ordered by Datum
@@ -381,10 +381,10 @@ export default function StimmabgabeForm() {
                             <li>
                                 <a
                                     href={`/api/survey/stimmabgaben/forumfrage/${selectedUmfrageId}/exportgrouped`}
-                                    className="btn btn-outline-secondary mb-2"
+                                    className="btn btn-secondary mb-2"
                                     download // Hint to browser to download
                                 >
-                                    Download: grouped by Optionen ordered by Datum
+                                    Download: grouped by Optionen + ordered by Datum
                                 </a>
                             </li>
                         </ul>
