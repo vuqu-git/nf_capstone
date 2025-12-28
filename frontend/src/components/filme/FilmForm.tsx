@@ -412,7 +412,7 @@ export default function FilmForm() {
                 <h3 className="mt-3">Film details</h3>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel (HTML)*</Form.Label>
+                    <Form.Label>Titel (HTML) *</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"
