@@ -10,6 +10,7 @@ import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
 import {AuswahloptionNestedDTO} from "../../../types/AuswahloptionNestedDTO.ts";
 import AdminNav from "../../AdminNav.tsx";
 import AdminLeftBar from "../../AdminLeftBar.tsx";
+import {UmfrageSelectionDTO} from "../../../types/UmfrageSelectionDTO.ts";
 
 const baseURL = "/api/survey/umfragen";
 
@@ -22,7 +23,7 @@ const emptyUmfrageForForm: UmfrageDTO = {
 };
 
 export default function UmfrageForm() {
-    const [allUmfragen, setAllUmfragen] = useState<UmfrageDTO[]>([]);
+    const [allUmfragen, setAllUmfragen] = useState<UmfrageSelectionDTO[]>([]);
 
     // Using 'unr' as the ID
     const [selectedUmfrageId, setSelectedUmfrageId] = useState<number | undefined>(undefined);

@@ -52,6 +52,17 @@ public class SurveyMapper {
         return entity;
     }
 
+    // ---------------------------------
+
+    public UmfrageSelectionDTO toUmfrageSelectionDto(Umfrage entity) {
+        if (entity == null) return null;
+        UmfrageSelectionDTO dto = new UmfrageSelectionDTO();
+        dto.setUnr(entity.getUnr());
+        dto.setAnlass(entity.getAnlass());
+        dto.setEndDatum(entity.getEndDatum());
+        return dto;
+    }
+
     // ========================================================================
     // AUSWAHLOPTION MAPPERS (Entity -> DTO)
     // ========================================================================
@@ -171,7 +182,6 @@ public class SurveyMapper {
             dto.onr(entity.getAuswahloption().getOnr());
             dto.auswahloptionTitel(entity.getAuswahloption().getTitel());
             dto.auswahloptionDetails(entity.getAuswahloption().getDetails());
-            dto.auswahloptionLink(entity.getAuswahloption().getLink());
         }
 
         // Flatten: Umfrage (NO unr field)

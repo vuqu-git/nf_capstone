@@ -13,14 +13,19 @@ public class UmfrageController {
 
     private final UmfrageService umfrageService;
 
+//    @GetMapping
+//    public List<UmfrageDTO> getAllUmfragen() {
+//        return umfrageService.getAllUmfragen();
+//    }
+
     @GetMapping
-    public List<UmfrageDTO> getAllUmfragen() {
-        return umfrageService.getAllUmfragen();
+    public List<UmfrageSelectionDTO> getAllUmfragenForSelection() {
+        return umfrageService.getAllUmfragenForSelection();
     }
 
-    @GetMapping("/{id}")
-    public UmfrageDTO getUmfrageById(@PathVariable Long id) {
-        return umfrageService.getUmfrageById(id);
+    @GetMapping("/{unr}")
+    public UmfrageDTO getUmfrageById(@PathVariable Long unr) {
+        return umfrageService.getUmfrageById(unr);
     }
 
     @PostMapping
@@ -28,15 +33,15 @@ public class UmfrageController {
         return umfrageService.createUmfrage(dto);
     }
 
-    @PutMapping("/{id}")
-    public UmfrageDTO updateUmfrage(@PathVariable Long id,
+    @PutMapping("/{unr}")
+    public UmfrageDTO updateUmfrage(@PathVariable Long unr,
                                     @RequestBody UmfrageDTO dto) {
-        return umfrageService.updateUmfrage(id, dto);
+        return umfrageService.updateUmfrage(unr, dto);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUmfrage(@PathVariable Long id) {
-        umfrageService.deleteUmfrage(id);
+    @DeleteMapping("/{unr}")
+    public void deleteUmfrage(@PathVariable Long unr) {
+        umfrageService.deleteUmfrage(unr);
         // Spring returns 200/204 with empty body by default
     }
 }

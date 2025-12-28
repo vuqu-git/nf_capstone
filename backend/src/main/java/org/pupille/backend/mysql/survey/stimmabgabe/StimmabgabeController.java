@@ -1,7 +1,6 @@
 package org.pupille.backend.mysql.survey.stimmabgabe;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.pupille.backend.mysql.GeneralResponse;
 import org.pupille.backend.mysql.survey.CsvExportService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class StimmabgabeController {
     // Get all Stimmabgaben for a certain unr (Survey)
     @GetMapping("/forumfrage/{unr}")
     public List<StimmabgabeByUmfrageDTO> getByUmfrage(@PathVariable Long unr) {
-        return stimmabgabeService.getBySurvey(unr);
+        return stimmabgabeService.getByUmfrage(unr);
     }
 
     // Download csv file with the data analogous to the output getByUmfrage
@@ -39,7 +38,7 @@ public class StimmabgabeController {
             @PathVariable Long unr,
             HttpServletResponse response) {
 
-        List<StimmabgabeByUmfrageDTO> votes = stimmabgabeService.getBySurvey(unr);
+        List<StimmabgabeByUmfrageDTO> votes = stimmabgabeService.getByUmfrage(unr);
         String umfrageAnlass = votes.isEmpty() ? "unknown" : votes.get(0).getUmfrageAnlass();
 
         // Fixed filename with umlaute
@@ -60,12 +59,12 @@ public class StimmabgabeController {
     }
 
     @GetMapping("/forumfrage/{unr}/exportgrouped")
-    public StreamingResponseBody getByUmfrageExportGrouped(
+    public StreamingResponseBody getByUmfrageGroupedAndSorted(
             @PathVariable Long unr,
             HttpServletResponse response) {
 
         // Logic moved to service
-        List<StimmabgabeByUmfrageDTO> groupedVotes = stimmabgabeService.getBySurveyGroupedAndSorted(unr);
+        List<StimmabgabeByUmfrageDTO> groupedVotes = stimmabgabeService.getByUmfrageGroupedAndSorted(unr);
 
         String umfrageAnlass = groupedVotes.isEmpty() ? "unknown" : groupedVotes.get(0).getUmfrageAnlass();
 
@@ -82,8 +81,8 @@ public class StimmabgabeController {
 
     // Get all Stimmabgaben for a certain unr, grouped by onr
     @GetMapping("/forumfrage/{unr}/grouped")
-    public Map<Long, List<StimmabgabeDTO>> getByUmfrageGrouped(@PathVariable Long unr) {
-        return stimmabgabeService.getBySurveyGroupedByOption(unr);
+    public Map<Long, List<StimmabgabeDTO>> getByUmfrageGroupedByOption(@PathVariable Long unr) {
+        return stimmabgabeService.getByUmfrageGroupedByOption(unr);
     }
 
     // Create Vote (expects valid unr and onr in body)

@@ -8,6 +8,7 @@ import surveyStyles from "../Survey.module.css";
 
 import UmfrageSelectionWithSearch from "../umfrage/UmfrageSelectionWithSearch.tsx";
 import {UmfrageDTO} from "../../../types/UmfrageDTO";
+import {UmfrageSelectionDTO} from "../../../types/UmfrageSelectionDTO.ts";
 import {StimmabgabeDTO} from "../../../types/StimmabgabeDTO.ts";
 import {StimmabgabeByUmfrageDTO} from "../../../types/StimmabgabeByUmfrageDTO.ts";
 import Card from "react-bootstrap/Card";
@@ -32,7 +33,7 @@ class FormControlElement {
 }
 
 export default function StimmabgabeForm() {
-    const [allUmfragen, setAllUmfragen] = useState<UmfrageDTO[]>([]);
+    const [allUmfragen, setAllUmfragen] = useState<UmfrageSelectionDTO[]>([]);
     const [selectedUmfrageId, setSelectedUmfrageId] = useState<number | undefined>(undefined);
 
     const [availableOptions, setAvailableOptions] = useState<AuswahloptionNestedDTO[]>([]);
@@ -45,10 +46,10 @@ export default function StimmabgabeForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [isGetLoading, setIsGetLoading] = useState(false);
 
-    // ---- load all surveys for selection ----
+    // ---- load all umfragen for selection ----
     useEffect(() => {
         axios
-            .get<UmfrageDTO[]>(umfrageBaseURL)
+            .get<UmfrageSelectionDTO[]>(umfrageBaseURL)
             .then(r => setAllUmfragen(r.data))
             .catch(e =>
                 setErrorMessage(e instanceof Error ? e.message : "Error fetching surveys")

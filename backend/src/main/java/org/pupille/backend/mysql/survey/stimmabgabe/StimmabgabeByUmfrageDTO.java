@@ -27,5 +27,4 @@ public class StimmabgabeByUmfrageDTO {
     private String umfrageAnlass;
     private String auswahloptionTitel;
     private String auswahloptionDetails;
-    private String auswahloptionLink;
 }

@@ -40,8 +40,7 @@ public class StimmabgabeService {
     /**
      * Get all votes for a specific Survey
      */
-    public List<StimmabgabeByUmfrageDTO> getBySurvey(Long unr) {
-//        return stimmabgabeRepository.findByUmfrage_Unr(unr)
+    public List<StimmabgabeByUmfrageDTO> getByUmfrage(Long unr) {
         return stimmabgabeRepository.findByUmfrage_UnrOrderByDatumAsc(unr)
                 .stream()
                 .map(stimmabgabeMapper::toStimmabgabeByUmfrageDto)
@@ -52,7 +51,7 @@ public class StimmabgabeService {
      * Get all votes for a specific Survey, grouped by Option ID (onr)
      * Returns a Map where Key = Option ID, Value = List of Votes
      */
-    public Map<Long, List<StimmabgabeDTO>> getBySurveyGroupedByOption(Long unr) {
+    public Map<Long, List<StimmabgabeDTO>> getByUmfrageGroupedByOption(Long unr) {
         return stimmabgabeRepository.findByUmfrage_Unr(unr)
                 .stream()
                 .map(stimmabgabeMapper::toStimmabgabeDto)
@@ -63,7 +62,7 @@ public class StimmabgabeService {
      * Fetches votes for a survey, grouped by Option (onr) and sorted by date ascending.
      * Returns a flattened list suitable for CSV export.
      */
-    public List<StimmabgabeByUmfrageDTO> getBySurveyGroupedAndSorted(Long unr) {
+    public List<StimmabgabeByUmfrageDTO> getByUmfrageGroupedAndSorted(Long unr) {
         return stimmabgabeRepository.findByUmfrage_Unr(unr)
                 .stream()
                 .map(stimmabgabeMapper::toStimmabgabeByUmfrageDto)

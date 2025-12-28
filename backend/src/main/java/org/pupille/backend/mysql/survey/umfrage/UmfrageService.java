@@ -22,11 +22,19 @@ public class UmfrageService {
     private final UmfrageRepository umfrageRepository;
     private final SurveyMapper surveyMapper;
 
-    public List<UmfrageDTO> getAllUmfragen() {
+//    public List<UmfrageDTO> getAllUmfragen() {
+//        return umfrageRepository
+//                .findAll(Sort.by(Sort.Direction.DESC, "endDatum"))  // generates SQL with ORDER BY end_datum DESC directly in the database; Generated SQL (approximately): SELECT f.* FROM umfrage f ORDER BY f.end_datum DESC
+//                .stream()
+//                .map(surveyMapper::toUmfrageDto)
+//                .toList();
+//    }
+
+    public List<UmfrageSelectionDTO> getAllUmfragenForSelection() {
         return umfrageRepository
                 .findAll(Sort.by(Sort.Direction.DESC, "endDatum"))  // generates SQL with ORDER BY end_datum DESC directly in the database; Generated SQL (approximately): SELECT f.* FROM umfrage f ORDER BY f.end_datum DESC
                 .stream()
-                .map(surveyMapper::toUmfrageDto)
+                .map(surveyMapper::toUmfrageSelectionDto)
                 .toList();
     }
 

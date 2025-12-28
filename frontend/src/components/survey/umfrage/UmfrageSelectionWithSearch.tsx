@@ -1,11 +1,11 @@
 import React, {useMemo} from "react";
 import { Form } from "react-bootstrap";
-import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
+import {UmfrageSelectionDTO} from "../../../types/UmfrageSelectionDTO.ts";
 import Select, {SingleValue} from "react-select";
 import {formSelectionWithSearchStyles} from "../../styles/formSelectionWithSearchStyles.ts";
 
 interface UmfrageSelectionWithSearchProps {
-    allUmfragen: UmfrageDTO[];
+    allUmfragen: UmfrageSelectionDTO[];
     selectedUmfrageId: number | undefined;
     onSelectUmfrage: (id: number | undefined) => void;
     textForDefaultOption?: string;
@@ -29,7 +29,7 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
     const umfrageOptions = useMemo(() =>
         allUmfragen.map(u => ({
             value: u.unr,
-            label: u.anlass
+            label: `${u.anlass} (${u.endDatum})`
         })), [allUmfragen]
     );
 
