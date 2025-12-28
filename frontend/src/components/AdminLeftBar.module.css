@@ -1,0 +1,31 @@
+/* AdminLeftBar.module.css */
+
+/* Container for the left‑side bar */
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*width: 150px;   !* Set a width for the bar  *! */
+    height: 100%;                     /* Make it full height */
+    /* background-color: rgba(148, 0, 211, 0.8); !* with transparent  *! */
+    background-color: rgba(148, 0, 211);   /* solid background */
+    color: white;
+    display: flex;
+    flex-direction: column;          /* Stack items vertically */
+    align-items: center;              /* Center items horizontally */
+    justify-content: center;          /* Center items vertically */
+    padding: 10px;
+    z-index: 1000;
+    /* font-weight: bold; */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Shadow to the right */
+}
+
+/* Style for each line of text */
+.line {
+    margin-bottom: 5px;
+}
+
+/* Blank line when the message array contains "\n" */
+.blank {
+    margin-bottom: 15px;
+}
