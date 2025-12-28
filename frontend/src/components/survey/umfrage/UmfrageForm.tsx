@@ -17,7 +17,7 @@ const baseURL = "/api/survey/umfragen";
 const emptyUmfrageForForm: UmfrageDTO = {
     unr: -1,
     anlass: '',
-    endDatum: null,
+    endDatum: '',
     beschreibung: '',
     auswahloptionendtos: []
 };
@@ -212,7 +212,7 @@ export default function UmfrageForm() {
 
                 {/* Beschreibung */}
                 <Form.Group controlId="beschreibung" className="mb-3">
-                    <Form.Label>Beschreibung (HTML)*</Form.Label>
+                    <Form.Label>Beschreibung (HTML) *</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -225,12 +225,13 @@ export default function UmfrageForm() {
 
                 {/* endDatum */}
                 <Form.Group controlId="endDatum" className="mb-3">
-                    <Form.Label>Ende-Datum</Form.Label>
+                    <Form.Label>Ende-Datum *</Form.Label>
                     <Form.Control
                         type="date"
                         name="endDatum"
                         value={selectedUmfrage.endDatum ? selectedUmfrage.endDatum.slice(0, 16) : ""}
                         onChange={handleMainFieldChange}
+                        required
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
