@@ -29,7 +29,7 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
     const umfrageOptions = useMemo(() =>
         allUmfragen.map(u => ({
             value: u.unr,
-            label: `🔚 ${u.endDatum} | ${u.anlass} | #${u.unr}`
+            label: `⌛ ${u.endDatum} | ${u.anlass} | #${u.unr}`
         })), [allUmfragen]
     );
 

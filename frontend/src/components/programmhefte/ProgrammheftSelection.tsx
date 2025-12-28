@@ -31,7 +31,7 @@ export default function ProgrammheftSelection({
     <option value="">{textForDefaultOption}</option>
     {allProgrammhefte.map((p: ProgrammheftDTOSelection) => (
         <option key={p.pnr} value={p.pnr}>
-        {`🔚 ${p.gueltigBis} | ${p.titel}`}
+        {`⌛ ${p.gueltigBis} | ${p.titel}`}
         </option>
     ))}
     </Form.Select>
