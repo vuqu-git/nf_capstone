@@ -1,4 +1,4 @@
-package org.pupille.backend.utils;
+package org.pupille.backend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
