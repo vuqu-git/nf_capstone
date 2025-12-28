@@ -372,7 +372,7 @@ export default function SurveyCard() {
 
                             <Button
                                 className={`w-100 ${surveyStyles.submitBtn}`}
-                                size="lg"
+                                // size="lg"
                                 onClick={handleSubmit}
                                 disabled={!selectedOption || submitting}
                             >
