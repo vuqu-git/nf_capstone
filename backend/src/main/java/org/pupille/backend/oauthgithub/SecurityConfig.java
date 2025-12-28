@@ -109,6 +109,21 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/api/perplexityai/film-text").authenticated()
 
                         .requestMatchers(HttpMethod.POST,"/api/clicks").permitAll()
+
+                        .requestMatchers(HttpMethod.GET,"api/survey/umfragen").authenticated()
+                        .requestMatchers(HttpMethod.GET,"api/survey/umfragen/{unr}").permitAll()
+                        .requestMatchers(HttpMethod.POST,"api/survey/umfragen").authenticated()
+                        .requestMatchers(HttpMethod.PUT,"api/survey/umfragen/{unr}").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"api/survey/umfragen/{unr}").authenticated()
+
+                        .requestMatchers(HttpMethod.GET,"api/survey/stimmabgaben/option/{onr}").authenticated()
+                        .requestMatchers(HttpMethod.GET,"api/survey/stimmabgaben/forumfrage/{unr}").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/survey/stimmabgaben/forumfrage/{selectedUnr}/export").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/survey/stimmabgaben/forumfrage/{selectedUnr}/exportgrouped").authenticated()
+                        .requestMatchers(HttpMethod.GET,"api/survey/stimmabgaben/forumfrage/{unr}/grouped").authenticated()
+                        .requestMatchers(HttpMethod.POST,"api/survey/stimmabgaben").permitAll()
+                        .requestMatchers(HttpMethod.DELETE,"api/survey/stimmabgaben/{snr}").authenticated()
+
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(sessions ->
