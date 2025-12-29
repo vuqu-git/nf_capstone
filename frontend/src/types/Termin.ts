@@ -14,6 +14,7 @@ interface Termin {
     sonderfarbe?: string | null;
     veroeffentlichen?: number | null;
     patenschaft?: string | null;
+    isCanceled?: boolean | null;
 }
 
 export default Termin;

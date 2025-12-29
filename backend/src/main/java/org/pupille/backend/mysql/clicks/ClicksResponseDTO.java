@@ -1,6 +1,5 @@
 package org.pupille.backend.mysql.clicks;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,7 @@ public class ClicksResponseDTO {
     private Boolean withTerminbesonderheit;
     private Short inNumberReihen;
     private LocalDate onlineSince;
+    private Boolean isCanceled;
 
     public ClicksResponseDTO(Clicks c) {
         this.tnr = c.getTnr();
@@ -38,5 +38,6 @@ public class ClicksResponseDTO {
         this.withTerminbesonderheit = c.getWithTerminbesonderheit();
         this.inNumberReihen = c.getInNumberReihen();
         this.onlineSince = c.getOnlineSince();
+        this.isCanceled = c.getIsCanceled();
     }
 }

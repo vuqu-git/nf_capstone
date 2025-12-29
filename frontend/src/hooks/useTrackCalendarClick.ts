@@ -8,7 +8,8 @@ export const useTrackCalendarClick = () => {
          vorstellungsbeginn: string | undefined,
          titel: string,
          withTerminbesonderheit: boolean,
-         inNumberReihen: number
+         inNumberReihen: number,
+         isCanceled: boolean
         ) => {
         const isFirstSessionClick = !sessionStorage.getItem(`calendar-clicked-${tnr}`);
         const isFirstLocalClick = !localStorage.getItem(`calendar-clicked-${tnr}`);
@@ -31,6 +32,7 @@ export const useTrackCalendarClick = () => {
             //         titel,
             //         wasSessionCalendarClicked: isFirstSessionClick,
             //         wasUserCalendarClicked: isFirstLocalClick,
+            //         isCanceled
             //     }),
             // });
 
@@ -41,7 +43,8 @@ export const useTrackCalendarClick = () => {
                 withTerminbesonderheit,
                 inNumberReihen,
                 wasSessionCalendarClicked: isFirstSessionClick,
-                wasUserCalendarClicked: isFirstLocalClick
+                wasUserCalendarClicked: isFirstLocalClick,
+                isCanceled
             });
         }
     }, []);

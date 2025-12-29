@@ -9,7 +9,7 @@ import {getFilmTitleForFilmDetailsCardFilmListing} from "../../utils/getFilmTitl
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-import './TerminFilmDetailsCardFilmListing.css';
+import './TerminFilmDetailsListing.css';
 import {staticFilePathFrontend} from "../../utils/config.ts";
 
 
@@ -18,6 +18,7 @@ interface Props {
     f: Film;
     numberOfF: number;
     fType: string;
+    terminIsCanceled: boolean | undefined;
 }
 
 export default function TerminFilmDetailsListing({
@@ -25,6 +26,7 @@ export default function TerminFilmDetailsListing({
                                                   f,
                                                   numberOfF,
                                                   fType,
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
 
     const structuredStabObj = f.stab ? structureStabString(f.stab) : null;
@@ -61,10 +63,28 @@ export default function TerminFilmDetailsListing({
             {/*******-----*******/}
             {/* Check if image URL exists */}
             {f.bild && (
-                <Card.Img
-                    src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
-                    alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
-                />
+                // <Card.Img
+                //     src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
+                //     alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
+                // />
+                <div className="image-container"> {/* Container to position overlay */}
+                    <Card.Img
+                        src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
+                        alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
+                    />
+
+                    {/* Conditional overlay */}
+                    {terminIsCanceled && ( // Show overlay if the termin is canceled
+                        <>
+                            {/* color grading overlay */}
+                            <div className="image-color-grading-overlay"></div>
+
+                            <div className="cancellation-image-overlay">
+                                <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
+                            </div>
+                        </>
+                    )}
+                </div>
             )}
 
             <Card.Body>

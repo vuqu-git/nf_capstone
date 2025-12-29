@@ -2,8 +2,9 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 
 import './TerminFilmDetailsCard.css';
+import './CancellationStyle.css';
 import FilmDTOFormPlus from "../../types/FilmDTOFormPlus.ts";
-import TerminFilmDetailsListing from "./TerminFilmDetailsCardFilmListing.tsx";
+import TerminFilmDetailsListing from "./TerminFilmDetailsListing.tsx";
 import {createICSFileName} from "../../utils/createICSFileName.ts";
 import {AddToCalendarButton} from "add-to-calendar-button-react";
 import {createDateAndTimeForAddToCalendarButton} from "../../utils/createDateAndTimeForAddToCalendarButton.ts";
@@ -42,6 +43,8 @@ interface Props {
     terminGesamtlaufzeit: number;
 
     reihen: ReiheDTOFormWithTermineAndFilme[];
+
+    terminIsCanceled: boolean | undefined;
 }
 
 const avgDurationTrailer = 12;
@@ -71,14 +74,19 @@ export default function TerminFilmDetailsCard({
                                                   terminGesamtlaufzeit,
 
                                                   reihen,
+
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
 
     const calenderTitle = programmtitel || (mainfilms[0]?.film?.titel || "Film im Pupille-Kino");
     const icsFileName = createICSFileName(calenderTitle, vorstellungsbeginnIso8601);
     const calenderDateObj = createDateAndTimeForAddToCalendarButton(vorstellungsbeginnIso8601, terminGesamtlaufzeit + avgDurationTrailer);
 
-    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length);
+    useTrackScreeningVisit(tnr, veroeffentlichen, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length, !!terminIsCanceled);
     const handleTrackCalendarClick = useTrackCalendarClick();
+
+    // frontend termin cancellation test
+    // terminIsCanceled = true;
 
     return (
         <Card
@@ -88,14 +96,14 @@ export default function TerminFilmDetailsCard({
             <Card.Body>
                 <div
                     className="add-to-calendar-button-container"
-                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length)}
+                    onClick={() => handleTrackCalendarClick(tnr, vorstellungsbeginnIso8601, calenderTitle, !!programmbesonderheit, reihen.length, !!terminIsCanceled)}
                 >
                     <AddToCalendarButton
 
                         name={"Pupille: " + calenderTitle}
-                        startDate={calenderDateObj.startDate}
+                        startDate={terminIsCanceled ? "0000-01-01": calenderDateObj.startDate}  // "disable" calendar button when termin is canceled
                         startTime={calenderDateObj.startTime}
-                        endDate={calenderDateObj.endDate}
+                        endDate={terminIsCanceled ? "0000-01-01" : calenderDateObj.endDate}     // "disable" calendar button when termin is canceled
                         endTime={calenderDateObj.endTime}
                         timeZone="Europe/Berlin" // Handles DST automatically
 
@@ -119,9 +127,15 @@ export default function TerminFilmDetailsCard({
 
                 <Card.Header
                     as="h3"
-                    className="terminFilmDetails-card-header"
+                    className="terminFilmDetails-card-header" // Base class only
                 >
-                    {screeningWeekday} {screeningDate} {screeningTime}
+                    {/* Optional: Add text prefix for clarity */}
+                    {terminIsCanceled && <span className="termin-cancellation-alert-text">Abgesagt! </span>}
+
+                    {/*<span className={terminIsCanceled ? 'termin-cancellation-date-text' : ''}>*/}
+                    <span className={terminIsCanceled ? 'overlay-time' : ''}>
+                        {screeningWeekday} {screeningDate} {screeningTime}
+                    </span>
                 </Card.Header>
 
                 <Card.Title
@@ -132,10 +146,24 @@ export default function TerminFilmDetailsCard({
                 </Card.Title>
 
                 {showProgrammbildInDetails && (
-                    <Card.Img
-                        src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
-                        alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}
-                    />
+                    <div className="image-container"> {/* Container to position overlay */}
+                        <Card.Img
+                            src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
+                            alt={programmtitel ? `Still vom Screening "${programmtitel}"` : ""}
+                        />
+
+                        {/* Conditional overlay */}
+                        {terminIsCanceled && (  // Show overlay if the termin is canceled
+                            <>
+                                {/* color grading overlay */}
+                                <div className="image-color-grading-overlay"></div>
+
+                                <div className="cancellation-image-overlay">
+                                    <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
+                                </div>
+                            </>
+                        )}
+                    </div>
                 )}
 
                 {programmtext && (
@@ -165,8 +193,9 @@ export default function TerminFilmDetailsCard({
                 {reihen.length > 0 && (
                     <article className="program-text mb-4">
                         <div className="introduction-text-reihen">
-                            Diese Vorstellung { new Date() > new Date(calenderDateObj.startDate) ? " lief" : "läuft"}
-                            {reihen.length == 1 ? " in der Filmreihe" : " in den Filmreihen"}
+                            {/*Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung {new Date() > new Date(calenderDateObj.startDate) ? "war" : "ist"}*/}
+                            Diese {terminIsCanceled ? 'ausgefallene' : ''} Vorstellung ist
+                            {reihen.length == 1 ? " Teil der Filmreihe" : " Teil der Filmreihen"}
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
@@ -201,7 +230,7 @@ export default function TerminFilmDetailsCard({
                 )}
                 {/*###############################################*/}
 
-                {(mainfilms.length > 0 || vorfilms.length > 0) ? (
+                {(mainfilms.length > 0 || vorfilms.length > 0) && (
                     <>
                         {mainfilms?.map((filmPlusObj, index) => {
                             const film = filmPlusObj.film;
@@ -216,6 +245,7 @@ export default function TerminFilmDetailsCard({
                                     f={film}
                                     numberOfF={mainfilms.length}
                                     fType={(mainfilms.length === 1) ? "" : "Film:"}
+                                    terminIsCanceled={terminIsCanceled}
                                 />
                             );
                         })}
@@ -233,17 +263,10 @@ export default function TerminFilmDetailsCard({
                                     f={vorfilm}
                                     numberOfF={vorfilms.length}
                                     fType={"Vorfilm:"}
+                                    terminIsCanceled={terminIsCanceled}
                                 />
                             );
                         })}
-                    </>
-                ) : (
-                    <>
-                        {/*<Card.Img*/}
-                        {/*    src={`https://www.pupille.org/bilder/filmbilder/${programmbild}`}*/}
-                        {/*    src={staticFilePathFrontend + "bilder/filmbilder/" + programmbild}
-                        {/*    alt={programmtitel ? `Still vom Screening ${programmtitel}` : ""}*/}
-                        {/*/>*/}
                     </>
                 )}
             </Card.Body>

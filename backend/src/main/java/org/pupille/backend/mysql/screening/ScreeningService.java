@@ -119,7 +119,6 @@ public class ScreeningService {
         return new ReihenAndFilmTermineForGallery(reihenSemester, termineSemester);
     }
 
-
 //    ########################################################
 
     public TerminDTOWithFilmsDTOFormPlus getTerminWithFilmsPlusByTnr(Long tnr) {
@@ -214,8 +213,33 @@ public class ScreeningService {
             LocalDateTime vorstellungsbeginn = ((Timestamp) row[1]).toLocalDateTime();
             String titel = (String) row[2];
 
-            String filmIdsStr = (String) row[3]; // "1,2,3"
-            String filmTitlesStr = (String) row[4]; // "Title1||Title2||Title3"
+            // ********************************************
+            // Since BIT(1) in MariaDB (for is_canceled column) can behave uniquely in native queries (sometimes returning Boolean, sometimes Byte/Integer, or even byte[] depending on the driver version), and because the value can be NULL, you need a robust extraction logic.
+            // The code below explicitly handles:
+            //      NULL database values: Defaults them to false (standard behavior for "isCanceled" flags).
+            //      Driver differences: Handles both Boolean (standard) and Number (if mapped as TINYINT) returns.
+
+            Object isCanceledObj = row[3];
+            Boolean isCanceled;
+
+            if (isCanceledObj == null) {
+                isCanceled = false; // Treat DB NULL as "not canceled"
+            } else if (isCanceledObj instanceof Boolean) {
+                isCanceled = (Boolean) isCanceledObj; // Standard MariaDB JDBC mapping
+            } else if (isCanceledObj instanceof Number) {
+                // Handles cases where driver returns BIT as TINYINT/Byte/Integer (0 or 1)
+                isCanceled = ((Number) isCanceledObj).intValue() != 0;
+            } else if (isCanceledObj instanceof byte[]) {
+                // Rare edge case: some legacy configs return BIT as byte array
+                byte[] bytes = (byte[]) isCanceledObj;
+                isCanceled = (bytes.length > 0 && bytes[0] != 0);
+            } else {
+                isCanceled = false; // Fallback
+            }
+            // ********************************************
+
+            String filmIdsStr = (String) row[4]; // "1,2,3"
+            String filmTitlesStr = (String) row[5]; // "Title1||Title2||Title3"
 
             List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
                     .filter(s -> !s.isBlank())
@@ -235,7 +259,8 @@ public class ScreeningService {
                     vorstellungsbeginn,
                     formatSemesterFromLocalDateTermin(vorstellungsbeginn.toLocalDate()),
                     titel,
-                    films
+                    films,
+                    isCanceled
             ));
         }
 
@@ -273,7 +298,6 @@ public class ScreeningService {
                                                                                         //       It enables efficient lookup of all film connections belonging to a specific Termin by its ID.
                                                                                         //       Avoids repeatedly filtering the entire list when you need to access the connections related to a single Termin.
                                                                                         //       Simplifies your code when building DTOs — you can quickly get all film connections for each Termin without overhead.
-
 
         return termineInSemester.stream()
                 .map(sTermin -> {
@@ -501,7 +525,10 @@ public class ScreeningService {
 
         return buildTerminDTOWithFilmDTOMailReminderList(termineOnTargetDate)
                 .stream()
+                // Keep only published screenings
                 .filter(terminDTO -> terminDTO.veroeffentlichen() != null && terminDTO.veroeffentlichen() > 0)
+                // Exclude canceled screenings (keep only if null or false)
+                .filter(terminDTO -> !Boolean.TRUE.equals(terminDTO.isCanceled()))
                 .collect(Collectors.toList());
     }
 
@@ -517,7 +544,10 @@ public class ScreeningService {
 
         return buildTerminDTOWithFilmDTOMailReminderList(termineOnTargetDate)
                 .stream()
+                // Keep only published screenings
                 .filter(terminDTO -> terminDTO.veroeffentlichen() != null && terminDTO.veroeffentlichen() > 0) // only keep termine, which are veröffentlicht
+                // Exclude canceled screenings (keep only if null or false)
+                .filter(terminDTO -> !Boolean.TRUE.equals(terminDTO.isCanceled()))
                 .collect(Collectors.toList());
     }
 

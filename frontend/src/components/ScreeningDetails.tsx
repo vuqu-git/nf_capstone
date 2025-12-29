@@ -194,6 +194,8 @@ export default function ScreeningDetails() {
                 terminGesamtlaufzeit={screeningDetails.terminGesamtlaufzeit}
 
                 reihen={reihenDetails}
+
+                terminIsCanceled={screeningDetails.termin.isCanceled || undefined}
             />
         )
     )

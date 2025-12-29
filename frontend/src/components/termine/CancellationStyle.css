@@ -1,0 +1,90 @@
+/*strikethrough only over screening date*/
+/*~~~~~~~~-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.termin-cancellation-text .overlay-time,        /*TerminFilmGalleryCard*/
+.terminFilmDetails-card-header .overlay-time,   /*TerminFilmDetailsCard*/
+.termin-cancellation-text .weekday,             /*OverviewSemester2*/
+.termin-cancellation-text .datetime,            /*OverviewSemester2*/
+.termin-cancellation-text-archive,              /*OverviewArchive2*/
+.termin-cancellation-text-clicks-overview       /*OverviewClicks*/
+{
+    text-decoration: line-through;
+    /*color: red;*/
+    color: crimson;
+}
+
+/*-------- TerminFilmGalleryCard --------*/
+/*#######################################*/
+
+/*color grading over entire gallery card*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.terminFilmGallery-card.termin-cancellation-text {
+    position: relative;
+}
+
+.terminFilmGallery-card.termin-cancellation-text::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background: rgba(255, 0, 0, 0.35); !* Semi-transparent red *!*/
+    background: rgba(0, 0, 0, 0.75); /* Semi-transparent black */
+    z-index: 1;
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+/*abgesagt text overlay over image*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.cancellation-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Above the image and gradient */
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+.cancellation-image-overlay-text {
+    /*background-color: rgba(255, 0, 0, 0.85); !* Semi-transparent red *!*/
+    background-color: crimson;
+    color: white;
+    padding: 0.75rem 7.0rem;
+    border-radius: 0px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+    /* ADD THIS LINE for rotation (e.g., -15 degrees counter-clockwise) */
+    transform: rotate(-8deg);
+}
+
+/*-------- TerminFilmDetailsCard & TerminFilmDetailsListing--------*/
+/*#################################################################*/
+
+/* New: Styling for the "Abgesagt!" message (Red, no line-through) */
+.termin-cancellation-alert-text {
+    /*color: red;*/
+    color: crimson;
+}
+
+/*Container to position color grading overlay*/
+.image-container {
+    position: relative; /* Enable absolute positioning for children */
+    width: 100%; /* Ensure the container takes the full width */
+    height: auto; /* Allow it to adjust height based on content */
+}
+
+/* Overlay for color grading only for film image */
+.image-color-grading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}

@@ -95,7 +95,7 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
 
             <Form onSubmit={(e) => handleSubmit(e, newsItem)}>
                 <Form.Group controlId="text">
-                    <Form.Label>Text *</Form.Label>
+                    <Form.Label>Text (HTML) *</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={10} // Large textarea
@@ -131,7 +131,7 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>full url of the image file</li>
+                            <li>full url of the image file, can be external link</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>

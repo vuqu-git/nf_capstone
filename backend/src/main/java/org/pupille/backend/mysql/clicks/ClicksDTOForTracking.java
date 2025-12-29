@@ -18,4 +18,5 @@ public class ClicksDTOForTracking {
     private Boolean wasUserScreeningClicked;
     private Boolean wasSessionCalendarClicked;
     private Boolean wasUserCalendarClicked;
+    private Boolean isCanceled;
 }

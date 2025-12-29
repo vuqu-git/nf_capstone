@@ -7,6 +7,7 @@ interface TerminDTOWithFilmDTOOverviewArchive{
     semester?: string;
     titel?: string | null;
     films: FilmDTOOverviewArchive[];
+    isCanceled?: boolean | null;
 }
 
 export default TerminDTOWithFilmDTOOverviewArchive;

@@ -1,6 +1,7 @@
 package org.pupille.backend.mysql.clicks;
 
 import lombok.RequiredArgsConstructor;
+import org.pupille.backend.mysql.GeneralResponse;
 import org.pupille.backend.utils.PupilleUtils;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,8 @@ public class ClicksService {
 
     private final ClicksRepo clicksRepo;
 
-    // for post edn point "/api/clicks"
-    public String trackClicks(ClicksDTOForTracking requestDTO) {
+    // for post end point "/api/clicks"
+    public GeneralResponse trackClicks(ClicksDTOForTracking requestDTO) {
         Clicks c = clicksRepo.findById(requestDTO.getTnr())
                 .orElseGet(() -> {
                     Clicks newC = new Clicks();
@@ -47,8 +48,12 @@ public class ClicksService {
             c.setWithTerminbesonderheit(requestDTO.getWithTerminbesonderheit());
         }
 
-        if (requestDTO.getInNumberReihen() != null && !requestDTO.getInNumberReihen().equals(c.getInNumberReihen())) {
+        if (requestDTO.getInNumberReihen() != null && !Objects.equals(requestDTO.getInNumberReihen(), c.getInNumberReihen())) {
             c.setInNumberReihen(requestDTO.getInNumberReihen());
+        }
+
+        if (requestDTO.getIsCanceled() != null && !Objects.equals(requestDTO.getIsCanceled(), c.getIsCanceled())) {
+            c.setIsCanceled(requestDTO.getIsCanceled());
         }
         // --------------------
         // increment respective counters
@@ -66,7 +71,7 @@ public class ClicksService {
         }
 
         clicksRepo.save(c);
-        return "Counted.";
+        return new GeneralResponse("Counted.");
     }
 
     public List<ClicksResponseDTO> getAllClicksByCurrentSemesterSortedByVorstellungsbeginnAsc() {

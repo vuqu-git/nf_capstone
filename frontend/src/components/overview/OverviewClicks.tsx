@@ -1,5 +1,7 @@
-import {Link, useLoaderData} from 'react-router-dom';
+import '../termine/CancellationStyle.css'
 import styles from './OverviewClicks.module.css';
+
+import {Link, useLoaderData} from 'react-router-dom';
 import {ClicksResponseDTO} from "../../types/ClicksResponseDTO.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Col, Container, Row} from "react-bootstrap";
@@ -23,6 +25,7 @@ const OverviewClicks: React.FC = () => {
                     <div className={styles.container}>
                         <section>
                             <h1 className={styles.title}>Click-Übersicht pro Vorstellung im aktuellen Semester</h1>
+                            <p>Zweck: Abschätzung des Publikumsaufkommens für staffing des Dienstplans</p>
                             <div className={styles.tableWrapper}>
                                 <table className={styles.table}>
                                     <thead>
@@ -41,10 +44,10 @@ const OverviewClicks: React.FC = () => {
                                     <tbody>
                                     {clicksOfSemester.map(click => (
                                         <tr key={click.tnr}>
-                                            <td>
+                                            <td className={click.isCanceled ? 'termin-cancellation-text-clicks-overview' : ''}>
                                                 {formatDateInTerminSelectOption(click.vorstellungsbeginn)}
                                             </td>
-                                            <td className={styles.truncate}><Link to={"/details/" +click.tnr + "?t=x"} className="custom-link">{renderHtmlText(click.titel)}</Link></td>
+                                            <td className={styles.truncate}>{click.isCanceled ? "🔴 " : "🟢 "}<Link to={"/details/" +click.tnr + "?t=x"} className="custom-link">{renderHtmlText(click.titel)}</Link></td>
                                             <td>{click.sessionScreeningClicks}</td>
                                             <td>{click.sessionCalendarClicks}</td>
                                             <td>{click.userScreeningClicks}</td>
@@ -87,7 +90,16 @@ const OverviewClicks: React.FC = () => {
                             </div>
 
                             <h2 className={styles.title2}>Tage online</h2>
-                            <p>Zeigt an wie lange das Screening auf der Webseite beworben wurde (Zählung der Tage nur bis Vorführungstag).</p>
+                            <p>Zeigt an wie lange das Screening in der Gallery (main page) auf der Webseite beworben wurde (Zählung der Tage nur bis Vorführungstag).</p>
+
+                            <h2 className={styles.title2}>Legende</h2>
+                            <p>
+                                🔴: Vorführung, die als "abgesagt" angezeigt wird <br />
+                                🟢: Vorführung, die stattfinden soll bzw. stattgefunden hat
+                            </p>
+
+                            <h2 className={styles.title2}>Kein Tracking mit den Links hier</h2>
+                            <p>Beim Besuch der Detailseiten über die Links oben (mit den Postfixes "?t=x" in der url) wird keine Click-Zählung durchgeführt.</p>
                         </details>
 
                     </div>

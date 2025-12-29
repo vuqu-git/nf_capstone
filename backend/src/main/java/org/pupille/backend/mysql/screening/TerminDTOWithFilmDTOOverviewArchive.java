@@ -13,7 +13,8 @@ public record TerminDTOWithFilmDTOOverviewArchive(
         LocalDateTime vorstellungsbeginn,
         String semester,
         String titel,
-        List<FilmDTOOverviewArchive> films // one usage in the screening service method getPastTermineWithFilms, ensures they are mainfilms
+        List<FilmDTOOverviewArchive> films, // one usage in the screening service method getPastTermineWithFilms, ensures they are mainfilms
+        Boolean isCanceled
 ) {
     public TerminDTOWithFilmDTOOverviewArchive(Termin termin, List<Film> films) {
         this(
@@ -23,7 +24,8 @@ public record TerminDTOWithFilmDTOOverviewArchive(
                 termin.getTitel(),
                 films.stream()
                         .map(FilmDTOOverviewArchive::new)
-                        .toList()
+                        .toList(),
+                termin.getIsCanceled()
         );
     }
 }

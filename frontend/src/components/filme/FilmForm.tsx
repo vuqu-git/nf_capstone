@@ -412,7 +412,7 @@ export default function FilmForm() {
                 <h3 className="mt-3">Film details</h3>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel *</Form.Label>
+                    <Form.Label>Titel (HTML) *</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"
@@ -428,7 +428,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="originaltitel" className="mt-3">
-                    <Form.Label>Originaltitel</Form.Label>
+                    <Form.Label>Originaltitel (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="originaltitel"
@@ -507,7 +507,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="text" className="mt-3">
-                    <Form.Label>Text</Form.Label>
+                    <Form.Label>Text (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={11}
@@ -533,7 +533,7 @@ export default function FilmForm() {
                 </Button>
 
                 <Form.Group controlId="kurztext" className="mt-3">
-                    <Form.Label>Kurztext (= kurze Variante vom Text oben)</Form.Label>
+                    <Form.Label>Kurztext - kurze Variante vom Text oben (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -550,7 +550,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="besonderheit" className="mt-3">
-                    <Form.Label><u>Film</u>besonderheit</Form.Label>
+                    <Form.Label><u>Film</u>besonderheit (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={2}
@@ -569,7 +569,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="contentNote" className="mt-3">
-                    <Form.Label>Content Note</Form.Label>
+                    <Form.Label>Content Note (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={2}
@@ -586,7 +586,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="trailer" className="mt-3">
-                    <Form.Label>Trailer</Form.Label>
+                    <Form.Label>Trailer (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={4}
@@ -695,7 +695,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="verleih" className="mt-3">
-                    <Form.Label>Verleih</Form.Label>
+                    <Form.Label>Verleih (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="verleih"
@@ -705,7 +705,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="regie" className="mt-3">
-                    <Form.Label>Regie</Form.Label>
+                    <Form.Label>Regie (kein HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="regie"
@@ -721,7 +721,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="stab" className="mt-3">
-                    <Form.Label>Stab & Besetzung</Form.Label>
+                    <Form.Label>Stab & Besetzung (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={9}

@@ -11,4 +11,5 @@ export type ClicksResponseDTO = {
     withTerminbesonderheit?: boolean;
     inNumberReihen?: number;
     onlineSince: string; // ISO 8601 date format (e.g., "2025-09-16")
+    isCanceled?: boolean;
 }

@@ -96,6 +96,7 @@ public class TerminService {
                     termin.setSonderfarbe(terminDetails.getSonderfarbe());
                     termin.setVeroeffentlichen(terminDetails.getVeroeffentlichen());
                     termin.setPatenschaft(terminDetails.getPatenschaft());
+                    termin.setIsCanceled(terminDetails.getIsCanceled());
 
                     // Save the updated termin
                     Termin savedTermin = terminRepository.save(termin);

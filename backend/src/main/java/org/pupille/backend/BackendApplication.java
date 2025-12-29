@@ -14,7 +14,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 		"org.pupille.backend.mysql.reihe",
 		"org.pupille.backend.mysql.programmheft",
 		"org.pupille.backend.mysql.clicks",
-		"org.pupille.backend.mysql.otherdata"
+		"org.pupille.backend.mysql.otherdata",
+		"org.pupille.backend.mysql.survey.umfrage",
+		"org.pupille.backend.mysql.survey.auswahloption",
+		"org.pupille.backend.mysql.survey.stimmabgabe",
 })
 @EnableMongoRepositories(basePackages = "org.pupille.backend.news.repositories")
 @EnableScheduling

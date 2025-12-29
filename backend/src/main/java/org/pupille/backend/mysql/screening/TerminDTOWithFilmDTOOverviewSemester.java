@@ -17,7 +17,8 @@ public record TerminDTOWithFilmDTOOverviewSemester(
         String terminBesonderheit,
         List<FilmDTOOverviewSemester> mainfilms,
         Set<ReiheDTOGallery> reihen,
-        Integer terminGesamtlaufzeit
+        Integer terminGesamtlaufzeit,
+        Boolean isCanceled
 ) {
     public TerminDTOWithFilmDTOOverviewSemester(Termin termin, List<Film> films, Set<Reihe> reihen, Integer terminGesamtlaufzeit) {
         this(
@@ -34,7 +35,8 @@ public record TerminDTOWithFilmDTOOverviewSemester(
                         .map(ReiheDTOGallery::new)
                         .collect(Collectors.toSet()),
 
-                terminGesamtlaufzeit
+                terminGesamtlaufzeit,
+                termin.getIsCanceled()
         );
     }
 }

@@ -268,7 +268,7 @@
 .card-terminBesonderheit {
     color: #cfd6e1;
     border-top: 1px dotted #FFD036;
-    padding: 0.3rem 0.0em;
+    padding: 0.25rem 0.0em;
     text-align: right;
 }
 
@@ -288,7 +288,7 @@
     }
 
     .card-kurztext,
-    /*.card-besonderheit,*/
+        /*.card-besonderheit,*/
     .card-filmBesonderheit,
     .card-terminBesonderheit,
     .filminfo-and-stab-gallery {

@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import './TerminFilmGalleryCard.css';
+import './CancellationStyle.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 import {staticFilePathFrontend} from "../../utils/config.ts";
@@ -28,6 +29,8 @@ interface Props {
 
     tnr: number | undefined;
     terminBesonderheit: string | undefined;
+
+    terminIsCanceled: boolean | undefined;
 }
 
 // Set the maximum length for the truncated text
@@ -53,6 +56,7 @@ export default function TerminFilmGalleryCard({
                                                   hauptfilmbesonderheit, // inhaltliche Besonderheit des main features
                                                   tnr,
                                                   terminBesonderheit, // bezieht sich auf Koop, Festival, Gäste, Ort & Zeit etc. des Termins(!)
+                                                  terminIsCanceled
                                               }: Readonly<Props>) {
     const navigate = useNavigate();
     const isMobile = useIsMobile();
@@ -88,7 +92,7 @@ export default function TerminFilmGalleryCard({
 
     return (
         <Card
-            className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect`}
+            className={`terminFilmGallery-card ${selectSonderfarbeFromString(screeningSonderfarbe)} zoom-effect ${terminIsCanceled ? 'termin-cancellation-text' : ''}`}
         >
             {/*{bild && (*/}
                 <div
@@ -123,7 +127,14 @@ export default function TerminFilmGalleryCard({
                         // }
                     />
 
-                    {/*empty tag for stronger gradient effect*/}
+                    {/* div for the cancellation text overlay over the image (in gallery card) */}
+                    {terminIsCanceled && (
+                        <div className="cancellation-image-overlay">
+                            <span className="cancellation-image-overlay-text">Termin abgesagt!</span>
+                        </div>
+                    )}
+
+                    {/*empty tag for stronger gradient effect for transition from image to text*/}
                     <div className="gradient-overlay"></div>
 
                     <div className="gradient-overlay">
@@ -209,7 +220,10 @@ export default function TerminFilmGalleryCard({
                 )}
 
                 {terminBesonderheit && (
-                    <div className="card-terminBesonderheit">
+                    <div
+                        className="card-terminBesonderheit"
+                        style={{ borderTop: kurztext ? undefined : 'none' }}
+                    >
                         {renderHtmlContent(terminBesonderheit)}
                     </div>
                 )}

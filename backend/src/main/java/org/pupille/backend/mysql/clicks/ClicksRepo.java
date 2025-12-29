@@ -1,6 +1,5 @@
 package org.pupille.backend.mysql.clicks;
 
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,8 +10,6 @@ import java.util.List;
 public interface ClicksRepo extends JpaRepository<Clicks, Long> {
 
     // called by getAllClicksByCurrentSemesterSortedByVorstellungsbeginnAsc in ClicksService
-
-
     @Query(
             "SELECT c FROM Clicks c " +
                     "WHERE " +

@@ -1,0 +1,195 @@
+/* Survey.module.css */
+
+/* For alerts above the header in UmfrageForm and StimmabgabeForm */
+.alertContainerStyle {
+    min-height: 2.0rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.alertStyle {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0;
+    /*font-size: 0.85rem;*/
+    line-height: 1.2;
+}
+
+/* left padding for header in auswahloption table within UmfrageForm */
+.leftPadHeader {
+    padding-left: 4px;
+}
+
+/* center align X button for column Action */
+/*.centeredXButton {*/
+/*    text-align: center;*/
+/*}*/
+
+/* small table styles for voting records */
+.tableStyle {
+    max-height: 720px;   /*~30 rows*/
+    overflow-y: auto;
+
+    font-size: 0.7rem;
+}
+
+.xButtonStyle {
+    padding: 0 4px;
+    line-height: 1;
+    font-size: 0.7rem;
+    min-width: 1.2rem;
+}
+
+/*###################################################*/
+
+/* for SurveyCard */
+/******************/
+
+/* Anlass Title */
+.umfrageAnlass {
+    color: #FFD036;
+}
+
+/* Description Text */
+.umfrageDescription {
+    color: #cfd6e1;
+}
+
+/* --- Options Styling --- */
+.optionCard {
+    padding: 0.5rem 1.0rem;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    transition: all 0.2s ease-in-out;
+    color: #cfd6e1;
+    cursor: pointer; /* Makes the whole card clickable */
+}
+
+.optionCard:hover {
+    background-color: #2a2a2a;
+    border-color: #555;
+}
+
+.optionCardSelected {
+    background-color: #252525;
+    border-color: #FFD036 !important; /* Force gold border */
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.15);
+}
+
+/* --- Custom Radio Button --- */
+.customRadio {
+    appearance: none;
+    -webkit-appearance: none;
+
+    /* Layout */
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0; /* Prevent squishing */
+
+    /* Circle Shape */
+    border: 2px solid #666;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+
+    /* Essential for absolute centering of the dot */
+    position: relative;
+
+    /* Reset layout */
+    margin: 0;
+    padding: 0;
+
+    /* Align with the first line of text.
+       Since the parent is 'align-items-start', this pushes it down slightly
+       to visually center it with the capital letters of the Title. */
+    margin-top: 0.2rem;
+
+    transition: all 0.2s ease-in-out;
+}
+
+/* The inner dot (hidden by default via scaling) */
+.customRadio::before {
+    content: "";
+    position: absolute;
+
+    /* Force exact center regardless of parents */
+    top: 50%;
+    left: 50%;
+    /* Start hidden (scale 0) but centered */
+    transform: translate(-50%, -50%) scale(0);
+
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+
+    background-color: #1e1e1e;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+
+    transition: 0.15s transform ease-in-out;
+}
+
+/* --- Radio Checked State --- */
+.customRadio:checked {
+    border-color: #FFD036;
+    background-color: #FFD036; /* Solid Gold Background */
+}
+
+.customRadio:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- Radio Hover & Focus States --- */
+.customRadio:hover {
+    border-color: #888;
+}
+
+.customRadio:focus {
+    outline: none;
+    /* A Gold glow ring */
+    box-shadow: 0 0 0 4px rgba(255, 208, 54, 0.25);
+}
+
+/* --- Text Styles --- */
+.optionLabel {
+    font-weight: 600;
+    font-size: 1.0rem;
+    color: #FFD036;
+    cursor: pointer;
+}
+
+.optionDetails {
+    color: #9ac7fa;
+}
+
+/* --- Button --- */
+.submitBtn {
+    background-color: #FFD036;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 0.8rem;
+    border-radius: 2px;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background-color: #e6bb30; /* Slightly darker gold on hover */
+    color: #000;
+}
+
+.submitBtn:disabled {
+    background-color: #444;
+    color: #888;
+}
+
+
+/* for StimmabgabeForm */
+/***********************/
+
+/* Truncated Table Cells */
+.truncatedCell {
+    white-space: nowrap;      /* Prevent text from wrapping to next line */
+    overflow: hidden;         /* Hide overflow content */
+    text-overflow: ellipsis;  /* Add the '...' */
+    max-width: 150px;         /* Trigger point: adjust this width as needed */
+    vertical-align: middle;   /* Align with other cells */
+}

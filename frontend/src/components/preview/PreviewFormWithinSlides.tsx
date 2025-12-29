@@ -113,13 +113,15 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                         <option key={termin.tnr} value={termin.tnr}>
                                             {/*using renderHtmlText here causes a span inside an option → hydration errors*/}
                                             {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {renderHtmlText( termin.titel || termin.mainfilms[0].titel )}*/}
-                                            {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {termin.titel || termin.mainfilms[0].titel}
+                                            {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.isCanceled ? "🔴 " : "🟢 "} {termin.titel || termin.mainfilms[0].titel}
                                         </option>
                                     ))}
                                 </Form.Select>
                                 <Form.Text className="text-muted">
-                                    STRG (Windows) oder CMD (Mac) gedrückt halten, um mehrere, nicht zusammenhängende Vorführungstermine
-                                    auszuwählen.
+                                    <ul className="tight-list">
+                                        <li>STRG (Windows) oder CMD (Mac) gedrückt halten, um mehrere, nicht zusammenhängende Vorführungstermine auszuwählen.</li>
+                                        <li>🔴: Termin ist als "abgesagt" markiert; 🟢: sonst </li>
+                                    </ul>
                                 </Form.Text>
                             </Form.Group>
                             <Button type="submit" className="mt-3" disabled={selectValue.length === 0}>

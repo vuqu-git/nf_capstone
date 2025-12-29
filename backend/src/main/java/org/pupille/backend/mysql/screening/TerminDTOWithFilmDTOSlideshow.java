@@ -16,7 +16,8 @@ public record TerminDTOWithFilmDTOSlideshow(
         String bild,
         String sonderfarbe,
         Short veroeffentlichen,
-        List<FilmDTOForm> mainfilms
+        List<FilmDTOForm> mainfilms,
+        Boolean isCanceled
 ) {
     public TerminDTOWithFilmDTOSlideshow(Termin termin, List<Film> films) {
         this(
@@ -30,7 +31,8 @@ public record TerminDTOWithFilmDTOSlideshow(
                 termin.getVeroeffentlichen(),
                 films.stream()
                         .map(FilmDTOForm::new)
-                        .toList()
+                        .toList(),
+                termin.getIsCanceled()
         );
     }
 }

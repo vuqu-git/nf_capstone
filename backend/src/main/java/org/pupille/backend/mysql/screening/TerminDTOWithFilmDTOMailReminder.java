@@ -12,7 +12,8 @@ public record TerminDTOWithFilmDTOMailReminder(
         String titel,
         String patenschaft,
         Short veroeffentlichen,
-        List<FilmDTOMailReminder> mainfilms
+        List<FilmDTOMailReminder> mainfilms,
+        Boolean isCanceled
 ) {
     public TerminDTOWithFilmDTOMailReminder(Termin termin, List<Film> mainfilms) {
         this(
@@ -23,7 +24,8 @@ public record TerminDTOWithFilmDTOMailReminder(
                 termin.getVeroeffentlichen(),
                 mainfilms.stream()
                         .map(FilmDTOMailReminder::new)
-                        .toList()
+                        .toList(),
+                termin.getIsCanceled()
         );
     }
 }

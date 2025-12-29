@@ -211,7 +211,7 @@ export default function ProgrammheftForm() {
                 <h3 className="mt-3">Programmheft/Flyer details</h3>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel *</Form.Label>
+                    <Form.Label>Titel (kein HTML)*</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"

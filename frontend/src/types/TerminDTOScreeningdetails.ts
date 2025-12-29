@@ -11,6 +11,7 @@ interface TerminDTOScreeningdetails {
     sonderfarbeTitel?: number | null;
     sonderfarbe?: string | null;
     veroeffentlichen?: number;
+    isCanceled?: boolean | null;
 }
 
 export default TerminDTOScreeningdetails;

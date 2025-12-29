@@ -1,4 +1,5 @@
 import './OverviewAndProgram.css';
+import '../termine/CancellationStyle.css'
 
 import {Link, useLoaderData} from "react-router-dom";
 import TerminDTOWithFilmDTOOverviewSemester from "../../types/TerminDTOWithFilmDTOOverviewSemester.ts";
@@ -11,7 +12,6 @@ import ReihenAndFilmTermineForOverviewSemester from "../../types/ReihenAndFilmTe
 import React, {useState} from "react";
 
 import Select, { ActionMeta, SingleValue } from "react-select";
-import {testListeReihenSemester} from "../testListeReihenSemester.ts";
 import {reihenSelectionWithSearchStyles} from "../styles/reihenSelectionWithSearchStyles.ts";
 import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
 
@@ -94,13 +94,16 @@ export default function OverviewSemester2() {
                                 <article key={termin.tnr} className="overview-row">
 
                                     <div className="overview-calender-and-date">
-                                        <div className="calendar" onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length)}>
+                                        <div
+                                            className={`calendar`}
+                                            onClick={() => handleTrackCalendarClick(termin.tnr, termin.vorstellungsbeginn, calenderTitle, !!termin.terminBesonderheit, termin.reihen.length, !!termin.isCanceled)}
+                                        >
                                             <AddToCalendarButton
 
                                                 name={"Pupille: " + calenderTitle}
-                                                startDate={calenderDateObj.startDate}
+                                                startDate={termin.isCanceled ? "0000-01-01": calenderDateObj.startDate} // "disable" calendar button when termin is canceled
                                                 startTime={calenderDateObj.startTime}
-                                                endDate={calenderDateObj.endDate}
+                                                endDate={termin.isCanceled ? "0000-01-01" : calenderDateObj.endDate}    // "disable" calendar button when termin is canceled
                                                 endTime={calenderDateObj.endTime}
                                                 timeZone="Europe/Berlin"
                                                 options={['Apple', 'Google', 'iCal']}
@@ -115,17 +118,26 @@ export default function OverviewSemester2() {
                                                 buttonStyle="round"
                                             />
                                         </div>
-                                        <div className="overview-weekday-and-datetime">
+
+                                        <div className={`overview-weekday-and-datetime ${termin.isCanceled ? 'termin-cancellation-text' : ''}`}>
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
                                             <div className="datetime">
                                                 {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : ""}>{screeningDateObj?.time}</span>
+
                                             </div>
+                                            {termin.isCanceled && (
+                                                <>
+                                                    <br />
+                                                    <span className="termin-cancellation-alert-text">Abgesagt!</span>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
                                     <div className="overview-title">
                                         {!termin.titel ? (
                                             <>
+                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                                 </Link>
@@ -142,6 +154,7 @@ export default function OverviewSemester2() {
                                             </>
                                         ) : (
                                             <>
+                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.titel)}
                                                     {termin.mainfilms.length > 0 && (

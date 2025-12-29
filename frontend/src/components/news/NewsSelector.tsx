@@ -19,7 +19,7 @@ export const NewsSelector = ({ allNews, selectedId, onSelect }: Props) => (
             <option value="">Select here...</option>
             {allNews.map((news) => (
                 <option key={news.id} value={news.id}>
-                    End: {news.endDate} - {news.text}
+                    ⌛ {news.endDate} | {news.text}
                 </option>
             ))}
         </Form.Select>

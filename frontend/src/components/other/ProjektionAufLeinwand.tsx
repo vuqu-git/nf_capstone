@@ -20,8 +20,8 @@ export default function ProjektionAufLeinwand() {
                     <Card.Header><Card.Title>&#10112; ganz eigenständig</Card.Title></Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            Dazu müsstet ihr als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärt ihr zeitlich und organisatorisch ganz unabhängig von uns.
-                            Unsere Leinwand könnt ihr auf jeden Fall nutzen. Der Schlüssel zum Ausrollen liegt bei der Pforte des Studierendenhauses.
+                            Dazu müsstest du als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärst du zeitlich und organisatorisch ganz unabhängig von uns.
+                            Unsere Leinwand könntest du auf jeden Fall nutzen. Der Schlüssel zum Ausrollen liegt bei der Pforte des Studierendenhauses.
                         </Card.Text>
                         <Badge bg="warning" text="dark">Hinweis:</Badge>
                         <Card.Text>
@@ -34,11 +34,11 @@ export default function ProjektionAufLeinwand() {
                     <Card.Header><Card.Title>&#10113; mit professioneller Kinotechnik</Card.Title></Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            Dafür müsstet Ihr den Festsaal zuerst vom AStA selber mieten. Für die Nutzung unserer Kinotechnik (Ton und/oder Projektoren) müsste der Termin mit uns abgesprochen werden,
+                            Dafür müsstest du den Festsaal zuerst vom AStA selber mieten. Für die Nutzung unserer Kinotechnik (Ton und/oder Projektoren) müsste der Termin mit uns abgesprochen werden,
                             damit jemand vom Team die technische Betreuung übernimmt.
                         </Card.Text>
                         <Card.Text>
-                            Unsere Vorführer*innen nehmen für diese Dienstleistung ein kleines Honorar. Die genauen Konditionen erfahrt ihr auf Anfrage.
+                            Unsere Vorführer*innen nehmen für diese Dienstleistung ein kleines Honorar. Die genauen Konditionen erfährst du nach der Anfrage.
                         </Card.Text>
                         <Card.Text>
                             Wir bekommen regelmäßig viele Anfragen und können nicht alle berücksichtigen, da wir komplett ehrenamtlich tätig sind.
@@ -47,9 +47,9 @@ export default function ProjektionAufLeinwand() {
                 </Card>
             </CardGroup>
 
-            {/*<Badge bg="success" className="mt-4">Wichtig:</Badge>*/}
-            <p className="mt-4 mb-0">
-                Bevor ihr uns kontaktiert, bitte klärt immer <b>selber vorher</b>
+            <Badge bg="danger" className="mt-4">Wichtig:</Badge>
+            <p className="mb-0">
+                Bevor du uns kontaktierst, bitte kläre immer <b>selber vorher</b>
             </p>
             <ul>
                 <li>die Mietung und Verfügbarkeit des Festsaals mit dem  <a className="custom-link" href="https://asta-frankfurt.de/kontakt" target="_blank" rel="noopener noreferrer">AStA</a> (je nach Projekt bzw. Veranstaltung

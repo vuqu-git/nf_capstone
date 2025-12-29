@@ -42,6 +42,7 @@ const emptyTerminForForm = {
     sonderfarbe: '',
     veroeffentlichen: undefined,
     patenschaft: '',
+    isCanceled: undefined,
 }
 
 export default function TerminForm() {
@@ -351,7 +352,7 @@ export default function TerminForm() {
                     <ul>
                         {reihenOfSelectedTerminId.map(r => (
                             <li key={r.rnr}>
-                                {renderHtmlText(r.titel)} | #{r.rnr}
+                                {r.titel} | #{r.rnr}
                             </li>
                         ))}
                     </ul>
@@ -386,12 +387,13 @@ export default function TerminForm() {
                         {/*Bei mehreren Paten bitte kommagetrennte Liste von Mailadressen eintragen.*/}
                         <ul className="tight-list">
                             <li>Höchstens 1 Email-Adresse eintragen!</li>
+                            <li>Zweck: Versendung von Remindern zur Vorbereitung und Nachbereitung von Screening-Terminen für welche die Patenschaft übernommen wurde. Mailversand erfolgt nur für Termine, welche veröffentlicht (Feld "Veroeffentlichen" hat Zahlenwert &gt; 0) und nicht abgesagt (Feld "Termin absagen?" hat KEINEN Haken) wurden.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel (für das ganze Programm am Termin)</Form.Label>
+                    <Form.Label>Titel - für das ganze Programm am Termin (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"
@@ -409,7 +411,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="text" className="mt-3">
-                    <Form.Label>Text</Form.Label>
+                    <Form.Label>Text (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={13}
@@ -427,7 +429,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="kurztext" className="mt-3">
-                    <Form.Label>Kurztext (= kurze Variante vom Text oben)</Form.Label>
+                    <Form.Label>Kurztext - kurze Variante vom Text oben (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={3}
@@ -444,7 +446,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="besonderheit" className="mt-3">
-                    <Form.Label><u>Termin</u>besonderheit</Form.Label>
+                    <Form.Label><u>Termin</u>besonderheit (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={2}
@@ -598,6 +600,22 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Zahl größer 0 to publish; leer lassen oder 0 to hide</li>
+                        </ul>
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="isCanceled" className="mt-3">
+                    <Form.Check
+                        type="checkbox"
+                        label="Termin absagen?"
+                        name="isCanceled"
+                        checked={selectedTermin.isCanceled || false}
+                        onChange={handleFormChange}
+                    />
+                    <Form.Text className="text-muted">
+                        <ul className="tight-list">
+                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
+                            <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>

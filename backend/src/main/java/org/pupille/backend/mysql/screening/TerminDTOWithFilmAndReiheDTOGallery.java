@@ -20,6 +20,7 @@ public record TerminDTOWithFilmAndReiheDTOGallery(
         String offsetImageInGallery,
         String sonderfarbe,
         Short veroeffentlichen,
+        Boolean isCanceled,
         List<FilmDTOGallery> mainfilms,
         Set<ReiheDTOGallery> reihen
 ) {
@@ -34,6 +35,7 @@ public record TerminDTOWithFilmAndReiheDTOGallery(
                 termin.getOffsetImageInGallery(),
                 termin.getSonderfarbe(),
                 termin.getVeroeffentlichen(),
+                termin.getIsCanceled(),
                 mainfilms.stream()
                         .map(FilmDTOGallery::new)
                         .toList(),

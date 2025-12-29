@@ -51,6 +51,9 @@ public class Clicks {
     @Column(name = "online_since")
     private LocalDate onlineSince;
 
+    @Column(name = "isCanceled")
+    private Boolean isCanceled;
+
     // ############################################
     // Mandatory relationship to Termin - shares the same primary key
     // mandatory means: 1 Clicks object must have 1 associated Termin object
