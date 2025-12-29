@@ -44,7 +44,7 @@ const OverviewClicks: React.FC = () => {
                                     <tbody>
                                     {clicksOfSemester.map(click => (
                                         <tr key={click.tnr}>
-                                            <td className={click.isCanceled ? 'termin-cancellation-text-clicks-overview' : ''}>
+                                            <td className={click.isCanceled ? 'termin-cancellation-text-clicks-overview' : undefined}>
                                                 {formatDateInTerminSelectOption(click.vorstellungsbeginn)}
                                             </td>
                                             <td className={styles.truncate}>{click.isCanceled ? "🔴 " : "🟢 "}<Link to={"/details/" +click.tnr + "?t=x"} className="custom-link">{renderHtmlText(click.titel)}</Link></td>

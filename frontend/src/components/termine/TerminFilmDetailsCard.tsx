@@ -132,8 +132,7 @@ export default function TerminFilmDetailsCard({
                     {/* Optional: Add text prefix for clarity */}
                     {terminIsCanceled && <span className="termin-cancellation-alert-text">Abgesagt! </span>}
 
-                    {/*<span className={terminIsCanceled ? 'termin-cancellation-date-text' : ''}>*/}
-                    <span className={terminIsCanceled ? 'overlay-time' : ''}>
+                    <span className={terminIsCanceled ? 'overlay-time' : undefined}>
                         {screeningWeekday} {screeningDate} {screeningTime}
                     </span>
                 </Card.Header>
@@ -199,8 +198,7 @@ export default function TerminFilmDetailsCard({
                         </div>
                         {reihen.map((reihe: ReiheDTOFormWithTermineAndFilme, i) => (
                             <div key={reihe.rnr} className="">
-                                {/*<div className="ps-3"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>*/}
-                                <div className="mt-1"><em>{reihe.titel}</em> {reihe.termine.length > 1 ? "zusammen mit" : ""}</div>
+                                <div className="mt-1"><em>{reihe.titel}</em>{reihe.termine.length > 1 && " zusammen mit"}</div>
                                 {reihe.termine && (
                                     <ul className="no-bullets">
                                         {[...reihe.termine]
@@ -213,7 +211,7 @@ export default function TerminFilmDetailsCard({
                                                         ? termin.mainfilms.map((film, k) => (
                                                             <span key={film.fnr}>
                                                                 {renderHtmlText(film.titel)}
-                                                                {k < termin.mainfilms.length - 1 ? ", " : ""}
+                                                                {k < termin.mainfilms.length - 1 && ", "}
                                                             </span>
                                                         ))
                                                         : "Kein Filmtitel vorhanden"}

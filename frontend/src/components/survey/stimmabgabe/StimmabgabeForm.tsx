@@ -229,7 +229,7 @@ export default function StimmabgabeForm() {
                                 <option value="">Bitte Option wählen</option>
                                 {availableOptions.map(opt => (
                                     <option key={opt.onr} value={opt.onr}>
-                                        {opt.titel}{opt.details ? `: ${opt.details}` : ""}
+                                        {opt.titel}{opt.details && `: ${opt.details}`}
                                     </option>
                                 ))}
                             </Form.Select>
@@ -310,7 +310,7 @@ export default function StimmabgabeForm() {
                                                 <td>
                                                     {/*                     toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
                                                     {v.datum
-                                                        ? new Date(v.datum).toLocaleString("de-DE", {
+                                                        && new Date(v.datum).toLocaleString("de-DE", {
                                                             hour12: false,
                                                             year: "numeric",
                                                             month: "2-digit",
@@ -319,7 +319,7 @@ export default function StimmabgabeForm() {
                                                             minute: "2-digit",
                                                             second: "2-digit",
                                                         })
-                                                        : ""}
+                                                    }
                                                 </td>
                                                 {/* Truncated Title */}
                                                 <td
@@ -335,8 +335,8 @@ export default function StimmabgabeForm() {
                                                 >
                                                     {v.auswahloptionDetails}
                                                 </td>
-                                                <td>{v.isSessionDuplicate ? "✓" : ""}</td>
-                                                <td>{v.isUserDuplicate ? "✓" : ""}</td>
+                                                <td>{v.isSessionDuplicate && "✓"}</td>
+                                                <td>{v.isUserDuplicate && "✓"}</td>
                                                 <td>
                                                     <Button
                                                         variant="danger"

@@ -63,10 +63,6 @@ export default function TerminFilmDetailsListing({
             {/*******-----*******/}
             {/* Check if image URL exists */}
             {f.bild && (
-                // <Card.Img
-                //     src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
-                //     alt={f?.titel ? `Still vom Film "${f.titel}"` : ""}
-                // />
                 <div className="image-container"> {/* Container to position overlay */}
                     <Card.Img
                         src={staticFilePathFrontend + "bilder/filmbilder/" + f.bild}
