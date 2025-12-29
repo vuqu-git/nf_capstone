@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import Logout from "./security/Logout.tsx";
+import Logout from "../security/Logout.tsx";
 
 export default function AdminNav() {
     return (

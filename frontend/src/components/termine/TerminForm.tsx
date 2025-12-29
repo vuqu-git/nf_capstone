@@ -6,13 +6,13 @@ import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 
 import { preprocessFormData } from '../../utils/preprocessFormData.ts';
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import {FilmDTOSelection} from "../../types/FilmDTOSelection.ts";
 import styles from "../contact/Forms.module.css";
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import ReiheDTOSelection from "../../types/ReiheDTOSelection.ts";
-import AdminLeftBar from "../AdminLeftBar.tsx";
+import AdminLeftBar from "../structural_components/AdminLeftBar.tsx";
 
 const baseURL = "/api/termine";
 

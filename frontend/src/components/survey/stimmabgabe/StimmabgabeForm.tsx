@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
 
-import AdminNav from "../../AdminNav";
+import AdminNav from "../../structural_components/AdminNav.tsx";
 import styles from "../../contact/Forms.module.css";
 import surveyStyles from "../Survey.module.css";
 

@@ -3,9 +3,9 @@ import React, {ChangeEvent} from "react";
 import {Badge, Col, Container, Form, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
-import BackToTopButton from "../BackToTopButton.tsx";
+import BackToTopButton from "../structural_components/BackToTopButton.tsx";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
-import Header2 from "../Header2.tsx";
+import Header2 from "../structural_components/Header2.tsx";
 
 interface Preview1Props {
     semesterTermine: TerminDTOWithFilmAndReiheDTOGallery[];

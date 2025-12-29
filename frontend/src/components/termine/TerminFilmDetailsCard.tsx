@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 
 import './TerminFilmDetailsCard.css';
-import './CancellationStyle.css';
+import '../styles/CancellationStyle.css';
 import FilmDTOFormPlus from "../../types/FilmDTOFormPlus.ts";
 import TerminFilmDetailsListing from "./TerminFilmDetailsListing.tsx";
 import {createICSFileName} from "../../utils/createICSFileName.ts";

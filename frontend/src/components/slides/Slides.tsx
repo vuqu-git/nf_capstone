@@ -9,7 +9,7 @@ import TerminDTOWithFilmAndReiheDTOGallery from "../../types/TerminDTOWithFilmAn
 import OverviewAndFormLayout from "../LayoutWrapper/OverviewAndFormLayout.tsx";
 
 import PreviewShow from "../preview/PreviewShow.tsx";
-import Header2 from "../Header2.tsx";
+import Header2 from "../structural_components/Header2.tsx";
 
 import PreviewFormWithinSlides from "../preview/PreviewFormWithinSlides.tsx";
 import IdentSlideFaintGradient from "./IdentSlideFaintGradient.tsx";

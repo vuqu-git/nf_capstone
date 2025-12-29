@@ -9,7 +9,7 @@ import FilmSelection from "../filme/FilmSelection.tsx";
 import TerminDTOSelection from "../../types/TerminDTOSelection.ts";
 import TerminSelection from "../termine/TerminSelection.tsx";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import styles from "../contact/Forms.module.css";
 import FilmSelectionWithSearch from "../filme/FilmSelectionWithSearch.tsx";

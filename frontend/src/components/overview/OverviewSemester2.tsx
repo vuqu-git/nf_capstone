@@ -1,5 +1,5 @@
 import './OverviewAndProgram.css';
-import '../termine/CancellationStyle.css'
+import '../styles/CancellationStyle.css'
 
 import {Link, useLoaderData} from "react-router-dom";
 import TerminDTOWithFilmDTOOverviewSemester from "../../types/TerminDTOWithFilmDTOOverviewSemester.ts";

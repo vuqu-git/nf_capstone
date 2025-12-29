@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./Header.css"; // Import your custom CSS file
 import {Link} from "react-router-dom";
-import {staticFilePathFrontend} from "../utils/config.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 function Header() {
     return (

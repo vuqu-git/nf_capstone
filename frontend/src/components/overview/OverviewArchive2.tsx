@@ -1,5 +1,5 @@
 import './OverviewAndProgram.css';
-import '../termine/CancellationStyle.css'
+import '../styles/CancellationStyle.css'
 
 import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";

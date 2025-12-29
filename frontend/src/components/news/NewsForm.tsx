@@ -7,7 +7,7 @@ import {copyToClipboard} from "../../utils/copyToClipboard.ts";
 import styles from "../contact/Forms.module.css";
 import {useDateStartBeforeEndValidation} from "../../hooks/useDateStartBeforeEndValidation.ts";
 import {staticFilePathFrontend} from "../../utils/config.ts";
-import AdminLeftBar from "../AdminLeftBar.tsx";
+import AdminLeftBar from "../structural_components/AdminLeftBar.tsx";
 
 interface Props {
     newsItem: News; // this is need for prefilled form in case of edit
