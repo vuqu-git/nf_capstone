@@ -7,11 +7,12 @@ import {formatDateTime} from "../../utils/formatDateTime.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {AddToCalendarButton} from "add-to-calendar-button-react";
 import {createDateAndTimeForAddToCalendarButton} from "../../utils/createDateAndTimeForAddToCalendarButton.ts";
+import {avgDurationTrailer} from "../../utils/config.ts";
 import {createICSFileName} from "../../utils/createICSFileName.ts";
 import ReihenAndFilmTermineForOverviewSemester from "../../types/ReihenAndFilmTermineForOverviewSemester.ts";
 import React, {useState} from "react";
 
-import Select, { ActionMeta, SingleValue } from "react-select";
+import Select, { SingleValue } from "react-select";
 import {reihenSelectionWithSearchStyles} from "../styles/reihenSelectionWithSearchStyles.ts";
 import {useTrackCalendarClick} from "../../hooks/useTrackCalendarClick.ts";
 
@@ -20,15 +21,12 @@ interface ReihenOption {
     label: React.ReactNode; // If using JSX (i.e. HTML tags used), otherwise string
 }
 
-const avgDurationTrailer = 12;
+// const avgDurationTrailer = 12; // see /utils/config.ts
 
 export default function OverviewSemester2() {
     const objReihenAndTermineForOverviewSemester = useLoaderData<ReihenAndFilmTermineForOverviewSemester>();
     const semesterTermine: TerminDTOWithFilmDTOOverviewSemester[] = objReihenAndTermineForOverviewSemester.termineSemester;
     const semesterReihen: string[] = objReihenAndTermineForOverviewSemester.reihenSemester;
-
-    const [isClearable, setIsClearable] = useState(true);
-    const [isSearchable, setIsSearchable] = useState(true);
 
     const [selectedOption, setSelectedOption] = useState<ReihenOption | null>(null);
 
@@ -36,7 +34,6 @@ export default function OverviewSemester2() {
 
     const handleChange = (
         newValue: SingleValue<ReihenOption>,
-        actionMeta: ActionMeta<ReihenOption>
     ) => {
         setSelectedOption(newValue);
     };
@@ -44,7 +41,7 @@ export default function OverviewSemester2() {
     // const reihenOptions = testListeReihenSemester.map(reihe => ({ // test for huge semesterReihen list
     const reihenOptions = semesterReihen.map(reihe => ({
         value: reihe,
-        label: <span><em>{reihe}</em></span>
+        label: <em>{reihe}</em>
     }));
 
     const now = new Date();
@@ -60,8 +57,8 @@ export default function OverviewSemester2() {
                 value={selectedOption}
                 onChange={handleChange}
 
-                isClearable={isClearable}
-                isSearchable={isSearchable}
+                isClearable={true}
+                isSearchable={true}
                 placeholder="nach Filmreihe filtern"
                 noOptionsMessage={() => "Keine Reihen gefunden"}
 
@@ -119,11 +116,10 @@ export default function OverviewSemester2() {
                                             />
                                         </div>
 
-                                        <div className={`overview-weekday-and-datetime ${termin.isCanceled ? 'termin-cancellation-text' : ''}`}>
+                                        <div className={`overview-weekday-and-datetime ${termin.isCanceled ? 'termin-cancellation-text' : ""}`}>
                                             <div className="weekday">{screeningDateObj?.weekday}</div>
                                             <div className="datetime">
-                                                {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : ""}>{screeningDateObj?.time}</span>
-
+                                                {screeningDateObj?.date} <span className={isNotRegularTime ? "special-time" : undefined}>{screeningDateObj?.time}</span>
                                             </div>
                                             {termin.isCanceled && (
                                                 <>
@@ -137,7 +133,6 @@ export default function OverviewSemester2() {
                                     <div className="overview-title">
                                         {!termin.titel ? (
                                             <>
-                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                                 </Link>
@@ -154,7 +149,6 @@ export default function OverviewSemester2() {
                                             </>
                                         ) : (
                                             <>
-                                                {/*{termin.isCanceled ? <span className="termin-cancellation-alert-text">Abgesagt! </span> : ''}*/}
                                                 <Link to={`/details/${termin.tnr}`} className="custom-link">
                                                     {renderHtmlText(termin.titel)}
                                                     {termin.mainfilms.length > 0 && (
@@ -165,7 +159,7 @@ export default function OverviewSemester2() {
                                                         </ol>
                                                     )}
                                                 </Link>
-                                                {/*with !! I do the conversion to a boolean, without in case the value is 0, 0 itself is rendered!*/}
+                                                {/*with !! the conversion to a boolean is done, without in case the value is 0, 0 itself is rendered!*/}
                                                 {!!termin.terminGesamtlaufzeit &&
                                                     <p className="filminfo-and-stab-details filminfo-in-semester-overview">
                                                         {termin.terminGesamtlaufzeit} Min.
