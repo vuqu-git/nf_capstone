@@ -20,13 +20,10 @@ const stimmabgabeBaseURL = "/api/survey/stimmabgaben";
 const emptyVoteForForm: StimmabgabeDTO = {
     snr: undefined,
     datum: null,
-    isSessionDuplicate: null,
-    isUserDuplicate: null,
+    isd: null,
+    iud: null,
     onr: -1,
     unr: -1,
-    auswahloptionTitel: "",
-    auswahloptionDetails: "",
-    umfrageAnlass: ""
 };
 
 class FormControlElement {
@@ -253,18 +250,18 @@ export default function StimmabgabeForm() {
                         <Form.Group controlId="Session duplicate">
                             <Form.Check
                                 type="checkbox"
-                                label="Session duplicate"
-                                name="isSessionDuplicate"
-                                checked={Boolean(newVote.isSessionDuplicate)}
+                                label="is Session duplicate"
+                                name="isd" // Directly align with StimmabgabeDTO
+                                checked={Boolean(newVote.isd)}
                                 onChange={handleNewVoteChange}
                             />
                         </Form.Group>
                         <Form.Group controlId="User duplicate" className="mb-3">
                             <Form.Check
                                 type="checkbox"
-                                label="User duplicate"
-                                name="isUserDuplicate"
-                                checked={Boolean(newVote.isUserDuplicate)}
+                                label="is User duplicate"
+                                name="iud" // Directly align with StimmabgabeDTO
+                                checked={Boolean(newVote.iud)}
                                 onChange={handleNewVoteChange}
                             />
                         </Form.Group>

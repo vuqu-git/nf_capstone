@@ -149,8 +149,8 @@ public class SurveyMapper {
         StimmabgabeDTO.StimmabgabeDTOBuilder dto = StimmabgabeDTO.builder()
                 .snr(entity.getSnr())
                 .datum(entity.getDatum())
-                .isSessionDuplicate(entity.getIsSessionDuplicate())
-                .isUserDuplicate(entity.getIsUserDuplicate());
+                .isd(entity.getIsSessionDuplicate())
+                .iud(entity.getIsUserDuplicate());
 
         // Flatten: Auswahloption
         if (entity.getAuswahloption() != null) {
@@ -200,8 +200,8 @@ public class SurveyMapper {
         Stimmabgabe entity = new Stimmabgabe();
         entity.setSnr(dto.getSnr());
         entity.setDatum(dto.getDatum());
-        entity.setIsSessionDuplicate(dto.getIsSessionDuplicate());
-        entity.setIsUserDuplicate(dto.getIsUserDuplicate());
+        entity.setIsSessionDuplicate(dto.getIsd());
+        entity.setIsUserDuplicate(dto.getIud());
 
         // Reconstruct Shell: Auswahloption
         if (dto.getOnr() != null) {
