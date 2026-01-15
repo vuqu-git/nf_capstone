@@ -6,13 +6,13 @@ import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 
 import { preprocessFormData } from '../../utils/preprocessFormData.ts';
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import {FilmDTOSelection} from "../../types/FilmDTOSelection.ts";
 import styles from "../contact/Forms.module.css";
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import ReiheDTOSelection from "../../types/ReiheDTOSelection.ts";
-import AdminLeftBar from "../AdminLeftBar.tsx";
+import AdminLeftBar from "../structural_components/AdminLeftBar.tsx";
 
 const baseURL = "/api/termine";
 
@@ -187,7 +187,6 @@ export default function TerminForm() {
                         setSuccessMessage("Termin saved successfully!");
 
                         getAllSortedTermine();
-                        // setSelectedTerminId(undefined); // Reset the selection, not required for POST because selection is unchanged
                         setSelectedTermin(emptyTerminForForm); // Reset the form for further adding/editing/deleting
                     })
                     .catch((error) => {
@@ -464,7 +463,7 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="bild" className="mt-3">
-                    <Form.Label className={errorMissingBildWhenGivenTitel ? "text-danger" : ""}>vollständiger Bildname mit Dateiendung (Bild repräsentiert das ganze Filmprogramm) **</Form.Label>
+                    <Form.Label className={errorMissingBildWhenGivenTitel ? "text-danger" : undefined}>vollständiger Bildname mit Dateiendung (Bild repräsentiert das ganze Filmprogramm) **</Form.Label>
                     <Form.Control
                         type="text"
                         name="bild"

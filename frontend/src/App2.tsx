@@ -46,7 +46,7 @@ import ErrorBoundary from "./components/ErrorBoundary.tsx";
 import NotFound from "./components/NotFound.tsx";
 import ProgrammheftForm from "./components/programmhefte/ProgrammheftForm.tsx";
 import {Programmheft} from "./types/Programmheft.ts";
-import PdfProgram from "./components/PdfProgram.tsx";
+import PdfProgram from "./components/other/PdfProgram.tsx";
 import {ProgrammheftDTOWithSemesterField} from "./types/ProgrammheftDTOWithSemesterField.ts";
 import Kinogeschichte from "./components/other/Kinogeschichte.tsx";
 import PrivacyPolicy from "./components/other/PrivacyPolicy.tsx";

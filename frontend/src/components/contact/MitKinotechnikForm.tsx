@@ -259,7 +259,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                 />
                 <label
                     htmlFor="istGemietetBeiAsta"
-                    className={errorMissingConfirmationMessage && !formData.istGemietetBeiAsta ? styles.errorRedLabel : ''}
+                    className={errorMissingConfirmationMessage && !formData.istGemietetBeiAsta ? styles.errorRedLabel : undefined}
                     role="alert"
                 >
                     Ich bestätige, dass der Festsaal beim AStA für den oben genannten Veranstaltungszeitraum bereits von mir reserviert bzw. gemietet wurde.
@@ -278,7 +278,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                 />
                 <label
                     htmlFor="wurdeGelesenHinweisEventlocation"
-                    className={errorMissingConfirmationMessage && !formData.wurdeGelesenHinweisEventlocation ? styles.errorOrangeLabel : ''}
+                    className={errorMissingConfirmationMessage && !formData.wurdeGelesenHinweisEventlocation ? styles.errorOrangeLabel : undefined}
                     role="alert"
                 >
                     Hiermit bestätige ich, dass bei Werbemaßnahmen der "Festsaal im Studierendenhaus" als Veranstaltungsort genannt wird und <b>nicht</b> Pupille-Kino, da die Pupille nicht der Veranstalter ist.

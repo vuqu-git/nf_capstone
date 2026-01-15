@@ -1,6 +1,6 @@
 import {Link, useLoaderData} from "react-router-dom";
-import {Programmheft} from "../types/Programmheft.ts";
-import {staticFilePathFrontend} from "../utils/config.ts";
+import {Programmheft} from "../../types/Programmheft.ts";
+import {staticFilePathFrontend} from "../../utils/config.ts";
 
 export default function PdfProgram() {
     const pdfs = useLoaderData<Programmheft[]>();

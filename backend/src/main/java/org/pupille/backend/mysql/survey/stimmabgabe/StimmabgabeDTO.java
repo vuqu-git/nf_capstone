@@ -12,16 +12,16 @@ import java.time.Instant;
 @AllArgsConstructor
 public class StimmabgabeDTO {
 
-    private Long snr;
+    private Long snr;   // Stimme
     private Instant datum;
 
     // Status flags
-    private Boolean isSessionDuplicate;
-    private Boolean isUserDuplicate;
+    private Boolean isd;
+    private Boolean iud;
 
     // Foreign Keys (ID references)
-    private Long onr;
-    private Long unr;
+    private Long onr;   // Option
+    private Long unr;   // Umfrage
 
     // Convenience fields for the UI
     // (saves the frontend from looking up what "onr: 55" actually means)

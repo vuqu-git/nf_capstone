@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import Header from "./components/Header.tsx";
+import Header from "./components/structural_components/Header.tsx";
 import Gallery from "./components/Gallery.tsx";
 import {Route, Routes} from "react-router-dom";
 import {Col, Container, Row} from "react-bootstrap";
@@ -16,7 +16,7 @@ import ScreeningDetails from "./components/ScreeningDetails.tsx";
 import OverviewArchive from "./components/overview/OverviewArchive.tsx";
 import OverviewSemester from "./components/overview/OverviewSemester.tsx";
 import Admin from "./components/Admin.tsx";
-import BackToTopButton from "./components/BackToTopButton.tsx";
+import BackToTopButton from "./components/structural_components/BackToTopButton.tsx";
 
 function App() {
 

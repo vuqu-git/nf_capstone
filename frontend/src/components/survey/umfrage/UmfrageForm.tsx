@@ -8,8 +8,8 @@ import surveyStyles from "../Survey.module.css";
 import UmfrageSelectionWithSearch from "./UmfrageSelectionWithSearch.tsx";
 import {UmfrageDTO} from "../../../types/UmfrageDTO.ts";
 import {AuswahloptionNestedDTO} from "../../../types/AuswahloptionNestedDTO.ts";
-import AdminNav from "../../AdminNav.tsx";
-import AdminLeftBar from "../../AdminLeftBar.tsx";
+import AdminNav from "../../structural_components/AdminNav.tsx";
+import AdminLeftBar from "../../structural_components/AdminLeftBar.tsx";
 import {UmfrageSelectionDTO} from "../../../types/UmfrageSelectionDTO.ts";
 
 const baseURL = "/api/survey/umfragen";

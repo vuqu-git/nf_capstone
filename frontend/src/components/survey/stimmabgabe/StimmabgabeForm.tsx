@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import axios from "axios";
 
-import AdminNav from "../../AdminNav";
+import AdminNav from "../../structural_components/AdminNav.tsx";
 import styles from "../../contact/Forms.module.css";
 import surveyStyles from "../Survey.module.css";
 
@@ -20,13 +20,10 @@ const stimmabgabeBaseURL = "/api/survey/stimmabgaben";
 const emptyVoteForForm: StimmabgabeDTO = {
     snr: undefined,
     datum: null,
-    isSessionDuplicate: null,
-    isUserDuplicate: null,
+    isd: null,
+    iud: null,
     onr: -1,
     unr: -1,
-    auswahloptionTitel: "",
-    auswahloptionDetails: "",
-    umfrageAnlass: ""
 };
 
 class FormControlElement {
@@ -229,7 +226,7 @@ export default function StimmabgabeForm() {
                                 <option value="">Bitte Option wählen</option>
                                 {availableOptions.map(opt => (
                                     <option key={opt.onr} value={opt.onr}>
-                                        {opt.titel}{opt.details ? `: ${opt.details}` : ""}
+                                        {opt.titel}{opt.details && `: ${opt.details}`}
                                     </option>
                                 ))}
                             </Form.Select>
@@ -253,18 +250,18 @@ export default function StimmabgabeForm() {
                         <Form.Group controlId="Session duplicate">
                             <Form.Check
                                 type="checkbox"
-                                label="Session duplicate"
-                                name="isSessionDuplicate"
-                                checked={Boolean(newVote.isSessionDuplicate)}
+                                label="is Session duplicate"
+                                name="isd" // Directly align with StimmabgabeDTO
+                                checked={Boolean(newVote.isd)}
                                 onChange={handleNewVoteChange}
                             />
                         </Form.Group>
                         <Form.Group controlId="User duplicate" className="mb-3">
                             <Form.Check
                                 type="checkbox"
-                                label="User duplicate"
-                                name="isUserDuplicate"
-                                checked={Boolean(newVote.isUserDuplicate)}
+                                label="is User duplicate"
+                                name="iud" // Directly align with StimmabgabeDTO
+                                checked={Boolean(newVote.iud)}
                                 onChange={handleNewVoteChange}
                             />
                         </Form.Group>
@@ -310,7 +307,7 @@ export default function StimmabgabeForm() {
                                                 <td>
                                                     {/*                     toLocaleString() defaults to the user's browser locale, which is often en-US (12-hour format) even if you are in Europe*/}
                                                     {v.datum
-                                                        ? new Date(v.datum).toLocaleString("de-DE", {
+                                                        && new Date(v.datum).toLocaleString("de-DE", {
                                                             hour12: false,
                                                             year: "numeric",
                                                             month: "2-digit",
@@ -319,7 +316,7 @@ export default function StimmabgabeForm() {
                                                             minute: "2-digit",
                                                             second: "2-digit",
                                                         })
-                                                        : ""}
+                                                    }
                                                 </td>
                                                 {/* Truncated Title */}
                                                 <td
@@ -335,8 +332,8 @@ export default function StimmabgabeForm() {
                                                 >
                                                     {v.auswahloptionDetails}
                                                 </td>
-                                                <td>{v.isSessionDuplicate ? "✓" : ""}</td>
-                                                <td>{v.isUserDuplicate ? "✓" : ""}</td>
+                                                <td>{v.isSessionDuplicate && "✓"}</td>
+                                                <td>{v.isUserDuplicate && "✓"}</td>
                                                 <td>
                                                     <Button
                                                         variant="danger"

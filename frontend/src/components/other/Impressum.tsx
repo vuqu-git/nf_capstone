@@ -1,4 +1,4 @@
-import './NomalContent.css';
+import '../styles/NomalContent.css';
 import {Link, useLoaderData} from "react-router-dom";
 import {OtherDataValuesMap} from "../../types/OtherDataValuesMap.ts";
 

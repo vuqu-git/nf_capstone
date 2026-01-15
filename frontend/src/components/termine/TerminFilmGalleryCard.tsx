@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
 import './TerminFilmGalleryCard.css';
-import './CancellationStyle.css';
+import '../styles/CancellationStyle.css';
 import { useNavigate } from "react-router-dom";
 import {selectSonderfarbeFromString} from "../../utils/selectSonderfarbeFromString.ts";
 import {staticFilePathFrontend} from "../../utils/config.ts";

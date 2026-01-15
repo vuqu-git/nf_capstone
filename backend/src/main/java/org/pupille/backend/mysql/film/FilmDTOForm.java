@@ -1,6 +1,5 @@
 package org.pupille.backend.mysql.film;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

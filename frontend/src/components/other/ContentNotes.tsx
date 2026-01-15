@@ -1,4 +1,4 @@
-import './NomalContent.css';
+import '../styles/NomalContent.css';
 
 export default function ContentNotes() {
 

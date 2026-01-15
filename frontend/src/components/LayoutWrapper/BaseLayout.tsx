@@ -6,9 +6,9 @@ import {
     type useMatches,
 } from "react-router-dom";
 
-import Header2 from "../Header2.tsx";
+import Header2 from "../structural_components/Header2.tsx";
 import {useCallback} from "react";
-import Footer from "../Footer.tsx";
+import Footer from "../structural_components/Footer.tsx";
 
 export default function BaseLayout() {
 
