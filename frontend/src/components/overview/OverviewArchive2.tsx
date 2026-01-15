@@ -1,5 +1,5 @@
 import './OverviewAndProgram.css';
-import '../termine/CancellationStyle.css'
+import '../styles/CancellationStyle.css'
 
 import {formatDateInOverviewArchive} from "../../utils/formatDateInOverviewArchive.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
@@ -103,7 +103,7 @@ export default function OverviewArchive2() {
                 rowsForArchiveEntries.push(
                     <tr key={termin.tnr}>
                         <td className="screening-date-cell">
-                            <div className={termin.isCanceled ? 'termin-cancellation-text-archive' : ''}>
+                            <div className={termin.isCanceled ? 'termin-cancellation-text-archive' : undefined}>
                                 {formatDateInOverviewArchive(termin.vorstellungsbeginn)}
                             </div>
                             {termin.isCanceled && (

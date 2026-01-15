@@ -1,5 +1,5 @@
 import '../termine/TerminFilmGalleryCard.css';
-import '../termine/CancellationStyle.css';
+import '../styles/CancellationStyle.css';
 
 import Card from 'react-bootstrap/Card';
 import { renderHtmlText } from "../../utils/renderHtmlText.tsx";

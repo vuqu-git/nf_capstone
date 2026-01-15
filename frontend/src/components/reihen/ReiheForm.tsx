@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import {preprocessFormData} from "../../utils/preprocessFormData.ts";
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import ReiheDTOFormWithTermineAndFilme from "../../types/ReiheDTOFormWithTermineAndFilme.ts";
 import ReiheDTOSelection from "../../types/ReiheDTOSelection.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";

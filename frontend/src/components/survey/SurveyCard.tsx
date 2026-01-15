@@ -131,8 +131,8 @@ export default function SurveyCard() {
             // datum: new Date().toISOString(), // The method toISOString() always returns the time in UTC (Coordinated Universal Time), also known as "Zulu time" (indicated by the Z at the end of the string). In the spring backend the field type is Instant.
 
             // 3. Send the status to backend
-            isSessionDuplicate: isSessionDuplicate,
-            isUserDuplicate: isUserDuplicate
+            isd: isSessionDuplicate,
+            iud: isUserDuplicate
         };
 
         axios.post<StimmabgabeDTO>("/api/survey/stimmabgaben", payload)

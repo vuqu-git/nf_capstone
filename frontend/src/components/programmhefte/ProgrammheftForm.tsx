@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import {preprocessFormData} from "../../utils/preprocessFormData.ts";
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import ProgrammheftDTOSelection from "../../types/ProgrammheftDTOSelection.ts";
 import {Programmheft} from "../../types/Programmheft.ts";
 import ProgrammheftSelection from "./ProgrammheftSelection.tsx";

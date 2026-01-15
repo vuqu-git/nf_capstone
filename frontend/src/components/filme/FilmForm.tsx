@@ -6,13 +6,13 @@ import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import {preprocessFormData} from "../../utils/preprocessFormData.ts";
 import {copyToClipboard} from "../../utils/copyToClipboard.ts";
-import AdminNav from "../AdminNav.tsx";
+import AdminNav from "../structural_components/AdminNav.tsx";
 import TerminDTOSelection from "../../types/TerminDTOSelection.ts";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
 import {trimAllStringsInObjectShallow} from "../../utils/trimAllStringsInObjectShallow.ts";
 import styles from "../contact/Forms.module.css";
 import FilmSelectionWithSearch from "./FilmSelectionWithSearch.tsx";
-import AdminLeftBar from "../AdminLeftBar.tsx";
+import AdminLeftBar from "../structural_components/AdminLeftBar.tsx";
 
 const baseURL = "/api/filme";
 

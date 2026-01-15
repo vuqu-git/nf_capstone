@@ -1,11 +1,11 @@
-import '../termine/CancellationStyle.css'
+import '../styles/CancellationStyle.css'
 import styles from './OverviewClicks.module.css';
 
 import {Link, useLoaderData} from 'react-router-dom';
 import {ClicksResponseDTO} from "../../types/ClicksResponseDTO.ts";
 import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import {Col, Container, Row} from "react-bootstrap";
-import BackToTopButton from "../BackToTopButton.tsx";
+import BackToTopButton from "../structural_components/BackToTopButton.tsx";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
 import {formatDaysOnlineInOverviewClicks} from "../../utils/formatDaysOnlineInOverviewClicks.ts";
 
@@ -44,7 +44,7 @@ const OverviewClicks: React.FC = () => {
                                     <tbody>
                                     {clicksOfSemester.map(click => (
                                         <tr key={click.tnr}>
-                                            <td className={click.isCanceled ? 'termin-cancellation-text-clicks-overview' : ''}>
+                                            <td className={click.isCanceled ? 'termin-cancellation-text-clicks-overview' : undefined}>
                                                 {formatDateInTerminSelectOption(click.vorstellungsbeginn)}
                                             </td>
                                             <td className={styles.truncate}>{click.isCanceled ? "🔴 " : "🟢 "}<Link to={"/details/" +click.tnr + "?t=x"} className="custom-link">{renderHtmlText(click.titel)}</Link></td>

@@ -1,4 +1,4 @@
-import './NomalContent.css';
+import '../styles/NomalContent.css';
 import {Accordion, Carousel, CarouselItem} from "react-bootstrap";
 import styles from './Kinogeschichte.module.css';
 import {useState} from "react";

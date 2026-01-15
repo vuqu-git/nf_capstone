@@ -1,4 +1,4 @@
-import './NomalContent.css';
+import '../styles/NomalContent.css';
 import styles from './Kinobesuch.module.css';
 import {RowsPhotoAlbum} from "react-photo-album";
 import {useState} from "react";
