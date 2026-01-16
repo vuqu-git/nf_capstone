@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -62,13 +63,15 @@ class UmfrageControllerIntegrationTest {
             mockMvc.perform(get("/api/survey/umfragen/" + entity.getUnr()))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.anlass", is("Public Survey")))
-                    .andExpect(jsonPath("$.unr", is(entity.getUnr().intValue())));
+                    .andExpect(jsonPath("$.unr", is(entity.getUnr().toString())));
         }
 
         @Test
         @DisplayName("GET /api/survey/umfragen/{id} - Should return 404 if not found")
         void shouldReturn404ForUnknownId() throws Exception {
-            mockMvc.perform(get("/api/survey/umfragen/9999"))
+            String nonExistentId = UUID.randomUUID().toString();
+
+            mockMvc.perform(get("/api/survey/umfragen/" + nonExistentId))
                     .andExpect(status().isNotFound());
         }
     }

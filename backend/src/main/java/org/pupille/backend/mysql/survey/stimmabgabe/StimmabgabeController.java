@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/survey/stimmabgaben")
@@ -29,14 +30,14 @@ public class StimmabgabeController {
 
     // Get all Stimmabgaben for a certain unr (Survey)
     @GetMapping("/forumfrage/{unr}")
-    public List<StimmabgabeByUmfrageDTO> getByUmfrage(@PathVariable Long unr) {
+    public List<StimmabgabeByUmfrageDTO> getByUmfrage(@PathVariable UUID unr) {
         return stimmabgabeService.getByUmfrage(unr);
     }
 
     // Download csv file with the data analogous to the output getByUmfrage
     @GetMapping("/forumfrage/{unr}/export")
     public StreamingResponseBody getByUmfrageExport(
-            @PathVariable Long unr,
+            @PathVariable UUID unr,
             HttpServletResponse response) {
 
         List<StimmabgabeByUmfrageDTO> votes = stimmabgabeService.getByUmfrage(unr);
@@ -61,7 +62,7 @@ public class StimmabgabeController {
 
     @GetMapping("/forumfrage/{unr}/exportgrouped")
     public StreamingResponseBody getByUmfrageGroupedAndSorted(
-            @PathVariable Long unr,
+            @PathVariable UUID unr,
             HttpServletResponse response) {
 
         // Logic moved to service
@@ -82,7 +83,7 @@ public class StimmabgabeController {
 
     // Get all Stimmabgaben for a certain unr, grouped by onr
     @GetMapping("/forumfrage/{unr}/grouped")
-    public Map<Long, List<StimmabgabeDTO>> getByUmfrageGroupedByOption(@PathVariable Long unr) {
+    public Map<Long, List<StimmabgabeDTO>> getByUmfrageGroupedByOption(@PathVariable UUID unr) {
         return stimmabgabeService.getByUmfrageGroupedByOption(unr);
     }
 

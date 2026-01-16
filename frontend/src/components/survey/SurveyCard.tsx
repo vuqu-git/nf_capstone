@@ -8,6 +8,7 @@ import {UmfrageDTO} from "../../types/UmfrageDTO.ts";
 import {StimmabgabeDTO} from "../../types/StimmabgabeDTO.ts";
 import NotFound from "../NotFound.tsx";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 
 export default function SurveyCard() {
     const { unr } = useParams<{ unr: string }>();
@@ -322,52 +323,54 @@ export default function SurveyCard() {
                         )}
                         {/*                            This ensures the form is disabled only for client-side/logic errors (4xx) incl. Umfrage expired woth code 400, but remains active for server/network errors (so the user can retry).*/}
                         <fieldset disabled={submitting || (errorCode !== null && errorCode >= 400 && errorCode < 500)}>
-                            <div className="d-flex flex-column gap-3 mb-4">
-                                {umfrage.auswahloptionendtos.map((opt) => (
-                                    <div
-                                        key={opt.onr}
-                                        className={`d-flex align-items-start gap-3 rounded ${surveyStyles.optionCard} ${selectedOption === opt.onr ? surveyStyles.optionCardSelected : ""}`}
-                                        onClick={() => setSelectedOption(opt.onr!)}
-                                    >
-                                        {/* Custom CSS Radio Button */}
-                                        <input
-                                            type="radio"
-                                            id={`option-${opt.onr}`}
-                                            name="survey-options"
-                                            className={surveyStyles.customRadio}
-                                            checked={selectedOption === opt.onr}
-                                            onChange={() => setSelectedOption(opt.onr!)}
-                                            onClick={(e) => e.stopPropagation()}
-                                        />
+                            <div className="d-flex flex-column gap-2 mb-4">
+                                {umfrage.auswahloptionendtos.map((opt) => {
+                                    // Helper booleans for cleaner JSX
+                                    const isSelected = selectedOption === opt.onr;
+                                    const isDimmed = selectedOption !== null && !isSelected;
 
-                                        <div className="flex-grow-1">
-                                            <label
-                                                htmlFor={`option-${opt.onr}`}
-                                                className={surveyStyles.optionLabel}
-                                            >
-                                                {opt.titel}
-                                            </label>
+                                    return (
+                                        <div
+                                            key={opt.onr}
+                                            className={`
+                                                d-flex align-items-center gap-3 rounded 
+                                                ${surveyStyles.optionCard} 
+                                                ${isSelected ? surveyStyles.optionCardSelected : ""}
+                                                ${isDimmed ? surveyStyles.optionCardDimmed : ""}
+                                            `}
+                                            onClick={() => setSelectedOption(opt.onr!)}
+                                        >
+                                            {/* DELETED: <input type="radio" ... /> */}
 
-                                            <div className={`small ${surveyStyles.optionDetails}`}>
-                                                {opt.details}
-                                            </div>
+                                            <div className="flex-grow-1">
+                                                <label
+                                                    className={surveyStyles.optionLabel}
+                                                    style={{ cursor: "pointer" }} // Ensure pointer since it's no longer a form label target
+                                                >
+                                                    {renderHtmlText(opt.titel)}
+                                                </label>
 
-                                            {opt.link && (
-                                                <div className="small">
-                                                    <a
-                                                        href={opt.link}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="custom-link" // global class if you have one, or add to module
-                                                        onClick={(e) => e.stopPropagation()}
-                                                    >
-                                                        weitere Infos
-                                                    </a>
+                                                <div className={`small ${surveyStyles.optionDetails}`}>
+                                                    {opt.details}
                                                 </div>
-                                            )}
+
+                                                {opt.link && (
+                                                    <div className="small">
+                                                        <a
+                                                            href={opt.link}
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            className="custom-link"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                        >
+                                                            weitere Infos
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
                             <Button

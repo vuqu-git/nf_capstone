@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/survey/umfragen")
@@ -24,7 +25,7 @@ public class UmfrageController {
     }
 
     @GetMapping("/{unr}")
-    public UmfrageDTO getUmfrageById(@PathVariable Long unr) {
+    public UmfrageDTO getUmfrageById(@PathVariable UUID unr) {
         return umfrageService.getUmfrageById(unr);
     }
 
@@ -34,13 +35,13 @@ public class UmfrageController {
     }
 
     @PutMapping("/{unr}")
-    public UmfrageDTO updateUmfrage(@PathVariable Long unr,
+    public UmfrageDTO updateUmfrage(@PathVariable UUID unr,
                                     @RequestBody UmfrageDTO dto) {
         return umfrageService.updateUmfrage(unr, dto);
     }
 
     @DeleteMapping("/{unr}")
-    public void deleteUmfrage(@PathVariable Long unr) {
+    public void deleteUmfrage(@PathVariable UUID unr) {
         umfrageService.deleteUmfrage(unr);
         // Spring returns 200/204 with empty body by default
     }

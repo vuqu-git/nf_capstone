@@ -6,13 +6,13 @@ import {formSelectionWithSearchStyles} from "../../styles/formSelectionWithSearc
 
 interface UmfrageSelectionWithSearchProps {
     allUmfragen: UmfrageSelectionDTO[];
-    selectedUmfrageId: number | undefined;
-    onSelectUmfrage: (id: number | undefined) => void;
+    selectedUmfrageId: string | undefined;
+    onSelectUmfrage: (id: string | undefined) => void;
     textForDefaultOption?: string;
 }
 
 interface UmfrageOption {
-    value: number;  // value of select option
+    value: string;  // value of select option
     label: React.ReactNode; // label of select option; if using JSX (i.e. HTML tags used), otherwise string
 }
 
@@ -29,7 +29,8 @@ const UmfrageSelectionWithSearch: React.FC<UmfrageSelectionWithSearchProps> = ({
     const umfrageOptions = useMemo(() =>
         allUmfragen.map(u => ({
             value: u.unr,
-            label: `⌛ ${u.endDatum} | ${u.anlass} | #${u.unr}`
+            // label: `⌛ ${u.endDatum} | ${u.anlass} | #${u.unr}`
+            label: `⌛ ${u.endDatum} | ${u.anlass}`
         })), [allUmfragen]
     );
 
