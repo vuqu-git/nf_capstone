@@ -9,6 +9,7 @@ import org.pupille.backend.mysql.survey.auswahloption.Auswahloption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "umfrage")
@@ -16,9 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Umfrage {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long unr;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long unr;
+    @GeneratedValue(strategy = GenerationType.UUID) // For Hibernate 6+
+    private UUID unr;
 
     private String anlass;
 

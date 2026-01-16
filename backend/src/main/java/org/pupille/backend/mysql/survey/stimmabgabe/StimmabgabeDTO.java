@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,7 +22,7 @@ public class StimmabgabeDTO {
 
     // Foreign Keys (ID references)
     private Long onr;   // Option
-    private Long unr;   // Umfrage
+    private UUID unr;   // Umfrage
 
     // Convenience fields for the UI
     // (saves the frontend from looking up what "onr: 55" actually means)

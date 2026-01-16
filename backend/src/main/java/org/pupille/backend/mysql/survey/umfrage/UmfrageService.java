@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,7 @@ public class UmfrageService {
                 .toList();
     }
 
-    public UmfrageDTO getUmfrageById(Long id) {
+    public UmfrageDTO getUmfrageById(UUID id) {
         Umfrage entity = umfrageRepository.findById(id)
                 .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + id));
         return surveyMapper.toUmfrageDto(entity);
@@ -65,7 +66,7 @@ public class UmfrageService {
     }
 
     @Transactional
-    public UmfrageDTO updateUmfrage(Long id, UmfrageDTO dto) {
+    public UmfrageDTO updateUmfrage(UUID id, UmfrageDTO dto) {
         Umfrage existingUmfrage = umfrageRepository.findById(id)
                 .orElseThrow(() -> new UmfrageNotFoundException("Umfrage not found: " + id));
 
@@ -137,7 +138,7 @@ public class UmfrageService {
 //          It rebuilds the parent auswahloptionen list so that removed DTOs become database orphans, which Hibernate deletes thanks to orphanRemoval = true.
     }
 
-    public void deleteUmfrage(Long id) {
+    public void deleteUmfrage(UUID id) {
         if (!umfrageRepository.existsById(id)) {
             throw new UmfrageNotFoundException("Umfrage not found: " + id);
         }
