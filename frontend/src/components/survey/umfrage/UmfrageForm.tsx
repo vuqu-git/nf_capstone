@@ -15,7 +15,7 @@ import {UmfrageSelectionDTO} from "../../../types/UmfrageSelectionDTO.ts";
 const baseURL = "/api/survey/umfragen";
 
 const emptyUmfrageForForm: UmfrageDTO = {
-    unr: -1,
+    unr: "",
     anlass: '',
     endDatum: '',
     beschreibung: '',
@@ -26,7 +26,7 @@ export default function UmfrageForm() {
     const [allUmfragen, setAllUmfragen] = useState<UmfrageSelectionDTO[]>([]);
 
     // Using 'unr' as the ID
-    const [selectedUmfrageId, setSelectedUmfrageId] = useState<number | undefined>(undefined);
+    const [selectedUmfrageId, setSelectedUmfrageId] = useState<string | undefined>(undefined);
     const [selectedUmfrage, setSelectedUmfrage] = useState<UmfrageDTO>(emptyUmfrageForForm);
 
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -74,7 +74,7 @@ export default function UmfrageForm() {
 
 
     // --- Handlers for Main Fields ---
-    const handleSelectionChange = (id: number | undefined) => {
+    const handleSelectionChange = (id: string | undefined) => {
         setSelectedUmfrageId(id);
         setSelectionChanged(true);
     };
@@ -123,7 +123,7 @@ export default function UmfrageForm() {
         const request = selectedUmfrageId
             ? axios.put(`${baseURL}/${selectedUmfrageId}`, payload)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            : axios.post(`${baseURL}`, (({ unr, ...rest }) => rest)(payload)); // remove 'unr' for POST if backend needs it
+            : axios.post(`${baseURL}`, (({ unr, ...rest }) => rest)(payload)); // remove 'unr' for POST because the backend generates the UUID
 
         request
             .then(() => {
@@ -191,11 +191,11 @@ export default function UmfrageForm() {
 
             <Form onSubmit={handleSubmit} className={styles.formContainer}>
 
-                {/* ID Field */}
-                {/*<Form.Group className="mb-3">*/}
-                {/*    <Form.Label>UNR (ID)</Form.Label>*/}
-                {/*    <Form.Control type="text" value={selectedUmfrage.unr || ""} disabled readOnly />*/}
-                {/*</Form.Group>*/}
+                 {/* ID Field */}
+                <Form.Group className="mb-3">
+                    <Form.Label>unr (ID)</Form.Label>
+                    <Form.Control type="text" value={selectedUmfrage.unr || ""} disabled readOnly />
+                </Form.Group>
 
                 {/* Anlass */}
                 <Form.Group controlId="anlass" className="mb-3">
@@ -243,7 +243,7 @@ export default function UmfrageForm() {
                 {/* Nested Options List */}
                 <Card className="mb-4 bg-secondary bg-opacity-10">
                     <Card.Header className="d-flex justify-content-between align-items-center">
-                        <span>Auswahloptionen (kein HTML in dessen Feldern unten)</span>
+                        <span>Auswahloptionen (nur HTML in der Spalte "Option" erlaubt)</span>
                         <Button variant="sm btn-primary" size="sm" onClick={addOption} type="button">
                             + Add Option
                         </Button>
@@ -270,8 +270,11 @@ export default function UmfrageForm() {
                                     </thead>
                                     <tbody>
                                     {selectedUmfrage.auswahloptionendtos.map((opt, index) => (
-                                        <tr key={opt.onr}>
-                                            {/*<td style={{ verticalAlign: "middle" }}>{index + 1}</td>*/}
+                                        // Use the ID if it exists, otherwise generate a unique key using the index
+                                            // The warning (Each child in a list should have a unique "key" prop) occurs because when you add new options via the + Add Option button, the new objects do not have an onr (ID) yet. Since opt.onr is undefined for these new rows, React sees multiple rows with the same key (undefined), triggering the warning.
+                                            // To fix this, you need to provide a fallback key (like the index) for items that don't have an ID yet.
+                                        <tr key={opt.onr || `new-${index}`}>
+                                        {/*<td style={{ verticalAlign: "middle" }}>{index + 1}</td>*/}
                                             <td>
                                                 <Form.Control
                                                     type="text"

@@ -2,7 +2,7 @@
 import {AuswahloptionNestedDTO} from "./AuswahloptionNestedDTO.ts";
 
 export interface UmfrageDTO {
-    unr: number;       // ID of the survey (null/undefined for new ones)
+    unr: string;       // ID of the survey (null/undefined for new ones)
     anlass: string;
     endDatum: string; // ISO Date String 'YYYY-MM-DD'
     beschreibung: string;

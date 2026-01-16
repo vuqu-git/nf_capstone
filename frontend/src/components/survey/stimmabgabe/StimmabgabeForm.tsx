@@ -23,7 +23,7 @@ const emptyVoteForForm: StimmabgabeDTO = {
     isd: null,
     iud: null,
     onr: -1,
-    unr: -1,
+    unr: "",
 };
 
 class FormControlElement {
@@ -31,7 +31,7 @@ class FormControlElement {
 
 export default function StimmabgabeForm() {
     const [allUmfragen, setAllUmfragen] = useState<UmfrageSelectionDTO[]>([]);
-    const [selectedUmfrageId, setSelectedUmfrageId] = useState<number | undefined>(undefined);
+    const [selectedUmfrageId, setSelectedUmfrageId] = useState<string | undefined>(undefined);
 
     const [availableOptions, setAvailableOptions] = useState<AuswahloptionNestedDTO[]>([]);
 
@@ -58,7 +58,7 @@ export default function StimmabgabeForm() {
         if (!selectedUmfrageId) {
             setVotes([]);
             setAvailableOptions([]);
-            setNewVote({ ...emptyVoteForForm, unr: -1 });
+            setNewVote({ ...emptyVoteForForm, unr: "" });
             return;
         }
 
@@ -93,7 +93,7 @@ export default function StimmabgabeForm() {
             );
     }, [selectedUmfrageId]);
 
-    const handleSurveySelect = (unr: number | undefined) => {
+    const handleSurveySelect = (unr: string | undefined) => {
         setSelectedUmfrageId(unr);
     };
 

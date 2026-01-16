@@ -1,5 +1,5 @@
 export interface UmfrageSelectionDTO {
-    unr: number;
+    unr: string;
     anlass: string;
     endDatum: string
 }

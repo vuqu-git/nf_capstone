@@ -6,7 +6,7 @@ export interface StimmabgabeDTO {
     iud: boolean | null;
 
     onr: number;                      // required
-    unr: number;                      // required
+    unr: string;                      // required
 
     umfrageAnlass?: string;
     auswahloptionTitel?: string;

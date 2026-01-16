@@ -8,6 +8,7 @@ import {UmfrageDTO} from "../../types/UmfrageDTO.ts";
 import {StimmabgabeDTO} from "../../types/StimmabgabeDTO.ts";
 import NotFound from "../NotFound.tsx";
 import {renderHtmlContent} from "../../utils/renderHtmlContent.tsx";
+import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 
 export default function SurveyCard() {
     const { unr } = useParams<{ unr: string }>();
@@ -326,7 +327,7 @@ export default function SurveyCard() {
                                 {umfrage.auswahloptionendtos.map((opt) => (
                                     <div
                                         key={opt.onr}
-                                        className={`d-flex align-items-start gap-3 rounded ${surveyStyles.optionCard} ${selectedOption === opt.onr ? surveyStyles.optionCardSelected : ""}`}
+                                        className={`d-flex align-items-center gap-3 rounded ${surveyStyles.optionCard} ${selectedOption === opt.onr ? surveyStyles.optionCardSelected : ""}`}
                                         onClick={() => setSelectedOption(opt.onr!)}
                                     >
                                         {/* Custom CSS Radio Button */}
@@ -345,7 +346,8 @@ export default function SurveyCard() {
                                                 htmlFor={`option-${opt.onr}`}
                                                 className={surveyStyles.optionLabel}
                                             >
-                                                {opt.titel}
+                                                {/*{opt.titel}*/}
+                                                {renderHtmlText(opt.titel)}
                                             </label>
 
                                             <div className={`small ${surveyStyles.optionDetails}`}>

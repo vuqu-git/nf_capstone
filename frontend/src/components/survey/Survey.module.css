@@ -56,7 +56,7 @@
 
 /* --- Options Styling --- */
 .optionCard {
-    padding: 0.5rem 1.0rem;
+    padding: 0.3rem 1.0rem;
     background-color: #1e1e1e;
     border: 1px solid #333;
     transition: all 0.2s ease-in-out;
@@ -79,72 +79,51 @@
 .customRadio {
     appearance: none;
     -webkit-appearance: none;
+    box-sizing: border-box;
 
-    /* Layout */
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0; /* Prevent squishing */
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
 
-    /* Circle Shape */
+    /* Default (Unchecked) State: Grey Border, Transparent Background */
     border: 2px solid #666;
     border-radius: 50%;
     background-color: transparent;
+
     cursor: pointer;
-
-    /* Essential for absolute centering of the dot */
-    position: relative;
-
-    /* Reset layout */
     margin: 0;
     padding: 0;
 
-    /* Align with the first line of text.
-       Since the parent is 'align-items-start', this pushes it down slightly
-       to visually center it with the capital letters of the Title. */
-    margin-top: 0.2rem;
+    /* CHANGE: Remove top margin so flexbox centers it perfectly */
+    margin-top: 0;
 
     transition: all 0.2s ease-in-out;
 }
 
-/* The inner dot (hidden by default via scaling) */
-.customRadio::before {
-    content: "";
-    position: absolute;
-
-    /* Force exact center regardless of parents */
-    top: 50%;
-    left: 50%;
-    /* Start hidden (scale 0) but centered */
-    transform: translate(-50%, -50%) scale(0);
-
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-
-    background-color: #1e1e1e;
-    box-shadow: 0 0 2px rgba(0,0,0,0.5);
-
-    transition: 0.15s transform ease-in-out;
-}
-
 /* --- Radio Checked State --- */
 .customRadio:checked {
+    /* Checked State: Gold Border, Gold Background (Solid Circle) */
     border-color: #FFD036;
-    background-color: #FFD036; /* Solid Gold Background */
+    background-color: #FFD036;
+
+    /* Optional: Add a subtle shadow to make it "glow" slightly */
+    box-shadow: 0 0 5px rgba(255, 208, 54, 0.4);
 }
 
-.customRadio:checked::before {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-/* --- Radio Hover & Focus States --- */
+/* --- Radio Hover State --- */
 .customRadio:hover {
     border-color: #888;
 }
 
+/* Hovering while checked */
+.customRadio:checked:hover {
+    border-color: #e6bb30;
+    background-color: #e6bb30;
+}
+
+/* --- Radio Focus State --- */
 .customRadio:focus {
     outline: none;
-    /* A Gold glow ring */
     box-shadow: 0 0 0 4px rgba(255, 208, 54, 0.25);
 }
 
