@@ -89,7 +89,9 @@ details.qaa[open] summary::before {
 
 /* Responsive styles for p elements within the div */
 @media screen and (max-width: 767px) {
-    .news-article p {
+    .news-article p,
+    .news-article h3,
+    details.summary-style summary {
         font-size: 0.9rem;
     }
 }
