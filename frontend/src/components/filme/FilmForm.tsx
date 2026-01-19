@@ -50,7 +50,6 @@ export default function FilmForm() {
 
     const [termineOfSelectedFilmId, setTermineOfSelectedFilmId] = useState<TerminDTOSelection[]>([]); // list of the corresponding termine of selectedFilmId
 
-
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [successMessage, setSuccessMessage] = useState<string>(""); // for POST, PUT, DELETE requests
 
@@ -302,16 +301,16 @@ export default function FilmForm() {
         const url = '/api/perplexityai/film-text';
 
         // Construct query parameters
-        const params = new URLSearchParams({
-            // ?? operator is called the nullish coalescing operator; if value before ?? is empty string, then this empty string is taken, when using || the empty string is NOT taken
-            // when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0
+        const queryParams = new URLSearchParams({
+            // nullish coalescing operator (??) is used to provide a default value for variables that may be null or undefined
+            // this operator differs from the logical OR operator (||), which would return the right-hand side value for any falsy value (including empty strings, 0, false, etc.).
             titel: selectedFilm.titel ?? '', // i.e. titel: selectedFilm.titel !== null && selectedFilm.titel !== undefined ? selectedFilm.titel : '',
-            originalTitel: selectedFilm.originaltitel ?? '',
+            regie: selectedFilm.regie ?? '',
             jahr: String(selectedFilm.jahr ?? '')
         });
 
         // Sending the POST request
-        axios.post(`${url}?${params.toString()}`)
+        axios.post(`${url}?${queryParams.toString()}`)
             .then((response) => {
                 // Copy the original text to clipboard
                 copyToClipboard(selectedFilm.text ?? '');
@@ -527,10 +526,18 @@ export default function FilmForm() {
                     variant="outline-info"
                     className="mt-4"
                     onClick={() => generateFilmTextwithAI()}
-                    disabled={!selectedFilm.titel}  // Disable if title is falsy (null, undefined, or empty string)
+                    // To enable the button based on the presence of regie and jahr instead of titel, you can adjust the disabled property like this:
+                    // "present" typically that variable holds a valid value rather than being null, undefined, or an empty string
+                    disabled={!( (selectedFilm.titel && selectedFilm.regie) || (selectedFilm.titel && selectedFilm.jahr) )}
                 >
                     🤖🧠💬 Generate film text! ✨📄✍️
                 </Button>
+                <Form.Text>
+                    <ul className="tight-list">
+                        <li>AI generated description of a movie for field Text</li>
+                        <li>enable this button when either both titel and regie are filled or both titel and jahr are filled</li>
+                    </ul>
+                </Form.Text>
 
                 <Form.Group controlId="kurztext" className="mt-3">
                     <Form.Label>Kurztext - kurze Variante vom Text oben (HTML)</Form.Label>
