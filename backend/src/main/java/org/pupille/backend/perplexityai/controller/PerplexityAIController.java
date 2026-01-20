@@ -31,7 +31,7 @@ public class PerplexityAIController {
                     @RequestParam("regie") String regie,
                     @RequestParam("jahr") String year) {
 
-        String prompt = "For the my cine website I want a description text for a film in German! " +
+        String prompt = "For the my cinema website I want a description text for a film in German! " +
                 "The text should consist of max 750 chars (with spaces), does not contain major spoilers, describe the plot (in medias res style). Write also 1 sentence why the film is worth watching. " +
                 "Avoid simple sentences like 'The [title]...' or 'The film...' when praising the film. Do it eloquent! " +
                 "Don't include markup formatting! Don't insert citation numbers. " +
