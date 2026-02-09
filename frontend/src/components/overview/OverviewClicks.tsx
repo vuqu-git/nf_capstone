@@ -8,9 +8,23 @@ import {Col, Container, Row} from "react-bootstrap";
 import BackToTopButton from "../structural_components/BackToTopButton.tsx";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
 import {formatDaysOnlineInOverviewClicks} from "../../utils/formatDaysOnlineInOverviewClicks.ts";
+import {useEffect} from "react";
 
 const OverviewClicks: React.FC = () => {
     const clicksOfSemester = useLoaderData<ClicksResponseDTO[]>();
+
+    useEffect(() => {
+        // create meta tag
+        const meta = document.createElement('meta');
+        meta.name = "robots";
+        meta.content = "noindex, nofollow";
+        document.head.appendChild(meta);
+
+        // Clean up when the component is unmounted (leaving the page)
+        return () => {
+            document.head.removeChild(meta);
+        };
+    }, []);
 
     return (
         <Container
