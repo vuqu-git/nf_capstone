@@ -57,6 +57,7 @@ import TerminFilmGalleryCardPreview from "./components/termine/TerminFilmGallery
 import UmfrageForm from "./components/survey/umfrage/UmfrageForm.tsx";
 import StimmabgabeForm from "./components/survey/stimmabgabe/StimmabgabeForm.tsx";
 import SurveyCard from "./components/survey/SurveyCard.tsx";
+import FirstSteps from "./components/other/FirstSteps.tsx";
 
 // ############################################
 // for Gallery.tsx
@@ -595,6 +596,11 @@ const router = createBrowserRouter([
                                 path: "datenschutzhinweise",
                                 loader: getOtherDataLoader("aktuelleVorstaende"),
                                 element: <PrivacyPolicy/>,
+                                handle: {scrollMode: "pathname"},
+                            },
+                            {
+                                path: "firststeps",
+                                element: <FirstSteps/>,
                                 handle: {scrollMode: "pathname"},
                             },
                         ],
