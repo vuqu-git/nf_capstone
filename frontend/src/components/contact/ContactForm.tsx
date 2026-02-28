@@ -55,8 +55,17 @@ const ContactForm: React.FC = () => {
     }, [submissionStatusWithMessage.status]);
 
     const handleIssueSelectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        // Update the selected form type, which triggers renderForm() to mount the new sub-form
         setSelectedIssueSelection(event.target.value);
+        // Discard any previously entered field values — they belong to the old form type
         setFormData({});
+        // Reset any lingering submission state (e.g. CAPTCHA error, network error) from a previous attempt, so the newly selected form renders clean without a stale message
+        setSubmissionStatusWithMessage({ status: 'idle' });
+    };
+
+    // Resets submission state of sub forms — i.e. called by child components when their internal sub-selection changes, so stale error messages don't bleed over
+    const handleResetSubmissionStatus = () => {
+        setSubmissionStatusWithMessage({ status: 'idle' });
     };
 
     // this is the "standard" handler for changes in input fields for text and numbers
@@ -94,7 +103,7 @@ const ContactForm: React.FC = () => {
         explicitIssue?: string, // optional parameter
         explicitData?: AOBFormData | KinomitarbeitFormData | EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData // optional parameter
     ) => {
-        event.preventDefault(); //maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
+        event.preventDefault(); // maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
 
         if (!captchaToken) {
             // alert("Please complete the CAPTCHA");
@@ -112,14 +121,12 @@ const ContactForm: React.FC = () => {
         const dataToUse = explicitData || formData;
 
         try {
-            // const response = await axios.post(`/api/contact/${issueToUse}`, {
             await axios.post(`/api/contact/${issueToUse}`, {
                 ...dataToUse,
                 captcha: captchaToken,
             });
 
             // Axios automatically throws on errors, so if we reach here, it's success
-            // Response data is in response.data (already parsed JSON)
             setSubmissionStatusWithMessage({
                 status: 'success',
                 message: `Vielen Dank! Die Nachricht wurde gesendet. &#x2705;
@@ -185,6 +192,7 @@ const ContactForm: React.FC = () => {
                     <EventMitProjektion
                         onSubmit={handleGlobalSubmit} // The callback will now receive the issue from the subselection
                         submissionStatusWithMessage={submissionStatusWithMessage}
+                        onResetSubmissionStatus={handleResetSubmissionStatus}
 
                         onSetCaptchaToken={setCaptchaToken}
                     />
@@ -214,7 +222,7 @@ const ContactForm: React.FC = () => {
             // const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
             const savedData = sessionStorage.getItem(`${selectedIssueSelection}FormData`);
             if (savedData) {
-                setFormData(JSON.parse(savedData));
+                setFormData(JSON.parse(savedData)); // ← restores the previously typed values
             }
         }
     }, [selectedIssueSelection]);
@@ -238,7 +246,8 @@ const ContactForm: React.FC = () => {
                 </div>
             )}
 
-            {/* Only show main selection+form if submission is everything else but 'success' */}
+            {/* Only show main selection + form if submission is everything else but 'success' */}
+            {/* I.e. the whole selection + sub-form is conditionally hidden on success */}
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             {submissionStatusWithMessage.status !== 'success' && (
                 <>

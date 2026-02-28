@@ -18,6 +18,8 @@ interface EventMitProjektionProps {
         message?: string
     };
 
+    onResetSubmissionStatus: () => void;
+
     onSetCaptchaToken: (value: string | null) => void;
 }
 
@@ -32,13 +34,16 @@ const subSelectionOptions: SubSelectionConfig[] = [
     { value: 'kooperation', label: '➂ gemeinsam in Kooperation mit Pupille' },
 ];
 
-const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submissionStatusWithMessage, onSetCaptchaToken }) => {
+const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submissionStatusWithMessage, onResetSubmissionStatus, onSetCaptchaToken }) => {
     const [selectedIssuesSubSelection, setSelectedIssuesSubSelection] = useState<string>('');
     const [subFormData, setSubFormData] = useState<EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData>({});
 
     const handleIssueSubSelectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setSelectedIssuesSubSelection(event.target.value);
         setSubFormData({});
+
+        // Propagate reset up to ContactForm so stale error/sending state from a previous sub-form attempt doesn't appear in the newly selected sub-form
+        onResetSubmissionStatus();
     };
 
     const handleSubFormChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -140,7 +145,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
                     <Link to="/kinoprojektion" className="custom-link">Infos & Service: Filme etc. zeigen</Link>
                 </p>
                 {/* subselection */}
-                {/*~~~~~~~~~~~~~~*/}
+                {/* ~~~~~~~~~~~~ */}
                 <label htmlFor="subSelection" className={styles.formLabel} hidden>
                     Art der Veranstaltung
                 </label>
