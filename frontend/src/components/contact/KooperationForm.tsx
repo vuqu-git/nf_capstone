@@ -45,14 +45,21 @@ const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, subm
     const [momentaneAnfrageFuerSemester, setMomentaneAnfrageFuerSemester] = useState('');
 
     useEffect(() => {
+        // const now = new Date("01.15.26"); // for testing purposes
+        // const now = new Date("12.15.25"); // for testing purposes
+
         const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth(); // 0-indexed (0 for January, 6 for July)
 
-        if (month >= 3 && month <= 6) { // April (3) to July (6)
+        // --- Einsendeschluss ist der 31. Januar (für SoSe) sowie der 31. Juli (für WiSe) ---
+        if (month >= 1 && month <= 6) { // Feb (1) to Jul (6) i.e. when we're in this period, the programming for SoSe (of the same years as year(now)) is already finished
             setTerminPraeferenzLabel(`Eure Terminpräferenzen für das Wintersemester ${year.toString().slice(-2)}/${(year + 1).toString().slice(-2)}`);
             setMomentaneAnfrageFuerSemester(`D.h. momentan sind nur Anfragen für das Wintersemester ${year.toString().slice(-2)}/${(year + 1).toString().slice(-2)} möglich.`)
-        } else { // August (7) to March (2) of the following year
+        } else if (month == 0) { // Jan (0) of the current year
+            setTerminPraeferenzLabel(`Eure Terminpräferenzen für das Sommersemester ${year}`);
+            setMomentaneAnfrageFuerSemester(`D.h. momentan sind nur Anfragen für das Sommersemester ${year} möglich.`);
+        } else { // Aug (7) to Dec (11) of the following year
             setTerminPraeferenzLabel(`Eure Terminpräferenzen für das Sommersemester ${year + 1}`);
             setMomentaneAnfrageFuerSemester(`D.h. momentan sind nur Anfragen für das Sommersemester ${year + 1} möglich.`);
         }
@@ -242,13 +249,14 @@ const KooperationForm: React.FC<KooperationFormProps> = ({ onSubFormSubmit, subm
             <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={submissionStatusWithMessage.status === 'sending'}
+                disabled={submissionStatusWithMessage.status === 'sending'} // prevents the user from clicking submit again and firing a second duplicate request to the server while the first one is still pending
             >
                 Anfrage senden
             </button>
 
             <p><sub className={styles.formSubtext}>*Pflichtfelder</sub></p>
 
+            {/*"Sende Nachricht..." indicator — gives the user visual feedback that something is happening*/}
             {submissionStatusWithMessage.status === 'sending' &&
                 <p
                     className={styles.statusMessage + " " + styles.statusSending}
