@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react'; // Import FormEvent
+import React, {ChangeEvent, FormEvent} from 'react'; // Import FormEvent
 import styles from './Forms.module.css';
 import DatenschutzCheck from "../other/DatenschutzCheck.tsx";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -118,12 +118,13 @@ const AOBForm: React.FC<AOBFormProps> = ({ onSubmit, submissionStatusWithMessage
             <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={submissionStatusWithMessage.status === 'sending'}
+                disabled={submissionStatusWithMessage.status === 'sending'} // prevents the user from clicking submit again and firing a second duplicate request to the server while the first one is still pending
             >
                 Anfrage senden
             </button>
             <p><sub className={styles.formSubtext}>*Pflichtfelder</sub></p>
 
+            {/*"Sende Nachricht..." indicator — gives the user visual feedback that something is happening*/}
             {submissionStatusWithMessage.status === 'sending' &&
                 <p role="status"
                    className={styles.statusMessage + " " + styles.statusSending}

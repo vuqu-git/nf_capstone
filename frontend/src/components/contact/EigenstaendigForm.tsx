@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, {ChangeEvent, FormEvent} from 'react';
 import styles from './Forms.module.css';
 import {Badge} from "react-bootstrap";
 import HinweisWerbungVeranstaltungsort from "./HinweisWerbungVeranstaltungsort.tsx";
@@ -137,12 +137,13 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
             <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={submissionStatusWithMessage.status === 'sending' || !!dateRangeErrorMessage}
+                disabled={submissionStatusWithMessage.status === 'sending' || !!dateRangeErrorMessage} // prevents the user from clicking submit again and firing a second duplicate request to the server while the first one is still pending
             >
                 Mitteilung senden
             </button>
             <p><sub className={styles.formSubtext}>*Pflichtfelder</sub></p>
 
+            {/*"Sende Nachricht..." indicator — gives the user visual feedback that something is happening*/}
             {submissionStatusWithMessage.status === 'sending' &&
                 <p
                     className={styles.statusMessage + " " + styles.statusSending}

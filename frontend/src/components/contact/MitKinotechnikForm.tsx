@@ -301,7 +301,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
             <button
                 type="submit"
                 className={styles.submitButton}
-                disabled={submissionStatusWithMessage.status === 'sending' || !!dateRangeErrorMessage}
+                disabled={submissionStatusWithMessage.status === 'sending' || !!dateRangeErrorMessage} // prevents the user from clicking submit again and firing a second duplicate request to the server while the first one is still pending
             >
                 Anfrage senden
             </button>
@@ -311,6 +311,7 @@ const MitKinotechnikForm: React.FC<MitKinotechnikFormProps> = ({ onSubFormSubmit
                 <p role="alert" className={styles.errorOrangeLabel}>{errorMissingConfirmationMessage}</p>
             )}
 
+            {/*"Sende Nachricht..." indicator — gives the user visual feedback that something is happening*/}
             {submissionStatusWithMessage.status === 'sending' && (
                 <p
                     className={styles.statusMessage + " " + styles.statusSending}
