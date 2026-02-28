@@ -37,7 +37,20 @@ const ContactForm: React.FC = () => {
     const [selectedIssueSelection, setSelectedIssueSelection] = useState<string>('');
 
     // formData management only for AOBForm and KinomitarbeitForm; for the subforms c.f. EventMitProjektion and the subFormData management there
-    const [formData, setFormData] = useState<AOBFormData | KinomitarbeitFormData>({});
+    //      Partial<T> transforms every required field into an optional one
+    //      now {} (initial state val) is perfectly valid — it's an object where all fields happen to be absent, which is allowed when every field is optional. TypeScript is satisfied
+    //      Partial<> doesn't change your runtime behaviour at all — my forms already handle missing values defensively with value={formData.betreff || ''}.
+    //      Partial<> simply makes the TypeScript type match the runtime reality: the form data object starts empty and gets populated field by field as the user types:
+    //          -- Runtime vs. TypeScript — two separate worlds --
+    //          TypeScript is a compile-time tool only. It checks your code for type correctness, then gets completely stripped away before the code runs in the browser. JavaScript doesn't know what Partial<>, string, or interface even means — those concepts simply don't exist at runtime.
+    //          So Partial<> is purely a signal to TypeScript saying "trust me, some fields may be missing". It has zero effect on what actually executes.
+    //          What actually runs in the browser: At runtime, your form data is just a plain JavaScript object. It starts as {} and grows as the user types:
+    //              {}                                          ← after mount
+    //              { betreff: 'Hallo' }                        ← after typing in Betreff
+    //              { betreff: 'Hallo', email: 'a@b.com' }      ← after typing email
+    //              { betreff: 'Hallo', email: 'a@b.com', nachricht: 'Test', ... } ← ready to submit
+    //          JavaScript has no problem with any of this. An object with missing keys is just a normal object — accessing a missing key simply returns undefined.
+    const [formData, setFormData] = useState<Partial<AOBFormData> | Partial<KinomitarbeitFormData>>({});
 
     const [submissionStatusWithMessage, setSubmissionStatusWithMessage] = useState<SubmissionStatusWithMessageType>({ status: 'idle' });
 
@@ -69,14 +82,14 @@ const ContactForm: React.FC = () => {
     };
 
     // this is the "standard" handler for changes in input fields for text and numbers
-    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            })
-        );
-    };
+    // const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    //     const { name, value } = event.target;
+    //     setFormData((prevData) => ({
+    //             ...prevData,
+    //             [name]: value,
+    //         })
+    //     );
+    // };
 
     const handleChangeWithCheckbox = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;

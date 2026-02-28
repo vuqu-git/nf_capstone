@@ -36,7 +36,11 @@ const subSelectionOptions: SubSelectionConfig[] = [
 
 const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submissionStatusWithMessage, onResetSubmissionStatus, onSetCaptchaToken }) => {
     const [selectedIssuesSubSelection, setSelectedIssuesSubSelection] = useState<string>('');
-    const [subFormData, setSubFormData] = useState<EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData>({});
+
+    //      Partial<T> transforms every required field into an optional one
+    //      now {} (initial state val) is perfectly valid — it's an object where all fields happen to be absent, which is allowed when every field is optional. TypeScript is satisfied
+    //      Partial<> doesn't change your runtime behaviour at all — my forms already handle missing values defensively with value={formData.betreff || ''}. Partial<> simply makes the TypeScript type match the runtime reality: the form data object starts empty and gets populated field by field as the user types.
+    const [subFormData, setSubFormData] = useState<Partial<EigenstaendigFormData> | Partial<MitKinotechnikFormData> | Partial<KooperationFormData>>({});
 
     const handleIssueSubSelectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setSelectedIssuesSubSelection(event.target.value);
