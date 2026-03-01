@@ -252,10 +252,10 @@ export default function OverviewArchive2() {
                         Screenings oder PDF-Hefte/Flyer auswählen
                     </option>
                     <option key="screenings" value="screenings">
-                        alle Screeningtermine (bis Oktober 2014)
+                        alle Screeningtermine (ab Oktober 2014)
                     </option>
                     <option key="pdfs" value="pdfs">
-                        PDF-Programmhefte/Flyer (bis Wintersemester 2002/2003)
+                        PDF-Programmhefte/Flyer (ab Wintersemester 2002/2003)
                     </option>
                 </select>
             </div>

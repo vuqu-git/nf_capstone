@@ -6,6 +6,9 @@ details.summary-style summary {
     list-style: none;
     cursor: pointer;
     font-weight: 600;
+
+    display: flex;                 /* Create a flex container */
+    align-items: center;           /* Center items vertically */
 }
 
 details.summary-style summary::-webkit-details-marker {
@@ -16,6 +19,8 @@ details.summary-style summary::before {
     display: inline-block;
     margin-right: 0.5em;
     transition: transform 0.2s;
+
+    margin-bottom: 0.5em;         /* Add space below the emoji */
 }
 
 details.summary-style[open] summary::before {
@@ -89,7 +94,9 @@ details.qaa[open] summary::before {
 
 /* Responsive styles for p elements within the div */
 @media screen and (max-width: 767px) {
-    .news-article p {
+    .news-article p,
+    .news-article h3,
+    details.summary-style summary {
         font-size: 0.9rem;
     }
 }

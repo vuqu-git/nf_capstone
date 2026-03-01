@@ -101,7 +101,7 @@ export default function Admin() {
                     {/*</ul>*/}
 
                     <h5 className="mt-3"><em>Screening ohne Film(e)</em> <Badge bg="danger" text="dark">nicht machen!</Badge></h5>
-                    <p>d.h. nur 1 Termin wird erstellt und im Termin-Text bzw. -Titel den/die Film(e) beschrieben</p>
+                    <p>d.h. nur 1 Termin wird erstellt und im Termin-Text bzw. -Titel den/die Film(e) beschreiben</p>
                     <p>Beispiel: <Link to="/details/880" className="custom-link">collecting images: peter hutton & mark lapore pt. 1</Link></p>
                     <p>Das Problem ist, dass keine Filmlänge  angegeben wird und dadurch der Kalendereintrag eine Dauer von 0 Minuten hat.</p>
 

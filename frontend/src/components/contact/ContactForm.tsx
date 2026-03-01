@@ -37,7 +37,20 @@ const ContactForm: React.FC = () => {
     const [selectedIssueSelection, setSelectedIssueSelection] = useState<string>('');
 
     // formData management only for AOBForm and KinomitarbeitForm; for the subforms c.f. EventMitProjektion and the subFormData management there
-    const [formData, setFormData] = useState<AOBFormData | KinomitarbeitFormData>({});
+    //      Partial<T> transforms every required field into an optional one
+    //      now {} (initial state val) is perfectly valid — it's an object where all fields happen to be absent, which is allowed when every field is optional. TypeScript is satisfied
+    //      Partial<> doesn't change your runtime behaviour at all — my forms already handle missing values defensively with value={formData.betreff || ''}.
+    //      Partial<> simply makes the TypeScript type match the runtime reality: the form data object starts empty and gets populated field by field as the user types:
+    //          -- Runtime vs. TypeScript — two separate worlds --
+    //          TypeScript is a compile-time tool only. It checks your code for type correctness, then gets completely stripped away before the code runs in the browser. JavaScript doesn't know what Partial<>, string, or interface even means — those concepts simply don't exist at runtime.
+    //          So Partial<> is purely a signal to TypeScript saying "trust me, some fields may be missing". It has zero effect on what actually executes.
+    //          What actually runs in the browser: At runtime, your form data is just a plain JavaScript object. It starts as {} and grows as the user types:
+    //              {}                                          ← after mount
+    //              { betreff: 'Hallo' }                        ← after typing in Betreff
+    //              { betreff: 'Hallo', email: 'a@b.com' }      ← after typing email
+    //              { betreff: 'Hallo', email: 'a@b.com', nachricht: 'Test', ... } ← ready to submit
+    //          JavaScript has no problem with any of this. An object with missing keys is just a normal object — accessing a missing key simply returns undefined.
+    const [formData, setFormData] = useState<Partial<AOBFormData> | Partial<KinomitarbeitFormData>>({});
 
     const [submissionStatusWithMessage, setSubmissionStatusWithMessage] = useState<SubmissionStatusWithMessageType>({ status: 'idle' });
 
@@ -55,19 +68,28 @@ const ContactForm: React.FC = () => {
     }, [submissionStatusWithMessage.status]);
 
     const handleIssueSelectionChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        // Update the selected form type, which triggers renderForm() to mount the new sub-form
         setSelectedIssueSelection(event.target.value);
+        // Discard any previously entered field values — they belong to the old form type
         setFormData({});
+        // Reset any lingering submission state (e.g. CAPTCHA error, network error) from a previous attempt, so the newly selected form renders clean without a stale message
+        setSubmissionStatusWithMessage({ status: 'idle' });
+    };
+
+    // Resets submission state of sub forms — i.e. called by child components when their internal sub-selection changes, so stale error messages don't bleed over
+    const handleResetSubmissionStatus = () => {
+        setSubmissionStatusWithMessage({ status: 'idle' });
     };
 
     // this is the "standard" handler for changes in input fields for text and numbers
-    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            })
-        );
-    };
+    // const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    //     const { name, value } = event.target;
+    //     setFormData((prevData) => ({
+    //             ...prevData,
+    //             [name]: value,
+    //         })
+    //     );
+    // };
 
     const handleChangeWithCheckbox = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
@@ -94,7 +116,7 @@ const ContactForm: React.FC = () => {
         explicitIssue?: string, // optional parameter
         explicitData?: AOBFormData | KinomitarbeitFormData | EigenstaendigFormData | MitKinotechnikFormData | KooperationFormData // optional parameter
     ) => {
-        event.preventDefault(); //maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
+        event.preventDefault(); // maybe remove this because in the (grand) child's handleLocalSubmit event.preventDefault() is already called
 
         if (!captchaToken) {
             // alert("Please complete the CAPTCHA");
@@ -112,14 +134,12 @@ const ContactForm: React.FC = () => {
         const dataToUse = explicitData || formData;
 
         try {
-            // const response = await axios.post(`/api/contact/${issueToUse}`, {
             await axios.post(`/api/contact/${issueToUse}`, {
                 ...dataToUse,
                 captcha: captchaToken,
             });
 
             // Axios automatically throws on errors, so if we reach here, it's success
-            // Response data is in response.data (already parsed JSON)
             setSubmissionStatusWithMessage({
                 status: 'success',
                 message: `Vielen Dank! Die Nachricht wurde gesendet. &#x2705;
@@ -185,6 +205,7 @@ const ContactForm: React.FC = () => {
                     <EventMitProjektion
                         onSubmit={handleGlobalSubmit} // The callback will now receive the issue from the subselection
                         submissionStatusWithMessage={submissionStatusWithMessage}
+                        onResetSubmissionStatus={handleResetSubmissionStatus}
 
                         onSetCaptchaToken={setCaptchaToken}
                     />
@@ -214,7 +235,7 @@ const ContactForm: React.FC = () => {
             // const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
             const savedData = sessionStorage.getItem(`${selectedIssueSelection}FormData`);
             if (savedData) {
-                setFormData(JSON.parse(savedData));
+                setFormData(JSON.parse(savedData)); // ← restores the previously typed values
             }
         }
     }, [selectedIssueSelection]);
@@ -238,7 +259,8 @@ const ContactForm: React.FC = () => {
                 </div>
             )}
 
-            {/* Only show main selection+form if submission is everything else but 'success' */}
+            {/* Only show main selection + form if submission is everything else but 'success' */}
+            {/* I.e. the whole selection + sub-form is conditionally hidden on success */}
             {/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/}
             {submissionStatusWithMessage.status !== 'success' && (
                 <>
