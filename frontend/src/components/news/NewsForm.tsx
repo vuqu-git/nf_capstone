@@ -55,32 +55,32 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
 
     // ################################
 
-    const sendEmojifyRequestWithAI = () => {
-        const url = '/api/perplexityai/emojify';
-        const inputText = newsItem.text;
-
-        // Sending the POST request
-        axios.post(url, inputText, {
-            headers: {
-                'Content-Type': 'application/json', // Ensure the backend expects JSON
-            },
-        })
-            .then((response) => {
-                // Copy the original text to clipboard
-                copyToClipboard(newsItem.text);
-
-                // Update the news item with the response data
-                onChange({ ...newsItem, text: response.data });
-            })
-            .catch((error) => {
-                // Log any error that occurs during the request
-                console.error('Error occurred while sending the request:', error.nachricht);
-            })
-            .finally(() => {
-                // Optional: Perform any cleanup or final actions here
-                console.log('Request completed.');
-            });
-    };
+    // const sendEmojifyRequestWithAI = () => {
+    //     const url = '/api/perplexityai/emojify';
+    //     const inputText = newsItem.text;
+    //
+    //     // Sending the POST request
+    //     axios.post(url, inputText, {
+    //         headers: {
+    //             'Content-Type': 'application/json', // Ensure the backend expects JSON
+    //         },
+    //     })
+    //         .then((response) => {
+    //             // Copy the original text to clipboard
+    //             copyToClipboard(newsItem.text);
+    //
+    //             // Update the news item with the response data
+    //             onChange({ ...newsItem, text: response.data });
+    //         })
+    //         .catch((error) => {
+    //             // Log any error that occurs during the request
+    //             console.error('Error occurred while sending the request:', error.nachricht);
+    //         })
+    //         .finally(() => {
+    //             // Optional: Perform any cleanup or final actions here
+    //             console.log('Request completed.');
+    //         });
+    // };
 
     return (
         <main data-bs-theme="dark" className="mt-4">
@@ -113,13 +113,13 @@ export default function NewsForm({ newsItem, handleSubmit, onChange, formType }:
                     </Form.Text>
                 </Form.Group>
 
-                <Button
-                    variant="outline-info"
-                    className="mt-4"
-                    onClick={() => sendEmojifyRequestWithAI()}
-                >
-                    🤖🧠✨ Emojify the news text! 😆🎨🦄
-                </Button>
+                {/*<Button*/}
+                {/*    variant="outline-info"*/}
+                {/*    className="mt-4"*/}
+                {/*    onClick={() => sendEmojifyRequestWithAI()}*/}
+                {/*>*/}
+                {/*    🤖🧠✨ Emojify the news text! 😆🎨🦄*/}
+                {/*</Button>*/}
 
                 <Form.Group controlId="image" className="mt-3">
                     <Form.Label>Image URL</Form.Label>
