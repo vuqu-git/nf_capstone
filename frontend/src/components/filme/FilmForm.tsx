@@ -297,106 +297,106 @@ export default function FilmForm() {
     };
 
     // ################## AI ##################
-    const generateFilmTextwithAI = () => {
-        const url = '/api/perplexityai/film-text';
-
-        // Construct query parameters
-        const queryParams = new URLSearchParams({
-            // nullish coalescing operator (??) is used to provide a default value for variables that may be null or undefined
-            // this operator differs from the logical OR operator (||), which would return the right-hand side value for any falsy value (including empty strings, 0, false, etc.).
-            titel: selectedFilm.titel ?? '', // i.e. titel: selectedFilm.titel !== null && selectedFilm.titel !== undefined ? selectedFilm.titel : '',
-            regie: selectedFilm.regie ?? '',
-            jahr: String(selectedFilm.jahr ?? '')
-        });
-
-        // Sending the POST request
-        axios.post(`${url}?${queryParams.toString()}`)
-            .then((response) => {
-                // Copy the original text to clipboard
-                copyToClipboard(selectedFilm.text ?? '');
-
-                // Update the news item with the response data
-                setSelectedFilm((prevData: Film) => ({
-                    ...prevData,
-                    text: response.data,
-                }));
-            })
-            .catch((error) => {
-                // Log any error that occurs during the request
-                console.error('Error occurred while sending the request:', error.nachricht);
-            })
-            .finally(() => {
-                // Optional: Perform any cleanup or final actions here
-                console.log('Request completed.');
-            });
-    };
-
-    const generateFilmMetaDatawithAI = () => {
-        const url = '/api/perplexityai/film-data-fetch';
-
-        // Construct the payload
-        const request = {
-            titel: selectedFilm.titel ?? '',
-            regie: selectedFilm.regie ?? '',
-        };
-
-
-        // Sending the POST request
-        axios.post(url, request)
-            .then((response) => {
-
-
-                // Constructing stab
-                let stabString: string = `R: ${selectedFilm.regie}\n`;
-
-                if (response.data.screenwriter) {
-                    stabString += `B: ${response.data.screenwriter}\n`;
-                }
-                if (response.data.editor) {
-                    stabString += `S: ${response.data.editor}\n`;
-                }
-                if (response.data.cinematographer) {
-                    stabString += `K: ${response.data.cinematographer}\n`;
-                }
-                if (response.data.composer) {
-                    stabString += `M: ${response.data.composer}\n`;
-                }
-                if (response.data.cast) {
-                    stabString += `D: ${response.data.cast} u.a.`;
-                }
-
-                // modify some data
-                const modOriginaltitel =
-                    response.data.originaltitel?.trim().toLowerCase() === selectedFilm.titel?.trim().toLowerCase()
-                        ? null
-                        : selectedFilm.titel;
-
-                const modResponseData = {
-                    // originaltitel: response.data.originaltitel ?? '',
-                    originaltitel: modOriginaltitel ?? '',
-                    land: response.data.land ?? '',
-                    jahr: response.data.jahr ?? '',
-                    farbe: response.data.farbe ?? '',
-                    laufzeit: response.data.laufzeit ?? '',
-                    distributor: response.data.verleih ?? '',
-                    stab: stabString ?? '',
-                };
-
-                // Update the news item with the response data
-                setSelectedFilm((prevData: Film) => ({
-                    ...prevData,
-                    ...modResponseData,
-                }));
-            })
-            .catch((error) => {
-                // Log any error that occurs during the request
-                console.error('Error occurred while sending the request:', error.nachricht);
-            })
-            .finally(() => {
-                // Optional: Perform any cleanup or final actions here
-                console.log('Request completed.');
-            });
-    };
+    // const generateFilmTextwithAI = () => {
+    //     const url = '/api/perplexityai/film-text';
+    //
+    //     // Construct query parameters
+    //     const queryParams = new URLSearchParams({
+    //         // nullish coalescing operator (??) is used to provide a default value for variables that may be null or undefined
+    //         // this operator differs from the logical OR operator (||), which would return the right-hand side value for any falsy value (including empty strings, 0, false, etc.).
+    //         titel: selectedFilm.titel ?? '', // i.e. titel: selectedFilm.titel !== null && selectedFilm.titel !== undefined ? selectedFilm.titel : '',
+    //         regie: selectedFilm.regie ?? '',
+    //         jahr: String(selectedFilm.jahr ?? '')
+    //     });
+    //
+    //     // Sending the POST request
+    //     axios.post(`${url}?${queryParams.toString()}`)
+    //         .then((response) => {
+    //             // Copy the original text to clipboard
+    //             copyToClipboard(selectedFilm.text ?? '');
+    //
+    //             // Update the news item with the response data
+    //             setSelectedFilm((prevData: Film) => ({
+    //                 ...prevData,
+    //                 text: response.data,
+    //             }));
+    //         })
+    //         .catch((error) => {
+    //             // Log any error that occurs during the request
+    //             console.error('Error occurred while sending the request:', error.nachricht);
+    //         })
+    //         .finally(() => {
+    //             // Optional: Perform any cleanup or final actions here
+    //             console.log('Request completed.');
+    //         });
+    // };
+    //
+    // const generateFilmMetaDatawithAI = () => {
+    //     const url = '/api/perplexityai/film-data-fetch';
+    //
+    //     // Construct the payload
+    //     const request = {
+    //         titel: selectedFilm.titel ?? '',
+    //         regie: selectedFilm.regie ?? '',
+    //     };
+    //
+    //
+    //     // Sending the POST request
+    //     axios.post(url, request)
+    //         .then((response) => {
+    //
+    //
+    //             // Constructing stab
+    //             let stabString: string = `R: ${selectedFilm.regie}\n`;
+    //
+    //             if (response.data.screenwriter) {
+    //                 stabString += `B: ${response.data.screenwriter}\n`;
+    //             }
+    //             if (response.data.editor) {
+    //                 stabString += `S: ${response.data.editor}\n`;
+    //             }
+    //             if (response.data.cinematographer) {
+    //                 stabString += `K: ${response.data.cinematographer}\n`;
+    //             }
+    //             if (response.data.composer) {
+    //                 stabString += `M: ${response.data.composer}\n`;
+    //             }
+    //             if (response.data.cast) {
+    //                 stabString += `D: ${response.data.cast} u.a.`;
+    //             }
+    //
+    //             // modify some data
+    //             const modOriginaltitel =
+    //                 response.data.originaltitel?.trim().toLowerCase() === selectedFilm.titel?.trim().toLowerCase()
+    //                     ? null
+    //                     : selectedFilm.titel;
+    //
+    //             const modResponseData = {
+    //                 // originaltitel: response.data.originaltitel ?? '',
+    //                 originaltitel: modOriginaltitel ?? '',
+    //                 land: response.data.land ?? '',
+    //                 jahr: response.data.jahr ?? '',
+    //                 farbe: response.data.farbe ?? '',
+    //                 laufzeit: response.data.laufzeit ?? '',
+    //                 distributor: response.data.verleih ?? '',
+    //                 stab: stabString ?? '',
+    //             };
+    //
+    //             // Update the news item with the response data
+    //             setSelectedFilm((prevData: Film) => ({
+    //                 ...prevData,
+    //                 ...modResponseData,
+    //             }));
+    //         })
+    //         .catch((error) => {
+    //             // Log any error that occurs during the request
+    //             console.error('Error occurred while sending the request:', error.nachricht);
+    //         })
+    //         .finally(() => {
+    //             // Optional: Perform any cleanup or final actions here
+    //             console.log('Request completed.');
+    //         });
+    // };
     // ########################################
 
     // build url for gallery card preview
@@ -476,26 +476,26 @@ export default function FilmForm() {
 
                 <h3 className="mt-3">Film details</h3>
 
-                <Button
-                    variant="outline-info"
-                    className="mt-4"
-                    onClick={() => generateFilmMetaDatawithAI()}
-                    // To enable the button based on the presence of regie and jahr instead of titel, you can adjust the disabled property like this:
-                    // "present" typically that variable holds a valid value rather than being null, undefined, or an empty string
-                    disabled={!( (selectedFilm.titel && selectedFilm.regie) || (selectedFilm.titel && selectedFilm.jahr) )}
-                >
-                    ✨ Generate some film meta data! 🤖
-                </Button>
-                <Form.Text>
-                    <ul className="tight-list">
-                        <li>AI generated film meta data for the form fields Originaltitel 🟥, Land 🟥, Jahr 🟥, Laufzeit 🟥, Farbe 🟥, Verleih 🟥, Stab & Besetzung 🟥</li>
-                        <li>Check for accuracy!</li>
-                        <li>button is enabled when either both Titel 🟩 and Regie 🟩 are filled</li>
-                    </ul>
-                </Form.Text>
+                {/*<Button*/}
+                {/*    variant="outline-info"*/}
+                {/*    className="mt-4"*/}
+                {/*    onClick={() => generateFilmMetaDatawithAI()}*/}
+                {/*    // To enable the button based on the presence of regie and jahr instead of titel, you can adjust the disabled property like this:*/}
+                {/*    // "present" typically that variable holds a valid value rather than being null, undefined, or an empty string*/}
+                {/*    disabled={!( (selectedFilm.titel && selectedFilm.regie) || (selectedFilm.titel && selectedFilm.jahr) )}*/}
+                {/*>*/}
+                {/*    ✨ Generate some film meta data! 🤖*/}
+                {/*</Button>*/}
+                {/*<Form.Text>*/}
+                {/*    <ul className="tight-list">*/}
+                {/*        <li>AI generated film meta data for the form fields Originaltitel 🟥, Land 🟥, Jahr 🟥, Laufzeit 🟥, Farbe 🟥, Verleih 🟥, Stab & Besetzung 🟥</li>*/}
+                {/*        <li>Check for accuracy!</li>*/}
+                {/*        <li>button is enabled when either both Titel 🟩 and Regie 🟩 are filled</li>*/}
+                {/*    </ul>*/}
+                {/*</Form.Text>*/}
 
                 <Form.Group controlId="regie" className="mt-3">
-                    <Form.Label>Regie 🟩 (kein HTML)</Form.Label>
+                    <Form.Label>Regie (kein HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="regie"
@@ -511,7 +511,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="titel" className="mt-3">
-                    <Form.Label>Titel 🟩 (HTML) *</Form.Label>
+                    <Form.Label>Titel (HTML) *</Form.Label>
                     <Form.Control
                         type="text"
                         name="titel"
@@ -527,7 +527,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="originaltitel" className="mt-3">
-                    <Form.Label>Originaltitel 🟥 (HTML)</Form.Label>
+                    <Form.Label>Originaltitel (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="originaltitel"
@@ -606,7 +606,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="text" className="mt-3">
-                    <Form.Label>Text (HTML) 🟧</Form.Label>
+                    <Form.Label>Text (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={11}
@@ -622,22 +622,22 @@ export default function FilmForm() {
                     </Form.Text>
                 </Form.Group>
 
-                <Button
-                    variant="outline-info"
-                    className="mt-4"
-                    onClick={() => generateFilmTextwithAI()}
-                    // To enable the button based on the presence of regie and jahr instead of titel, you can adjust the disabled property like this:
-                    // "present" typically that variable holds a valid value rather than being null, undefined, or an empty string
-                    disabled={!( (selectedFilm.titel && selectedFilm.regie) || (selectedFilm.titel && selectedFilm.jahr) )}
-                >
-                    ✨ Generate film text! 🧠
-                </Button>
-                <Form.Text>
-                    <ul className="tight-list">
-                        <li>AI generated description of a film for form field Text 🟧</li>
-                        <li>button is enabled when either both Titel 🟩 and Regie 🟩 are filled or both Titel and Jahr are filled</li>
-                    </ul>
-                </Form.Text>
+                {/*<Button*/}
+                {/*    variant="outline-info"*/}
+                {/*    className="mt-4"*/}
+                {/*    onClick={() => generateFilmTextwithAI()}*/}
+                {/*    // To enable the button based on the presence of regie and jahr instead of titel, you can adjust the disabled property like this:*/}
+                {/*    // "present" typically that variable holds a valid value rather than being null, undefined, or an empty string*/}
+                {/*    disabled={!( (selectedFilm.titel && selectedFilm.regie) || (selectedFilm.titel && selectedFilm.jahr) )}*/}
+                {/*>*/}
+                {/*    ✨ Generate film text! 🧠*/}
+                {/*</Button>*/}
+                {/*<Form.Text>*/}
+                {/*    <ul className="tight-list">*/}
+                {/*        <li>AI generated description of a film for form field Text 🟧</li>*/}
+                {/*        <li>button is enabled when either both Titel 🟩 and Regie 🟩 are filled or both Titel and Jahr are filled</li>*/}
+                {/*    </ul>*/}
+                {/*</Form.Text>*/}
 
                 <Form.Group controlId="kurztext" className="mt-3">
                     <Form.Label>Kurztext - kurze Variante vom Text oben (HTML)</Form.Label>
@@ -709,7 +709,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="land" className="mt-3">
-                    <Form.Label>Land 🟥</Form.Label>
+                    <Form.Label>Land</Form.Label>
                     <Form.Control
                         type="text"
                         name="land"
@@ -719,7 +719,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="jahr" className="mt-3">
-                    <Form.Label>Jahr 🟥</Form.Label>
+                    <Form.Label>Jahr</Form.Label>
                     <Form.Control
                         type="number"
                         name="jahr"
@@ -729,7 +729,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="laufzeit" className="mt-3">
-                    <Form.Label>Laufzeit (Minuten) 🟥</Form.Label>
+                    <Form.Label>Laufzeit (Minuten)</Form.Label>
                     <Form.Control
                         type="number"
                         name="laufzeit"
@@ -759,7 +759,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="farbe" className="mt-3">
-                    <Form.Label>Farbe 🟥</Form.Label>
+                    <Form.Label>Farbe</Form.Label>
                     <Form.Control
                         type="text"
                         name="farbe"
@@ -802,7 +802,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="verleih" className="mt-3">
-                    <Form.Label>Verleih 🟥 (HTML)</Form.Label>
+                    <Form.Label>Verleih (HTML)</Form.Label>
                     <Form.Control
                         type="text"
                         name="verleih"
@@ -812,7 +812,7 @@ export default function FilmForm() {
                 </Form.Group>
 
                 <Form.Group controlId="stab" className="mt-3">
-                    <Form.Label>Stab & Besetzung 🟥 (HTML)</Form.Label>
+                    <Form.Label>Stab & Besetzung (HTML)</Form.Label>
                     <Form.Control
                         as="textarea"
                         rows={9}
