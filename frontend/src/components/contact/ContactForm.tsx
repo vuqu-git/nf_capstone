@@ -107,7 +107,6 @@ const ContactForm: React.FC = () => {
         setFormData(newData);
 
         // ### Save Form Data to storage ###
-        // localStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
         sessionStorage.setItem(`${selectedIssueSelection}FormData`, JSON.stringify(newData));
     };
 
@@ -152,7 +151,6 @@ const ContactForm: React.FC = () => {
             setCaptchaToken(null);
 
             // ### Clear Form Data on Successful Submit ###
-            // localStorage.removeItem(`${issueToUse}FormData`);
             sessionStorage.removeItem(`${issueToUse}FormData`);
 
         } catch (error) {
@@ -232,7 +230,6 @@ const ContactForm: React.FC = () => {
     // ### Load Form Data from storage ###
     useEffect(() => {
         if (selectedIssueSelection) {
-            // const savedData = localStorage.getItem(`${selectedIssueSelection}FormData`);
             const savedData = sessionStorage.getItem(`${selectedIssueSelection}FormData`);
             if (savedData) {
                 setFormData(JSON.parse(savedData)); // ← restores the previously typed values
