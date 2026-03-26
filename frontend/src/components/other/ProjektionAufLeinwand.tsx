@@ -21,7 +21,9 @@ export default function ProjektionAufLeinwand() {
                     <Card.Body>
                         <Card.Text>
                             Dazu müsstest du als Erstes den Festsaal beim AStA buchen und eigene Technik mitbringen (z.B. Boxen und Beamer). Dann wärst du zeitlich und organisatorisch ganz unabhängig von uns.
-                            Unsere Leinwand könntest du auf jeden Fall nutzen. Der Schlüssel zum Ausrollen liegt bei der Pforte des Studierendenhauses.
+                        </Card.Text>
+                        <Card.Text>
+                            Unsere Leinwand kannst du nach vorheriger Absprache nutzen. Hierfür schreibe uns bitte über das Kontaktformular und wir schicken dir eine Handreichung zur Nutzung der Leinwand.
                         </Card.Text>
                         <Badge bg="warning" text="dark">Hinweis:</Badge>
                         <Card.Text>
