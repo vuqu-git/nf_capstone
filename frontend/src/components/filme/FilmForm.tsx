@@ -570,7 +570,8 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li><strong>exakter</strong> Dateiname mit Endung (Groß- und Kleinschreibung beachten!)</li>
+                            <li><strong>Achtung:</strong> Wenn Bild trotz korrekter Schreibweise nicht angezeigt wird, am besten Namen der Bilddatei ändern! Bspw. Unterstrich weglassen, Zahl als Endung hinten etc. Grund: Es gibt evtl. Probleme mit Bildateinamen wie "text_text".</li>
+                            <li>exakter Dateiname mit Endung (Groß- und Kleinschreibung beachten!)</li>
                             <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
                                 → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
