@@ -84,29 +84,50 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
         @Query("SELECT t FROM Termin t WHERE t.vorstellungsbeginn < :now AND t.veroeffentlichen > 0 ORDER BY t.vorstellungsbeginn DESC")
         List<Termin> findAllPastTermine(@Param("now") LocalDateTime now);
 
+//        @Query(value = """
+//    SELECT
+//        t.tnr,                              -- row[0] in ScreeningService method getAllPastTermineWithFilmsNative
+//        t.termin as vorstellungsbeginn,     -- row[1]
+//        t.titel,                            -- row[2]
+//        t.is_canceled,                      -- row[3]
+//        GROUP_CONCAT(f.fnr) as film_ids,    -- row[4]
+//        GROUP_CONCAT(CASE
+//            WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL
+//            THEN f.originaltitel
+//            ELSE f.titel
+//        END SEPARATOR '||') as film_titles  -- row[5]
+//    FROM termin t
+//    JOIN terminverknuepfung tv ON t.tnr = tv.tnr
+//    JOIN film f ON tv.fnr = f.fnr
+//    WHERE t.termin < :now
+//    AND t.veroeffentlichen > 0
+//    AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
+//    GROUP BY t.tnr, t.termin, t.titel, t.is_canceled
+//    ORDER BY t.termin DESC
+//    """, nativeQuery = true)
+//        List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);
+
         @Query(value = """
     SELECT 
-        t.tnr,                              -- row[0] in ScreeningService method getAllPastTermineWithFilmsNative
-        t.termin as vorstellungsbeginn,     -- row[1]
-        t.titel,                            -- row[2]
-        t.is_canceled,                      -- row[3]
-        GROUP_CONCAT(f.fnr) as film_ids,    -- row[4]
+        t.tnr,                              
+        t.termin as vorstellungsbeginn,     
+        t.titel,                            
+        t.is_canceled,                      
+        GROUP_CONCAT(f.fnr) as film_ids,    
         GROUP_CONCAT(CASE 
             WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL 
             THEN f.originaltitel 
             ELSE f.titel 
-        END SEPARATOR '||') as film_titles  -- row[5]
+        END SEPARATOR '||') as film_titles  
     FROM termin t
-    JOIN terminverknuepfung tv ON t.tnr = tv.tnr
-    JOIN film f ON tv.fnr = f.fnr
+    LEFT JOIN terminverknuepfung tv ON t.tnr = tv.tnr AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
+    LEFT JOIN film f ON tv.fnr = f.fnr
     WHERE t.termin < :now
     AND t.veroeffentlichen > 0
-    AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
     GROUP BY t.tnr, t.termin, t.titel, t.is_canceled
     ORDER BY t.termin DESC
     """, nativeQuery = true)
         List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);
-
 
         // called by getTermineByCurrentSemester in ScreeningService
         @EntityGraph(attributePaths = {"reihen"})
