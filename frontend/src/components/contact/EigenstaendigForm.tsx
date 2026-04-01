@@ -12,6 +12,7 @@ export interface EigenstaendigFormData {
     betreff: string;
     ansprechperson: string;
     email: string;
+    nachricht: string;
     veranstaltungsbeginn: string; // Will hold ISO 8601 date and time
     veranstaltungsende: string;   // Will hold ISO 8601 date and time
     istEinverstandenMitDatennutzung: boolean;
@@ -30,6 +31,8 @@ interface EigenstaendigFormProps {
 
 const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, submissionStatusWithMessage, onInputChange, formData, onSetCaptchaToken }) => {
 
+    const maxMessageLength = 1000;
+
     const handleLocalSubmit = (event: FormEvent) => {
         event.preventDefault();
         onSubFormSubmit(event, formData);
@@ -43,7 +46,8 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
     return (
         <form className={styles.formContainer} onSubmit={handleLocalSubmit}>
             <p className={styles.formDescription}>
-                Der Schlüssel zum Ausrollen der Leinwand liegt bei der Pforte des Studierendenhauses. Ihr könnt gerne eine kurze Benachrichtigung zu eurer Nutzung hinterlassen.
+                {/*Der Schlüssel zum Ausrollen der Leinwand liegt bei der Pforte des Studierendenhauses. Ihr könnt gerne eine kurze Benachrichtigung zu eurer Nutzung hinterlassen.*/}
+                Unsere Leinwand kannst du nach vorheriger Absprache nutzen. Nach deiner Kontaktaufnahme schicken wir dir eine Handreichung zur Nutzung der Leinwand.
             </p>
             <div className={styles.formField}>
                 <label className={styles.formLabel} htmlFor="betreff">Betreff *</label>
@@ -82,6 +86,24 @@ const EigenstaendigForm: React.FC<EigenstaendigFormProps> = ({ onSubFormSubmit, 
                     required
                     className={styles.emailInput}
                 />
+            </div>
+
+            <div className={styles.formField}>
+                <label className={styles.formLabel} htmlFor="nachricht">Nachricht *</label>
+                <textarea
+                    id="nachricht"
+                    name="nachricht"
+                    value={formData.nachricht || ''}
+                    maxLength={maxMessageLength}
+                    onChange={onInputChange}
+                    required
+                    className={styles.textareaField}
+                    style={{ height: '175px' }}
+                    aria-describedby="nachricht-counter"
+                />
+                <div id="nachricht-counter" className={styles.characterCounter}>
+                    Zeichen: {formData?.nachricht?.length || 0}/{maxMessageLength}
+                </div>
             </div>
 
             <div className={styles.formField}>

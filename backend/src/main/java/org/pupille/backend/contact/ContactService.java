@@ -40,13 +40,13 @@ public class ContactService {
     //  best practice is to use constructor injection for mandatory dependencies and @Value for configuration values
     public ContactService(JavaMailSender mailSender,
                           @Value("${bcc.email.infoatpupille:info@pupille.org}") String bccEmailInfoatpupille) {
+                        // This line injects the value of the property bcc.email.infoatpupille from your configuration into the bccEmailInfoatpupille variable. If the property is not defined, it defaults to "info@pupille.org".
         this.mailSender = mailSender;
         this.bccEmailInfoatpupille = bccEmailInfoatpupille;
     }
 
 
     private static final String SENDER_EMAIL_NOREPLY = "no-reply@pupille.org";
-//    private static final String bccEmailInfoatpupille = "quy8vuong@gmail.com"; // here: info@pupille.org in production
 
     private static final String CELL_STYLE = "padding:4px;border:1px solid #ddd;text-align:left;";
     private static final String CELL_STYLE_HEADER = "width: 200px;padding:4px;border:1px solid #ddd;text-align:left;";
@@ -272,6 +272,7 @@ public class ContactService {
         var betreff = escapeHtml((String) payload.get("betreff"));
         var ansprechperson = escapeHtml((String) payload.get("ansprechperson"));
         var email = escapeHtml((String) payload.get("email"));
+        var nachricht = escapeHtml((String) payload.get("nachricht"));
         var veranstaltungsbeginnStr = escapeHtml((String) payload.get("veranstaltungsbeginn"));
         var veranstaltungsendeStr = escapeHtml((String) payload.get("veranstaltungsende"));
 
@@ -282,6 +283,7 @@ public class ContactService {
         Map<String, String> requiredFields = Map.of(
                 "betreff", betreff,
                 "email", email,
+                "nachricht", nachricht,
                 "veranstaltungsbeginn", veranstaltungsbeginnStr,
                 "veranstaltungsende", veranstaltungsendeStr
         );
@@ -317,6 +319,7 @@ public class ContactService {
                     .append(tableRow("Betreff", betreff))
                     .append(tableRow("Ansprechperson", ansprechperson))
                     .append(tableRow("Email", email))
+                    .append(tableRow("Nachricht", nachricht))
                     .append(tableRow("Veranstaltungsbeginn", formattedVeranstaltungsbeginn))
                     .append(tableRow("Veranstaltungsende", formattedVeranstaltungsende))
                     .append(tableRow("Datenschutzerklärung gelesen + akzeptiert", istEinverstandenMitDatennutzung ? "Ja" : "Nein"))

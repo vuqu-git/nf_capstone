@@ -238,21 +238,37 @@ public class ScreeningService {
             }
             // ********************************************
 
-            String filmIdsStr = (String) row[4]; // "1,2,3"
-            String filmTitlesStr = (String) row[5]; // "Title1||Title2||Title3"
-
-            List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
-                    .filter(s -> !s.isBlank())
-                    .map(Long::valueOf)
-                    .toList();
-
-            List<String> filmTitles = Arrays.stream(filmTitlesStr.split("\\|\\|"))
-                    .toList();
+            String filmIdsStr = (String) row[4]; // "1,2,3" (can be null if LEFT JOIN finds no films; see LEFT Join in findPastTermineWithFilmsNative from TerminRepository class)
+            String filmTitlesStr = (String) row[5]; // "Title1||Title2||Title3" (can be null if LEFT JOIN finds no films; see LEFT Join in findPastTermineWithFilmsNative from TerminRepository class)
 
             List<FilmDTOOverviewArchive> films = new ArrayList<>();
-            for (int i = 0; i < filmIds.size(); i++) {
-                films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
+
+            // Only split and map if the Termin actually has films attached
+            if (filmIdsStr != null && filmTitlesStr != null) {
+                List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
+                        .filter(s -> !s.isBlank())
+                        .map(Long::valueOf)
+                        .toList();
+
+                List<String> filmTitles = Arrays.stream(filmTitlesStr.split("\\|\\|"))
+                        .toList();
+
+                for (int i = 0; i < filmIds.size(); i++) {
+                    films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
+                }
             }
+            // this below is the old code instead of the if clause above
+//            List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
+//                    .filter(s -> !s.isBlank())
+//                    .map(Long::valueOf)
+//                    .toList();
+//
+//            List<String> filmTitles = Arrays.stream(filmTitlesStr.split("\\|\\|"))
+//                    .toList();
+//
+//            for (int i = 0; i < filmIds.size(); i++) {
+//                films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
+//            }
 
             result.add(new TerminDTOWithFilmDTOOverviewArchive(
                     tnr,

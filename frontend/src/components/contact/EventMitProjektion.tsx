@@ -70,8 +70,8 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
         };
         setSubFormData(newData);
 
-        // ### Save Form Data to localStorage ###
-        localStorage.setItem(`${selectedIssuesSubSelection}FormData`, JSON.stringify(newData));
+        // ### Save Form Data to sessionStorage ###
+        sessionStorage.setItem(`${selectedIssuesSubSelection}FormData`, JSON.stringify(newData));
     };
 
     const onSubFormSubmit = (
@@ -127,10 +127,10 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
         }
     };
 
-    // ### Load Form Data from localStorage ###
+    // ### Load Form Data from sessionStorage ###
     useEffect(() => {
         if (selectedIssuesSubSelection) {
-            const savedData = localStorage.getItem(`${selectedIssuesSubSelection}FormData`);
+            const savedData = sessionStorage.getItem(`${selectedIssuesSubSelection}FormData`);
             if (savedData) {
                 setSubFormData(JSON.parse(savedData));
             }
@@ -142,7 +142,7 @@ const EventMitProjektion: React.FC<EventMitProjektionProps> = ({ onSubmit, submi
             <div>
                 <Badge bg="success">Bitte lesen</Badge>
                 <p className={styles.formDescription}>
-                    Informationen zu den verschiedenen Durchführungsarten von Veranstaltungen mit Projektion findet ihr unter{' '}
+                    Informationen zu den verschiedenen Durchführungsarten von Veranstaltungen mit Projektion findest du unter{' '}
                     {/*<a className="custom-link" href="/kinoprojektion" target="_blank" rel="noopener noreferrer">*/}
                     {/*    Infos & Service: Filme etc. zeigen*/}
                     {/*</a>*/}
