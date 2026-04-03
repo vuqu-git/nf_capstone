@@ -653,6 +653,8 @@ export default function FilmForm() {
                         <ul className="tight-list">
                             <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b></li>
+                            <li>Inhaltliche Redundanzen mit <u>Film</u>besonderheit (Feld unten) sowie <u>Termin</u>besonderheit (Feld im entsprechenden Termin des Films) vermeiden.</li>
+                            <li>Maximal 250 Textzeichen (inkl. Leerzeichen) bzw. maximal 175 Textzeichen (inkl. Leerzeichen), ansonsten Kappung des Kurztexts bei mobiler Ansicht der Webseite.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
