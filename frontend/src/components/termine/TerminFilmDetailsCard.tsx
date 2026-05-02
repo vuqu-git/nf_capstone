@@ -207,14 +207,19 @@ export default function TerminFilmDetailsCard({
 
                                                 <li key={termin.tnr}>
                                                     <Link to={`/details/${termin.tnr}`} className="custom-link">
-                                                    {termin.mainfilms && termin.mainfilms.length > 0
-                                                        ? termin.mainfilms.map((film, k) => (
-                                                            <span key={film.fnr}>
-                                                                {renderHtmlText(film.titel)}
-                                                                {k < termin.mainfilms.length - 1 && ", "}
-                                                            </span>
-                                                        ))
-                                                        : "Kein Filmtitel vorhanden"}
+                                                    {
+                                                        termin.titel
+                                                            ? <span>{termin.titel}</span>
+                                                            :
+                                                                termin.mainfilms && termin.mainfilms.length > 0
+                                                                ? termin.mainfilms.map((film, k) => (
+                                                                    <span key={film.fnr}>
+                                                                        {renderHtmlText(film.titel)}
+                                                                        {k < termin.mainfilms.length - 1 && ", "}
+                                                                    </span>
+                                                                ))
+                                                                : "Kein Filmtitel vorhanden"
+                                                    }
                                                     {" "}({formatDateTime(termin.vorstellungsbeginn, false, true)?.date})
                                                     </Link>
                                                 </li>
