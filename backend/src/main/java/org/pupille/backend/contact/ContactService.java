@@ -596,6 +596,8 @@ public class ContactService {
             htmlBody.append("<li>Liegt eine Terminbestätigung vor?</li>");
             htmlBody.append("<li>Bitte achte darauf, dass der Kopienversand bzw. Download rechtzeitig initiiert wird!</li>");
             htmlBody.append("<li>Sind genügend Personen im Dienstplan eingetragen?</li>");
+            htmlBody.append("<li>Gibt es noch ausreichend Snacks sowie Getränke und sind Getränke im Kühlschrank aufgefüllt worden?</li>");
+            htmlBody.append("<li>Stelle sicher, dass die richtige Fassung auf den Server gespielt wird, und führe idealerweise vor dem Spieltag eine Testung durch.</li>");
             htmlBody.append("</ul>");
             htmlBody.append("<p>Freundliche Grüße!</p>");
         } else {

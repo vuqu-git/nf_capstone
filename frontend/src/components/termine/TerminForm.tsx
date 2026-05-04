@@ -474,7 +474,7 @@ export default function TerminForm() {
                         {/*Bilddatei muss unter https://pupille.org/bilder/filmbilder/ abgelegt sein.*/}
                         <ul className="tight-list">
                             <li><span className="text-danger">Wichtig:</span> Dieses Feld muss befüllt, wenn oben ein Titel angegeben wurde, sonst leer lassen.</li>
-                            <li><strong>Achtung:</strong> Wenn Bild trotz korrekter Schreibweise nicht angezeigt wird, am besten Namen der Bilddatei ändern! Bspw. Unterstrich weglassen, Zahl als Endung hinten etc. Grund: Es gibt evtl. Probleme mit Bildateinamen wie "text_text".</li>
+                            <li><strong>Achtung:</strong> Wenn Bild trotz korrekter Schreibweise nicht angezeigt wird, am besten Namen der Bilddatei ändern! Bspw. alle Unterstriche weglassen, Zahl als Endung hinten etc. Grund: Es gibt evtl. Probleme mit Bildateinamen wie "text_text".</li>
                             <li>exakter Dateiname mit Endung (Groß- und Kleinschreibung beachten!)</li>
                             <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
                                 → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page

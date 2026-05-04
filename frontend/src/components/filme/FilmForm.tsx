@@ -570,7 +570,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li><strong>Achtung:</strong> Wenn Bild trotz korrekter Schreibweise nicht angezeigt wird, am besten Namen der Bilddatei ändern! Bspw. Unterstrich weglassen, Zahl als Endung hinten etc. Grund: Es gibt evtl. Probleme mit Bildateinamen wie "text_text".</li>
+                            <li><strong>Achtung:</strong> Wenn Bild trotz korrekter Schreibweise nicht angezeigt wird, am besten Namen der Bilddatei ändern! Bspw. alle Unterstriche weglassen, Zahl als Endung hinten etc. Grund: Es gibt evtl. Probleme mit Bildateinamen wie "text_text".</li>
                             <li>exakter Dateiname mit Endung (Groß- und Kleinschreibung beachten!)</li>
                             <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/bilder/filmbilder abgelegt sein
                                 → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/bilder/filmbilder dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
@@ -653,6 +653,8 @@ export default function FilmForm() {
                         <ul className="tight-list">
                             <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b></li>
+                            <li>Inhaltliche Redundanzen mit <u>Film</u>besonderheit (Feld unten) sowie <u>Termin</u>besonderheit (Feld im entsprechenden Termin des Films) vermeiden.</li>
+                            <li>Maximal 250 Textzeichen (inkl. Leerzeichen) bzw. maximal 175 Textzeichen (inkl. Leerzeichen), ansonsten Kappung des Kurztexts bei mobiler Ansicht der Webseite.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
