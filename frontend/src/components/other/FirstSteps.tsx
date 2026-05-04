@@ -31,10 +31,9 @@ export default function FirstSteps() {
             </p>
 
             <p>
-                Wenn es dir gefällt und du dich entscheidest, dauerhaft bei uns einzusteigen, schreibe bitte eine
-                Nachricht
-                an den internen Mailverteiler* mit einer kurzen Vorstellung von dir.<br/>
-                Wir sind (Stand 02/2026) ein relativ großes Team, und einige Mitglieder sind nur unregelmäßig oder
+                Wenn es dir gefällt und du dich entscheidest, dauerhaft bei uns einzusteigen, bitte um die Aufnahme in unseren internen Mail-Verteiler*.
+                Wenn dies eingerichtet ist, schreibe gerne an diesen Verteiler mit einer kurzen Vorstellung von dir.<br/>
+                Wir sind (Stand 05/2026) ein relativ großes Team, und einige Mitglieder sind nur unregelmäßig oder
                 selten anwesend.
                 Deine Mail erleichtert uns das Onboarding. Bitte frage in deiner Nachricht außerdem nach folgenden
                 Punkten:
@@ -42,13 +41,10 @@ export default function FirstSteps() {
 
             <ul className="mb-3">
                 <li>
-                    Aufnahme deiner Mailadresse in den <strong>internen Mailverteiler</strong> (Kommunikationskanal des Teams)
-                </li>
-                <li>
                     Bereitstellung des <strong>Dienstplans</strong> zur Organisation unserer Screenings
                 </li>
                 <li>
-                    Zugang zum <strong>Pupille-Wiki</strong> mit Informationen und Wissen rund um den Kinobetrieb
+                    Zugang zum <strong>Pupille Wiki</strong> mit Informationen und Wissen rund um den Kinobetrieb
                 </li>
             </ul>
 
@@ -58,7 +54,7 @@ export default function FirstSteps() {
             <p>Viel Spaß beim Kennenlernen der Pupille!</p>
 
             <p>
-                <sup>* Die genaue Adresse des Mailverteilers erfragst du am besten vor Ort.</sup>
+                <sup>* Erfrage am besten vor Ort an wen du dich da wenden sollst.</sup>
             </p>
         </section>
     );
