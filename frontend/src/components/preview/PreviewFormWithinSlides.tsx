@@ -4,7 +4,6 @@ import {Badge, Col, Container, Form, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
 import BackToTopButton from "../structural_components/BackToTopButton.tsx";
-import {renderHtmlText} from "../../utils/renderHtmlText.tsx";
 import Header2 from "../structural_components/Header2.tsx";
 
 interface Props {
@@ -100,6 +99,7 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                     multiple
                                     name="selectScreenings"
                                     htmlSize={semesterTermine.length + 2}
+                                    // htmlSize={semesterTermine.filter((termin) => (termin.veroeffentlichen ?? 0) > 0).length + 2}
                                     value={selectValue}
                                     onChange={handleScreeningSelectionChange}
                                 >
@@ -109,17 +109,22 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                     <option key="all_except_first" value="all_except_first">
                                         Alle Vorführungstermine ohne den nächsten
                                     </option>
-                                    {semesterTermine.map((termin) => (
-                                        <option key={termin.tnr} value={termin.tnr}>
-                                            {/*using renderHtmlText here causes a span inside an option → hydration errors*/}
-                                            {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {renderHtmlText( termin.titel || termin.mainfilms[0].titel )}*/}
-                                            {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.isCanceled ? "🔴 " : "🟢 "} {termin.titel || termin.mainfilms[0].titel}
-                                        </option>
+                                    {semesterTermine
+                                        // .filter((termin) => (termin.veroeffentlichen ?? 0) > 0)
+                                        .map((termin) => (
+                                            <option key={termin.tnr} value={termin.tnr}>
+                                                {/*using renderHtmlText here causes a span inside an option → hydration errors*/}
+                                                {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {renderHtmlText( termin.titel || termin.mainfilms[0].titel )}*/}
+
+                                                {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.isCanceled ? "🔴 " : "🟢 "} {termin.titel || termin.mainfilms[0].titel}*/}
+                                                {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.veroeffentlichen ? "🔓" : "🔒"}{termin.isCanceled ? "🔴" : "🟢"} {termin.titel || (termin.mainfilms?.[0]?.titel ?? "[no termin.title and no film(s) associated yet]")}
+                                            </option>
                                     ))}
                                 </Form.Select>
                                 <Form.Text className="text-muted">
                                     <ul className="tight-list">
                                         <li>STRG (Windows) oder CMD (Mac) gedrückt halten, um mehrere, nicht zusammenhängende Vorführungstermine auszuwählen.</li>
+                                        <li>🔓: Termin ist bereits auf Webseite sichtbar; 🔒: sonst </li>
                                         <li>🔴: Termin ist als "abgesagt" markiert; 🟢: sonst </li>
                                     </ul>
                                 </Form.Text>

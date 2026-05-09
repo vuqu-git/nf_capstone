@@ -88,20 +88,20 @@ const OverviewClicks: React.FC = () => {
 
                             <p>Generell: Keine Zählung bei Klicks zeitlich nach der Vorführung</p>
 
-                            <div className={styles.zaehlartenbox}>
-                                <h3 className={styles.title3}>session:</h3>
-                                <p>Die Zählung findet innerhalb 1 Browsersession (geöffnetes Browserfenster oder -tab) statt: Beim mehrmaligen Öffnen einer Detailseite oder mehrmaligen Klicken auf die Kalenderfunktion erfolgt keine Mehrfachzählung, sondern nur der 1. Klick wird 1-fach gezählt. Ein neues Browserfenster bzw. -tab zählt als neue Session. D. h. hier erfolgt die Zählung wieder beim 1. Klick.</p>
-                            </div>
+                            {/*<div className={styles.zaehlartenbox}>*/}
+                            {/*    <h3 className={styles.title3}>session:</h3>*/}
+                            {/*    <p>Die Zählung findet innerhalb 1 Browsersession (geöffnetes Browserfenster oder -tab) statt: Beim mehrmaligen Öffnen einer Detailseite oder mehrmaligen Klicken auf die Kalenderfunktion erfolgt keine Mehrfachzählung, sondern nur der 1. Klick wird 1-fach gezählt. Ein neues Browserfenster bzw. -tab zählt als neue Session. D. h. hier erfolgt die Zählung wieder beim 1. Klick.</p>*/}
+                            {/*</div>*/}
 
-                            <div className={styles.zaehlartenbox}>
-                                <h3 className={styles.title3}>user:</h3>
-                                <p className="mb-0">Diese Zahl ist ein Proxy für die Zahl der interessierten Personen. Die Zählung erfolgt pro User pro erstmaligem Klick in ein und desselben Browser. Ausnahmen davon:</p>
-                                <ul>
-                                    <li>User löscht manuell den lokalen Speicher oder den Browser-Cache.</li>
-                                    <li>User verwendet den privaten bzw. Inkognito-Modus; Daten des lokalen Speichers werden normalerweise nach Schließen des Modus gelöscht.</li>
-                                    <li>Einige Browser, wie Safari, löschen lokal gespeicherte Daten proaktiv, wenn eine Website für eine bestimmte Zeit (z.B. 7 Tage) nicht genutzt oder keine Benutzerinteraktion mehr erfolgt ist.</li>
-                                </ul>
-                            </div>
+                            {/*<div className={styles.zaehlartenbox}>*/}
+                            {/*    <h3 className={styles.title3}>user:</h3>*/}
+                            {/*    <p className="mb-0">Diese Zahl ist ein Proxy für die Zahl der interessierten Personen. Die Zählung erfolgt pro User pro erstmaligem Klick in ein und desselben Browser. Ausnahmen davon:</p>*/}
+                            {/*    <ul>*/}
+                            {/*        <li>User löscht manuell den lokalen Speicher oder den Browser-Cache.</li>*/}
+                            {/*        <li>User verwendet den privaten bzw. Inkognito-Modus; Daten des lokalen Speichers werden normalerweise nach Schließen des Modus gelöscht.</li>*/}
+                            {/*        <li>Einige Browser, wie Safari, löschen lokal gespeicherte Daten proaktiv, wenn eine Website für eine bestimmte Zeit (z.B. 7 Tage) nicht genutzt oder keine Benutzerinteraktion mehr erfolgt ist.</li>*/}
+                            {/*    </ul>*/}
+                            {/*</div>*/}
 
                             <h2 className={styles.title2}>Tage online</h2>
                             <p>Zeigt an wie lange das Screening in der Gallery (main page) auf der Webseite beworben wurde (Zählung der Tage nur bis Vorführungstag).</p>

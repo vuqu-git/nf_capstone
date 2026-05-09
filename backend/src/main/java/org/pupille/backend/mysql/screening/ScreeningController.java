@@ -20,7 +20,7 @@ public class ScreeningController {
         return screeningService.getAllFutureTermineWithFilms();
     }
 
-//            // this can be used when Reihe information in addition to  required in Gallery
+//            // this can be used when Reihe information is required in Gallery
 //            @GetMapping("/new")
 //            public ReihenAndFilmTermineForGallery getReihenAndTermineForGallery() {
 //                return screeningService.getReihenAndTermineForGallery();
