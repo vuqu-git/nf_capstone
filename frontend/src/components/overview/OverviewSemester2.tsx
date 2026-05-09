@@ -69,10 +69,10 @@ export default function OverviewSemester2() {
                 <div className="overview-container">
                     {semesterTermine
                         .filter(termin => {
-                            // -- skip Termin, when there's no corresponding Hauptfilm
-                            if (!termin.mainfilms || termin.mainfilms.length === 0) { // 1st condition checks if termin.mainfilms existent or field mainfilms not missing, while 2nd condition covers the case mainfilms: []
-                                return false;
-                            }
+                            // // -- skip Termin, when there's no corresponding Hauptfilm
+                            // if (!termin.mainfilms || termin.mainfilms.length === 0) { // 1st condition checks if termin.mainfilms existent or field mainfilms not missing, while 2nd condition covers the case mainfilms: []
+                            //     return false;
+                            // }
 
                             // -- filter for selected Filmreihe
                             // if (!selectedOption || !selectedOption.value) return true; // concise line below achieves the same
