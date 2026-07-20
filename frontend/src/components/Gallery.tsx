@@ -180,7 +180,7 @@ export default function Gallery() {
                         <>
                             {/*<h3>Programm</h3>*/}
                             {screeningGalleryEntries
-                                .filter(termin => termin.veroeffentlichen !== null && termin.veroeffentlichen !== 0)
+                                .filter(termin => termin.finalVeroeffentlichen === true)
                                 .map(termin => {
                                     // Add logic here
 
@@ -208,13 +208,14 @@ export default function Gallery() {
                                                     titel={termin.titel}
                                                     kurztext={termin.kurztext ? termin.kurztext : null}
                                                     hauptfilmJahr={undefined}
-                                                    hauptfilmbesonderheit={termin.besonderheit ? termin.besonderheit : null}
+                                                    hauptfilmbesonderheit={termin.besonderheit ? termin.besonderheit : undefined}
                                                     hauptfilmFormat={undefined} // for filmFormat treatment with undefined (instead of null) to have this prop be optional
                                                     hauptfilmLaufzeit={undefined}
                                                     hauptfilmRegie={undefined}
 
                                                     tnr={termin.tnr} // for navigation to certain route
-                                                />
+                                                    terminBesonderheit={undefined}
+                                                    terminIsCanceled={undefined}                                                />
                                             </div>
                                         );
                                     } else if (termin.mainfilms?.length > 0) {
@@ -238,13 +239,14 @@ export default function Gallery() {
                                                     titel={termin.mainfilms[0]?.titel ? termin.mainfilms[0]?.titel : null}
                                                     kurztext={termin.mainfilms[0]?.kurztext ? termin.mainfilms[0]?.kurztext : null}
                                                     hauptfilmJahr={termin.mainfilms[0]?.jahr}
-                                                    hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit ? termin.mainfilms[0]?.besonderheit : null}
-                                                    hauptfilmFormat={termin.mainfilms[0]?.format ? termin.mainfilms[0]?.format : undefined}  // for filmFormat treatment with undefined (instead of null) to have this prop be optional
+                                                    hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit ? termin.mainfilms[0]?.besonderheit : undefined}
+                                                    hauptfilmFormat={termin.mainfilms[0]?.format ? termin.mainfilms[0]?.format : undefined} // for filmFormat treatment with undefined (instead of null) to have this prop be optional
                                                     hauptfilmLaufzeit={undefined}
                                                     hauptfilmRegie={undefined}
 
                                                     tnr={termin.tnr} // for navigation to certain route
-                                                />
+                                                    terminBesonderheit={undefined}
+                                                    terminIsCanceled={undefined}                                                />
                                             </div>
                                         );
                                     }

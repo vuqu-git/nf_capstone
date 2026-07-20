@@ -29,7 +29,7 @@ export default function Gallery2() {
     const screeningGalleryEntries = useLoaderData<TerminDTOWithFilmAndReiheDTOGallery[]>();
 
     const visibleScreenings = screeningGalleryEntries
-        .filter(termin => termin.veroeffentlichen !== null && termin.veroeffentlichen !== 0);
+        .filter(termin => termin.finalVeroeffentlichen === true);
 
     useEffect(() => {
         let cancelled = false;  // variable is used as a cleanup flag to prevent state updates after the component has unmounted.
