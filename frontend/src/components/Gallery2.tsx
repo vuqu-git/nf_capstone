@@ -29,12 +29,12 @@ export default function Gallery2() {
     const screeningGalleryEntries = useLoaderData<TerminDTOWithFilmAndReiheDTOGallery[]>();
 
     const visibleScreenings = screeningGalleryEntries
-        .filter(termin => termin.finalVeroeffentlichen === true);
+        .filter(termin => termin.finalVeroeffentlichen);
 
     useEffect(() => {
         let cancelled = false;  // variable is used as a cleanup flag to prevent state updates after the component has unmounted.
                                         // This is a common pattern to avoid memory leaks and errors in React applications.
-                                        // The cancelled flag prevents this by checking if the component is still mounted before updating state.
+                                        // The canceled flag prevents this by checking if the component is still mounted before updating state.
 
         axios.get<News[]>("/api/news/valid")
             .then(res => {

@@ -180,7 +180,7 @@ export default function Gallery() {
                         <>
                             {/*<h3>Programm</h3>*/}
                             {screeningGalleryEntries
-                                .filter(termin => termin.finalVeroeffentlichen === true)
+                                .filter(termin => termin.finalVeroeffentlichen)
                                 .map(termin => {
                                     // Add logic here
 
