@@ -371,6 +371,11 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                         required
                     />
+                    <Form.Text className="text-muted">
+                    <ul className="tight-list">
+                        <li>MM/DD/YYYY, hh:mm AM/PM ist das Datumsformat</li>
+                    </ul>
+                </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="patenschaft" className="mt-3">
