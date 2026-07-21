@@ -264,6 +264,12 @@ export default function TerminForm() {
                     updatedData.showImageInDetails = false;
                 }
             }
+
+            // --- special condition on veroeffentlichen
+            if (name === 'veroeffentlichen') {
+                updatedData.veroeffentlichen = (e.target as HTMLInputElement).checked ? 1 : 0;
+            }
+
             return updatedData;
         });
 
@@ -518,7 +524,7 @@ export default function TerminForm() {
                     {/*<Form.Label>(Termin-)Bild in den Screeningdetails anzeigen</Form.Label>*/}
                     <Form.Check
                         type="checkbox"
-                        label="(Termin-)Bild in den Screeningdetails anzeigen **"
+                        label="(Termin-)Bild in den Screeningdetails anzeigen? **"
                         name="showImageInDetails"
                         checked={selectedTermin.showImageInDetails || false}
                         onChange={handleFormChange}
@@ -527,6 +533,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Anzeige des (Termin-)Bildes nicht nur in der Gallery, sondern auch in den Screeningdetails</li>
+                            <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -593,18 +600,18 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="veroeffentlichen" className="mt-3">
-                    <Form.Label>Veroeffentlichen</Form.Label>
-                    {/*coalescing operator ?? here is important to display 0 value instead of empty string"*/}
-                    {/*when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0*/}
-                    <Form.Control
-                        type="number"
+                    <Form.Check
+                        type="checkbox"
                         name="veroeffentlichen"
-                        value={selectedTermin.veroeffentlichen ?? ""}
+                        label="Veroeffentlichen"
+                        // checked={!!selectedTermin.veroeffentlichen} // this one only works when the values of veroeffentlichen are only 0, 1 or null
+                        checked={selectedTermin.veroeffentlichen != null && selectedTermin.veroeffentlichen !== 0}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Zahl größer 0 to publish; leer lassen oder 0 to hide</li>
+                            <li>Checked to publish; unchecked to hide</li>
+                            <li>Ein Termin ohne assoziierte(n) Film(e) werden stets nicht angezeigt.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -619,8 +626,8 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
                             <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
+                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
