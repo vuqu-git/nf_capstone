@@ -18,8 +18,18 @@ public record TerminDTOWithFilmDTOOverviewSemester(
         List<FilmDTOOverviewSemester> mainfilms,
         Set<ReiheDTOGallery> reihen,
         Integer terminGesamtlaufzeit,
+        Boolean finalVeroeffentlichen,
         Boolean isCanceled
 ) {
+    // 1. Compact Canonical Constructor
+    public TerminDTOWithFilmDTOOverviewSemester {
+        // Enforce the business rule: if mainfilms is empty, override the status to 0
+        if (mainfilms == null || mainfilms.isEmpty()) {
+            finalVeroeffentlichen = false;
+        }
+    }
+
+    // 2. Secondary convenience constructor taking the Entity objects directly
     public TerminDTOWithFilmDTOOverviewSemester(Termin termin, List<Film> films, Set<Reihe> reihen, Integer terminGesamtlaufzeit) {
         this(
                 termin.getTnr(),
@@ -36,6 +46,7 @@ public record TerminDTOWithFilmDTOOverviewSemester(
                         .collect(Collectors.toSet()),
 
                 terminGesamtlaufzeit,
+                termin.getVeroeffentlichen() != null && termin.getVeroeffentlichen() != 0,
                 termin.getIsCanceled()
         );
     }
