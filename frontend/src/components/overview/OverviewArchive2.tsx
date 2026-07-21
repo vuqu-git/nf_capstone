@@ -74,12 +74,13 @@ export default function OverviewArchive2() {
         for (const termin of screeningArchiveEntries) {
 
             if (!termin.vorstellungsbeginn) continue;
+            if (!termin.finalVeroeffentlichen) continue;
 
             // for plain text search
             if (
                 termin.titel?.toLowerCase().includes(searchFilm.toLowerCase()) ||
                 termin.titel?.toLowerCase().includes(convertToHtmlEntities(searchFilm.toLowerCase())) ||
-                termin.films.some(film =>
+                termin.mainfilms.some(film =>
                     film.titel?.toLowerCase().includes(searchFilm.toLowerCase()) ||
                     film.titel?.toLowerCase().includes(convertToHtmlEntities(searchFilm.toLowerCase()))
                 )
@@ -123,13 +124,13 @@ export default function OverviewArchive2() {
                             >
                                 {!termin.titel ? (
                                     <>
-                                        {renderHtmlText(termin.films[0]?.titel) ?? ""}
+                                        {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                     </>
                                 ) : (
                                     <>
                                         {renderHtmlText(termin.titel)}
                                         <ol className="multiple-films-list">
-                                            {termin.films.map(film => (
+                                            {termin.mainfilms.map(film => (
                                                 <li key={film.fnr} className="multiple-films-list-item">
                                                     {renderHtmlText(film.titel)}
                                                 </li>
