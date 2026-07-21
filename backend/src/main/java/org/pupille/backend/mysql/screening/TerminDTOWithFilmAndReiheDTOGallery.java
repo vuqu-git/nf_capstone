@@ -26,7 +26,7 @@ public record TerminDTOWithFilmAndReiheDTOGallery(
 ) {
     // 1. Compact Canonical Constructor
     public TerminDTOWithFilmAndReiheDTOGallery {
-        // Enforce the business rule: if mainfilms is empty, override the status to 0
+        // Enforce the business rule: if mainfilms is empty, override the status to false
         if (mainfilms == null || mainfilms.isEmpty()) {
             finalVeroeffentlichen = false;
         }

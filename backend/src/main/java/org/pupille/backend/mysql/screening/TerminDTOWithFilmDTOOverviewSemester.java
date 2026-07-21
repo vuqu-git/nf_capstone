@@ -23,7 +23,7 @@ public record TerminDTOWithFilmDTOOverviewSemester(
 ) {
     // 1. Compact Canonical Constructor
     public TerminDTOWithFilmDTOOverviewSemester {
-        // Enforce the business rule: if mainfilms is empty, override the status to 0
+        // Enforce the business rule: if mainfilms is empty, override the status to false
         if (mainfilms == null || mainfilms.isEmpty()) {
             finalVeroeffentlichen = false;
         }
