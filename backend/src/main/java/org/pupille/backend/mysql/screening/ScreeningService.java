@@ -251,18 +251,6 @@ public class ScreeningService {
                     films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
                 }
             }
-            // this below is the old code instead of the if clause above
-//            List<Long> filmIds = Arrays.stream(filmIdsStr.split(","))
-//                    .filter(s -> !s.isBlank())
-//                    .map(Long::valueOf)
-//                    .toList();
-//
-//            List<String> filmTitles = Arrays.stream(filmTitlesStr.split("\\|\\|"))
-//                    .toList();
-//
-//            for (int i = 0; i < filmIds.size(); i++) {
-//                films.add(new FilmDTOOverviewArchive(filmIds.get(i), filmTitles.get(i)));
-//            }
 
             result.add(new TerminDTOWithFilmDTOOverviewArchive(
                     tnr,
@@ -270,6 +258,7 @@ public class ScreeningService {
                     formatSemesterFromLocalDateTermin(vorstellungsbeginn.toLocalDate()),
                     titel,
                     films,
+                    true, // here true, because of "AND t.veroeffentlichen > 0" in query of repo method terminRepository.findPastTermineWithFilmsNative
                     isCanceled
             ));
         }
