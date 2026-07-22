@@ -611,7 +611,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Checked to publish; unchecked to hide</li>
-                            <li>Ein Termin ohne assoziierte(n) Film(e) werden stets nicht angezeigt.</li>
+                            <li>A Termin without associated Film(e) won't get displayed in any case.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
