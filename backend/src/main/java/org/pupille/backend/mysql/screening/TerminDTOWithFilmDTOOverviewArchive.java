@@ -23,9 +23,13 @@ public record TerminDTOWithFilmDTOOverviewArchive(
     // 1. Compact Canonical Constructor
     public TerminDTOWithFilmDTOOverviewArchive {
         // Enforce the business rule: if mainfilms is empty, override the status to false
-        if ((mainfilms == null || mainfilms.isEmpty())
-                && vorstellungsbeginn != null
-                && vorstellungsbeginn.toLocalDate().isAfter(CUTOFF_DATE)) { // isAfter is strict comparison (no equity included)
+        if (
+                (mainfilms == null || mainfilms.isEmpty())
+                    && vorstellungsbeginn != null
+                    && vorstellungsbeginn.toLocalDate().isAfter(CUTOFF_DATE) // isAfter is strict comparison (no equity included)
+                || ((mainfilms == null || mainfilms.isEmpty()) // this condition (incl. titel == null) makes sure that old Termine without titel are not admissible for disclosure
+                    && titel == null)
+        ) {
             finalVeroeffentlichen = false;
         }
     }
