@@ -69,11 +69,6 @@ export default function OverviewSemester2() {
                 <div className="overview-container">
                     {semesterTermine
                         .filter(termin => {
-                            // -- skip Termin, when finalVeroeffentlichen is false (i.e. when there are no corresponding mainfilms)
-                            if (!termin.finalVeroeffentlichen) {
-                                return false;
-                            }
-
                             // -- filter for selected Filmreihe
                             // if (!selectedOption || !selectedOption.value) return true; // concise line below achieves the same
                             if (!selectedOption?.value) return true; // show all
