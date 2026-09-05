@@ -94,6 +94,7 @@ public class ScreeningService {
                             fTermin.getReihen()
                     );
                 })
+                .filter(fterminDto -> fterminDto.finalVeroeffentlichen())
                 .toList();
     }
 
