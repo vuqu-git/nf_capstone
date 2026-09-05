@@ -322,6 +322,7 @@ public class ScreeningService {
 
                     return new TerminDTOWithFilmDTOOverviewSemester(sTermin, mainfilms, sTermin.getReihen(), terminGesamtlaufzeit);
                 })
+                .filter(TerminDTOWithFilmDTOOverviewSemester::finalVeroeffentlichen)
                 .toList();
     }
 
