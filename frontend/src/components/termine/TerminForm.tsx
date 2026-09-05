@@ -449,8 +449,8 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
-                            <li>Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Erscheint nur in Gallery, wenn der Termin-Titel befüllt ist; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -466,7 +466,7 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
                             <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
                         </ul>

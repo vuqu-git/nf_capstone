@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import FilmSelection from "./FilmSelection";
 import {Film} from "../../types/Film.ts";
 import {FilmDTOSelection} from "../../types/FilmDTOSelection.ts";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 import {preprocessFormData} from "../../utils/preprocessFormData.ts";
-import {copyToClipboard} from "../../utils/copyToClipboard.ts";
 import AdminNav from "../structural_components/AdminNav.tsx";
 import TerminDTOSelection from "../../types/TerminDTOSelection.ts";
 import {formatDateInTerminSelectOption} from "../../utils/formatDateInTerminSelectOption.ts";
@@ -651,7 +649,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint nur in Gallery, wenn es der Hauptfilm in einem "Standard"-Screening (mit 1 Langfilm + optionale Vorfilme); Feld vorgesehen für <b>Inhaltliches bzgl. des Hauptfilms; idR keine Eintragung wenn Film ein Vorfilm ist</b></li>
                             <li>Inhaltliche Redundanzen mit <u>Film</u>besonderheit (Feld unten) sowie <u>Termin</u>besonderheit (Feld im entsprechenden Termin des Films) vermeiden.</li>
                             <li>Maximal 250 Textzeichen (inkl. Leerzeichen) bzw. maximal 175 Textzeichen (inkl. Leerzeichen), ansonsten Kappung des Kurztexts bei mobiler Ansicht der Webseite.</li>
@@ -670,7 +668,7 @@ export default function FilmForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint in Gallery (wenn es der Hauptfilm ist) und Detailseite; Eintrag bezieht sich auf Besonderheit des <b>Films</b> (bspw. Erwähnung Director's Cut, Farbstich der analogen Kopie)</li>
                             <li>keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite, <b>kein</b> Feld für Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort → Feld 'Besonderheit' im Termin-Formular verwenden</li>
                             <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
