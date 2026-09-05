@@ -15,21 +15,18 @@ export default function Gallery2() {
     // --------------------------------------------------------------------------------
     // old setup where screenings and news were fetched in loader of App component with Promise.all or Promise.allSettled
     // // syntax for without own type for useLoaderData input
-    // const { screeningGalleryEntries, validNews } = useLoaderData<{
-    //     screeningGalleryEntries: TerminDTOWithFilmAndReiheDTOGallery[];
+    // const { galleryScreenings, validNews } = useLoaderData<{
+    //     galleryScreenings: TerminDTOWithFilmAndReiheDTOGallery[];
     //     validNews: News[];
     // }>();
 
-    // const {screeningGalleryEntries, validNews} = useLoaderData<GalleryData>();
+    // const {galleryScreenings, validNews} = useLoaderData<GalleryData>();
     // --------------------------------------------------------------------------------
 
     const [validNews, setValidNews] = useState<News[]>([]);
     const [loadingNews, setLoadingNews] = useState(true);
 
-    const screeningGalleryEntries = useLoaderData<TerminDTOWithFilmAndReiheDTOGallery[]>();
-
-    const visibleScreenings = screeningGalleryEntries
-        .filter(termin => termin.finalVeroeffentlichen);
+    const galleryScreenings = useLoaderData<TerminDTOWithFilmAndReiheDTOGallery[]>();
 
     useEffect(() => {
         let cancelled = false;  // variable is used as a cleanup flag to prevent state updates after the component has unmounted.
@@ -57,7 +54,7 @@ export default function Gallery2() {
 
     // for testing semester break
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // const visibleScreenings = [];
+    // const galleryScreenings = [];
 
     return (
         <>
@@ -91,10 +88,10 @@ export default function Gallery2() {
 
             {/* Section for current program */}
             {
-                visibleScreenings.length > 0 ? (
+                galleryScreenings.length > 0 ? (
                     <section>
                         <h2 className="visually-hidden">Aktuelles Programm</h2>
-                        {visibleScreenings.map(termin => {
+                        {galleryScreenings.map(termin => {
 
                             const screeningDateObj = formatDateTime(termin.vorstellungsbeginn, false, true);
 
@@ -115,10 +112,9 @@ export default function Gallery2() {
                             return (
                                 <article key={termin.tnr} className="gallery-article-padding">
 
-                                    {/*for programms of (multiple) films*/}
-                                    {/***********************************/}
-
-                                    {termin.titel ? ( // current implementation: when there is no titel of termin, then the list of mainfilms is empty! (to avoid unnecessary data traffic)
+                                    {termin.titel ? (
+                                        // Programmscreening: for a programm of (multiple) films
+                                        // *****************************************************
                                         <>
                                             <TerminFilmGalleryCard
                                                 screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard || "pupille-glow"}
@@ -146,39 +142,34 @@ export default function Gallery2() {
                                             {/*{termin.reihen  && termin.reihen[0].titel}*/}
                                         </>
                                     ) : (
-                                        // this condition also holds true für Programmscreenings, but it rather ensures that mainfilms[0] exist
-                                        // also ensures that a termin (without termin.title and) without a main filme (no verknuepfung to a main film) doesn't appear in the Gallery
-                                        termin.mainfilms?.length > 0 && (
-                                            <>
+                                        // Standardscreening: screening consists of 1 main film + shorts possibly
+                                        // **********************************************************************
 
-                                                {/*screening consists of 1 main film + shorts possibly*/}
-                                                {/*****************************************************/}
+                                        <>
+                                            <TerminFilmGalleryCard
+                                                screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard || "pupille-glow"}
+                                                // screeningSonderfarbe={termin.sonderfarbe || "pupille-glow"}
+                                                // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe || "pupille-glow"}
 
-                                                <TerminFilmGalleryCard
-                                                    screeningSonderfarbe={sonderfarbeForTerminFilmGalleryCard || "pupille-glow"}
-                                                    // screeningSonderfarbe={termin.sonderfarbe || "pupille-glow"}
-                                                    // screeningSonderfarbe={termin.mainfilms[0]?.sonderfarbe || "pupille-glow"}
+                                                bild={termin.mainfilms[0]?.bild || "default_film.jpg"}
+                                                offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery || undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
 
-                                                    bild={termin.mainfilms[0]?.bild || "default_film.jpg"}
-                                                    offsetImageInGallery={termin.mainfilms[0]?.offsetImageInGallery || undefined} // this prop expects undefined or a % number from 0% to 100%. 50% is default i.e. vertically centered, value>50% pushes the image up and value<50% pushes down
+                                                titel={termin.mainfilms[0]?.titel || null}
+                                                kurztext={termin.mainfilms[0]?.kurztext || null}
 
-                                                    titel={termin.mainfilms[0]?.titel || null}
-                                                    kurztext={termin.mainfilms[0]?.kurztext || null}
+                                                hauptfilmFormat={termin.mainfilms[0]?.format || undefined} // concise: filmFormat={termin.films[0]?.format || undefined}
+                                                hauptfilmRegie={termin.mainfilms[0]?.regie || undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
+                                                hauptfilmJahr={termin.mainfilms[0]?.jahr}
+                                                hauptfilmLaufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
+                                                hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit || undefined}
 
-                                                    hauptfilmFormat={termin.mainfilms[0]?.format || undefined} // concise: filmFormat={termin.films[0]?.format || undefined}
-                                                    hauptfilmRegie={termin.mainfilms[0]?.regie || undefined} // for regie treatment with undefined (instead of null) to have this prop be optional
-                                                    hauptfilmJahr={termin.mainfilms[0]?.jahr}
-                                                    hauptfilmLaufzeit={termin.mainfilms[0]?.laufzeit ?? undefined}
-                                                    hauptfilmbesonderheit={termin.mainfilms[0]?.besonderheit || undefined}
+                                                {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
 
-                                                    {...jointTerminFilmGalleryCardPropValuesAsObj} // the rest of the props are spread here
-
-                                                    terminIsCanceled={termin.isCanceled || undefined}
-                                                />
-                                                {/*Display 1st reihe*/}
-                                                {/*{Array.isArray(termin.reihen) && termin.reihen.length > 0 && termin.reihen[0].titel}*/}
-                                            </>
-                                        )
+                                                terminIsCanceled={termin.isCanceled || undefined}
+                                            />
+                                            {/*Display 1st reihe*/}
+                                            {/*{Array.isArray(termin.reihen) && termin.reihen.length > 0 && termin.reihen[0].titel}*/}
+                                        </>
                                     )}
                                 </article>
                             );
