@@ -533,7 +533,6 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Anzeige des (Termin-)Bildes nicht nur in der Gallery, sondern auch in den Screeningdetails</li>
-                            <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -611,7 +610,7 @@ export default function TerminForm() {
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
                             <li>Checked to publish; unchecked to hide</li>
-                            <li>A Termin without associated Film(e) won't get displayed in any case.</li>
+                            <li className="text-danger">A Termin without associated Film(e) won't get displayed in any case i.e. a Termin with checked "Veroeffentlichen" will be finally disclosed when there is at least 1 associated Film</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -632,7 +631,7 @@ export default function TerminForm() {
                     </Form.Text>
                 </Form.Group>
 
-                <Button variant={selectedTerminId ? "success" : "primary"} type="submit" className="mt-2">
+                <Button variant={selectedTerminId ? "success" : "primary"} type="submit" className="mt-4">
                     {selectedTerminId ? "Update " : "Add "} termin entry
                 </Button>
                 <div><sub className={styles.formSubtext}>*Pflichtfelder</sub></div>
@@ -647,7 +646,7 @@ export default function TerminForm() {
                 <Button
                     variant="danger"
                     type="submit"
-                    className="mt-3"
+                    className="mt-4"
                     onClick={() => setConfirmDeleteOpen(true)}
                 >
                     Delete termin entry
