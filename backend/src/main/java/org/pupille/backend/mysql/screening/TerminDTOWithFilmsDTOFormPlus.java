@@ -12,7 +12,7 @@ public record TerminDTOWithFilmsDTOFormPlus(
         Integer terminGesamtlaufzeit,
         Boolean finalVeroeffentlichen
 ) {
-    private static final LocalDate CUTOFF_DATE = LocalDate.of(2026, 6, 30);
+    private static final LocalDate CUTOFF_DATE = LocalDate.of(2026, 8, 31);
 
     // 1. Compact Canonical Constructor
     public TerminDTOWithFilmsDTOFormPlus {
