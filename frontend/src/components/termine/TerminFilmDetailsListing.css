@@ -136,7 +136,7 @@
 }
 
 .privacy-banner button {
-    padding: 0.75rem 1.0rem;
+    padding: 0.5rem 1.0rem;
     font-size: clamp(0.7rem, 2vw, 0.9rem); /* Responsive font size */
     font-weight: 600;
     color: #151c26;
