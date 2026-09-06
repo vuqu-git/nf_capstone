@@ -135,16 +135,21 @@ export default function TerminFilmDetailsListing({
                             // Otherwise, render the privacy banner
                             <div className="privacy-banner">
                                 <h4>Trailer: Wiedergabe und Datenschutz</h4>
+                                {/*<p>*/}
+                                {/*    Dieses Video wird von einem externen Dienst (YouTube, Vimeo etc.) geladen. Dabei können personenbezogene Daten (z. B. IP‑Adresse) an den Anbieter übertragen und Cookies gesetzt werden.*/}
+                                {/*    Mit Klick auf „Video laden“ stimmst du der Übertragung und Verarbeitung deiner Daten durch den Anbieter zu.*/}
+                                {/*    <br/>*/}
+                                {/*    Weitere Informationen sind in unseren <Link to="/datenschutzhinweise" className="custom-link">Datenschutzhinweisen</Link> zu finden.*/}
+                                {/*</p>*/}
                                 <p>
-                                    Dieses Video wird von einem externen Dienst (YouTube, Vimeo etc.) geladen. Dabei können personenbezogene Daten (z. B. IP‑Adresse) an den Anbieter übertragen und Cookies gesetzt werden.
-                                    Mit Klick auf „Video laden“ stimmst du der Übertragung und Verarbeitung deiner Daten durch den Anbieter zu.
-                                    <br/>
-                                    Weitere Informationen sind in unseren <Link to="/datenschutzhinweise" className="custom-link">Datenschutzhinweisen</Link> zu finden.
+                                    Dieses Video wird von einem externen Anbieter geladen. Dabei können personenbezogene Daten (z. B. IP-Adresse) übertragen und Cookies gesetzt werden.
+                                    Mit „Video laden“ stimmst du zu.
+                                    Siehe <Link to="/datenschutzhinweise" className="custom-link">Datenschutzhinweise</Link>.
                                 </p>
                                 <button
                                     onClick={handleConsent}
                                 >
-                                    Ja, Video laden.
+                                    Video laden
                                 </button>
                             </div>
                         )}
