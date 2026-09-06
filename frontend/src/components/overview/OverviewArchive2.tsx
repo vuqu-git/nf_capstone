@@ -17,13 +17,12 @@ export default function OverviewArchive2() {
     // ********************************************************
     // ordinary state management → state is lost when the component unmounts and remounts, which happens when you navigate away and then back
     // const [archivedResource, setArchivedResource] = useState<string>("");
-    //
     // const [searchFilm, setSearchFilm] = useState<string>("");
     // const [searchPdf, setSearchPdf] = useState<string>("");
 
 
     // Initialize state from sessionStorage
-    //      Purpose: To keep the state after visiting the film details and get back to archive
+    // Purpose: To keep the state after visiting the film details and get back to archive
     const [archivedResource, setArchivedResource] = useState<string>(
         sessionStorage.getItem("archivedResource") || ""
     );
