@@ -259,10 +259,15 @@ public class ScreeningService {
                     formatSemesterFromLocalDateTermin(vorstellungsbeginn.toLocalDate()),
                     titel,
                     films,
-                    true, // here true, because of "AND t.veroeffentlichen > 0" in query of repo method terminRepository.findPastTermineWithFilmsNative
+                    true, // here as default value but canonical constructor (see record TerminDTOWithFilmDTOOverviewArchive) may change finalVeroeffentlichen from true to false
                     isCanceled
             ));
         }
+
+        // Since the canonical constructor may change finalVeroeffentlichen (from true to false), filter the resulting list after all DTOs have been constructed and before returning it:
+        result = result.stream()
+                .filter(TerminDTOWithFilmDTOOverviewArchive::finalVeroeffentlichen)
+                .toList();
 
         return result;
     }
