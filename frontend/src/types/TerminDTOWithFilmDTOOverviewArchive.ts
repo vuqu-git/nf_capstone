@@ -6,7 +6,8 @@ interface TerminDTOWithFilmDTOOverviewArchive{
     vorstellungsbeginn?: string;
     semester?: string;
     titel?: string | null;
-    films: FilmDTOOverviewArchive[];
+    mainfilms: FilmDTOOverviewArchive[];
+    finalVeroeffentlichen: boolean;
     isCanceled?: boolean | null;
 }
 

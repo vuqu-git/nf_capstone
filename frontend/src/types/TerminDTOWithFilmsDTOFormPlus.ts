@@ -8,4 +8,5 @@ export default interface TerminDTOWithFilmsDTOFormPlus {
     mainfilms: FilmDTOFormPlus[];
     vorfilms: FilmDTOFormPlus[];
     terminGesamtlaufzeit: number;
+    finalVeroeffentlichen: boolean;
 }

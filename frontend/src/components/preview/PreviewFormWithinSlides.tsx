@@ -117,14 +117,14 @@ const PreviewFormWithinSlides: React.FC<Props> = ({
                                                 {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} | {renderHtmlText( termin.titel || termin.mainfilms[0].titel )}*/}
 
                                                 {/*{formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.isCanceled ? "🔴 " : "🟢 "} {termin.titel || termin.mainfilms[0].titel}*/}
-                                                {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.veroeffentlichen ? "🔓" : "🔒"}{termin.isCanceled ? "🔴" : "🟢"} {termin.titel || (termin.mainfilms?.[0]?.titel ?? "[no termin.title and no film(s) associated yet]")}
+                                                {formatDateInTerminSelectOption( termin.vorstellungsbeginn )} {termin.finalVeroeffentlichen ? "🔓" : "🔒"}{termin.isCanceled ? "🔴" : "🟢"} {termin.titel || (termin.mainfilms?.[0]?.titel ?? "[no termin.title and no film(s) associated yet]")}
                                             </option>
                                     ))}
                                 </Form.Select>
                                 <Form.Text className="text-muted">
                                     <ul className="tight-list">
                                         <li>STRG (Windows) oder CMD (Mac) gedrückt halten, um mehrere, nicht zusammenhängende Vorführungstermine auszuwählen.</li>
-                                        <li>🔓: Termin ist bereits auf Webseite sichtbar; 🔒: sonst </li>
+                                        <li>🔓: Termin auf Webseite (Gallery) sichtbar; 🔒: auf Webseite (Gallery) nicht sichtbar </li>
                                         <li>🔴: Termin ist als "abgesagt" markiert; 🟢: sonst </li>
                                     </ul>
                                 </Form.Text>

@@ -17,13 +17,12 @@ export default function OverviewArchive2() {
     // ********************************************************
     // ordinary state management → state is lost when the component unmounts and remounts, which happens when you navigate away and then back
     // const [archivedResource, setArchivedResource] = useState<string>("");
-    //
     // const [searchFilm, setSearchFilm] = useState<string>("");
     // const [searchPdf, setSearchPdf] = useState<string>("");
 
 
     // Initialize state from sessionStorage
-    //      Purpose: To keep the state after visiting the film details and get back to archive
+    // Purpose: To keep the state after visiting the film details and get back to archive
     const [archivedResource, setArchivedResource] = useState<string>(
         sessionStorage.getItem("archivedResource") || ""
     );
@@ -74,12 +73,13 @@ export default function OverviewArchive2() {
         for (const termin of screeningArchiveEntries) {
 
             if (!termin.vorstellungsbeginn) continue;
+            if (!termin.finalVeroeffentlichen) continue;
 
             // for plain text search
             if (
                 termin.titel?.toLowerCase().includes(searchFilm.toLowerCase()) ||
                 termin.titel?.toLowerCase().includes(convertToHtmlEntities(searchFilm.toLowerCase())) ||
-                termin.films.some(film =>
+                termin.mainfilms.some(film =>
                     film.titel?.toLowerCase().includes(searchFilm.toLowerCase()) ||
                     film.titel?.toLowerCase().includes(convertToHtmlEntities(searchFilm.toLowerCase()))
                 )
@@ -123,13 +123,13 @@ export default function OverviewArchive2() {
                             >
                                 {!termin.titel ? (
                                     <>
-                                        {renderHtmlText(termin.films[0]?.titel) ?? ""}
+                                        {renderHtmlText(termin.mainfilms[0]?.titel) ?? ""}
                                     </>
                                 ) : (
                                     <>
                                         {renderHtmlText(termin.titel)}
                                         <ol className="multiple-films-list">
-                                            {termin.films.map(film => (
+                                            {termin.mainfilms.map(film => (
                                                 <li key={film.fnr} className="multiple-films-list-item">
                                                     {renderHtmlText(film.titel)}
                                                 </li>

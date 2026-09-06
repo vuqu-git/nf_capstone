@@ -5,7 +5,7 @@ import org.pupille.backend.mysql.film.Film;
 public record FilmDTOOverviewSemester(
         Long fnr,
         String titel,
-        String besonderheit,
+        String filmbesonderheit,
         String regie,
         Integer jahr,
         Integer laufzeit

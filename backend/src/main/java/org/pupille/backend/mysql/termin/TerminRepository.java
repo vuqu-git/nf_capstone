@@ -108,25 +108,25 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
 //        List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);
 
         @Query(value = """
-    SELECT 
-        t.tnr,                              
-        t.termin as vorstellungsbeginn,     
-        t.titel,                            
-        t.is_canceled,                      
-        GROUP_CONCAT(f.fnr) as film_ids,    
-        GROUP_CONCAT(CASE 
-            WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL 
-            THEN f.originaltitel 
-            ELSE f.titel 
-        END SEPARATOR '||') as film_titles  
-    FROM termin t
-    LEFT JOIN terminverknuepfung tv ON t.tnr = tv.tnr AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
-    LEFT JOIN film f ON tv.fnr = f.fnr
-    WHERE t.termin < :now
-    AND t.veroeffentlichen > 0
-    GROUP BY t.tnr, t.termin, t.titel, t.is_canceled
-    ORDER BY t.termin DESC
-    """, nativeQuery = true)
+            SELECT 
+                t.tnr,                              
+                t.termin as vorstellungsbeginn,     
+                t.titel,                            
+                t.is_canceled,                      
+                GROUP_CONCAT(f.fnr) as film_ids,    
+                GROUP_CONCAT(CASE 
+                    WHEN f.originaltitel_anzeigen = 1 AND f.originaltitel IS NOT NULL 
+                    THEN f.originaltitel 
+                    ELSE f.titel 
+                END SEPARATOR '||') as film_titles  
+            FROM termin t
+            LEFT JOIN terminverknuepfung tv ON t.tnr = tv.tnr AND (tv.vorfilm IS NULL OR tv.vorfilm = 0)
+            LEFT JOIN film f ON tv.fnr = f.fnr
+            WHERE t.termin < :now
+            AND t.veroeffentlichen > 0
+            GROUP BY t.tnr, t.termin, t.titel, t.is_canceled
+            ORDER BY t.termin DESC
+        """, nativeQuery = true)
         List<Object[]> findPastTermineWithFilmsNative(@Param("now") LocalDateTime now);
 
         // called by getTermineByCurrentSemester in ScreeningService

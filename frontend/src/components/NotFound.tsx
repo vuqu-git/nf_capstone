@@ -1,8 +1,3 @@
-// components/NotFound.tsx
-// import vincentGif from "../../public/assets/images/notfoundgifs/404-vincent.gif";
-// import obiGif from "../../public/assets/images/notfoundgifs/404-obi.gif";
-// import mibGif from "../../public/assets/images/notfoundgifs/404-mib.gif";
-// import halGif from "../../public/assets/images/notfoundgifs/404-hal.gif";
 import {useEffect, useState} from "react";
 
 interface ImageOption {

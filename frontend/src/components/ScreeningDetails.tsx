@@ -148,6 +148,11 @@ export default function ScreeningDetails() {
         return <div className="text-warning text-center">🎞️ Loading screening...</div>;
     }
 
+    // // Do not expose screenings that are not finally disclosed
+    // if (!screeningDetails?.finalVeroeffentlichen) {
+    //     return <NotFound />;
+    // }
+
     const screeningDateObj = screeningDetails?.termin.vorstellungsbeginn
         ? formatDateTime(screeningDetails.termin.vorstellungsbeginn)
         : undefined;

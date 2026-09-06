@@ -48,7 +48,8 @@ export default function OverviewArchive() {
                 {archiveTermine && archiveTermine.length > 0 ? (
                     <table>
                         <tbody>
-                        {archiveTermine.map(termin => (
+                        {archiveTermine.filter(termin => termin.finalVeroeffentlichen)
+                            .map(termin => (
                             <tr key={termin.tnr}>
                                 <td style={{ padding: '0.5rem 2rem 0.5rem 0.25rem', whiteSpace: 'nowrap', textAlign: 'right' }}>
                                     {formatDateInOverviewArchive(termin.vorstellungsbeginn)}
@@ -60,13 +61,13 @@ export default function OverviewArchive() {
                                     >
                                         {!termin.titel ? (
                                             <>
-                                                {renderHtmlText(termin.films[0]?.titel) || ""}
+                                                {renderHtmlText(termin.mainfilms[0]?.titel) || ""}
                                             </>
                                         ) : (
                                             <>
                                                 {renderHtmlText(termin.titel)}
                                                 <ol style={{ marginBottom: '0rem' }}>
-                                                    {termin.films.map(film => (
+                                                    {termin.mainfilms.map(film => (
                                                         <li key={film.fnr}
                                                             style={{ fontSize: '0.75em'}}
                                                         >

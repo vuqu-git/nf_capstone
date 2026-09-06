@@ -222,7 +222,7 @@ export default function ProgrammheftForm() {
                 </Form.Group>
 
                 <Form.Group controlId="bild" className="mt-3">
-                    <Form.Label>vollständiger Bilddateiname</Form.Label>
+                    <Form.Label>Bild für Anzeige: vollständiger Bilddateiname</Form.Label>
                     <Form.Control
                         type="text"
                         name="bild"
@@ -237,12 +237,13 @@ export default function ProgrammheftForm() {
                             <li>Bilddatei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/<strong>bilder/programmheftbilder</strong> abgelegt sein
                                 → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/<strong>bilder/programmheftbilder</strong> dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
+                            <li className="text-danger">Wenn Flyer nur als Bilddatei vorliegt, dann Feld hier leerlassen und nur Feld "Datei für Download" unten befüllen.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="pdf" className="mt-3">
-                    <Form.Label>vollständiger Dateiname des PDF-Heftes bzw. Flyers *</Form.Label>
+                    <Form.Label>Datei für Download: vollständiger Dateiname des PDF-Heftes bzw. Flyers *</Form.Label>
                     <Form.Control
                         type="text"
                         name="pdf"
@@ -255,7 +256,7 @@ export default function ProgrammheftForm() {
                             <li>PDF-Datei muss unter /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page/pupille-website/external-static-container/static-files/<strong>programmhefte</strong> abgelegt sein
                                 → plesk file manager nutzen! Achtung: Hier wird dieser Pfad aber als nur als /pupille-website/external-static-container/static-files/<strong>programmhefte</strong> dargestellt, weil der plesk file manager /var/www/vhosts/epic-hypatia.212-227-48-226.plesk.page
                                 als Stammverzeichnis hat.</li>
-                            <li>Wenn Flyer nur als Bildatei vorliegt, dann Feld "vollständiger Bilddateiname" oben leerlassen und nur dieses Feld befüllen.</li>
+                            <li className="text-danger">Wenn Flyer nur als Bilddatei vorliegt, dann Feld "vollständiger Bilddateiname" oben leerlassen und nur dieses Feld befüllen.</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>

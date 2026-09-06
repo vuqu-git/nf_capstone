@@ -27,6 +27,7 @@ import ProjektionAufLeinwand from "./components/other/ProjektionAufLeinwand.tsx"
 import ContactForm from "./components/contact/ContactForm.tsx";
 import Impressum from "./components/other/Impressum.tsx";
 import BaseLayout from "./components/LayoutWrapper/BaseLayout.tsx";
+import NoHeaderLayout from "./components/LayoutWrapper/NoHeaderLayout.tsx";
 import TextLayout from "./components/LayoutWrapper/TextLayout.tsx";
 import ScreeningLayout from "./components/LayoutWrapper/ScreeningLayout.tsx";
 import OverviewAndFormLayout from "./components/LayoutWrapper/OverviewAndFormLayout.tsx";
@@ -442,13 +443,6 @@ const router = createBrowserRouter([
                                 path: "gallerycard",
                                 element: <TerminFilmGalleryCardPreview />,
                             },
-                            {
-                                path: "survey/:unr",
-                                element: <SurveyCard/>,
-                                // no usage of loader here, because the data is fetched within ScreeningDetails
-                                // loader: ({ params }) => getScreeningDetails(params.tnr),
-                                handle: {scrollMode: "pathname"} // this child inherits the parent's scroll behavior if no handle is specified here, the parent in this case is the root path "/"
-                            },
                         ],
                     },
 
@@ -620,6 +614,23 @@ const router = createBrowserRouter([
                 ]
             }
 
+        ],
+    },
+
+    // These routes are outside BaseLayout and keep their own structure
+    {
+        element: <NoHeaderLayout />,
+        children: [
+            {
+                errorElement: <ErrorBoundary />,
+                children: [
+                    {
+                        path: "survey/:unr",
+                        element: <SurveyCard />,
+                        handle: { scrollMode: "pathname" },
+                    },
+                ],
+            },
         ],
     },
 

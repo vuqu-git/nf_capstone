@@ -264,6 +264,12 @@ export default function TerminForm() {
                     updatedData.showImageInDetails = false;
                 }
             }
+
+            // --- special condition on veroeffentlichen
+            if (name === 'veroeffentlichen') {
+                updatedData.veroeffentlichen = (e.target as HTMLInputElement).checked ? 1 : 0;
+            }
+
             return updatedData;
         });
 
@@ -371,6 +377,11 @@ export default function TerminForm() {
                         onChange={handleFormChange}
                         required
                     />
+                    <Form.Text className="text-muted">
+                    <ul className="tight-list">
+                        <li>MM/DD/YYYY, hh:mm AM/PM ist das Datumsformat</li>
+                    </ul>
+                </Form.Text>
                 </Form.Group>
 
                 <Form.Group controlId="patenschaft" className="mt-3">
@@ -438,8 +449,8 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
-                            <li>Erscheint nur in Gallery; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Erscheint nur in Gallery, wenn der Termin-Titel befüllt ist; Feld vorgesehen für <b>Inhaltliches bzgl. des (ganzen Termin umfassenden) Filmprogramms</b> (alle (Lang-)Filme des Termins); nicht Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -455,7 +466,7 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen eher {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
+                            <li>Wenn nur 1 Absatz, dann kein {"<p>...</p>"} verwenden. Bei mehreren Absätzen {"<br>"} verwenden, um Zeilenumbruch zu erzeugen.</li>
                             <li>Erscheint in Gallery und Detailseite; Eintrag bezieht sich auf den <b>Termin</b> (bspw. Kooperation, Filmfestival, Gäste (mit Einführung/Gespräch), Publikumswunsch, anderer Eintrittspreis, besondere Startzeit, abweichender Ort); keine Reihe(n) erwähnen, weil sonst Doppelung auf Detailseite</li>
                             <li>a tag template → {`<a href="" class="custom-link" target="_blank" rel="noopener noreferrer">Linktext</a>`}</li>
                         </ul>
@@ -513,7 +524,7 @@ export default function TerminForm() {
                     {/*<Form.Label>(Termin-)Bild in den Screeningdetails anzeigen</Form.Label>*/}
                     <Form.Check
                         type="checkbox"
-                        label="(Termin-)Bild in den Screeningdetails anzeigen **"
+                        label="(Termin-)Bild in den Screeningdetails anzeigen? **"
                         name="showImageInDetails"
                         checked={selectedTermin.showImageInDetails || false}
                         onChange={handleFormChange}
@@ -588,18 +599,18 @@ export default function TerminForm() {
                 </Form.Group>
 
                 <Form.Group controlId="veroeffentlichen" className="mt-3">
-                    <Form.Label>Veroeffentlichen</Form.Label>
-                    {/*coalescing operator ?? here is important to display 0 value instead of empty string"*/}
-                    {/*when to use ?? → when I want the value left of ?? even if it's falsy, e.g. relevant for number 0*/}
-                    <Form.Control
-                        type="number"
+                    <Form.Check
+                        type="checkbox"
                         name="veroeffentlichen"
-                        value={selectedTermin.veroeffentlichen ?? ""}
+                        label="Veroeffentlichen"
+                        // checked={!!selectedTermin.veroeffentlichen} // this one only works when the values of veroeffentlichen are only 0, 1 or null
+                        checked={selectedTermin.veroeffentlichen != null && selectedTermin.veroeffentlichen !== 0}
                         onChange={handleFormChange}
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Zahl größer 0 to publish; leer lassen oder 0 to hide</li>
+                            <li>Checked to publish; unchecked to hide</li>
+                            <li className="text-danger">A Termin without associated Film(e) won't get displayed in any case i.e. a Termin with checked "Veroeffentlichen" will be finally disclosed when there is at least 1 associated Film</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
@@ -614,13 +625,13 @@ export default function TerminForm() {
                     />
                     <Form.Text className="text-muted">
                         <ul className="tight-list">
-                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
                             <li>Termin inkl. Film wird angezeigt, aber mit Zusatzinfo "Abgesagt!"</li>
+                            <li>Haken reinsetzen für "Ja", sonst leer lassen</li>
                         </ul>
                     </Form.Text>
                 </Form.Group>
 
-                <Button variant={selectedTerminId ? "success" : "primary"} type="submit" className="mt-2">
+                <Button variant={selectedTerminId ? "success" : "primary"} type="submit" className="mt-4">
                     {selectedTerminId ? "Update " : "Add "} termin entry
                 </Button>
                 <div><sub className={styles.formSubtext}>*Pflichtfelder</sub></div>
@@ -635,7 +646,7 @@ export default function TerminForm() {
                 <Button
                     variant="danger"
                     type="submit"
-                    className="mt-3"
+                    className="mt-4"
                     onClick={() => setConfirmDeleteOpen(true)}
                 >
                     Delete termin entry

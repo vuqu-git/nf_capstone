@@ -1,7 +1,7 @@
 interface FilmDTOOverviewSemester {
     fnr: number;
     titel?: string | null;
-    besonderheit?: string | null;
+    filmbesonderheit?: string | null;
     regie?: string | null;
     jahr?: number | null;
     laufzeit?: number | null;
